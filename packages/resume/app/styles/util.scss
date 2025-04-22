@@ -1,0 +1,7 @@
+@function in($i) {
+    @return calc((#{$i} / 8.5) * 100vw);
+}
+
+@function pt($i) {
+    @return calc((100 / (612 / #{$i})) * 1vw);
+}

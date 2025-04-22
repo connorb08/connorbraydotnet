@@ -1,0 +1,24 @@
+{
+	"name": "@connorbraydotnet/source",
+	"version": "0.0.0",
+	"license": "MIT",
+	"scripts": {
+		"format": "biome format --write",
+		"lint": "biome lint"
+	},
+	"private": true,
+	"dependencies": {},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.0-beta.1",
+		"@nx/js": "20.8.0",
+		"@swc-node/register": "~1.9.1",
+		"@swc/core": "~1.5.7",
+		"@swc/helpers": "~0.5.11",
+		"@types/bun": "^1.2.10",
+		"nx": "20.8.0",
+		"tslib": "^2.3.0",
+		"typescript": "~5.7.2"
+	},
+	"workspaces": ["packages/*"],
+	"packageManager": "bun@10.8.0"
+}

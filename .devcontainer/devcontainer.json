@@ -1,0 +1,28 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"containerEnv": {
+		"NODE_VERSION": "23.11.0"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "23.11.0"
+		},
+		"ghcr.io/audacioustux/devcontainers/bun:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"nrwl.angular-console",
+				"biomejs.biome",
+				"-dbaeumer.vscode-eslint"
+			],
+			"settings": {
+				"files.associations": {
+					"wrangler.json": "jsonc"
+				},
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "biomejs.biome"
+			}
+		}
+	}
+}

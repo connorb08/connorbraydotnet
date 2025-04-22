@@ -1,0 +1,59 @@
+/* Imports */
+@use "~/styles/reset.scss";
+@use "~/styles/font-face.scss";
+@use "~/styles/font.scss";
+
+:root {
+    /* Font */
+    font-family: "Roboto Flex", sans-serif;
+    @include font.size(11);
+    @include font.weight-default;
+}
+
+html {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #666;
+}
+
+/* Set body to size of normal sheet paper */
+body {
+    /* Layout */
+    width: 100vw;
+    aspect-ratio: 17 / 22;
+    height: auto;
+
+    /* Styling */
+    background-color: white;
+
+    /* Disable Overscroll */
+    overscroll-behavior: none;
+}
+
+/* Take up body */
+main {
+    height: 100%;
+}
+
+/* Set default styling for children */
+main * {
+    box-sizing: border-box;
+    line-height: 1.2;
+}
+
+/* Set page size */
+@page {
+    size: 8.5in 11in;
+    margin: 0;
+}
+
+/* Set sizing for print */
+@media print {
+    body {
+        width: 8.5in;
+        height: 11in;
+        margin: 0;
+    }
+}

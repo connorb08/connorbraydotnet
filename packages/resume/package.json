@@ -1,0 +1,61 @@
+{
+	"name": "resume",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"prebuild": "bun run validate",
+		"build": "react-router build",
+		"cf:typegen": "wrangler types",
+		"rr:typegen": "react-router typegen",
+		"typegen": "bun run cf:typegen && bun run rr:typegen",
+		"deploy": "bun run build && wrangler deploy",
+		"predev": "bun run validate",
+		"dev": "react-router dev",
+		"preview": "bun run build && vite preview",
+		"typecheck": "bun run typegen && tsc -b",
+		"validate": "bun run validate.build.ts && tsc -allowJs --declaration --emitDeclarationOnly './validate/validate.js' --outDir './validate'",
+		"pretest": "bun run build",
+		"test": "vitest",
+		"coverage": "vitest run --coverage",
+		"format": "biome format --write",
+		"lint": "biome lint"
+	},
+	"imports": {
+		"#styles/*": "./app/styles/*",
+		"#models": "./models/index.ts",
+		"#validate": "./validate/index.ts",
+		"#validate/validate.js": "./validate/validate.js",
+		"#worker": "./workers/app.ts",
+		"#test/*": "./test/*.ts"
+	},
+	"dependencies": {
+		"isbot": "^5.1.26",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-router": "^7.5.0"
+	},
+	"devDependencies": {
+		"@cloudflare/vite-plugin": "^1.0.5",
+		"@cloudflare/vitest-pool-workers": "^0.8.15",
+		"@npmcli/package-json": "^6.1.1",
+		"@react-router/dev": "^7.5.0",
+		"@types/node": "^20.17.30",
+		"@types/react": "^19.1.1",
+		"@types/react-dom": "^19.1.2",
+		"@vitest/coverage-istanbul": "^3.0.9",
+		"@vitest/coverage-v8": "^3.0.9",
+		"@vitest/runner": "~3.0.9",
+		"@vitest/snapshot": "~3.0.9",
+		"ajv": "^8.17.1",
+		"ajv-formats": "^3.0.1",
+		"prettier": "^3.5.3",
+		"sass-embedded": "^1.87.0",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3",
+		"vite": "^6.2.6",
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitest": "^3.0.9",
+		"wrangler": "^4.10.0"
+	},
+	"packageManager": "bun@10.8.0"
+}

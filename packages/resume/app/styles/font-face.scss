@@ -1,0 +1,18 @@
+/* Roboto Flex */
+@font-face {
+    font-display: swap;
+    font-family: "Roboto Flex";
+    font-style: normal;
+    font-weight: 100 1000;
+    font-stretch: 0% 200%;
+    src: url("/fonts/roboto-flex-variable.woff2") format("woff2");
+}
+
+/* Roboto Mono */
+@font-face {
+    font-display: swap;
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/roboto-mono.woff2") format("woff2");
+}

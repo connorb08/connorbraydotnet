@@ -1,0 +1,19 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "resume",
+	"compatibility_date": "2025-04-04",
+	"main": "./workers/app.ts",
+	"vars": {
+		"HELLO_WORLD": null
+	},
+	"observability": {
+		"enabled": true
+	},
+	"env": {
+		"integration": {
+			"vars": {
+				"HELLO_WORLD": "Hello, world!"
+			}
+		}
+	}
+}

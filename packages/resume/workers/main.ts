@@ -1,0 +1,46 @@
+import ValidateResume, { type ValidationResponse } from "#validate";
+import type { ErrorObject } from "ajv";
+import { WorkerEntrypoint } from "cloudflare:workers";
+import { createRequestHandler } from "react-router";
+
+interface IMainEntrypoint {
+	fetch(request: Request): Response | Promise<Response>;
+}
+
+const requestHandler = createRequestHandler(
+	// @ts-ignore
+	() => import("virtual:react-router/server-build"),
+	import.meta.env.MODE,
+);
+
+export default class MainEntrypoint
+	extends WorkerEntrypoint<Env>
+	implements IMainEntrypoint
+{
+	/**
+	 * Default HTTP Handler
+	 */
+	public async fetch(request: Request): Promise<Response> {
+		const [env, ctx] = [this.env, this.ctx];
+		return requestHandler(request, {
+			cloudflare: { env, ctx },
+		});
+	}
+
+	/**
+	 * Validate Resume Data
+	 * @param data resume object
+	 * @returns boolean
+	 */
+	public async validate(data: unknown): Promise<ValidationResponse> {
+		try {
+			return ValidateResume(data);
+		} catch (e) {
+			console.error(e);
+			return {
+				ok: false,
+				error: "Unknown Server Error",
+			};
+		}
+	}
+}
