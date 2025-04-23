@@ -1,0 +1,73 @@
+@use "~/styles/color.scss";
+
+.footer {
+    background-color: color.$surfaceContainer;
+    border-top: 2px solid color.$outlineVariant;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    position: relative;
+
+    &__terminal {
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__result {
+            &[command-result="ok"] {
+
+                color: inherit;
+            }
+
+            &[command-result="error"] {
+                color: color.$error;
+            }
+        }
+
+        &__entry {
+            // max-width: 1200px;
+            gap: 0;
+            display: flex;
+            line-height: normal;
+
+            &__prompt {
+                padding-right: 0.5rem;
+
+                &::after {
+                    // \00a0
+                    content: attr(data-after);
+                    position: absolute;
+                    color: inherit;
+                    // color: color.$onSurface;
+                    animation: blink 1s infinite;
+                    margin-left: 0.6rem;
+                    margin-top: 0.2rem;
+                }
+
+                @keyframes blink {
+                    50% {
+                        opacity: 0;
+                    }
+                }
+            }
+
+            &__input {
+                font-family: inherit;
+                font-size: inherit;
+                width: 100%;
+                background-color: inherit;
+                color: inherit;
+                border: none;
+                position: relative;
+                display: inline-block;
+                caret-color: transparent;
+                flex: 1;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}

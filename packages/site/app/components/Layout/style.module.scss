@@ -1,0 +1,177 @@
+@use "~/styles/color.scss" as color;
+
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: color.$surfaceContainerLowest;
+    color: color.$primary;
+    font-family: 'Fira Code', monospace;
+}
+
+.main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(0deg,
+                transparent,
+                transparent 2px,
+                rgba(color.$primary, 0.03) 2px,
+                rgba(color.$primary, 0.03) 4px);
+        pointer-events: none;
+    }
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: color.$surfaceContainer;
+    border-bottom: 2px solid color.$outlineVariant;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(color.$primary, 0.1);
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.prompt {
+    color: color.$tertiary;
+    font-weight: bold;
+}
+
+.logoText {
+    color: color.$primary;
+    font-weight: 600;
+}
+
+// .cursor {
+//     color: color.$primary;
+//     animation: blink 1s step-end infinite;
+// }
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.navLink {
+    color: color.$primary;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+        color: color.$onPrimary;
+        background-color: color.$primary;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(color.$primary, 0.3);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.footer {
+    background-color: color.$surfaceContainer;
+    border-top: 2px solid color.$outlineVariant;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    position: relative;
+
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 4px;
+    //     left: 0;
+    //     right: 0;
+    //     height: 1px;
+    //     background-color: color.$outline;
+    //     opacity: 0.3;
+    // }
+}
+
+.footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 2rem;
+}
+
+.socialLink {
+    color: color.$primary;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid color.$primary;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: color.$onPrimary;
+        background-color: color.$primary;
+        box-shadow: 0 0 10px rgba(color.$primary, 0.3);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.copyright {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: color.$primary;
+    // font-size: 0.875rem;
+    // opacity: 0.7;
+}

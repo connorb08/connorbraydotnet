@@ -1,4 +1,5 @@
-import type { Route } from "./+types/home";
+import Home from "~/components/Home";
+import type { Route } from "./+types/index";
 
 export function meta() {
 	return [
@@ -11,6 +12,6 @@ export function loader({ context }: Route.LoaderArgs) {
 	return { message: "Hello World" };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-	return <>Home</>;
+export default function ({ loaderData }: Route.ComponentProps) {
+	return <Home />;
 }

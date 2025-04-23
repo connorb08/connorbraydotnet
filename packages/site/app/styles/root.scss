@@ -1,0 +1,14 @@
+@use "reset.scss";
+@use "font-face.scss";
+@use "color.scss";
+
+:root {
+    font-family: "Fira Code", monospace;
+    color: color.$primary;
+    background-color: color.$background;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+}

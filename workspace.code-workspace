@@ -15,6 +15,9 @@
 	],
 	"settings": {
 		"explorer.fileNesting.enabled": true,
+		"explorer.fileNesting.patterns": {
+			"*.tsx": "${capture}.scss"
+		},
 		"explorer.excludeGitIgnore": false,
 		"explorer.sortOrder": "foldersNestsFiles",
 		"files.exclude": {
@@ -29,6 +32,15 @@
 		"editor.codeActionsOnSave": {
 			"source.fixAll.biome": "explicit",
 			"source.organizeImports.biome": "explicit"
+		},
+		"editor.definitionLinkOpensInPeek": false,
+		"editor.gotoLocation.multipleImplementations": "goto",
+		"editor.gotoLocation.multipleDefinitions": "goto",
+		"editor.gotoLocation.multipleReferences": "goto",
+		"editor.gotoLocation.multipleTypeDefinitions": "goto",
+		"editor.gotoLocation.multipleDeclarations": "goto",
+		"[scss]": {
+			"editor.defaultFormatter": "vscode.css-language-features"
 		}
 	}
 }

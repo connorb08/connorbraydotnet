@@ -23,7 +23,9 @@
 				"biomejs.biome",
 				"-dbaeumer.vscode-eslint",
 				"GitHub.vscode-github-actions",
-				"ms-vscode.vscode-websearchforcopilot"
+				"ms-vscode.vscode-websearchforcopilot",
+				"pranaygp.vscode-css-peek",
+				"sibiraj-s.vscode-scss-formatter"
 			],
 			"settings": {
 				"files.associations": {

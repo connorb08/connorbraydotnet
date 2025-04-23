@@ -1,0 +1,78 @@
+@use "material.scss";
+
+// Background
+$background: var(--md-sys-color-background);
+$onBackground: var(--md-sys-color-on-background);
+
+// Colors
+$primary: var(--md-sys-color-primary);
+$secondary: var(--md-sys-color-secondary);
+$tertiary: var(--md-sys-color-tertiary);
+$error: var(--md-sys-color-error);
+
+// On Colors
+$onPrimary: var(--md-sys-color-on-primary);
+$onSecondary: var(--md-sys-color-on-secondary);
+$onTertiary: var(--md-sys-color-on-tertiary);
+$onError: var(--md-sys-color-on-error);
+
+// Fixed Colors
+$primaryFixed: var(--md-sys-color-primary-fixed);
+$secondaryFixed: var(--md-sys-color-secondary-fixed);
+$tertiaryFixed: var(--md-sys-color-tertiary-fixed);
+
+// On Fixed Colors
+$onPrimaryFixed: var(--md-sys-color-on-primary-fixed);
+$onSecondaryFixed: var(--md-sys-color-on-secondary-fixed);
+$onTertiaryFixed: var(--md-sys-color-on-tertiary-fixed);
+$onPrimaryFixedVariant: var(--md-sys-color-on-primary-fixed-variant);
+$onSecondaryFixedVariant: var(--md-sys-color-on-secondary-fixed-variant);
+$onTertiaryFixedVariant: var(--md-sys-color-on-tertiary-fixed-variant);
+
+// Container Colors
+$primaryContainer: var(--md-sys-color-primary-container);
+$secondaryContainer: var(--md-sys-color-secondary-container);
+$tertiaryContainer: var(--md-sys-color-tertiary-container);
+$errorContainer: var(--md-sys-color-error-container);
+
+// On Container Colors
+$onPrimaryContainer: var(--md-sys-color-on-primary-container);
+$onSecondaryContainer: var(--md-sys-color-on-secondary-container);
+$onTertiaryContainer: var(--md-sys-color-on-tertiary-container);
+$onErrorContainer: var(--md-sys-color-on-error-container);
+
+// Surface Colors
+$surface: var(--md-sys-color-surface);
+$surfaceContainer: var(--md-sys-color-surface-container);
+$surfaceContainerLowest: var(--md-sys-color-surface-container-lowest);
+$surfaceContainerLow: var(--md-sys-color-surface-container-low);
+$surfaceContainerHigh: var(--md-sys-color-surface-container-high);
+$surfaceContainerHighest: var(--md-sys-color-surface-container-highest);
+$surfaceDim: var(--md-sys-color-surface-dim);
+$surfaceBright: var(--md-sys-color-surface-bright);
+$surfaceVariant: var(--md-sys-color-surface-variant);
+$surfaceTint: var(--md-sys-color-surface-tint);
+
+// On Surface Colors
+$onSurface: var(--md-sys-color-on-surface);
+$onSurfaceVariant: var(--md-sys-color-on-surface-variant);
+
+// Outline Colors
+$outline: var(--md-sys-color-outline);
+$outlineVariant: var(--md-sys-color-outline-variant);
+
+// Shadow Colors
+$shadow: var(--md-sys-color-shadow);
+
+// Scrim
+$scrim: var(--md-sys-color-scrim);
+
+// Inverse Colors
+$inversePrimary: var(--md-sys-color-inverse-primary);
+$inverseSurface: var(--md-sys-color-inverse-surface);
+$inverseOnSurface: var(--md-sys-color-inverse-on-surface);
+
+// Dim Colors
+$primaryFixedDim: var(--md-sys-color-primary-fixed-dim);
+$secondaryFixedDim: var(--md-sys-color-secondary-fixed-dim);
+$tertiaryFixedDim: var(--md-sys-color-tertiary-fixed-dim);
