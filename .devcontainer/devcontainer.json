@@ -1,5 +1,11 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"build": {
+		"dockerfile": "./Dockerfile",
+		"context": "."
+	},
+	"overrideCommand": false,
+	"postCreateCommand": "./.devcontainer/postCreateCommand.sh",
 	"containerEnv": {
 		"NODE_VERSION": "23.11.0"
 	},
@@ -7,14 +13,17 @@
 		"ghcr.io/devcontainers/features/node:1": {
 			"version": "23.11.0"
 		},
-		"ghcr.io/audacioustux/devcontainers/bun:1": {}
+		"ghcr.io/audacioustux/devcontainers/bun:1": {},
+		"ghcr.io/devcontainers/features/terraform:1": {}
 	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"nrwl.angular-console",
 				"biomejs.biome",
-				"-dbaeumer.vscode-eslint"
+				"-dbaeumer.vscode-eslint",
+				"GitHub.vscode-github-actions",
+				"ms-vscode.vscode-websearchforcopilot"
 			],
 			"settings": {
 				"files.associations": {

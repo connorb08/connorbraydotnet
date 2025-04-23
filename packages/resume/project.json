@@ -1,0 +1,25 @@
+{
+	"name": "resume",
+	"targets": {
+		"build": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/app",
+				"{projectRoot}/models",
+				"{projectRoot}/validate",
+				"{projectRoot}/workers"
+			],
+			"outputs": ["{projectRoot}/build"]
+		},
+		"test": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/app",
+				"{projectRoot}/models",
+				"{projectRoot}/validate",
+				"{projectRoot}/workers"
+			],
+			"outputs": ["{projectRoot}/coverage"]
+		}
+	}
+}

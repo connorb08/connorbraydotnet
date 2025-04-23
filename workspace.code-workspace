@@ -16,10 +16,13 @@
 	"settings": {
 		"explorer.fileNesting.enabled": true,
 		"explorer.excludeGitIgnore": false,
+		"explorer.sortOrder": "foldersNestsFiles",
 		"files.exclude": {
 			"**/node_modules": true,
 			"**/.react-router": true,
-			"**/.wrangler": true
+			"**/.wrangler": true,
+			"**/*.tsbuildinfo": true,
+			"**/build": true
 		},
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "biomejs.biome",

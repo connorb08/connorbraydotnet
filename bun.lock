@@ -15,6 +15,28 @@
         "typescript": "~5.7.2",
       },
     },
+    "packages/github-dashboard": {
+      "name": "github-dashboard",
+      "dependencies": {
+        "isbot": "^5.1.17",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-router": "^7.5.0",
+      },
+      "devDependencies": {
+        "@cloudflare/vite-plugin": "^1.0.0",
+        "@cloudflare/workers-types": "^4.20250420.0",
+        "@react-router/dev": "^7.5.0",
+        "@tailwindcss/vite": "^4.0.0",
+        "@types/node": "^20",
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.1",
+        "typescript": "^5.7.2",
+        "vite": "^6.2.1",
+        "vite-tsconfig-paths": "^5.1.4",
+        "wrangler": "^4.12.0",
+      },
+    },
     "packages/resume": {
       "name": "resume",
       "dependencies": {
@@ -44,7 +66,7 @@
         "vite": "^6.2.6",
         "vite-tsconfig-paths": "^5.1.4",
         "vitest": "^3.0.9",
-        "wrangler": "^4.10.0",
+        "wrangler": "^4.12.0",
       },
     },
     "packages/site": {
@@ -871,6 +893,8 @@
 
     "get-tsconfig": ["get-tsconfig@4.10.0", "", { "dependencies": { "resolve-pkg-maps": "^1.0.0" } }, "sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A=="],
 
+    "github-dashboard": ["github-dashboard@workspace:packages/github-dashboard"],
+
     "glob": ["glob@10.4.5", "", { "dependencies": { "foreground-child": "^3.1.0", "jackspeak": "^3.1.2", "minimatch": "^9.0.4", "minipass": "^7.1.2", "package-json-from-dist": "^1.0.0", "path-scurry": "^1.11.1" }, "bin": { "glob": "dist/esm/bin.mjs" } }, "sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg=="],
 
     "glob-to-regexp": ["glob-to-regexp@0.4.1", "", {}, "sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw=="],
@@ -1430,6 +1454,8 @@
     "filelist/minimatch": ["minimatch@5.1.6", "", { "dependencies": { "brace-expansion": "^2.0.1" } }, "sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g=="],
 
     "foreground-child/signal-exit": ["signal-exit@4.1.0", "", {}, "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw=="],
+
+    "github-dashboard/typescript": ["typescript@5.8.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ=="],
 
     "glob/minimatch": ["minimatch@9.0.5", "", { "dependencies": { "brace-expansion": "^2.0.1" } }, "sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow=="],
 

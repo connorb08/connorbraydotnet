@@ -1,8 +1,9 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import type { IResumeData } from "#models";
+/** biome-ignore-all lint/suspicious/noExplicitAny: allow using any */
+
 import type { TestFunction } from "vitest";
-import { DeepCopy } from "./utils";
+import type { IResumeData } from "#models";
 import type { ResumeValidationHandler } from "#validate";
+import { DeepCopy } from "./utils";
 
 export const ValidResume: IResumeData = {
 	name: "Ronald McDonald",

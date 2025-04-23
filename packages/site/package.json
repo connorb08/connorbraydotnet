@@ -12,6 +12,9 @@
 		"lint": "biome lint",
 		"format": "biome format --write"
 	},
+	"imports": {
+		"#styles/*": "./app/styles/*.scss"
+	},
 	"dependencies": {
 		"isbot": "^5.1.17",
 		"react": "^19.0.0",

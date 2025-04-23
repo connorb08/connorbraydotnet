@@ -4,7 +4,9 @@
 	"license": "MIT",
 	"scripts": {
 		"format": "biome format --write",
-		"lint": "biome lint"
+		"lint": "biome lint",
+		"test": "nx run-many -t test",
+		"build": "nx run-many -t build"
 	},
 	"private": true,
 	"dependencies": {},
@@ -19,6 +21,8 @@
 		"tslib": "^2.3.0",
 		"typescript": "~5.7.2"
 	},
-	"workspaces": ["packages/*"],
+	"workspaces": [
+		"packages/*"
+	],
 	"packageManager": "bun@10.8.0"
 }
