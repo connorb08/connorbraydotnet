@@ -1,0 +1,3 @@
+class Terminal {
+	private constructor() {}
+}

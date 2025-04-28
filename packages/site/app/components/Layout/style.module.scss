@@ -1,17 +1,45 @@
 @use "~/styles/color.scss" as color;
 
-.layout {
-    min-height: 100vh;
+.body {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: color.$surfaceContainerLowest;
-    color: color.$primary;
-    font-family: 'Fira Code', monospace;
+}
+
+.layout {
+    box-sizing: border-box;
+    // height: 100%;
+    // padding-bottom: 120px;
+    display: flex;
+    height: calc(100% - 121px);
+
+    &__column {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        // transition: margin-left 0.3s ease;
+        // margin-left: 50px;
+
+        // &--shifted {
+        //     margin-left: 200px;
+        // }
+
+        // &--normal {
+        //     margin-left: 50px;
+        // }
+    }
 }
 
 .main {
     flex: 1;
-    width: 100%;
+    // width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
@@ -34,21 +62,23 @@
 }
 
 .header {
-    position: sticky;
-    top: 0;
+    position: relative;
+    // top: 0;
     background-color: color.$surfaceContainer;
     border-bottom: 2px solid color.$outlineVariant;
-    z-index: 100;
+    // z-index: 100;
     box-shadow: 0 0 15px rgba(color.$primary, 0.1);
 }
 
 .headerContent {
     display: flex;
     justify-content: space-between;
+    // gap: 10rem;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 1rem 2rem;
+    // padding-left: 10rem;
 }
 
 .logo {
@@ -57,6 +87,8 @@
     gap: 0.5rem;
     text-decoration: none;
     font-size: 1.5rem;
+    // justify-self: center;
+    // margin: 0 auto;
 }
 
 .prompt {
@@ -69,10 +101,10 @@
     font-weight: 600;
 }
 
-// .cursor {
-//     color: color.$primary;
-//     animation: blink 1s step-end infinite;
-// }
+.cursor {
+    color: color.$primary;
+    animation: blink 1s step-end infinite;
+}
 
 @keyframes blink {
 

@@ -1,0 +1,157 @@
+@use "~/styles/color.scss";
+
+.layout {
+    height: 100%;
+    display: flex;
+
+    &__sideBar {
+        @include color.surfaceDim;
+        display: flex;
+        flex-direction: column;
+
+        &__topBox {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            height: 56px;
+            margin-right: auto;
+
+            &__button {
+                box-sizing: content-box;
+                height: 32px;
+                width: 32px;
+                padding: 0.25rem;
+                border-radius: 25%;
+                color: color.$onSurface;
+                background-color: inherit;
+                border: none;
+                line-height: 1;
+
+                &:hover {
+                    background-color: color.$primary;
+                    color: color.$onPrimary;
+                    fill: color.$onPrimary;
+                }
+
+                &__icon {
+                    fill: currentColor;
+                    height: 100%;
+                    width: 100%;
+                    vertical-align: text-bottom;
+                }
+
+            }
+
+            &.marginLeft {
+                margin-left: auto;
+            }
+
+        }
+
+        &__bottomBox {
+            height: 153px;
+        }
+
+        &__content {
+
+            flex: 1;
+            width: 50px;
+
+            &__navigation {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 0.5rem;
+
+                &__icon {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 25%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding: 0.25rem;
+                    color: color.$onSurface;
+                    fill: color.$onSurface;
+
+                    &:hover {
+                        fill: color.$onPrimary;
+                        background-color: color.$primary;
+                        color: color.$onPrimary;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    &__middleColumn {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        &__header {
+            @include color.surfaceDim;
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            &__logo {
+
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                text-decoration: none;
+                font-size: 1.5rem;
+
+                &__prompt {
+                    color: color.$tertiary;
+                    font-weight: bold;
+                }
+
+                &__text {
+                    color: color.$primary;
+                    font-weight: 600;
+                }
+
+                &__cursor {
+                    color: color.$primary;
+                    animation: blink 1s step-end infinite;
+
+                    @keyframes blink {
+
+                        0%,
+                        100% {
+                            opacity: 1;
+                        }
+
+                        50% {
+                            opacity: 0;
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        &__content {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: color.$surfaceContainer;
+            color: color.$onSurface;
+            border-radius: 2rem;
+        }
+
+        &__footer {
+            @include color.surfaceDim;
+            padding: 1rem;
+        }
+
+    }
+
+}

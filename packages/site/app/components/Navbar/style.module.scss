@@ -1,0 +1,81 @@
+@use "~/styles/color.scss" as color;
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-shrink: 0;
+    width: 50px;
+    // min-width: 50px;
+    background-color: color.$surfaceContainer;
+    border-right: 2px solid color.$outlineVariant;
+    // transform: translateX(-200px);
+    transition: width 0.3s ease;
+    position: relative;
+    transition: width 0.3s ease;
+    z-index: 200;
+
+    &.open {
+        width: 250px;
+
+        .navbar__content {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+    }
+
+    &__button {
+        position: absolute;
+        right: 0;
+        top: 1rem;
+        width: 50px;
+        height: 40px;
+        background-color: color.$surfaceContainer;
+        border: 2px solid color.$outlineVariant;
+        border-right: none;
+        color: color.$primary;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.2rem;
+        transition: all 0.2s ease;
+        border-radius: 4px 0 0 4px;
+
+        &:hover {
+            background-color: color.$primary;
+            color: color.$onPrimary;
+        }
+    }
+
+    &__content {
+        padding: 1rem;
+        margin-top: 4rem;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+
+    &__item {
+        color: color.$primary;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 0;
+        display: block;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+        border-radius: 4px;
+
+        &:hover {
+            color: color.$onPrimary;
+            background-color: color.$primary;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(color.$primary, 0.3);
+            transform: translateX(5px);
+        }
+
+        &:active {
+            transform: translateX(2px);
+        }
+    }
+}

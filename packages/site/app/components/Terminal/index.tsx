@@ -1,9 +1,10 @@
 import type { ChangeEventHandler } from "react";
-import { useLocation } from "react-router";
-import style from "./terminal.module.scss";
+import { type NavigateFunction, useLocation, useNavigate } from "react-router";
+import style from "./style.module.scss";
 
 export default function () {
 	const location = useLocation().pathname;
+	const nav = useNavigate();
 
 	return (
 		<footer className={style.footer} onClick={focusInput} onKeyDown={() => {}}>
@@ -32,7 +33,7 @@ export default function () {
 						onFocus={handleFocus}
 						tabIndex={0}
 						autoComplete="off"
-						onKeyDown={handleKeyDown}
+						onKeyDown={(e) => handleKeyDown(e, nav)}
 						// biome-ignore lint/a11y/noAutofocus: <explanation>
 						autoFocus={true}
 					/>
@@ -42,7 +43,10 @@ export default function () {
 	);
 }
 
-const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+const handleKeyDown = (
+	event: React.KeyboardEvent<HTMLInputElement>,
+	nav: NavigateFunction,
+) => {
 	if (event.key !== "Enter") {
 		return;
 	}
@@ -60,12 +64,24 @@ const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
 	const args = params.slice(1);
 
 	switch (command) {
+		case "ls": {
+			const hiddenPaths = [".", ".."];
+			let pathList = ["about", "projects", "photos"];
+			if (args.length > 0) {
+				if (args[0] === "-a") {
+					pathList = hiddenPaths.concat(pathList);
+				}
+			}
+			writeTerminalResult(pathList.join(" "), false);
+			break;
+		}
 		case "cd":
 			if (args.length === 0) {
-				writeTerminalResult("Usage: cd <directory>", false);
+				writeTerminalResult("Usage: cd &lt;directory&gt;", false);
 			} else {
+				clearTerminal();
 				const path = args.join(" ").replace(/~/g, "");
-				window.location.href = path;
+				nav(path);
 			}
 			break;
 		case "pwd":

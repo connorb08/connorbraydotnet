@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function () {
 	return (
 		<div
@@ -12,7 +14,7 @@ export default function () {
 		>
 			<h1>404: Not Found</h1>
 			<p>Looking for something?</p>
-			<a href="/">{"<- Go back to home"}</a>
+			<Link to="/">{"<- Go back to home"}</Link>
 		</div>
 	);
 }

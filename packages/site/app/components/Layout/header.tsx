@@ -11,9 +11,9 @@ function Header() {
 					{/* <span className={style.cursor}>_</span> */}
 				</Link>
 				<nav className={style.nav}>
-					<Link to="/" className={style.navLink}>
+					{/* <Link to="/" className={style.navLink}>
 						~/home
-					</Link>
+					</Link> */}
 					<Link to="/about" className={style.navLink}>
 						~/about
 					</Link>
@@ -24,6 +24,8 @@ function Header() {
 						~/photos
 					</Link>
 				</nav>
+
+				{/* <button type="button">O</button> */}
 			</div>
 		</header>
 	);

@@ -17,7 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	// listen for ctrl+c, open a little popup window, and :q or :wq will close the tab
 
 	return (
-		<html lang="en" className="dark">
+		<html lang="en" className="light">
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
