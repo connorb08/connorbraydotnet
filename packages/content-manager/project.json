@@ -1,6 +1,28 @@
 {
 	"name": "content-manager",
 	"targets": {
+		"format": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}",
+				"!{projectRoot}/README.md",
+				"!{projectRoot}/.gitignore",
+				"!{projectRoot}/worker-configuration.d.ts",
+				"!{projectRoot}/seed",
+				"{projectRoot}/backend/worker-configuration.d.ts"
+			]
+		},
+		"lint": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}",
+				"!{projectRoot}/README.md",
+				"!{projectRoot}/.gitignore",
+				"!{projectRoot}/worker-configuration.d.ts",
+				"!{projectRoot}/seed",
+				"{projectRoot}/backend/worker-configuration.d.ts"
+			]
+		},
 		"typegen": {
 			"cache": true,
 			"inputs": [

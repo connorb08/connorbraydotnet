@@ -1,6 +1,14 @@
 {
 	"name": "resume",
 	"targets": {
+		"format": {
+			"cache": true,
+			"inputs": ["{projectRoot}"]
+		},
+		"lint": {
+			"cache": true,
+			"inputs": ["{projectRoot}"]
+		},
 		"build": {
 			"cache": true,
 			"inputs": [

@@ -13,10 +13,12 @@
 			"!**/.nx",
 			"!**/.react-router",
 			"!**/worker-configuration.d.ts",
+			"!**/README.md",
 			"!**/coverage",
 			"!**/validate.d.ts",
 			"!**/validate.js",
-			"!**/build"
+			"!**/build",
+			"!**/.gitignore"
 		]
 	},
 	"formatter": {
