@@ -8,6 +8,8 @@
         @include color.surfaceDim;
         display: flex;
         flex-direction: column;
+        width: 52px;
+        transition: width 0.3s ease;
 
         &__topBox {
             display: flex;
@@ -42,8 +44,8 @@
 
             }
 
-            &.marginLeft {
-                margin-left: auto;
+            &.--marginLeft {
+                margin-left: 6px;
             }
 
         }
@@ -53,9 +55,7 @@
         }
 
         &__content {
-
             flex: 1;
-            width: 50px;
 
             &__navigation {
                 height: 100%;
@@ -64,15 +64,18 @@
                 justify-content: center;
                 gap: 0.5rem;
 
-                &__icon {
-                    height: 40px;
-                    width: 40px;
-                    border-radius: 25%;
-                    margin-left: auto;
-                    margin-right: auto;
+                &__link {
                     padding: 0.25rem;
                     color: color.$onSurface;
                     fill: color.$onSurface;
+                    border-radius: 25%;
+                    margin-left: 6px;
+                    margin-right: auto;
+
+                    &__icon {
+                        height: 32px;
+                        width: 32px;
+                    }
 
                     &:hover {
                         fill: color.$onPrimary;
@@ -80,10 +83,17 @@
                         color: color.$onPrimary;
                     }
 
-                }
+                    &:focus {
+                        outline-color: color.$primary;
+                    }
 
+                }
             }
 
+        }
+
+        &.open {
+            width: 12rem;
         }
 
     }
@@ -149,7 +159,7 @@
 
         &__footer {
             @include color.surfaceDim;
-            padding: 1rem;
+            padding: 1rem 0;
         }
 
     }

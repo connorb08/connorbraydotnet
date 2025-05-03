@@ -1,0 +1,16 @@
+{
+	"name": "content-manager",
+	"targets": {
+		"typegen": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/wrangler.jsonc",
+				"{projectRoot}/backend/wrangler.jsonc"
+			],
+			"outputs": [
+				"{projectRoot}/worker-configuration.d.ts",
+				"{projectRoot}/backend/worker-configuration.d.ts"
+			]
+		}
+	}
+}

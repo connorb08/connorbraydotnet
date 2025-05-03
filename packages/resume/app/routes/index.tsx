@@ -28,6 +28,8 @@ export function loader({ context }: Route.LoaderArgs) {
 					"Translated legacy codebase to C# .NET, improving code maintainability and scalability",
 					"Designed and implemented end-to-end, unit, and regression tests to ensure functional parity with the original system",
 					"Streamlined deployment infrastructure by automating key components of the CI/CD pipeline",
+					"Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions",
+					"Oversaw a team of 3 engineers and an intern, providing mentorship and guidance on best practices",
 				],
 			},
 			{
@@ -52,7 +54,29 @@ export function loader({ context }: Route.LoaderArgs) {
 				about: ["Student Body President"],
 			},
 		],
-		projects: [],
+		projects: [
+			{
+				name: "connorbray.net",
+				technologies: [
+					"TypeScript",
+					"Remix/RR7",
+					"Cloudflare",
+					"AWS S3",
+					"Terraform",
+					"GitHub Actions",
+				],
+				about: [
+					"Personal website for hosting resume, portfolio, photography, and more",
+					"Content management system using AWS S3 and Cloudflare",
+					"Resume generated using JSON schema validation and HTML/CSS styling",
+					"Serverless API using Cloudflare Workers",
+					"Infrastructure as code using Terraform",
+					"CI/CD pipeline using GitHub Actions",
+					"Built with a focus on performance and accessibility",
+					"Unit test, integration test, and end-to-end test coverage",
+				],
+			},
+		],
 	} as const satisfies IResumeData;
 }
 
@@ -102,7 +126,7 @@ export default function Home({ loaderData: resume }: Route.ComponentProps) {
 					return (
 						<div
 							className="section__item"
-							key={`{educationItem.school}-${educationItem.degree}`}
+							key={`${educationItem.school}-${educationItem.degree}`}
 						>
 							<div className="section__item__heading">
 								<h3 className="section__item__heading__school">
@@ -131,7 +155,52 @@ export default function Home({ loaderData: resume }: Route.ComponentProps) {
 			</div>
 			<div className="section">
 				<h2 className="section__heading">Projects</h2>
-				Projects
+				<div className="section__item">
+					<div className="section__item__heading">
+						<h3 className="section__item__heading__primary">connorbray.net</h3>
+						{/* <p className="section__item__heading__secondary">
+							TypeScript, Remix/RR7, Cloudflare Workers, AWS S3, Terraform,
+							GitHub Actions
+						</p> */}
+					</div>
+					<div className="section__item__subheading">
+						<p className="section__item__subtitle">
+							Personal website showcasing resume, portfolio, and photography,
+							built for performance and scalability.
+						</p>
+						{/* <p className="section_item__date">{educationItem.endDate}</p> */}
+					</div>
+					<div className="section__item__content">
+						<ul>
+							<li>
+								Front-end built using React, TypeScript, Remix/React Router 7
+							</li>
+							<li>
+								Back-end built using Cloudflare Workers, AWS S3, and Terraform
+							</li>
+							<li>
+								TypeScript, Remix/RR7, Cloudflare Workers, AWS S3, Terraform,
+								GitHub Actions
+							</li>
+							<li>
+								Developed a serverless API with Cloudflare Workers and a CMS
+								powered by AWS S3 and Cloudflare
+							</li>
+							<li>
+								Generated resume using JSON schema validation with custom
+								HTML/CSS rendering
+							</li>
+							<li>
+								Automated infrastructure using Terraform and deployed via GitHub
+								Actions CI/CD pipeline
+							</li>
+							<li>
+								Emphasized accessibility and speed with fully tested (unit,
+								integration, e2e) architecture
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div className="section">
 				<h2 className="section__heading">Skills/Interests</h2>

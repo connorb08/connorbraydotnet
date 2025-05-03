@@ -11,12 +11,20 @@
 		{
 			"path": "./packages/resume",
 			"name": "resume"
+		},
+		{
+			"path": "./packages/content-manager",
+			"name": "content-manager"
 		}
 	],
 	"settings": {
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
-			"*.tsx": "${capture}.scss"
+			"*.tsx": "${capture}.scss",
+			"wrangler.jsonc": "worker-configuration.d.ts",
+			"package.json": "bun.lock, project.json",
+			"vite.config.ts": "vitest.config.ts, vite-env.d.ts",
+			"README.md": ".gitignore"
 		},
 		"explorer.excludeGitIgnore": false,
 		"explorer.sortOrder": "foldersNestsFiles",
@@ -41,6 +49,9 @@
 		"editor.gotoLocation.multipleDeclarations": "goto",
 		"[scss]": {
 			"editor.defaultFormatter": "vscode.css-language-features"
+		},
+		"[terraform]": {
+			"editor.defaultFormatter": "hashicorp.terraform"
 		}
 	}
 }

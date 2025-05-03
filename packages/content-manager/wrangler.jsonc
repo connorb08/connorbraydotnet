@@ -1,0 +1,23 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "content-manager",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-05-02",
+	"services": [
+		{
+			"binding": "backend",
+			"service": "content-manager-backend"
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	"dev": {
+		"ip": "127.0.0.1",
+		"port": 9997
+	}
+}

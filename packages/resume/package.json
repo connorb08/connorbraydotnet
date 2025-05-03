@@ -5,9 +5,9 @@
 	"scripts": {
 		"prebuild": "bun run validate",
 		"build": "react-router build",
-		"cf:typegen": "wrangler types",
-		"rr:typegen": "react-router typegen",
-		"typegen": "bun run cf:typegen && bun run rr:typegen",
+		"typegen-cf": "wrangler types 1> /dev/null",
+		"typegen-rr": "react-router typegen",
+		"typegen": "bun run typegen-cf && bun run typegen-rr",
 		"deploy": "bun run build && wrangler deploy",
 		"predev": "bun run validate",
 		"dev": "react-router dev",

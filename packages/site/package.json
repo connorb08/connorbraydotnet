@@ -16,7 +16,6 @@
 		"#styles/*": "./app/styles/*.scss"
 	},
 	"dependencies": {
-		"@primer/octicons-react": "^19.15.1",
 		"isbot": "^5.1.17",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",

@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
-		"format": "biome format --write",
-		"lint": "biome lint",
+		"format": "nx run-many -t format",
+		"lint": "nx run-many -t lint",
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build"
 	},
@@ -22,7 +22,8 @@
 		"typescript": "~5.7.2"
 	},
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"inf/"
 	],
 	"packageManager": "bun@10.8.0"
 }

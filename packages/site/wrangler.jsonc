@@ -9,5 +9,11 @@
 	"main": "./workers/app.ts",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{
+			"pattern": "next.connorbray.net",
+			"custom_domain": true
+		}
+	]
 }

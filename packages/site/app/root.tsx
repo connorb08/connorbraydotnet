@@ -13,9 +13,15 @@ import "./styles/material.scss";
 
 export const links: Route.LinksFunction = () => [];
 
-export function Layout({ children }: { children: React.ReactNode }) {
-	// listen for ctrl+c, open a little popup window, and :q or :wq will close the tab
+// export function loader() {
+// 	// Print all environment variables available to the server
+// 	console.log(import.meta); //process.versions.bun);
+// 	return {
+// 		name: "Connor Bray",
+// 	};
+// }
 
+export function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className="light">
 			<head>

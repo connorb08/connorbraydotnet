@@ -1,5 +1,12 @@
 {
 	"name": "inf",
 	"private": true,
-	"scripts": {}
+	"scripts": {
+		"init": "terraform -chdir=./terraform init -backend-config=backend.conf",
+		"plan": "terraform -chdir=./terraform plan",
+		"apply": "terraform -chdir=./terraform apply",
+		"destroy": "terraform -chdir=./terraform destroy",
+		"lint": "tflint --chdir=terraform --recursive",
+		"format": "terraform -chdir=./terraform fmt -recursive"
+	}
 }

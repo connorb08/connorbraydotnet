@@ -2,3 +2,4 @@
 
 alias r="bun run"
 alias tf="terraform"
+alias n="bun nx run"

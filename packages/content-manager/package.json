@@ -1,0 +1,20 @@
+{
+	"name": "content-manager",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev -c wrangler.jsonc -c backend/wrangler.jsonc",
+		"start": "wrangler dev",
+		"typegen:backend": "wrangler types --cwd backend",
+		"typegen:frontend": "wrangler types",
+		"typegen": "bun run typegen:backend && bun run typegen:frontend",
+		"seed": "bun run seed.ts",
+		"format": "biome format",
+		"lint": "biome lint"
+	},
+	"devDependencies": {
+		"typescript": "^5.5.2",
+		"wrangler": "^4.14.1"
+	}
+}

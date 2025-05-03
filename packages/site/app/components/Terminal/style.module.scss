@@ -1,13 +1,13 @@
 @use "~/styles/color.scss";
 
-.footer {
-    background-color: color.$surfaceContainer;
-    border-top: 2px solid color.$outlineVariant;
+.container {
+    background-color: color.$surfaceContainerHighest;
+    // border-top: 2px solid color.$outlineVariant;
     padding: 2rem 0;
     // margin-top: 4rem;
-    position: sticky;
-    bottom: 0;
-    z-index: 100000;
+    // position: sticky;
+    // bottom: 0;
+    // z-index: 100000;
 
     &__terminal {
         margin: 0 auto;

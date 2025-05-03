@@ -7,26 +7,26 @@ export default function () {
 	const nav = useNavigate();
 
 	return (
-		<footer className={style.footer} onClick={focusInput} onKeyDown={() => {}}>
-			<div className={style.footer__terminal}>
+		<div className={style.container} onClick={focusInput} onKeyDown={() => {}}>
+			<div className={style.container__terminal}>
 				<p
 					id="terminal-result"
-					className={style.footer__terminal__result}
+					className={style.container__terminal__result}
 					command-result="ok"
 				>
 					&nbsp;
 				</p>
-				<div className={style.footer__terminal__entry}>
+				<div className={style.container__terminal__entry}>
 					<span
 						id="terminal-prompt"
-						className={style.footer__terminal__entry__prompt}
+						className={style.container__terminal__entry__prompt}
 						data-after="_"
 					>
 						{`connorbray.net -> ~${location} (main) $`}
 					</span>
 					<input
 						id="terminal-input"
-						className={style.footer__terminal__entry__input}
+						className={style.container__terminal__entry__input}
 						type="text"
 						onChange={handleType}
 						onBlur={removeCursor}
@@ -39,7 +39,7 @@ export default function () {
 					/>
 				</div>
 			</div>
-		</footer>
+		</div>
 	);
 }
 
