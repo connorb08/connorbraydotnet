@@ -1,12 +1,12 @@
 {
 	"name": "inf",
 	"targets": {
-		"format": {
+		"lint": {
 			"cache": true,
 			"inputs": ["{projectRoot}/terraform/*.tf"],
 			"outputs": ["{projectRoot}/terraform/*.tf"]
 		},
-		"lint": {
+		"format": {
 			"cache": true,
 			"inputs": ["{projectRoot}/terraform/*.tf"],
 			"outputs": ["{projectRoot}/terraform/*.tf"]
