@@ -7,7 +7,8 @@
 		"lint": "nx run-many -t lint",
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build",
-		"ci": "nx run-many -t build"
+		"ci": "nx run-many -t build",
+		"loc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore"
 	},
 	"private": true,
 	"dependencies": {},
