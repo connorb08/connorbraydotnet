@@ -1,5 +1,5 @@
-import { defineConfig } from "vitest/config";
 import { defineWorkersProject } from "@cloudflare/vitest-pool-workers/config";
+import { defineConfig } from "vitest/config";
 
 const WorkerProject = defineWorkersProject({
 	test: {
@@ -9,7 +9,7 @@ const WorkerProject = defineWorkersProject({
 		poolOptions: {
 			workers: {
 				wrangler: {
-					configPath: "./wrangler.json",
+					configPath: "./wrangler.jsonc",
 					environment: "integration",
 				},
 			},

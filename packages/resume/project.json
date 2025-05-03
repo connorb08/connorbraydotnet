@@ -17,7 +17,8 @@
 				"{projectRoot}/app",
 				"{projectRoot}/models",
 				"{projectRoot}/validate",
-				"{projectRoot}/workers"
+				"{projectRoot}/workers",
+				"{projectRoot}/vitest.config.ts"
 			],
 			"outputs": ["{projectRoot}/coverage"]
 		},
