@@ -1,0 +1,43 @@
+launch-templates:
+  linux-medium:
+    resource-class: 'docker_linux_amd64/medium'
+    image: 'ubuntu22.04-node20.19-v2'
+    init-steps:
+
+      - name: Checkout
+        uses: 'nrwl/nx-cloud-workflows/v4/workflow-steps/checkout/main.yaml'
+
+      - name: Restore Node Modules Cache
+        uses: 'nrwl/nx-cloud-workflows/v4/workflow-steps/cache/main.yaml'
+        inputs:
+          key: 'bun.lock'
+          paths: 'node_modules'
+          base-branch: 'main'
+
+      - name: Install zip and unzip
+        script: sudo apt-get -yqq install zip unzip
+
+      - name: Install Node
+        uses: 'nrwl/nx-cloud-workflows/v4/workflow-steps/install-node/main.yaml'
+        inputs:
+          node-version: '23.11.0'
+
+      # TODO: Remove this once the PR to set it on agents by default is merged
+      - name: Set SHELL environment variable
+        script: |
+          # We need $SHELL to be set for the bun installation to correctly link `bunx`
+          echo "SHELL=/usr/bin/bash" >> $NX_CLOUD_ENV
+
+      - name: Install bun
+        script: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "BUN_INSTALL=$HOME/.bun" >> $NX_CLOUD_ENV
+          echo "PATH=$HOME/.bun/bin:$PATH" >> $NX_CLOUD_ENV
+
+      # - name: Check bun
+      #   script: |
+      #     bun --version
+      
+      - name: Bun Install
+        script: |
+          bun install --frozen-lockfile
