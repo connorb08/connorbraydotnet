@@ -22,9 +22,10 @@
 		"explorer.fileNesting.patterns": {
 			"*.tsx": "${capture}.scss",
 			"wrangler.jsonc": "worker-configuration.d.ts",
-			"package.json": "bun.lock, project.json",
+			"package.json": "bun.lock, project.json, .depcheckrc, .clocignore",
 			"vite.config.ts": "vitest.config.ts, vite-env.d.ts",
-			"README.md": ".gitignore"
+			"README.md": ".gitignore, .gitattributes, .pre-commit-config.yaml",
+			"workspace.code-workspace": "nx.json, biome.json"
 		},
 		"explorer.excludeGitIgnore": false,
 		"explorer.sortOrder": "foldersNestsFiles",

@@ -1,17 +1,6 @@
 {
 	"name": "@connorbraydotnet/source",
 	"version": "0.0.0",
-	"license": "MIT",
-	"scripts": {
-		"format": "nx run-many -t format",
-		"lint": "nx run-many -t lint",
-		"test": "nx run-many -t test",
-		"build": "nx run-many -t build",
-		"ci": "nx run-many -t build",
-		"loc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore"
-	},
-	"private": true,
-	"dependencies": {},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0-beta.1",
 		"@nx/js": "20.8.0",
@@ -19,13 +8,26 @@
 		"@swc/core": "~1.5.7",
 		"@swc/helpers": "~0.5.11",
 		"@types/bun": "^1.2.10",
+		"@types/node": "^22.15.3",
 		"nx": "20.8.0",
 		"tslib": "^2.3.0",
-		"typescript": "~5.7.2"
+		"typescript": "^5.8.3",
+		"wrangler": "^4.14.1"
+	},
+	"license": "UNLICENSED",
+	"packageManager": "bun@10.8.0",
+	"private": true,
+	"scripts": {
+		"format": "nx run-many -t format",
+		"lint": "nx run-many -t lint",
+		"typecheck": "nx run-many -t typecheck",
+		"test": "nx run-many -t test",
+		"build": "nx run-many -t build",
+		"ci": "nx run-many -t build",
+		"loc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore"
 	},
 	"workspaces": [
 		"packages/*",
 		"inf/"
-	],
-	"packageManager": "bun@10.8.0"
+	]
 }

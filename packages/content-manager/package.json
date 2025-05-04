@@ -11,10 +11,7 @@
 		"typegen": "bun run typegen:backend && bun run typegen:frontend",
 		"seed": "bun run seed.ts",
 		"format": "biome format",
-		"lint": "biome lint"
-	},
-	"devDependencies": {
-		"typescript": "^5.5.2",
-		"wrangler": "^4.14.1"
+		"lint": "biome lint",
+		"typecheck": "tsc && tsc -p backend/tsconfig.json"
 	}
 }

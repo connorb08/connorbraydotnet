@@ -1,0 +1,1 @@
+ignores: ["@biomejs/biome", "@nx/js", "@types/bun", "@types/node", "typescript", "wrangler", "tslib","@vitest/coverage-istanbul", "virtual:react-router", "cloudflare:workers", "cloudflare:test", "bun"]
