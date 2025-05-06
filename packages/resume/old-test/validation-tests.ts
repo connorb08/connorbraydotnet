@@ -49,7 +49,17 @@ export const ValidResume: IResumeData = {
 			about: ["Bullet 1", "Bullet 2", "Bullet 3"],
 		},
 	],
-	projects: [],
+	projects: [
+		{
+			name: "McDonalds Website",
+			about: [
+				"Built a website for McDonalds using HTML, CSS, and JavaScript.",
+				"Used React to build the front end.",
+				"Used Node.js to build the back end.",
+			],
+			technologies: ["React", "Node.js"],
+		},
+	],
 };
 
 interface ITestData {

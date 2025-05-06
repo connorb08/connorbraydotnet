@@ -1,11 +1,9 @@
-import { defineWorkersProject } from "@cloudflare/vitest-pool-workers/config";
-import { defineConfig } from "vitest/config";
+import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
 
-const WorkerProject = defineWorkersProject({
+export default defineWorkersConfig({
 	test: {
 		name: "Worker Integration",
-		globals: true,
-		include: ["test/worker/**/*.spec.ts"],
+		include: ["test/**/*.spec.ts"],
 		poolOptions: {
 			workers: {
 				wrangler: {
@@ -14,28 +12,11 @@ const WorkerProject = defineWorkersProject({
 				},
 			},
 		},
-	},
-});
-
-export default defineConfig({
-	test: {
-		globals: true,
-		pool: "threads",
 		coverage: {
-			provider: "istanbul",
+			provider: "v8",
 			reporter: ["text", "json", "html"],
-			include: ["app", "validate"],
-			exclude: ["validate/validate.js"],
+			include: ["app"],
+			// exclude: ["validate/validate.js"],
 		},
-		workspace: [
-			{
-				extends: true,
-				test: {
-					name: "Unit",
-					include: ["test/unit/**/*.spec.ts"],
-				},
-			},
-			WorkerProject,
-		],
 	},
 });

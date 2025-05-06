@@ -1,5 +1,4 @@
 import ValidateResume, { type ValidationResponse } from "#validate";
-import type { ErrorObject } from "ajv";
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { createRequestHandler } from "react-router";
 

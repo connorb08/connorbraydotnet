@@ -1,19 +1,14 @@
 {
 	"extends": "./tsconfig.json",
-	"include": [
-		"models/**/*",
-		"validate/*",
-		"test/**/*",
-		"workers/**/*",
-		"worker-configuration.d.ts",
-		"vite-env.d.ts"
-	],
+	"include": ["test/**/*", "worker-configuration.d.ts", "build"],
 	"compilerOptions": {
 		"composite": true,
-		"types": ["node", "vitest/globals", "@cloudflare/vitest-pool-workers"],
+		"types": ["@cloudflare/vitest-pool-workers"],
 		"lib": ["ES2022"],
 		"target": "ES2022",
 		"module": "ES2022",
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"allowJs": true,
+		"strict": true
 	}
 }

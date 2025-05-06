@@ -12,6 +12,7 @@
 		"seed": "bun run seed.ts",
 		"format": "biome format",
 		"lint": "biome lint",
-		"typecheck": "tsc && tsc -p backend/tsconfig.json"
+		"typecheck": "tsc && tsc -p backend/tsconfig.json",
+		"depcheck": "bunx depcheck"
 	}
 }

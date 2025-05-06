@@ -3,15 +3,21 @@
 	"version": "0.0.0",
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0-beta.1",
+		"@biomejs/js-api": "^0.7.1",
+		"@biomejs/wasm-nodejs": "^1.9.4",
 		"@nx/js": "20.8.0",
 		"@swc-node/register": "~1.9.1",
 		"@swc/core": "~1.5.7",
 		"@swc/helpers": "~0.5.11",
 		"@types/bun": "^1.2.10",
 		"@types/node": "^22.15.3",
+		"ajv": "^8.17.1",
+		"ajv-cli": "^5.0.0",
+		"ajv-formats": "^3.0.1",
 		"nx": "20.8.0",
 		"tslib": "^2.3.0",
 		"typescript": "^5.8.3",
+		"vitest": "^3.1.2",
 		"wrangler": "^4.14.1"
 	},
 	"license": "UNLICENSED",
@@ -24,7 +30,8 @@
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build",
 		"ci": "nx run-many -t build",
-		"loc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore"
+		"cloc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore",
+		"depcheck": "nx run-many -t depcheck"
 	},
 	"workspaces": [
 		"packages/*",

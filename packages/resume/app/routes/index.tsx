@@ -30,6 +30,7 @@ export function loader({ context }: Route.LoaderArgs) {
 					"Streamlined deployment infrastructure by automating key components of the CI/CD pipeline",
 					"Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions",
 					"Oversaw a team of 3 engineers and an intern, providing mentorship and guidance on best practices",
+					"Primary responsibility for product team's translation efforts, 3 million lines of code",
 				],
 			},
 			{
@@ -40,7 +41,6 @@ export function loader({ context }: Route.LoaderArgs) {
 				endDate: "May 2023",
 				about: [
 					"Served as the chief executive of a 501(c)(3) non-profit managing an annual budget exceeding $1,000,000",
-					"Collaborated with President, Chancellor, Dean of Students, and Provost to develop campus goals",
 					"Supervised 20+ employees, including 10+ direct reports, and led a governance board of 40+ total members",
 				],
 			},
@@ -51,7 +51,7 @@ export function loader({ context }: Route.LoaderArgs) {
 				location: "Orono, ME",
 				degree: "B.S. Computer Science",
 				endDate: "",
-				about: ["Student Body President"],
+				about: [],
 			},
 		],
 		projects: [
@@ -142,13 +142,15 @@ export default function Home({ loaderData: resume }: Route.ComponentProps) {
 								</p>
 								<p className="section_item__date">{educationItem.endDate}</p>
 							</div>
-							<div className="section__item__content">
-								<ul>
-									{educationItem.about.map((bullet) => {
-										return <li key={bullet}>{bullet}</li>;
-									})}
-								</ul>
-							</div>
+							{educationItem.about.length > 0 ? (
+								<div className="section__item__content">
+									<ul>
+										{educationItem.about.map((bullet) => {
+											return <li key={bullet}>{bullet}</li>;
+										})}
+									</ul>
+								</div>
+							) : null}
 						</div>
 					);
 				})}
@@ -197,6 +199,31 @@ export default function Home({ loaderData: resume }: Route.ComponentProps) {
 							<li>
 								Emphasized accessibility and speed with fully tested (unit,
 								integration, e2e) architecture
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="section__item">
+					<div className="section__item__heading">
+						<h3 className="section__item__heading__primary">
+							cumberland-foodstop.com
+						</h3>
+					</div>
+					<div className="section__item__subheading">
+						<p className="section__item__subtitle">
+							Website for a local convenience store, featuring online ordering,
+							product catalog, and store information.
+						</p>
+					</div>
+					<div className="section__item__content">
+						<ul>
+							<li>Technologies: TypeScript, Next.js, React</li>
+							<li>
+								Back-end built using Cloudflare Workers, AWS S3, and Terraform
+							</li>
+							<li>
+								Content management system using AWS S3 and Cloudflare, allowing
+								for easy updates to product catalog and store information
 							</li>
 						</ul>
 					</div>

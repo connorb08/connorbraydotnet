@@ -8,7 +8,7 @@
 
     /* Sizing */
     height: 100%;
-    padding: util.in(0.5);
+    padding: util.in(0.5) util.in(0.5);
 }
 
 .header {
@@ -63,13 +63,15 @@
 
         &__content {
             padding-top: util.in(0.05);
+
             ul {
                 /* Alignment */
                 list-style-position: outside;
                 padding-left: util.in(0.25);
 
                 /* Bullet Style */
-                list-style-type: "\2022"; /* Unicode for bullet */
+                list-style-type: "\2022";
+                /* Unicode for bullet */
 
                 li {
                     /* Alignment */
@@ -85,6 +87,7 @@
 .footer {
     /* Alignment */
     margin-top: auto;
+    padding-top: util.in(0.05);
 
     &__heading {
         /* Alignment */

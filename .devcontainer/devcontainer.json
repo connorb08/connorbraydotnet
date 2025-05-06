@@ -16,7 +16,7 @@
 		"ghcr.io/audacioustux/devcontainers/bun:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-			"packages": ["chromium"]
+			// "packages": ["chromium"]
 		},
 		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
 		"ghcr.io/devcontainers-extra/features/pre-commit:2": {}

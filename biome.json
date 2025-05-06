@@ -6,10 +6,12 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false,
+		"ignoreUnknown": true,
 		"includes": [
 			"**",
+			"!node_modules",
 			"!**/node_modules",
+			"!**/*/node_modules",
 			"!**/.nx",
 			"!**/.react-router",
 			"!**/worker-configuration.d.ts",

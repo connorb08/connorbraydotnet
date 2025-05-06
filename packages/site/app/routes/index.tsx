@@ -1,4 +1,4 @@
-import Home from "~/components/Home";
+import Home from "#components/Home";
 import type { Route } from "./+types/index";
 
 export function meta() {

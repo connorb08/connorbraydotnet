@@ -18,7 +18,8 @@
 		"test:watch": "bun run build && vitest",
 		"coverage": "vitest run --coverage",
 		"format": "biome format --write",
-		"lint": "biome lint"
+		"lint": "biome lint",
+		"depcheck": "bunx depcheck"
 	},
 	"imports": {
 		"#styles/*": "./app/styles/*",
@@ -40,14 +41,9 @@
 		"@react-router/dev": "^7.5.0",
 		"@types/react": "^19.1.1",
 		"@types/react-dom": "^19.1.2",
-		"@vitest/coverage-istanbul": "3.1.2",
-		"ajv": "^8.17.1",
-		"ajv-formats": "^3.0.1",
 		"sass-embedded": "^1.87.0",
-		"tsx": "^4.19.3",
 		"vite": "^6.2.6",
-		"vite-tsconfig-paths": "^5.1.4",
-		"vitest": "^3.0.9"
+		"vite-tsconfig-paths": "^5.1.4"
 	},
 	"packageManager": "bun@10.8.0"
 }

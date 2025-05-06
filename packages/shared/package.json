@@ -1,0 +1,22 @@
+{
+	"name": "shared",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "bun build.ts",
+		"test": "vitest",
+		"format": "biome format",
+		"lint": "biome lint"
+	},
+	"imports": {
+		"#types": "./src/types/index.ts",
+		"#validate": "./src/validate/index.ts",
+		"#schemas": "./src/schemas/index.ts",
+		"#validators/*": "./validators/*.js"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"ajv": "*"
+	}
+}
