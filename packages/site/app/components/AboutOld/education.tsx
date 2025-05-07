@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from 'react';
-import type { EducationProps } from './types';
+import type { PropsWithChildren } from "react";
+import type { EducationProps } from "./types";
 
 export default function Education(props: PropsWithChildren<EducationProps>) {
 	return (
@@ -7,8 +7,8 @@ export default function Education(props: PropsWithChildren<EducationProps>) {
 			<div
 				className="flex-shrink-0 w-12 h-12 rounded-xl bg-cover"
 				style={{
-					backgroundPosition: 'center',
-					backgroundSize: 'cover',
+					backgroundPosition: "center",
+					backgroundSize: "cover",
 					backgroundImage: `url("https://connorbray.net/cdn-cgi/image/format=auto/${props.icon_url}")`,
 				}}
 			/>

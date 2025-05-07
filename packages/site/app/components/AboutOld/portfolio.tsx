@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
+/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
 import type { PropsWithChildren } from "react";
 import { Suspense } from "react";
 import { Await } from "react-router";
@@ -68,7 +70,10 @@ const Project = (props: PropsWithChildren<Project>) => {
 				</div>
 				<span>
 					<Link to={`/project/${props._id}`}>
-						<button className="flex items-center space-x-3 px-3.5 py-1.5 rounded-lg group border border-third bg-white text-third text-sm font-medium transition duration-200 hover:border-third-10 hover:text-white hover:bg-third">
+						<button
+							className="flex items-center space-x-3 px-3.5 py-1.5 rounded-lg group border border-third bg-white text-third text-sm font-medium transition duration-200 hover:border-third-10 hover:text-white hover:bg-third"
+							type="button"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-4 w-4"

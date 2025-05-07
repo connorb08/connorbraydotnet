@@ -1,4 +1,4 @@
-import type { IResumeData } from "#models";
+import type { Resume } from "shared";
 import type { Route } from "./+types/index";
 import "./style.scss";
 
@@ -77,7 +77,7 @@ export function loader({ context }: Route.LoaderArgs) {
 				],
 			},
 		],
-	} as const satisfies IResumeData;
+	} as const satisfies Resume;
 }
 
 export default function Home({ loaderData: resume }: Route.ComponentProps) {

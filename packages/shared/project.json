@@ -1,0 +1,19 @@
+{
+	"name": "shared",
+	"targets": {
+		"build": {
+			"cache": true,
+			"inputs": ["{projectRoot}/src", "!{projectRoot}/src/validate"],
+			"outputs": ["{projectRoot}/validator"]
+		},
+		"test": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/src",
+				"{projectRoot}/validator",
+				"{projectRoot}/test"
+			],
+			"outputs": ["{projectRoot}/coverage"]
+		}
+	}
+}

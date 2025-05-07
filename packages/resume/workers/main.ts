@@ -1,4 +1,4 @@
-import ValidateResume, { type ValidationResponse } from "#validate";
+import { ValidateResume, type ValidationResponse } from "shared";
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { createRequestHandler } from "react-router";
 
@@ -38,7 +38,7 @@ export default class MainEntrypoint
 			console.error(e);
 			return {
 				ok: false,
-				error: "Unknown Server Error",
+				errors: ["Unknown Server Error"],
 			};
 		}
 	}

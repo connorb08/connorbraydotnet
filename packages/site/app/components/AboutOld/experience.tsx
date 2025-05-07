@@ -1,3 +1,6 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
+
 import { memo } from "react";
 import Education from "./education";
 
@@ -26,8 +29,8 @@ const Resume = memo((props: ResumeProps) => {
 
 				{props.jobs.map((job, index) => {
 					return (
-						<div key={index}>
-							<Job {...job} key={index} />
+						<div key={job}>
+							<Job {...job} key={`${job}`} />
 							{index !== len - 1 ? bottomBorder : ""}
 						</div>
 					);

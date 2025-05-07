@@ -3,17 +3,20 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"main": "src/index.ts",
 	"scripts": {
 		"build": "bun build.ts",
-		"test": "vitest",
-		"format": "biome format",
-		"lint": "biome lint"
+		"test": "vitest --run",
+		"test:watch": "vitest",
+		"format": "biome format --write",
+		"lint": "biome lint",
+		"check": "biome lint && biome format"
 	},
 	"imports": {
 		"#types": "./src/types/index.ts",
 		"#validate": "./src/validate/index.ts",
 		"#schemas": "./src/schemas/index.ts",
-		"#validators/*": "./validators/*.js"
+		"#validator": "./validator/index.js"
 	},
 	"peerDependencies": {
 		"typescript": "*",

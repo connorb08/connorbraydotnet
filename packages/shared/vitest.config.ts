@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -10,5 +11,8 @@ export default defineConfig({
 			reporter: ["text", "json", "html"],
 			include: ["src"],
 		},
+		// alias: {
+		// 	"#validator": resolve("test/__mocks__/validator.ts"),
+		// },
 	},
 });

@@ -1,4 +1,3 @@
-
 export const Resume = validate10;
 const schema11 = {
 	$id: "Resume",
@@ -593,8 +592,7 @@ function validate10(
 							const data16 = data12.startDate;
 							if (typeof data16 !== "string" && data16 !== null) {
 								const err29 = {
-									instancePath:
-										`${instancePath}/education/${i3}/startDate`,
+									instancePath: `${instancePath}/education/${i3}/startDate`,
 									schemaPath:
 										"#/properties/education/items/properties/startDate/type",
 									keyword: "type",
@@ -635,8 +633,7 @@ function validate10(
 								for (let i4 = 0; i4 < len4; i4++) {
 									if (typeof data18[i4] !== "string") {
 										const err31 = {
-											instancePath:
-												`${instancePath}/education/${i3}/about/${i4}`,
+											instancePath: `${instancePath}/education/${i3}/about/${i4}`,
 											schemaPath:
 												"#/properties/education/items/properties/about/items/type",
 											keyword: "type",
@@ -860,8 +857,7 @@ function validate10(
 								for (let i6 = 0; i6 < len6; i6++) {
 									if (typeof data26[i6] !== "string") {
 										const err44 = {
-											instancePath:
-												`${instancePath}/career/${i5}/about/${i6}`,
+											instancePath: `${instancePath}/career/${i5}/about/${i6}`,
 											schemaPath:
 												"#/properties/career/items/properties/about/items/type",
 											keyword: "type",
@@ -1005,8 +1001,7 @@ function validate10(
 								for (let i8 = 0; i8 < len8; i8++) {
 									if (typeof data32[i8] !== "string") {
 										const err52 = {
-											instancePath:
-												`${instancePath}/projects/${i7}/technologies/${i8}`,
+											instancePath: `${instancePath}/projects/${i7}/technologies/${i8}`,
 											schemaPath:
 												"#/properties/projects/items/properties/technologies/items/type",
 											keyword: "type",
@@ -1023,8 +1018,7 @@ function validate10(
 								}
 							} else {
 								const err53 = {
-									instancePath:
-										`${instancePath}/projects/${i7}/technologies`,
+									instancePath: `${instancePath}/projects/${i7}/technologies`,
 									schemaPath:
 										"#/properties/projects/items/properties/technologies/type",
 									keyword: "type",
@@ -1046,8 +1040,7 @@ function validate10(
 								for (let i9 = 0; i9 < len9; i9++) {
 									if (typeof data34[i9] !== "string") {
 										const err54 = {
-											instancePath:
-												`${instancePath}/projects/${i7}/about/${i9}`,
+											instancePath: `${instancePath}/projects/${i7}/about/${i9}`,
 											schemaPath:
 												"#/properties/projects/items/properties/about/items/type",
 											keyword: "type",
@@ -1127,314 +1120,5 @@ function validate10(
 		errors++;
 	}
 	validate10.errors = vErrors;
-	return errors === 0;
-}
-export const About = validate11;
-const schema12 = {
-	$id: "About",
-	type: "object",
-	properties: {
-		phoneNumber: { type: "string", isNotEmpty: true },
-		emailAddress: { type: "string", format: "email" },
-		location: { type: "string" },
-		languages: { type: "array", items: { type: "string" } },
-		technologies: { type: "array", items: { type: "string" } },
-		interests: { type: "array", nullable: true, items: { type: "string" } },
-	},
-	required: ["phoneNumber", "emailAddress", "location"],
-	additionalProperties: false,
-};
-function validate11(
-	data,
-	{ instancePath = "", parentData, parentDataProperty, rootData = data } = {},
-) {
-	/*# sourceURL="About" */
-	let vErrors = null;
-	let errors = 0;
-	if (data && typeof data === "object" && !Array.isArray(data)) {
-		if (data.phoneNumber === undefined) {
-			const err0 = {
-				instancePath,
-				schemaPath: "#/required",
-				keyword: "required",
-				params: { missingProperty: "phoneNumber" },
-				message: "must have required property '" + "phoneNumber" + "'",
-			};
-			if (vErrors === null) {
-				vErrors = [err0];
-			} else {
-				vErrors.push(err0);
-			}
-			errors++;
-		}
-		if (data.emailAddress === undefined) {
-			const err1 = {
-				instancePath,
-				schemaPath: "#/required",
-				keyword: "required",
-				params: { missingProperty: "emailAddress" },
-				message: "must have required property '" + "emailAddress" + "'",
-			};
-			if (vErrors === null) {
-				vErrors = [err1];
-			} else {
-				vErrors.push(err1);
-			}
-			errors++;
-		}
-		if (data.location === undefined) {
-			const err2 = {
-				instancePath,
-				schemaPath: "#/required",
-				keyword: "required",
-				params: { missingProperty: "location" },
-				message: "must have required property '" + "location" + "'",
-			};
-			if (vErrors === null) {
-				vErrors = [err2];
-			} else {
-				vErrors.push(err2);
-			}
-			errors++;
-		}
-		for (const key0 in data) {
-			if (
-				!(
-					key0 === "phoneNumber" ||
-					key0 === "emailAddress" ||
-					key0 === "location" ||
-					key0 === "languages" ||
-					key0 === "technologies" ||
-					key0 === "interests"
-				)
-			) {
-				const err3 = {
-					instancePath,
-					schemaPath: "#/additionalProperties",
-					keyword: "additionalProperties",
-					params: { additionalProperty: key0 },
-					message: "must NOT have additional properties",
-				};
-				if (vErrors === null) {
-					vErrors = [err3];
-				} else {
-					vErrors.push(err3);
-				}
-				errors++;
-			}
-		}
-		if (data.phoneNumber !== undefined) {
-			const data0 = data.phoneNumber;
-			if (typeof data0 === "string") {
-				if (typeof data0 === "string" && data0.trim() === "") {
-					const err4 = {
-						instancePath: `${instancePath}/phoneNumber`,
-						schemaPath: "#/properties/phoneNumber/isNotEmpty",
-						keyword: "isNotEmpty",
-						params: {},
-						message: 'must pass "isNotEmpty" keyword validation',
-					};
-					if (vErrors === null) {
-						vErrors = [err4];
-					} else {
-						vErrors.push(err4);
-					}
-					errors++;
-				}
-			} else {
-				const err5 = {
-					instancePath: `${instancePath}/phoneNumber`,
-					schemaPath: "#/properties/phoneNumber/type",
-					keyword: "type",
-					params: { type: "string" },
-					message: "must be string",
-				};
-				if (vErrors === null) {
-					vErrors = [err5];
-				} else {
-					vErrors.push(err5);
-				}
-				errors++;
-			}
-		}
-		if (data.emailAddress !== undefined) {
-			const data1 = data.emailAddress;
-			if (typeof data1 === "string") {
-				if (!formats0.test(data1)) {
-					const err6 = {
-						instancePath: `${instancePath}/emailAddress`,
-						schemaPath: "#/properties/emailAddress/format",
-						keyword: "format",
-						params: { format: "email" },
-						message: 'must match format "' + "email" + '"',
-					};
-					if (vErrors === null) {
-						vErrors = [err6];
-					} else {
-						vErrors.push(err6);
-					}
-					errors++;
-				}
-			} else {
-				const err7 = {
-					instancePath: `${instancePath}/emailAddress`,
-					schemaPath: "#/properties/emailAddress/type",
-					keyword: "type",
-					params: { type: "string" },
-					message: "must be string",
-				};
-				if (vErrors === null) {
-					vErrors = [err7];
-				} else {
-					vErrors.push(err7);
-				}
-				errors++;
-			}
-		}
-		if (data.location !== undefined) {
-			if (typeof data.location !== "string") {
-				const err8 = {
-					instancePath: `${instancePath}/location`,
-					schemaPath: "#/properties/location/type",
-					keyword: "type",
-					params: { type: "string" },
-					message: "must be string",
-				};
-				if (vErrors === null) {
-					vErrors = [err8];
-				} else {
-					vErrors.push(err8);
-				}
-				errors++;
-			}
-		}
-		if (data.languages !== undefined) {
-			const data3 = data.languages;
-			if (Array.isArray(data3)) {
-				const len0 = data3.length;
-				for (let i0 = 0; i0 < len0; i0++) {
-					if (typeof data3[i0] !== "string") {
-						const err9 = {
-							instancePath: `${instancePath}/languages/${i0}`,
-							schemaPath: "#/properties/languages/items/type",
-							keyword: "type",
-							params: { type: "string" },
-							message: "must be string",
-						};
-						if (vErrors === null) {
-							vErrors = [err9];
-						} else {
-							vErrors.push(err9);
-						}
-						errors++;
-					}
-				}
-			} else {
-				const err10 = {
-					instancePath: `${instancePath}/languages`,
-					schemaPath: "#/properties/languages/type",
-					keyword: "type",
-					params: { type: "array" },
-					message: "must be array",
-				};
-				if (vErrors === null) {
-					vErrors = [err10];
-				} else {
-					vErrors.push(err10);
-				}
-				errors++;
-			}
-		}
-		if (data.technologies !== undefined) {
-			const data5 = data.technologies;
-			if (Array.isArray(data5)) {
-				const len1 = data5.length;
-				for (let i1 = 0; i1 < len1; i1++) {
-					if (typeof data5[i1] !== "string") {
-						const err11 = {
-							instancePath: `${instancePath}/technologies/${i1}`,
-							schemaPath: "#/properties/technologies/items/type",
-							keyword: "type",
-							params: { type: "string" },
-							message: "must be string",
-						};
-						if (vErrors === null) {
-							vErrors = [err11];
-						} else {
-							vErrors.push(err11);
-						}
-						errors++;
-					}
-				}
-			} else {
-				const err12 = {
-					instancePath: `${instancePath}/technologies`,
-					schemaPath: "#/properties/technologies/type",
-					keyword: "type",
-					params: { type: "array" },
-					message: "must be array",
-				};
-				if (vErrors === null) {
-					vErrors = [err12];
-				} else {
-					vErrors.push(err12);
-				}
-				errors++;
-			}
-		}
-		if (data.interests !== undefined) {
-			const data7 = data.interests;
-			if (!Array.isArray(data7) && data7 !== null) {
-				const err13 = {
-					instancePath: `${instancePath}/interests`,
-					schemaPath: "#/properties/interests/type",
-					keyword: "type",
-					params: { type: "array" },
-					message: "must be array",
-				};
-				if (vErrors === null) {
-					vErrors = [err13];
-				} else {
-					vErrors.push(err13);
-				}
-				errors++;
-			}
-			if (Array.isArray(data7)) {
-				const len2 = data7.length;
-				for (let i2 = 0; i2 < len2; i2++) {
-					if (typeof data7[i2] !== "string") {
-						const err14 = {
-							instancePath: `${instancePath}/interests/${i2}`,
-							schemaPath: "#/properties/interests/items/type",
-							keyword: "type",
-							params: { type: "string" },
-							message: "must be string",
-						};
-						if (vErrors === null) {
-							vErrors = [err14];
-						} else {
-							vErrors.push(err14);
-						}
-						errors++;
-					}
-				}
-			}
-		}
-	} else {
-		const err15 = {
-			instancePath,
-			schemaPath: "#/type",
-			keyword: "type",
-			params: { type: "object" },
-			message: "must be object",
-		};
-		if (vErrors === null) {
-			vErrors = [err15];
-		} else {
-			vErrors.push(err15);
-		}
-		errors++;
-	}
-	validate11.errors = vErrors;
 	return errors === 0;
 }

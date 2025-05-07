@@ -1,7 +1,7 @@
 import type { ValidateFunction } from "ajv";
 import type { Resume } from "#types";
 import type { ValidationHandler } from "#types";
-import { Resume as ResumeValidation } from "#validators/resume";
+import { Resume as ResumeValidation } from "#validator";
 
 const ValidateResumeFunction = ResumeValidation as ValidateFunction<Resume>;
 

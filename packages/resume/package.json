@@ -3,19 +3,16 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"prebuild": "bun run validate",
 		"build": "react-router build",
 		"typegen-cf": "wrangler types 1> /dev/null",
 		"typegen-rr": "react-router typegen",
 		"typegen": "bun run typegen-cf && bun run typegen-rr",
 		"deploy": "bun run build && wrangler deploy",
-		"predev": "bun run validate",
 		"dev": "react-router dev",
-		"preview": "bun run build && vite preview",
-		"typecheck": "bun run typegen && tsc -b",
-		"validate": "bun run validate.build.ts && tsc -allowJs --declaration --emitDeclarationOnly './validate/validate.js' --outDir './validate'",
-		"test": "bun run build && vitest --run",
-		"test:watch": "bun run build && vitest",
+		"preview": "nx run build && vite preview",
+		"typecheck": "nx run typegen && tsc -b",
+		"test": "nx run build && vitest --run",
+		"test:watch": "nx run build && vitest",
 		"coverage": "vitest run --coverage",
 		"format": "biome format --write",
 		"lint": "biome lint",
@@ -33,7 +30,8 @@
 		"isbot": "^5.1.26",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
-		"react-router": "^7.5.0"
+		"react-router": "^7.5.0",
+		"shared": "workspace:*"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.0.5",
@@ -44,6 +42,9 @@
 		"sass-embedded": "^1.87.0",
 		"vite": "^6.2.6",
 		"vite-tsconfig-paths": "^5.1.4"
+	},
+	"peerDependencies": {
+		"vitest": "*"
 	},
 	"packageManager": "bun@10.8.0"
 }

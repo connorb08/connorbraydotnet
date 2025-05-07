@@ -34,8 +34,6 @@ export default function () {
 						tabIndex={0}
 						autoComplete="off"
 						onKeyDown={(e) => handleKeyDown(e, nav)}
-						// biome-ignore lint/a11y/noAutofocus: <explanation>
-						autoFocus={true}
 					/>
 				</div>
 			</div>

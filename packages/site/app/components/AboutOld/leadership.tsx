@@ -1,4 +1,5 @@
-import type { LeadershipRoleProps } from './types';
+/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
+import type { LeadershipRoleProps } from "./types";
 
 const Leadership = ({ roles }: { roles: LeadershipRoleProps[] }) => {
 	const bottomBorder = <div className="border-b border-gray-8 mb-5" />;
@@ -11,7 +12,7 @@ const Leadership = ({ roles }: { roles: LeadershipRoleProps[] }) => {
 
 				{roles.map((role, index) => {
 					return (
-						<div key={index}>
+						<div key={role}>
 							<Role {...role} />
 							{index !== len - 1 ? bottomBorder : null}
 						</div>
@@ -66,8 +67,8 @@ const Role = (props: LeadershipRoleProps) => {
 						</div>
 					</div>
 				</div>
-				<div style={{ marginBottom: '0.875rem' }}>
-					<p className="text-gray-600">{''}</p>
+				<div style={{ marginBottom: "0.875rem" }}>
+					<p className="text-gray-600">{""}</p>
 				</div>
 			</div>
 		</div>
@@ -97,7 +98,7 @@ const Award = () => {
 										d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
 									/>
 								</svg>
-								<span>{'award info'}</span>
+								<span>{"award info"}</span>
 							</div>
 						</div>
 					</div>
