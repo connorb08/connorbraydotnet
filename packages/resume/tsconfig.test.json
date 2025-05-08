@@ -1,14 +1,28 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["test/**/*", "worker-configuration.d.ts", "build"],
+	"include": [
+		"test/**/*",
+		"worker-configuration.d.ts",
+		"build",
+		"workers",
+		"vite-env.d.ts",
+		"app/**/*.spec.tsx",
+		"app/**/*"
+	],
+	"exclude": ["test/e2e"],
 	"compilerOptions": {
 		"composite": true,
-		"types": ["@cloudflare/vitest-pool-workers"],
-		"lib": ["ES2022"],
-		"target": "ES2022",
-		"module": "ES2022",
+		"types": [
+			"@cloudflare/vitest-pool-workers",
+			"vitest/globals",
+			"@testing-library/jest-dom"
+		],
+		"lib": ["ESNext", "DOM"],
+		"target": "ESNext",
+		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"allowJs": true,
-		"strict": true
+		"strict": true,
+		"jsx": "react-jsx"
 	}
 }

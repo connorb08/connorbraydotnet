@@ -26,7 +26,7 @@ vi.mock("react-router", async (importOriginal) => {
 							statusText: "OK",
 						});
 					case "/hello-world":
-						return new Response(context.cloudflare.env.HELLO_WORLD);
+						return new Response(context?.cloudflare.env.HELLO_WORLD);
 					default:
 						return new Response("Not Found", {
 							status: 404,
@@ -38,8 +38,8 @@ vi.mock("react-router", async (importOriginal) => {
 	};
 });
 
-describe("Mocked Cloudflare Worker Should Fetch", () => {
-	it("Should return a response", async () => {
+describe("Worker Fetch", () => {
+	it("Should Return a Response", async () => {
 		// Setup
 		const request = new Request("http://example.com");
 		const ctx = createExecutionContext();
@@ -56,7 +56,7 @@ describe("Mocked Cloudflare Worker Should Fetch", () => {
 		expect(body).toContain("Index Path");
 	});
 
-	it("Should get environment variable", async () => {
+	it("Should get Environment Variable", async () => {
 		// Setup
 		const request = new Request("http://example.com/hello-world");
 		const ctx = createExecutionContext();

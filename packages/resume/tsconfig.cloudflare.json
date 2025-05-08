@@ -7,10 +7,9 @@
 		"app/**/.client/**/*",
 		"workers/**/*",
 		"worker-configuration.d.ts",
-		"models/**/*",
-		"validate/*",
 		"vite-env.d.ts"
 	],
+	"exclude": ["app/**/*.spec.tsx"],
 	"compilerOptions": {
 		"composite": true,
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],

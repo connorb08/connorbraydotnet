@@ -1,11 +1,10 @@
 import {
 	createExecutionContext,
 	env,
-	SELF,
 	waitOnExecutionContext,
 } from "cloudflare:test";
-import { assert, beforeAll, describe, expect, it, vi } from "vitest";
-import WorkerMainEntrypoint from "../build/server";
+import { assert, describe, expect, it } from "vitest";
+import WorkerMainEntrypoint from "../../build/server";
 
 describe("Built Cloudflare Worker Should Fetch", () => {
 	it("Should return a response", async () => {

@@ -1,12 +1,13 @@
-import { ValidateResume, type ValidationResponse } from "shared";
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { createRequestHandler } from "react-router";
+import { ValidateResume, type ValidationResponse } from "shared";
 
 interface IMainEntrypoint {
 	fetch(request: Request): Response | Promise<Response>;
 }
 
 const requestHandler = createRequestHandler(
+	/* istanbul ignore next */
 	// @ts-ignore
 	() => import("virtual:react-router/server-build"),
 	import.meta.env.MODE,

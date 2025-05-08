@@ -1,5 +1,3 @@
-export default Resume;
-
 export interface Resume {
 	name: string;
 	about: ResumeAbout;

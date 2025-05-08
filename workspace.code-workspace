@@ -24,10 +24,10 @@
 	"settings": {
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
-			"*.tsx": "${capture}.scss",
+			"*.tsx": "${capture}.scss, ${capture}.spec.tsx",
 			"wrangler.jsonc": "worker-configuration.d.ts",
 			"package.json": "bun.lock, project.json, .depcheckrc, .clocignore",
-			"vite.config.ts": "vitest.config.ts, vite-env.d.ts",
+			"vite.config.ts": "vite-env.d.ts",
 			"README.md": ".gitignore, .gitattributes, .pre-commit-config.yaml",
 			"workspace.code-workspace": "nx.json, biome.json"
 		},
@@ -38,7 +38,8 @@
 			"**/.react-router": true,
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
-			"**/build": true
+			"**/build": true,
+			"packages": true
 		},
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "biomejs.biome",

@@ -10,7 +10,8 @@
 		"test:watch": "vitest",
 		"format": "biome format --write",
 		"lint": "biome lint",
-		"check": "biome lint && biome format"
+		"check": "biome lint && biome format",
+		"depcheck": "bunx depcheck"
 	},
 	"imports": {
 		"#types": "./src/types/index.ts",
@@ -20,6 +21,9 @@
 	},
 	"peerDependencies": {
 		"typescript": "*",
-		"ajv": "*"
+		"ajv": "*",
+		"ajv-formats": "*",
+		"@biomejs/js-api": "*",
+		"vitest": "*"
 	}
 }

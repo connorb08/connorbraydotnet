@@ -16,6 +16,8 @@
 
 # vitest coverage
 coverage
+test/coverage
+test/e2e-results
 
 # Playwright
 node_modules/
