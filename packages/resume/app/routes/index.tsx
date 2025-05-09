@@ -1,8 +1,8 @@
 import type { Resume } from "shared";
 import type { Route } from "./+types/index";
-import "./style.scss";
+import "./index.scss";
 
-export function loader({ context }: Route.LoaderArgs) {
+export function loader({ context }: Route.LoaderArgs): Resume {
 	return {
 		name: "Connor Bray",
 		about: {
@@ -80,7 +80,7 @@ export function loader({ context }: Route.LoaderArgs) {
 	} as const satisfies Resume;
 }
 
-export default function Home({ loaderData: resume }: Route.ComponentProps) {
+export default function Index({ loaderData: resume }: Route.ComponentProps) {
 	return (
 		<div className="container">
 			<header className="header">
@@ -247,7 +247,7 @@ export default function Home({ loaderData: resume }: Route.ComponentProps) {
 					<li>
 						<p>
 							<span className="footer__content--bold">Interests: </span>
-							{resume.about.interests.join(", ")}
+							{resume.about.interests?.join(", ")}
 						</p>
 					</li>
 				</ul>

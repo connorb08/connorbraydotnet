@@ -6,8 +6,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 const viteConfig = defineConfig({
 	plugins: [
-		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		reactRouter(),
+		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		tsconfigPaths(),
 	],
 	server: {
