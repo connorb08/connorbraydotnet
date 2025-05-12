@@ -143,7 +143,10 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								<p className="section_item__date">{educationItem.endDate}</p>
 							</div>
 							{educationItem.about.length > 0 ? (
-								<div className="section__item__content">
+								<div
+									data-testid="education-about"
+									className="section__item__content"
+								>
 									<ul>
 										{educationItem.about.map((bullet) => {
 											return <li key={bullet}>{bullet}</li>;
