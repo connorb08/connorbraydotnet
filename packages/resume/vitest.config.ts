@@ -31,45 +31,30 @@ const vitestConfig = {
 	test: {
 		name: "Resume",
 		globals: true,
+		reporters: "json",
+		outputFile: {
+			json: "./test/reports/results.json",
+		},
 		coverage: {
 			provider: "istanbul",
 			reporter: ["text", "json", "html"],
 			include: ["app", "workers"],
-			reportsDirectory: "./test/coverage",
+			reportsDirectory: "./test/reports/coverage",
 			exclude: ["app/entry.server.tsx"],
 		},
 		workspace: [
-			// {
-			// 	extends: true,
-			// 	test: {
-			// 		name: "unit",
-			// 		include: ["test/unit/**/*.spec.ts"],
-			// 	},
-			// },
 			{
 				extends: true,
 				test: {
-					name: "jsdom",
+					name: "Unit",
 					environment: "jsdom",
 					include: ["app/**/*.spec.ts", "app/**/*.spec.tsx"],
 					setupFiles: ["./test/setup.ts"],
 				},
 			},
 			workerProject,
-			// {
-			// 	extends: true,
-			// 	test: {
-			// 		name: "integration",
-			// 		include: ["test/integration/**/*.spec.ts"],
-			// 	},
-			// },
 		],
 	},
-	// resolve: {
-	// 	alias: {
-	// 		"@": path.resolve(__dirname, "./app"),
-	// 	},
-	// },
 } satisfies ViteUserConfig;
 
 export default defineConfig(vitestConfig);

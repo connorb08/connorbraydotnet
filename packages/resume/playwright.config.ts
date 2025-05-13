@@ -8,14 +8,14 @@ const config = {
 		[
 			"html",
 			{
-				outputFolder: "test/e2e-results",
+				outputFolder: "test/reports/e2e",
 				host: "127.0.0.1",
 				port: 3001,
 				open: "never",
 			},
 		],
 	],
-	outputDir: "test/e2e-results",
+	outputDir: "test/reports/e2e",
 	webServer: {
 		command: "bun run dev",
 		url: "http://localhost:3000",

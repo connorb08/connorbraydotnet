@@ -1,38 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { createRoutesStub, useLoaderData } from "react-router";
+import { ValidateResume } from "shared";
+import { ValidResume } from "shared/test-data";
 import Index, { loader } from "./index";
-
-const mockLoaderData = {
-	name: "Connor Bray",
-	about: {
-		phoneNumber: "",
-		emailAddress: "",
-		location: "",
-		languages: [],
-		technologies: [],
-	},
-	education: [
-		{
-			school: "University of Burgers",
-			degree: "Bachelor of Science in Burger Meat",
-			location: "Salt Lake City, UT",
-			startDate: "August 2018",
-			endDate: "May 2022",
-			about: ["I love burger meat"],
-		},
-	],
-	career: [
-		{
-			company: "Burger King",
-			title: "Burger Flipper",
-			location: "Salt Lake City, UT",
-			startDate: "June 2022",
-			endDate: "Present",
-			about: ["About bullet"],
-		},
-	],
-	projects: [],
-};
 
 describe("Index route", () => {
 	it("should render the resume", async () => {
@@ -46,7 +16,7 @@ describe("Index route", () => {
 					return <Index loaderData={loaderData} />;
 				},
 				loader: () => {
-					return mockLoaderData;
+					return ValidResume();
 				},
 				HydrateFallback: () => {
 					return <div>Loading...</div>;
@@ -58,13 +28,17 @@ describe("Index route", () => {
 		render(<Stub initialEntries={["/"]} />);
 
 		// Assert
-		expect(await screen.findByText("Connor Bray")).toBeInTheDocument();
+		expect(await screen.findByText("Ronald McDonald")).toBeInTheDocument();
+		expect(await screen.findByText("Joke of a School")).toBeInTheDocument();
+		expect(await screen.findByText("Burger Clown")).toBeInTheDocument();
 		expect(
-			await screen.findByText("University of Burgers"),
+			await screen.findByText("Scare children with my clown costume"),
 		).toBeInTheDocument();
-
-		expect(await screen.findByText("Burger Flipper")).toBeInTheDocument();
-		expect(await screen.findByText("I love burger meat")).toBeInTheDocument();
+		expect(
+			await screen.findByText("Chicken Nuggets", {
+				exact: false,
+			}),
+		).toBeInTheDocument();
 		expect(await screen.findByTestId("education-about")).toBeInTheDocument();
 	});
 
@@ -79,38 +53,7 @@ describe("Index route", () => {
 					return <Index loaderData={loaderData} />;
 				},
 				loader: () => {
-					const returnValue: ReturnType<typeof loader> = {
-						name: "Connor Bray",
-						about: {
-							phoneNumber: "",
-							emailAddress: "",
-							location: "",
-							languages: [],
-							technologies: [],
-						},
-						education: [
-							{
-								school: "University of Burgers",
-								degree: "Bachelor of Science in Burger Meat",
-								location: "Salt Lake City, UT",
-								startDate: "August 2018",
-								endDate: "May 2022",
-								about: [],
-							},
-						],
-						career: [
-							{
-								company: "Burger King",
-								title: "Burger Flipper",
-								location: "Salt Lake City, UT",
-								startDate: "June 2022",
-								endDate: "Present",
-								about: ["About bullet"],
-							},
-						],
-						projects: [],
-					};
-					return returnValue;
+					return ValidResume;
 				},
 				HydrateFallback: () => {
 					return <div>Loading...</div>;
@@ -129,7 +72,7 @@ describe("Index route", () => {
 	it("should conditionally render education about section based on content", () => {
 		// With content
 		const withContent = {
-			...mockLoaderData,
+			...ValidResume(),
 			education: [
 				{
 					school: "Test School",
@@ -149,7 +92,7 @@ describe("Index route", () => {
 
 		// Without content
 		const withoutContent = {
-			...mockLoaderData,
+			...ValidResume(),
 			education: [
 				{
 					school: "Test School",
@@ -169,16 +112,9 @@ describe("Index route", () => {
 	it("should return loader data", async () => {
 		// Act
 		const data = loader({});
+		const { ok } = await ValidateResume(data);
 
 		// Assert
-		assert.isObject(data);
-		assert.isString(data.name);
-		assert.isArray(data.education);
-		assert.isArray(data.career);
-		assert.isArray(data.projects);
-		assert.isObject(data.about);
-		assert.isString(data.about.phoneNumber);
-		assert.isString(data.about.emailAddress);
-		assert.isString(data.about.location);
+		assert.isTrue(ok);
 	});
 });

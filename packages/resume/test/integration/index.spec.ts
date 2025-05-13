@@ -20,7 +20,4 @@ describe("Built Cloudflare Worker Should Fetch", () => {
 		expect(res.status).toBe(200);
 		expect(body).toContain("Connor Bray");
 	});
-	it("should add", () => {
-		expect(1 + 1).toBe(2);
-	});
 });

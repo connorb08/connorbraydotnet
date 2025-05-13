@@ -10,6 +10,7 @@ export default defineConfig({
 			provider: "v8",
 			reporter: ["text", "json", "html"],
 			include: ["src"],
+			reportsDirectory: "./test/coverage",
 		},
 		// alias: {
 		// 	"#validator": resolve("test/__mocks__/validator.ts"),
