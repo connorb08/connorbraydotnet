@@ -224,7 +224,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 			</div>
 			<div className="section" id="skills">
 				<h2 className="section__heading">Skills/Interests</h2>
-				<ul>
+				<ul className="section__item">
 					<li>
 						<p data-testid="resume.about.languages">
 							<span className="footer__content--bold">Languages: </span>
