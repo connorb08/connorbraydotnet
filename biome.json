@@ -60,6 +60,9 @@
 				"useExportType": "error",
 				"noUselessElse": "error",
 				"useShorthandFunctionType": "error"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "info"
 			}
 		}
 	},

@@ -9,7 +9,7 @@
 		"typegen": "bun run typegen-cf && bun run typegen-rr",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
-		"preview": "nx run build && vite preview",
+		"preview": "bun run build && vite preview",
 		"typecheck": "nx run typegen && tsc -b",
 		"test": "nx run build && vitest --run",
 		"e2e": "playwright test",
@@ -35,6 +35,7 @@
 		"shared": "workspace:*"
 	},
 	"devDependencies": {
+		"@castlenine/vite-remove-attribute": "^1.0.2",
 		"@cloudflare/vite-plugin": "^1.0.5",
 		"@cloudflare/vitest-pool-workers": "^0.8.15",
 		"@react-router/dev": "^7.5.0",

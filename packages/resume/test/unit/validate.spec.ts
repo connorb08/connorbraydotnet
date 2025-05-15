@@ -36,9 +36,12 @@ describe("Worker Validate", () => {
 
 	it("Should return error for invalid data", async () => {
 		// Setup
+		const originalConsoleError = console.error;
+		console.error = vi.fn();
 		mocks.validate.mockImplementation(() => {
 			throw new Error("Throw Server Error");
 		});
+		// mocks.validate.mockRejectedValue(new Error("Throw Server Error"));
 		const worker = SELF as unknown as MainEntrypoint;
 
 		// Execute
@@ -49,5 +52,6 @@ describe("Worker Validate", () => {
 		assert.isArray(errors);
 		assert.isTrue(errors.length > 0);
 		expect(errors).toContain("Unknown Server Error");
+		console.error = originalConsoleError;
 	});
 });

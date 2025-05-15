@@ -15,5 +15,8 @@
 				"HELLO_WORLD": "Hello, world!"
 			}
 		}
+	},
+	"dev": {
+		"ip": "127.0.0.1"
 	}
 }

@@ -2,7 +2,7 @@
 
 import { assert, type TestFunction } from "vitest";
 import type { ValidationHandler } from "#types";
-import { ValidResume } from "#types/resume/test-data";
+import { ResumeData } from "#types/resume/test-data";
 import { DeepCopy } from "./utils";
 
 interface ITestData {
@@ -26,32 +26,32 @@ export const ValidateTestData = (validationHandler: ValidationHandler) => {
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should invalidate missing phone number": async () => {
-			const resume = DeepCopy(ValidResume) as any;
+			const resume = DeepCopy(ResumeData) as any;
 			delete resume.about.phoneNumber;
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should invalidate empty phone number": async () => {
-			const resume = DeepCopy(ValidResume);
+			const resume = DeepCopy(ResumeData);
 			resume.about.phoneNumber = "";
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should invalidate empty email": async () => {
-			const resume = DeepCopy(ValidResume);
+			const resume = DeepCopy(ResumeData);
 			resume.about.emailAddress = "";
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should invalidate invalid email": async () => {
-			const resume = DeepCopy(ValidResume);
+			const resume = DeepCopy(ResumeData);
 			resume.about.emailAddress = "ronald@mcdonalds";
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should invalidate additional property": async () => {
-			const resume = DeepCopy(ValidResume);
+			const resume = DeepCopy(ResumeData);
 			Object.assign(resume, { key: "value" });
 			assert.isFalse((await validationHandler(resume)).ok);
 		},
 		"should validate full object": async () => {
-			const resume = DeepCopy(ValidResume);
+			const resume = DeepCopy(ResumeData);
 			assert.isTrue((await validationHandler(resume)).ok);
 		},
 	} satisfies ITestData;

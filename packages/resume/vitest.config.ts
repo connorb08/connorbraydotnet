@@ -31,7 +31,7 @@ const vitestConfig = {
 	test: {
 		name: "Resume",
 		globals: true,
-		reporters: "json",
+		reporters: ["default", "json"],
 		outputFile: {
 			json: "./test/reports/results.json",
 		},

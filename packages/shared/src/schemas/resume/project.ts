@@ -8,10 +8,7 @@ export const ResumeProjectSchema: JSONSchemaType<ResumeProject[]> = {
 		required: ["name", "about"],
 		properties: {
 			name: { type: "string" },
-			technologies: {
-				type: "array",
-				items: { type: "string" },
-			},
+			description: { type: "string" },
 			about: {
 				type: "array",
 				items: { type: "string" },

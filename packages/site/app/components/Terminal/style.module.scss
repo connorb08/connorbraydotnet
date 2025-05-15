@@ -2,23 +2,27 @@
 
 .container {
     background-color: color.$surfaceContainerHighest;
-    // border-top: 2px solid color.$outlineVariant;
-    padding: 2rem 0;
-    // margin-top: 4rem;
-    // position: sticky;
-    // bottom: 0;
-    // z-index: 100000;
+    border-radius: 1rem;
+    height: 8rem;
 
     &__terminal {
+        height: 100%;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 1rem 2rem;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        justify-content: space-between;
+        // gap: 1rem;
+        margin: 0;
 
         &__result {
-            &[command-result="ok"] {
+            flex: 1;
+            margin-bottom: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
+            &[command-result="ok"] {
                 color: inherit;
             }
 
@@ -28,7 +32,6 @@
         }
 
         &__entry {
-            // max-width: 1200px;
             gap: 0;
             display: flex;
             line-height: normal;

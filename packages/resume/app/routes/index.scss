@@ -5,14 +5,16 @@
 .container {
     /* Layout */
     @extend %column;
+    gap: util.in(0.1);
 
     /* Sizing */
     height: 100%;
     padding: util.in(0.5) util.in(0.5);
+    // margin-bottom: util.in(0.5);
 }
 
 .header {
-    margin-bottom: util.in(0.1);
+    // margin-bottom: util.in(0.1);
 
     &__title {
         @include font.bold;
@@ -27,8 +29,8 @@
 }
 
 .section {
-    padding-top: util.in(0.05);
-    padding-bottom: util.in(0.05);
+    // padding-top: util.in(0.05);
+    // padding-bottom: util.in(0.05);
 
     &__heading {
         @include font.bold;
@@ -87,7 +89,7 @@
 .footer {
     /* Alignment */
     margin-top: auto;
-    padding-top: util.in(0.05);
+    // padding-top: util.in(0.05);
 
     &__heading {
         /* Alignment */

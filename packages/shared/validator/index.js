@@ -1,3 +1,4 @@
+
 export const Resume = validate10;
 const schema11 = {
 	$id: "Resume",
@@ -54,7 +55,7 @@ const schema11 = {
 				required: ["name", "about"],
 				properties: {
 					name: { type: "string" },
-					technologies: { type: "array", items: { type: "string" } },
+					description: { type: "string" },
 					about: { type: "array", items: { type: "string" } },
 				},
 			},
@@ -592,7 +593,8 @@ function validate10(
 							const data16 = data12.startDate;
 							if (typeof data16 !== "string" && data16 !== null) {
 								const err29 = {
-									instancePath: `${instancePath}/education/${i3}/startDate`,
+									instancePath:
+										`${instancePath}/education/${i3}/startDate`,
 									schemaPath:
 										"#/properties/education/items/properties/startDate/type",
 									keyword: "type",
@@ -633,7 +635,8 @@ function validate10(
 								for (let i4 = 0; i4 < len4; i4++) {
 									if (typeof data18[i4] !== "string") {
 										const err31 = {
-											instancePath: `${instancePath}/education/${i3}/about/${i4}`,
+											instancePath:
+												`${instancePath}/education/${i3}/about/${i4}`,
 											schemaPath:
 												"#/properties/education/items/properties/about/items/type",
 											keyword: "type",
@@ -857,7 +860,8 @@ function validate10(
 								for (let i6 = 0; i6 < len6; i6++) {
 									if (typeof data26[i6] !== "string") {
 										const err44 = {
-											instancePath: `${instancePath}/career/${i5}/about/${i6}`,
+											instancePath:
+												`${instancePath}/career/${i5}/about/${i6}`,
 											schemaPath:
 												"#/properties/career/items/properties/about/items/type",
 											keyword: "type",
@@ -994,53 +998,34 @@ function validate10(
 								errors++;
 							}
 						}
-						if (data30.technologies !== undefined) {
-							const data32 = data30.technologies;
-							if (Array.isArray(data32)) {
-								const len8 = data32.length;
-								for (let i8 = 0; i8 < len8; i8++) {
-									if (typeof data32[i8] !== "string") {
-										const err52 = {
-											instancePath: `${instancePath}/projects/${i7}/technologies/${i8}`,
-											schemaPath:
-												"#/properties/projects/items/properties/technologies/items/type",
-											keyword: "type",
-											params: { type: "string" },
-											message: "must be string",
-										};
-										if (vErrors === null) {
-											vErrors = [err52];
-										} else {
-											vErrors.push(err52);
-										}
-										errors++;
-									}
-								}
-							} else {
-								const err53 = {
-									instancePath: `${instancePath}/projects/${i7}/technologies`,
+						if (data30.description !== undefined) {
+							if (typeof data30.description !== "string") {
+								const err52 = {
+									instancePath:
+										`${instancePath}/projects/${i7}/description`,
 									schemaPath:
-										"#/properties/projects/items/properties/technologies/type",
+										"#/properties/projects/items/properties/description/type",
 									keyword: "type",
-									params: { type: "array" },
-									message: "must be array",
+									params: { type: "string" },
+									message: "must be string",
 								};
 								if (vErrors === null) {
-									vErrors = [err53];
+									vErrors = [err52];
 								} else {
-									vErrors.push(err53);
+									vErrors.push(err52);
 								}
 								errors++;
 							}
 						}
 						if (data30.about !== undefined) {
-							const data34 = data30.about;
-							if (Array.isArray(data34)) {
-								const len9 = data34.length;
-								for (let i9 = 0; i9 < len9; i9++) {
-									if (typeof data34[i9] !== "string") {
-										const err54 = {
-											instancePath: `${instancePath}/projects/${i7}/about/${i9}`,
+							const data33 = data30.about;
+							if (Array.isArray(data33)) {
+								const len8 = data33.length;
+								for (let i8 = 0; i8 < len8; i8++) {
+									if (typeof data33[i8] !== "string") {
+										const err53 = {
+											instancePath:
+												`${instancePath}/projects/${i7}/about/${i8}`,
 											schemaPath:
 												"#/properties/projects/items/properties/about/items/type",
 											keyword: "type",
@@ -1048,15 +1033,15 @@ function validate10(
 											message: "must be string",
 										};
 										if (vErrors === null) {
-											vErrors = [err54];
+											vErrors = [err53];
 										} else {
-											vErrors.push(err54);
+											vErrors.push(err53);
 										}
 										errors++;
 									}
 								}
 							} else {
-								const err55 = {
+								const err54 = {
 									instancePath: `${instancePath}/projects/${i7}/about`,
 									schemaPath:
 										"#/properties/projects/items/properties/about/type",
@@ -1065,15 +1050,15 @@ function validate10(
 									message: "must be array",
 								};
 								if (vErrors === null) {
-									vErrors = [err55];
+									vErrors = [err54];
 								} else {
-									vErrors.push(err55);
+									vErrors.push(err54);
 								}
 								errors++;
 							}
 						}
 					} else {
-						const err56 = {
+						const err55 = {
 							instancePath: `${instancePath}/projects/${i7}`,
 							schemaPath: "#/properties/projects/items/type",
 							keyword: "type",
@@ -1081,15 +1066,15 @@ function validate10(
 							message: "must be object",
 						};
 						if (vErrors === null) {
-							vErrors = [err56];
+							vErrors = [err55];
 						} else {
-							vErrors.push(err56);
+							vErrors.push(err55);
 						}
 						errors++;
 					}
 				}
 			} else {
-				const err57 = {
+				const err56 = {
 					instancePath: `${instancePath}/projects`,
 					schemaPath: "#/properties/projects/type",
 					keyword: "type",
@@ -1097,15 +1082,15 @@ function validate10(
 					message: "must be array",
 				};
 				if (vErrors === null) {
-					vErrors = [err57];
+					vErrors = [err56];
 				} else {
-					vErrors.push(err57);
+					vErrors.push(err56);
 				}
 				errors++;
 			}
 		}
 	} else {
-		const err58 = {
+		const err57 = {
 			instancePath,
 			schemaPath: "#/type",
 			keyword: "type",
@@ -1113,9 +1098,9 @@ function validate10(
 			message: "must be object",
 		};
 		if (vErrors === null) {
-			vErrors = [err58];
+			vErrors = [err57];
 		} else {
-			vErrors.push(err58);
+			vErrors.push(err57);
 		}
 		errors++;
 	}

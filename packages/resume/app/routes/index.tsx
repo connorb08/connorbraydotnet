@@ -57,23 +57,21 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 		projects: [
 			{
 				name: "connorbray.net",
-				technologies: [
-					"TypeScript",
-					"Remix/RR7",
-					"Cloudflare",
-					"AWS S3",
-					"Terraform",
-					"GitHub Actions",
-				],
+				description:
+					"Personal website showcasing resume, portfolio, and photography, built for performance and scalability.",
 				about: [
-					"Personal website for hosting resume, portfolio, photography, and more",
-					"Content management system using AWS S3 and Cloudflare",
-					"Resume generated using JSON schema validation and HTML/CSS styling",
-					"Serverless API using Cloudflare Workers",
-					"Infrastructure as code using Terraform",
-					"CI/CD pipeline using GitHub Actions",
-					"Built with a focus on performance and accessibility",
-					"Unit test, integration test, and end-to-end test coverage",
+					"Emphasized accessibility and speed with fully tested architecture (unit, integration, e2e)",
+					"Resume generated using HTML/CSS and validated with JSON schema validation",
+					"Technologies: TypeScript, React, Cloudflare Workers, Terraform, GitHub Actions, and Playwright",
+				],
+			},
+			{
+				name: "cumberland-foodstop.com",
+				description:
+					"Website for a local convenience store, featuring online ordering, product catalog, and store information.",
+				about: [
+					"Includes content management system using AWS S3 and Cloudflare, allowing for easy updates to product catalog and store information",
+					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, and Terraform",
 				],
 			},
 		],
@@ -84,19 +82,24 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 	return (
 		<div className="container">
 			<header className="header">
-				<h1 className="header__title">{resume.name}</h1>
-				<p className="header__subtitle">{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
+				<h1 className="header__title" data-testid="resume.name">
+					{resume.name}
+				</h1>
+				<p
+					className="header__subtitle"
+					data-testid="resume.contact"
+				>{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
 			</header>
-			<div className="section">
+			<div className="section" id="career">
 				<h2 className="section__heading">Experience</h2>
 				{resume.career.map((careerItem, index) => {
 					return (
-						<div
-							className="section__item"
-							key={`${careerItem.company}-${careerItem.title}`}
-						>
+						<div className="section__item" key={index}>
 							<div className="section__item__heading">
-								<h3 className="section__item__heading__company">
+								<h3
+									className="section__item__heading__company"
+									data-testid={`resume.career[${index}].company`}
+								>
 									{careerItem.company}
 								</h3>
 								<p className="section__item__heading__location">
@@ -104,15 +107,27 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								</p>
 							</div>
 							<div className="section__item__subheading">
-								<p className="section__item__subtitle">{careerItem.title}</p>
+								<p
+									className="section__item__subtitle"
+									data-testid={`resume.career[${index}].title`}
+								>
+									{careerItem.title}
+								</p>
 								<p className="section__item__date">
 									{`${careerItem.startDate} – ${careerItem.endDate}`}
 								</p>
 							</div>
 							<div className="section__item__content">
 								<ul>
-									{careerItem.about.map((bullet) => {
-										return <li key={bullet}>{bullet}</li>;
+									{careerItem.about.map((bullet, bulletIndex) => {
+										return (
+											<li
+												key={bulletIndex}
+												data-testid={`resume.career[${index}].about[${bulletIndex}]`}
+											>
+												{bullet}
+											</li>
+										);
 									})}
 								</ul>
 							</div>
@@ -120,16 +135,16 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					);
 				})}
 			</div>
-			<div className="section">
+			<div className="section" id="education">
 				<h2 className="section__heading">Education</h2>
 				{resume.education.map((educationItem, index) => {
 					return (
-						<div
-							className="section__item"
-							key={`${educationItem.school}-${educationItem.degree}`}
-						>
+						<div className="section__item" key={index}>
 							<div className="section__item__heading">
-								<h3 className="section__item__heading__school">
+								<h3
+									className="section__item__heading__school"
+									data-testid={`resume.education[${index}].school`}
+								>
 									{educationItem.school}
 								</h3>
 								<p className="section__item__heading__location">
@@ -137,10 +152,13 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								</p>
 							</div>
 							<div className="section__item__subheading">
-								<p className="section__item__subtitle">
+								<p
+									className="section__item__subtitle"
+									data-testid={`resume.education[${index}].degree`}
+								>
 									{educationItem.degree}
 								</p>
-								<p className="section_item__date">{educationItem.endDate}</p>
+								<p className="section__item__date">{educationItem.endDate}</p>
 							</div>
 							{educationItem.about.length > 0 ? (
 								<div
@@ -148,8 +166,15 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 									className="section__item__content"
 								>
 									<ul>
-										{educationItem.about.map((bullet) => {
-											return <li key={bullet}>{bullet}</li>;
+										{educationItem.about.map((bullet, bulletIndex) => {
+											return (
+												<li
+													key={bulletIndex}
+													data-testid={`resume.education[${index}].about[${bulletIndex}]`}
+												>
+													{bullet}
+												</li>
+											);
 										})}
 									</ul>
 								</div>
@@ -158,97 +183,62 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					);
 				})}
 			</div>
-			<div className="section">
+			<div className="section" id="projects">
 				<h2 className="section__heading">Projects</h2>
-				<div className="section__item">
-					<div className="section__item__heading">
-						<h3 className="section__item__heading__primary">connorbray.net</h3>
-						{/* <p className="section__item__heading__secondary">
-							TypeScript, Remix/RR7, Cloudflare Workers, AWS S3, Terraform,
-							GitHub Actions
-						</p> */}
-					</div>
-					<div className="section__item__subheading">
-						<p className="section__item__subtitle">
-							Personal website showcasing resume, portfolio, and photography,
-							built for performance and scalability.
-						</p>
-						{/* <p className="section_item__date">{educationItem.endDate}</p> */}
-					</div>
-					<div className="section__item__content">
-						<ul>
-							<li>
-								Front-end built using React, TypeScript, Remix/React Router 7
-							</li>
-							<li>
-								Back-end built using Cloudflare Workers, AWS S3, and Terraform
-							</li>
-							<li>
-								TypeScript, Remix/RR7, Cloudflare Workers, AWS S3, Terraform,
-								GitHub Actions
-							</li>
-							<li>
-								Developed a serverless API with Cloudflare Workers and a CMS
-								powered by AWS S3 and Cloudflare
-							</li>
-							<li>
-								Generated resume using JSON schema validation with custom
-								HTML/CSS rendering
-							</li>
-							<li>
-								Automated infrastructure using Terraform and deployed via GitHub
-								Actions CI/CD pipeline
-							</li>
-							<li>
-								Emphasized accessibility and speed with fully tested (unit,
-								integration, e2e) architecture
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div className="section__item">
-					<div className="section__item__heading">
-						<h3 className="section__item__heading__primary">
-							cumberland-foodstop.com
-						</h3>
-					</div>
-					<div className="section__item__subheading">
-						<p className="section__item__subtitle">
-							Website for a local convenience store, featuring online ordering,
-							product catalog, and store information.
-						</p>
-					</div>
-					<div className="section__item__content">
-						<ul>
-							<li>Technologies: TypeScript, Next.js, React</li>
-							<li>
-								Back-end built using Cloudflare Workers, AWS S3, and Terraform
-							</li>
-							<li>
-								Content management system using AWS S3 and Cloudflare, allowing
-								for easy updates to product catalog and store information
-							</li>
-						</ul>
-					</div>
-				</div>
+				{resume.projects.map((project, index) => {
+					return (
+						<div className="section__item" key={index}>
+							<div className="section__item__heading">
+								<h3
+									className="section__item__heading__project"
+									data-testid={`resume.projects[${index}].name`}
+								>
+									{project.name}
+								</h3>
+							</div>
+							<div className="section__item__subheading">
+								<p
+									className="section__item__subtitle"
+									data-testid={`resume.projects[${index}].description`}
+								>
+									{project.description}
+								</p>
+							</div>
+							<div className="section__item__content">
+								<ul>
+									{project.about.map((bullet, bulletIndex) => {
+										return (
+											<li
+												key={bulletIndex}
+												data-testid={`resume.projects[${index}].about[${bulletIndex}]`}
+											>
+												{bullet}
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						</div>
+					);
+				})}
 			</div>
-			<div className="section">
+			<div className="section" id="skills">
 				<h2 className="section__heading">Skills/Interests</h2>
 				<ul>
 					<li>
-						<p>
+						<p data-testid="resume.about.languages">
 							<span className="footer__content--bold">Languages: </span>
 							{resume.about.languages.join(", ")}
 						</p>
 					</li>
 					<li>
-						<p>
+						<p data-testid="resume.about.technologies">
 							<span className="footer__content--bold">Technologies: </span>
 							{resume.about.technologies.join(", ")}
 						</p>
 					</li>
 					<li>
-						<p>
+						<p data-testid="resume.about.interests">
 							<span className="footer__content--bold">Interests: </span>
 							{resume.about.interests?.join(", ")}
 						</p>

@@ -1,97 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { createRoutesStub, useLoaderData } from "react-router";
-import { ValidateResume } from "shared";
+import { type Resume, ValidateResume } from "shared";
 import { ValidResume } from "shared/test-data";
 import Index, { loader } from "./index";
 
 describe("Index route", () => {
-	it("should render the resume", async () => {
-		// Setup
-		const Stub = createRoutesStub([
-			{
-				path: "/",
-				index: true,
-				Component: () => {
-					const loaderData = useLoaderData<typeof loader>();
-					return <Index loaderData={loaderData} />;
-				},
-				loader: () => {
-					return ValidResume();
-				},
-				HydrateFallback: () => {
-					return <div>Loading...</div>;
-				},
-			},
-		]);
-
-		// Act
-		render(<Stub initialEntries={["/"]} />);
-
-		// Assert
-		expect(await screen.findByText("Ronald McDonald")).toBeInTheDocument();
-		expect(await screen.findByText("Joke of a School")).toBeInTheDocument();
-		expect(await screen.findByText("Burger Clown")).toBeInTheDocument();
-		expect(
-			await screen.findByText("Scare children with my clown costume"),
-		).toBeInTheDocument();
-		expect(
-			await screen.findByText("Chicken Nuggets", {
-				exact: false,
-			}),
-		).toBeInTheDocument();
-		expect(await screen.findByTestId("education-about")).toBeInTheDocument();
-	});
-
 	it("should not render empty education about", async () => {
 		// Setup
-		const Stub = createRoutesStub([
-			{
-				path: "/",
-				index: true,
-				Component: () => {
-					const loaderData = useLoaderData<typeof loader>();
-					return <Index loaderData={loaderData} />;
-				},
-				loader: () => {
-					return ValidResume;
-				},
-				HydrateFallback: () => {
-					return <div>Loading...</div>;
-				},
-			},
-		]);
-
-		// Act
-		render(<Stub initialEntries={["/"]} />);
-
-		// Assert
-		expect(screen.queryByTestId("education-about")).not.toBeInTheDocument();
-	});
-
-	// Add this new test to improve coverage
-	it("should conditionally render education about section based on content", () => {
-		// With content
-		const withContent = {
-			...ValidResume(),
-			education: [
-				{
-					school: "Test School",
-					degree: "Test Degree",
-					location: "Test Location",
-					startDate: "2020",
-					endDate: "2024",
-					about: ["Test bullet"],
-				},
-			],
-		};
-
-		const { getByTestId, rerender, queryByTestId } = render(
-			<Index loaderData={withContent} />,
-		);
-		expect(getByTestId("education-about")).toBeInTheDocument();
-
-		// Without content
-		const withoutContent = {
+		const resume = {
 			...ValidResume(),
 			education: [
 				{
@@ -103,10 +19,13 @@ describe("Index route", () => {
 					about: [],
 				},
 			],
-		};
+		} satisfies Resume;
 
-		rerender(<Index loaderData={withoutContent} />);
-		expect(queryByTestId("education-about")).not.toBeInTheDocument();
+		// Act
+		render(<Index loaderData={resume} />);
+
+		// Assert
+		expect(screen.queryByTestId("education-about")).not.toBeInTheDocument();
 	});
 
 	it("should return loader data", async () => {
@@ -116,5 +35,146 @@ describe("Index route", () => {
 
 		// Assert
 		assert.isTrue(ok);
+	});
+});
+
+describe("Resume page", () => {
+	it("should display basic info", async () => {
+		// Setup
+		const resume = ValidResume();
+
+		// Act
+		render(<Index loaderData={resume} />);
+
+		// Assert
+
+		// Check if the name is displayed correctly
+		const nameElement = await screen.findByTestId("resume.name");
+		const nameText = nameElement.textContent;
+		expect(nameElement).toBeInTheDocument();
+		expect(nameText).toBe(resume.name);
+
+		// Check if the contact information is displayed correctly
+		const contactElement = await screen.findByTestId("resume.contact");
+		const contactText = contactElement.textContent;
+		expect(contactElement).toBeInTheDocument();
+		expect(contactText).toContain(resume.about.phoneNumber);
+		expect(contactText).toContain(resume.about.emailAddress);
+	});
+
+	it("should display work experience", async () => {
+		// Setup
+		const resume = ValidResume();
+
+		// Act
+		render(<Index loaderData={resume} />);
+
+		// Assert
+		resume.career.forEach((careerItem, index) => {
+			// Check if the company name is displayed correctly
+			const companyElement = screen.getByTestId(
+				`resume.career[${index}].company`,
+			);
+			const titleElement = screen.getByTestId(`resume.career[${index}].title`);
+			expect(companyElement).toBeInTheDocument();
+			expect(companyElement.textContent).toBe(careerItem.company);
+			expect(titleElement).toBeInTheDocument();
+			expect(titleElement.textContent).toBe(careerItem.title);
+
+			careerItem.about.forEach((bullet, bulletIndex) => {
+				const bulletElement = screen.getByTestId(
+					`resume.career[${index}].about[${bulletIndex}]`,
+				);
+				expect(bulletElement).toBeInTheDocument();
+				expect(bulletElement.textContent).toBe(bullet);
+			});
+		});
+	});
+
+	it("should display education", async () => {
+		// Setup
+		const resume = ValidResume();
+
+		// Act
+		render(<Index loaderData={resume} />);
+
+		// Assert
+		resume.education.forEach((educationItem, index) => {
+			const schoolElement = screen.getByTestId(
+				`resume.education[${index}].school`,
+			);
+			const degreeElement = screen.getByTestId(
+				`resume.education[${index}].degree`,
+			);
+			expect(schoolElement).toBeInTheDocument();
+			expect(degreeElement).toBeInTheDocument();
+			expect(schoolElement.textContent).toBe(educationItem.school);
+			expect(degreeElement.textContent).toBe(educationItem.degree);
+
+			educationItem.about.forEach((bullet, bulletIndex) => {
+				const bulletElement = screen.getByTestId(
+					`resume.education[${index}].about[${bulletIndex}]`,
+				);
+				expect(bulletElement).toBeInTheDocument();
+				expect(bulletElement.textContent).toBe(bullet);
+			});
+		});
+	});
+
+	it("should display projects", async () => {
+		// Setup
+		const resume = ValidResume();
+
+		// Act
+		render(<Index loaderData={resume} />);
+
+		// Assert
+		resume.projects.forEach((projectItem, index) => {
+			const projectElement = screen.getByTestId(
+				`resume.projects[${index}].name`,
+			);
+			expect(projectElement).toBeInTheDocument();
+			expect(projectElement.textContent).toBe(projectItem.name);
+
+			const descriptionElement = screen.getByTestId(
+				`resume.projects[${index}].description`,
+			);
+			expect(descriptionElement).toBeInTheDocument();
+			expect(descriptionElement.textContent).toBe(projectItem.description);
+
+			projectItem.about.forEach((bullet, bulletIndex) => {
+				const bulletElement = screen.getByTestId(
+					`resume.projects[${index}].about[${bulletIndex}]`,
+				);
+				expect(bulletElement).toBeInTheDocument();
+				expect(bulletElement.textContent).toBe(bullet);
+			});
+		});
+	});
+
+	it("should display skills", async () => {
+		// Setup
+		const resume = ValidResume();
+
+		// Act
+		render(<Index loaderData={resume} />);
+
+		const languagesElement = screen.getByTestId("resume.about.languages");
+		const technologiesElement = screen.getByTestId("resume.about.technologies");
+		const interestsElement = screen.getByTestId("resume.about.interests");
+
+		// Assert
+		expect(languagesElement).toBeInTheDocument();
+		expect(technologiesElement).toBeInTheDocument();
+		expect(interestsElement).toBeInTheDocument();
+		expect(languagesElement.textContent).toContain(
+			resume.about.languages.join(", "),
+		);
+		expect(technologiesElement.textContent).toContain(
+			resume.about.technologies.join(", "),
+		);
+		expect(interestsElement.textContent).toContain(
+			resume.about.interests?.join(", "),
+		);
 	});
 });

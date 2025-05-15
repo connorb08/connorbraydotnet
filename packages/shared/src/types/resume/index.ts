@@ -35,6 +35,6 @@ export interface ResumeCareer {
 
 export interface ResumeProject {
 	name: string;
-	technologies: string[];
+	description: string;
 	about: string[];
 }

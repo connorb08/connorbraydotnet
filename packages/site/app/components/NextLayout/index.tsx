@@ -62,9 +62,11 @@ export default function () {
 						</span> */}
 					</Link>
 				</header>
-				<main className={style.layout__middleColumn__content}>
-					<Outlet />
-				</main>
+				<div className={style.layout__middleColumn__content}>
+					<main className={style.layout__middleColumn__content__container}>
+						<Outlet />
+					</main>
+				</div>
 				<footer className={style.layout__middleColumn__footer}>
 					<Terminal />
 				</footer>

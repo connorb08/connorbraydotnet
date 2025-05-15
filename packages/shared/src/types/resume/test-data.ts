@@ -47,12 +47,12 @@ export const ResumeData: Resume = {
 	projects: [
 		{
 			name: "McDonalds Website",
+			description: "A website for McDonalds",
 			about: [
 				"Built a website for McDonalds using HTML, CSS, and JavaScript.",
 				"Used React to build the front end.",
 				"Used Node.js to build the back end.",
 			],
-			technologies: ["React", "Node.js"],
 		},
 	],
 };
