@@ -58,6 +58,7 @@
 		},
 		"[terraform]": {
 			"editor.defaultFormatter": "hashicorp.terraform"
-		}
+		},
+		"nxConsole.generateAiAgentRules": true
 	}
 }

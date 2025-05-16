@@ -10,13 +10,13 @@
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",
-		"typecheck": "nx run typegen && tsc -b",
 		"test": "nx run build && vitest --run",
 		"e2e": "playwright test",
 		"test:watch": "nx run build && vitest",
 		"coverage": "vitest run --coverage",
 		"format": "biome format --write",
 		"lint": "biome lint",
+		"typecheck": "nx run typegen && tsc -b",
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {

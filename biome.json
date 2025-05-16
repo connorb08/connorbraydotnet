@@ -3,24 +3,26 @@
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
-		"useIgnoreFile": false
+		"useIgnoreFile": true
 	},
 	"files": {
 		"ignoreUnknown": true,
 		"includes": [
 			"**",
-			"!node_modules",
-			"!**/node_modules",
-			"!**/*/node_modules",
+			"!node_modules/**",
+			"!**/*/node_modules/**",
 			"!**/.nx",
 			"!**/.react-router",
 			"!**/worker-configuration.d.ts",
 			"!**/README.md",
 			"!**/coverage",
-			"!**/validate.d.ts",
+			"!**/test/reports",
+			"!**/test/e2e-results",
+			"!**/validator/index.d.ts",
 			"!**/validate.js",
 			"!**/build",
-			"!**/.gitignore"
+			"!**/.gitignore",
+			"!**/.wrangler"
 		]
 	},
 	"formatter": {

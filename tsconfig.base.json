@@ -1,21 +1,58 @@
 {
+	"files": [],
 	"compilerOptions": {
-		"composite": true,
-		"declarationMap": true,
-		"emitDeclarationOnly": true,
-		"importHelpers": true,
+		/* Base Options */
+		"allowJs": false,
 		"isolatedModules": true,
-		"lib": ["es2022"],
-		"module": "nodenext",
-		"moduleResolution": "nodenext",
-		"noEmitOnError": true,
-		"noFallthroughCasesInSwitch": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"target": "ESNext",
+		"verbatimModuleSyntax": true,
+
+		/* Strictness */
+		"strict": true,
+		/* Default `"strict": true` values */
+		"alwaysStrict": true,
+		"strictNullChecks": true,
+		"strictBindCallApply": true,
+		"strictBuiltinIteratorReturn": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"useUnknownInCatchVariables": true,
+		/* Additional strict options */
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
 		"noImplicitOverride": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "es2022",
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"suppressExcessPropertyErrors": false,
+		"suppressImplicitAnyIndexErrors": false,
+		"noStrictGenericChecks": false,
+		"erasableSyntaxOnly": true,
+
+		/* If NOT transpiling with TypeScript: */
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+
+		/* Library */
+		"lib": ["ESNext"],
+
+		/* URL */
+		"baseUrl": ".",
+		"rootDir": ".",
+
+		// Composite
+		// "composite": true,
+		// "declaration": false,
+
 		"customConditions": ["development"]
 	}
 }
