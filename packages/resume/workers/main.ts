@@ -20,18 +20,13 @@ export default class MainEntrypoint
 	/**
 	 * Default HTTP Handler
 	 */
-	public async fetch(request: Request): Promise<Response> {
+	public override async fetch(request: Request): Promise<Response> {
 		const [env, ctx] = [this.env, this.ctx];
 		return requestHandler(request, {
 			cloudflare: { env, ctx },
 		});
 	}
 
-	/**
-	 * Validate Resume Data
-	 * @param data resume object
-	 * @returns boolean
-	 */
 	public async validate(data: unknown): Promise<ValidationResponse> {
 		try {
 			return ValidateResume(data);

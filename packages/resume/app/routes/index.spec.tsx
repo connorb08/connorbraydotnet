@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { createRoutesStub, useLoaderData } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
 import { type Resume, ValidateResume } from "shared";
 import { ValidResume } from "shared/test-data";
+import type { Route } from "./+types/index";
 import Index, { loader } from "./index";
 
 describe("Index route", () => {
@@ -22,7 +23,10 @@ describe("Index route", () => {
 		} satisfies Resume;
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as unknown as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		// Assert
 		expect(screen.queryByTestId("education-about")).not.toBeInTheDocument();
@@ -30,7 +34,7 @@ describe("Index route", () => {
 
 	it("should return loader data", async () => {
 		// Act
-		const data = loader({});
+		const data = loader({} as LoaderFunctionArgs);
 		const { ok } = await ValidateResume(data);
 
 		// Assert
@@ -44,7 +48,10 @@ describe("Resume page", () => {
 		const resume = ValidResume();
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		// Assert
 
@@ -67,7 +74,10 @@ describe("Resume page", () => {
 		const resume = ValidResume();
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		// Assert
 		resume.career.forEach((careerItem, index) => {
@@ -96,7 +106,10 @@ describe("Resume page", () => {
 		const resume = ValidResume();
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		// Assert
 		resume.education.forEach((educationItem, index) => {
@@ -126,7 +139,10 @@ describe("Resume page", () => {
 		const resume = ValidResume();
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		// Assert
 		resume.projects.forEach((projectItem, index) => {
@@ -157,7 +173,10 @@ describe("Resume page", () => {
 		const resume = ValidResume();
 
 		// Act
-		render(<Index loaderData={resume} />);
+		const props = {
+			loaderData: resume,
+		} as Route.ComponentProps;
+		render(<Index {...props} />);
 
 		const languagesElement = screen.getByTestId("resume.about.languages");
 		const technologiesElement = screen.getByTestId("resume.about.technologies");

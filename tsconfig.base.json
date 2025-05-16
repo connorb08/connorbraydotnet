@@ -22,7 +22,7 @@
 		"noImplicitThis": true,
 		"useUnknownInCatchVariables": true,
 		/* Additional strict options */
-		"noPropertyAccessFromIndexSignature": true,
+		// "noPropertyAccessFromIndexSignature": true,
 		"noUncheckedIndexedAccess": true,
 		"exactOptionalPropertyTypes": true,
 		"noImplicitOverride": true,
@@ -44,15 +44,6 @@
 
 		/* Library */
 		"lib": ["ESNext"],
-
-		/* URL */
-		"baseUrl": ".",
-		"rootDir": ".",
-
-		// Composite
-		// "composite": true,
-		// "declaration": false,
-
 		"customConditions": ["development"]
 	}
 }

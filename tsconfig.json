@@ -1,4 +1,16 @@
 {
 	"extends": "./tsconfig.base.json",
-	"files": []
+	"files": [],
+	"references": [
+		{
+			"path": "./packages/shared/tsconfig.json"
+		},
+		{
+			"path": "./packages/resume/tsconfig.json"
+		}
+	],
+	"compilerOptions": {
+		"rootDir": ".",
+		"outDir": ".tsbuildinfo"
+	}
 }

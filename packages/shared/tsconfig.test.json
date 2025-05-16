@@ -1,4 +1,7 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["test/**/*"]
+	"include": ["src/**/*", "test/**/*"],
+	"compilerOptions": {
+		"composite": true
+	}
 }

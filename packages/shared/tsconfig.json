@@ -11,5 +11,10 @@
 		{
 			"path": "./tsconfig.build.json"
 		}
-	]
+	],
+	"compilerOptions": {
+		"composite": true,
+		"rootDir": ".",
+		"outDir": ".tsbuildinfo"
+	}
 }

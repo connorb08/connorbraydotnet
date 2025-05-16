@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["build.ts", "src/**/*"],
 	"compilerOptions": {
+		"composite": true,
 		"types": ["bun-types"]
 	}
 }

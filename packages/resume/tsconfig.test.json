@@ -7,7 +7,8 @@
 		"workers",
 		"vite-env.d.ts",
 		"app/**/*.spec.tsx",
-		"app/**/*"
+		"app/**/*",
+		".react-router/types/**/*"
 	],
 	"exclude": ["test/e2e"],
 	"compilerOptions": {
@@ -18,11 +19,8 @@
 			"@testing-library/jest-dom"
 		],
 		"lib": ["ESNext", "DOM"],
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
 		"allowJs": true,
-		"strict": true,
+		"rootDirs": [".", "./.react-router/types"],
 		"jsx": "react-jsx"
 	}
 }
