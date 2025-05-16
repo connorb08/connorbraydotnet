@@ -7,6 +7,12 @@
 		},
 		{
 			"path": "./packages/resume/tsconfig.json"
+		},
+		{
+			"path": "./packages/site/tsconfig.json"
+		},
+		{
+			"path": "./packages/content-manager/tsconfig.json"
 		}
 	],
 	"compilerOptions": {
