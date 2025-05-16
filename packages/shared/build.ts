@@ -1,16 +1,16 @@
-import { join as joinPath } from "node:path";
 import { rm } from "node:fs/promises";
+import { join as joinPath } from "node:path";
 import { Biome, Distribution } from "@biomejs/js-api";
 import Ajv, { _ } from "ajv";
 import { _Code } from "ajv/dist/compile/codegen/code";
 import standaloneCode from "ajv/dist/standalone";
 import addFormats from "ajv-formats";
-import { ResumeSchema } from "#schemas";
 import {
 	type CompilerOptions,
 	ScriptTarget,
 	transpileDeclaration,
 } from "typescript";
+import { ResumeSchema } from "#schemas";
 
 const ajv = new Ajv({
 	strict: true,
@@ -24,11 +24,10 @@ addFormats(ajv);
 ajv.addKeyword({
 	keyword: "isNotEmpty",
 	type: "string",
-	// biome-ignore lint/suspicious/noExplicitAny: allow any
-	validate: (schema: any, data: any) =>
+	validate: (schema: unknown, data: unknown) =>
 		typeof data === "string" && data.trim() !== "",
 	code: (cxt) => {
-		const { data, schema } = cxt;
+		const { data } = cxt;
 		cxt.fail(_`typeof ${data} === "string" && ${data}.trim() === ""`);
 	},
 	errors: "full",

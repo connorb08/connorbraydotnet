@@ -3,7 +3,7 @@
 import { assert, type TestFunction } from "vitest";
 import type { ValidationHandler } from "#types";
 import { ResumeData } from "#types/resume/test-data";
-import { DeepCopy } from "./utils";
+import { DeepCopy } from "../src/utils";
 
 interface ITestData {
 	[TestDescription: string]: TestFunction<object>;

@@ -12,7 +12,8 @@
 		"format": "biome format --write",
 		"lint": "biome lint",
 		"check": "biome lint && biome format",
-		"depcheck": "bunx depcheck"
+		"depcheck": "depcheck",
+		"typecheck": "tsc -b"
 	},
 	"imports": {
 		"#types": "./src/types/index.ts",
@@ -31,6 +32,8 @@
 		"ajv-formats": "*",
 		"@biomejs/js-api": "*",
 		"vitest": "*",
-		"@vitest/coverage-istanbul": "*"
+		"@vitest/coverage-istanbul": "*",
+		"@types/bun": "*",
+		"depcheck": "*"
 	}
 }

@@ -1,6 +1,6 @@
 import type { Resume } from "#types";
-import { DeepCopy } from "../test/utils";
 import { ResumeData } from "./types/resume/test-data";
+import { DeepCopy } from "./utils";
 
 export const ValidResume = () => {
 	return DeepCopy<Resume>(ResumeData);
