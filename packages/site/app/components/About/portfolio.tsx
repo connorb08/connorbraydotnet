@@ -1,12 +1,6 @@
-/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
-import type { PropsWithChildren } from "react";
-import { Suspense } from "react";
-import { Await } from "react-router";
+import type { ResumeProject } from "shared";
 
-// import { Await, Link } from '@remix-run/react';
-
-const Portfolio = ({ projects }: { projects: Promise<Project[]> }) => {
+const Portfolio = ({ projects }: { projects: ResumeProject[] }) => {
 	const bottomBorder = <div className="border-b border-gray-8 mb-5" />;
 
 	return (
@@ -14,26 +8,20 @@ const Portfolio = ({ projects }: { projects: Promise<Project[]> }) => {
 			<div className="p-7 block-section">
 				<h2 className="block-title">Projects</h2>
 
-				<Suspense fallback={<div>loading...</div>}>
-					<Await resolve={projects}>
-						{(projectList) =>
-							projectList.map((project, index, arr) => {
-								return (
-									<div key={index}>
-										<Project {...project} />
-										{index !== arr.length - 1 ? bottomBorder : ""}
-									</div>
-								);
-							})
-						}
-					</Await>
-				</Suspense>
+				{projects.map((project, index, arr) => {
+					return (
+						<div key={index}>
+							<Project {...project} />
+							{index !== arr.length - 1 ? bottomBorder : ""}
+						</div>
+					);
+				})}
 			</div>
 		</>
 	);
 };
 
-const Project = (props: PropsWithChildren<Project>) => {
+const Project = (props: ResumeProject) => {
 	return (
 		<div className="mb-5 item-section">
 			{/* <div className="company-logo bg-blue-500">
@@ -69,7 +57,7 @@ const Project = (props: PropsWithChildren<Project>) => {
 					<p className="text-gray-600">{props.description}</p>
 				</div>
 				<span>
-					<Link to={`/project/${props._id}`}>
+					{/* <Link to={`/project/${props._id}`}>
 						<button
 							className="flex items-center space-x-3 px-3.5 py-1.5 rounded-lg group border border-third bg-white text-third text-sm font-medium transition duration-200 hover:border-third-10 hover:text-white hover:bg-third"
 							type="button"
@@ -90,7 +78,7 @@ const Project = (props: PropsWithChildren<Project>) => {
 							</svg>
 							<span>More Info</span>
 						</button>
-					</Link>
+					</Link> */}
 				</span>
 			</div>
 		</div>

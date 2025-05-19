@@ -49,7 +49,7 @@ describe("ErrorBoundary Component", () => {
 
 		vi.mocked(isRouteErrorResponse).mockReturnValue(true);
 
-		render(<ErrorBoundary error={routeError} />);
+		render(<ErrorBoundary error={routeError} params={{}} />);
 
 		expect(screen.getByText("404: Not Found")).toBeInTheDocument();
 		expect(screen.getByText("Page not found")).toBeInTheDocument();
@@ -59,7 +59,7 @@ describe("ErrorBoundary Component", () => {
 		vi.mocked(isRouteErrorResponse).mockReturnValue(false);
 
 		const error = new Error("Test error");
-		render(<ErrorBoundary error={error} />);
+		render(<ErrorBoundary error={error} params={{}} />);
 
 		expect(screen.getByText("500: Internal Server Error")).toBeInTheDocument();
 	});
@@ -67,7 +67,7 @@ describe("ErrorBoundary Component", () => {
 	it("renders unknown error correctly", () => {
 		vi.mocked(isRouteErrorResponse).mockReturnValue(false);
 
-		render(<ErrorBoundary error={{}} />);
+		render(<ErrorBoundary error={{}} params={{}} />);
 
 		expect(screen.getByText("500: Internal Server Error")).toBeInTheDocument();
 		expect(screen.getByText("Unknown Error")).toBeInTheDocument();

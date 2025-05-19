@@ -1,0 +1,71 @@
+@use "../style.module.scss" as base;
+@use "../../../styles/color.scss" as color;
+
+.section {
+    @include base.block-section;
+    padding: 2rem;
+
+    &__title {
+        @include base.block-title;
+    }
+}
+
+.bottomBorder {
+    border-bottom: 1px solid color.$outline;
+}
+
+.educationItem {
+    display: flex;
+
+    &__schoolLogo {
+        // flex-shrink-0 w-12 h-12 rounded-xl bg-cover
+        flex-shrink: 0;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+        background-size: cover;
+    }
+
+    &__content {
+        width: 100%;
+        margin-left: 1rem;
+
+        &__heading {
+            font-size: 1.125rem;
+            line-height: 1.2;
+            // margin-bottom: 0.25rem;
+            // padding: 0.1rem 0;
+        }
+
+        &__subheading {
+            display: flex;
+            gap: 1rem;
+            line-height: 1.2;
+            // margin-bottom: 0.25rem;
+
+            &__school {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            &__location {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            &__date {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                justify-content: end;
+            }
+        }
+
+        &__description {
+            margin-top: 1.25rem;
+        }
+    }
+}

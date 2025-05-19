@@ -1,6 +1,5 @@
-import { useSearchParams } from "react-router";
+import { ValidResume } from "shared/test-data";
 import About from "#components/About";
-import AboutOld from "#components/AboutOld";
 import type { Route } from "./+types/about";
 
 export const loader = async () => {
@@ -23,16 +22,6 @@ export const loader = async () => {
 };
 
 export default function ({ loaderData }: Route.ComponentProps) {
-	// const params = query();
-	const [searchParams] = useSearchParams();
-	if (searchParams.get("next")) {
-		return (
-			<AboutOld
-				jobs={loaderData.employment_data}
-				education={loaderData.education_data}
-				projects={loaderData.projects}
-			/>
-		);
-	}
-	return <About />;
+	const data = ValidResume();
+	return <About data={data} />;
 }

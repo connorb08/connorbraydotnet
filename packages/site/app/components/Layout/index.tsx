@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
+import Terminal from "#components/Terminal";
 import Navbar from "../Navbar";
-import Terminal from "../Terminal";
 import Header from "./header";
 import style from "./style.module.scss";
 

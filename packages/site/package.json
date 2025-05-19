@@ -14,14 +14,14 @@
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {
-		"#styles/*": "./app/styles/*.scss",
 		"#components/*": "./app/components/*/index.tsx"
 	},
 	"dependencies": {
 		"isbot": "^5.1.17",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"react-router": "^7.5.0"
+		"react-router": "^7.5.0",
+		"shared": "workspace:*"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.0.0",
@@ -31,6 +31,9 @@
 		"@types/react-dom": "^19.0.1",
 		"vite": "^6.2.1",
 		"vite-tsconfig-paths": "^5.1.4"
+	},
+	"peerDependencies": {
+		"react-icons": "*"
 	},
 	"packageManager": "bun@10.8.0"
 }

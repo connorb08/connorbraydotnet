@@ -1,46 +1,7 @@
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
-
 import { memo } from "react";
-import Education from "./education";
+import type { ResumeCareer } from "shared";
 
-// import type { AboutProps, EducationProps, JobProps } from "./types";
-
-interface ResumeProps {
-	jobs: AboutProps["jobs"];
-	education: EducationProps[];
-	hidden: boolean;
-}
-
-const Resume = memo((props: ResumeProps) => {
-	const bottomBorder = <div className="border-b border-gray-8 mb-5" />;
-	const len = props.jobs.length;
-
-	return (
-		<>
-			<div className="p-7 block-section">
-				<h2 className="block-title">Education</h2>
-				{props.education.map((data, index) => {
-					return <Education {...data} key={index} />;
-				})}
-			</div>
-			<div className="p-7 block-section">
-				<h2 className="block-title">Experience</h2>
-
-				{props.jobs.map((job, index) => {
-					return (
-						<div key={job}>
-							<Job {...job} key={`${job}`} />
-							{index !== len - 1 ? bottomBorder : ""}
-						</div>
-					);
-				})}
-			</div>
-		</>
-	);
-});
-
-const Job = memo((props: JobProps) => {
+const Career = memo((career: ResumeCareer) => {
 	return (
 		<div className="mb-5 item-section">
 			<div
@@ -48,14 +9,14 @@ const Job = memo((props: JobProps) => {
 				style={{
 					backgroundPosition: "center",
 					backgroundSize: "cover",
-					backgroundImage: `url('https://connorbray.net/cdn-cgi/image/format=auto/${props.icon_url}')`,
+					backgroundImage: `url('https://connorbray.net/cdn-cgi/image/format=auto/${career.icon_url}')`,
 				}}
 			/>
 
 			<div className="w-full space-y-5">
 				<div className="item-header">
 					<div className="space-y-1.5">
-						<div className="font-medium">{props.position}</div>
+						<div className="font-medium">{career.title}</div>
 						<div className="flex space-x-5">
 							<div className="item-header-info">
 								<svg
@@ -72,7 +33,7 @@ const Job = memo((props: JobProps) => {
 										d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
 									/>
 								</svg>
-								<span>{props.company}</span>
+								<span>{career.company}</span>
 							</div>
 							<div className="item-header-info">
 								<svg
@@ -95,7 +56,7 @@ const Job = memo((props: JobProps) => {
 										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 									/>
 								</svg>
-								<span>{props.location}</span>
+								<span>{career.location}</span>
 							</div>
 						</div>
 					</div>
@@ -117,15 +78,15 @@ const Job = memo((props: JobProps) => {
 								/>
 							</svg>
 							<span>
-								{props.start_date} &ndash; {props.end_date}
+								{career.startDate} &ndash; {career.endDate}
 							</span>
 						</div>
 					</div>
 				</div>
-				<p className="text-gray-600">{props.description}</p>
+				<p className="text-gray-600">{career.about?.join(", ")}</p>
 			</div>
 		</div>
 	);
 });
 
-export default Resume;
+export default Career;

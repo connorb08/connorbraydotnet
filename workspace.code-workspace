@@ -53,6 +53,7 @@
 		"editor.gotoLocation.multipleReferences": "goto",
 		"editor.gotoLocation.multipleTypeDefinitions": "goto",
 		"editor.gotoLocation.multipleDeclarations": "goto",
+		"scss.format.preserveNewLines": true,
 		"[scss]": {
 			"editor.defaultFormatter": "vscode.css-language-features"
 		},

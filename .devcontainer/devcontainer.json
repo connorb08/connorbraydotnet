@@ -20,12 +20,14 @@
 		"vscode": {
 			"extensions": [
 				"nrwl.angular-console",
-				"biomejs.biome",
+				"biomejs.biome@prerelease",
 				"-dbaeumer.vscode-eslint",
 				"GitHub.vscode-github-actions",
 				"ms-vscode.vscode-websearchforcopilot",
 				"pranaygp.vscode-css-peek",
-				"sibiraj-s.vscode-scss-formatter"
+				"sibiraj-s.vscode-scss-formatter",
+				"mrmlnc.vscode-scss",
+				"viijay-kr.react-ts-css"
 			],
 			"settings": {
 				"files.associations": {

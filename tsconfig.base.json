@@ -24,7 +24,7 @@
 		/* Additional strict options */
 		// "noPropertyAccessFromIndexSignature": true,
 		"noUncheckedIndexedAccess": true,
-		"exactOptionalPropertyTypes": true,
+		// "exactOptionalPropertyTypes": true,
 		"noImplicitOverride": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,

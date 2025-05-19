@@ -28,7 +28,7 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 					"Translated legacy codebase to C# .NET, improving code maintainability and scalability",
 					"Designed and implemented end-to-end, unit, and regression tests to ensure functional parity with the original system",
 					"Streamlined deployment infrastructure by automating key components of the CI/CD pipeline",
-					"Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions",
+					"Collaborated with cross-functional teams to improve product modernization",
 					"Oversaw a team of 3 engineers and an intern, providing mentorship and guidance on best practices",
 					"Primary responsibility for product team's translation efforts, 3 million lines of code",
 				],
@@ -70,7 +70,7 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 				description:
 					"Website for a local convenience store, featuring online ordering, product catalog, and store information.",
 				about: [
-					"Includes content management system using AWS S3 and Cloudflare, allowing for easy updates to product catalog and store information",
+					"Includes admin dashboard allowing for easy updates to product catalog and store information",
 					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, and Terraform",
 				],
 			},

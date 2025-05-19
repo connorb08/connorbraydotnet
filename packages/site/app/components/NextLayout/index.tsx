@@ -1,53 +1,13 @@
-import { memo, useState } from "react";
 import { Link, Outlet } from "react-router";
-import { GearIcon, HomeIcon } from "../SvgIcon";
-import SidebarIcon from "../SvgIcon/sidebar";
+import { GearIcon } from "../SvgIcon";
 import Terminal from "../Terminal";
-import style from "./style.module.scss";
-
-const LeftSidebar = memo(() => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const toggleSidebar = () => {
-		setIsOpen((prev) => !prev);
-	};
-
-	return (
-		<div className={`${style.layout__sideBar} ${isOpen ? style.open : ""}`}>
-			<div
-				className={`${style.layout__sideBar__topBox} ${style["--marginLeft"]}`}
-			>
-				<button
-					type="button"
-					className={style.layout__sideBar__topBox__button}
-					onClick={toggleSidebar}
-				>
-					<SidebarIcon
-						className={style.layout__sideBar__topBox__button__icon}
-					/>
-				</button>
-			</div>
-			<nav className={style.layout__sideBar__content}>
-				<nav className={style.layout__sideBar__content__navigation}>
-					<Link
-						to="/"
-						className={style.layout__sideBar__content__navigation__link}
-					>
-						<HomeIcon
-							className={style.layout__sideBar__content__navigation__link__icon}
-						/>
-					</Link>
-				</nav>
-			</nav>
-			<div className={style.layout__sideBar__bottomBox} />
-		</div>
-	);
-});
+import style from "./layout.module.scss";
+import Navbar from "./Navbar";
 
 export default function () {
 	return (
 		<div className={style.layout}>
-			<LeftSidebar />
+			<Navbar />
 			<div className={style.layout__middleColumn}>
 				<header className={style.layout__middleColumn__header}>
 					<Link to="/" className={style.layout__middleColumn__header__logo}>
@@ -85,7 +45,7 @@ export default function () {
 							}
 						}}
 					>
-						<GearIcon className={style.layout__sideBar__topBox__button_icon} />
+						<GearIcon className={style.layout__sideBar__topBox__button__icon} />
 					</button>
 				</div>
 				<div className={style.layout__sideBar__content}>{/* R */}</div>

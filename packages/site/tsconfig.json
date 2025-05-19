@@ -6,8 +6,11 @@
 		{ "path": "./tsconfig.cloudflare.json" }
 	],
 	"compilerOptions": {
-		"composite": true,
-		"rootDir": ".",
-		"outDir": ".tsbuildinfo"
+		"allowJs": true,
+		"checkJs": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true
 	}
 }

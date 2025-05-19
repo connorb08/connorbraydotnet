@@ -1,9 +1,9 @@
 @use "reset.scss";
-@use "font-face.scss";
+@use "font.scss";
 @use "color.scss";
 
 :root {
-    font-family: "Fira Code", monospace;
+    @include font.mono;
     color: color.$primary;
     background-color: color.$surfaceDim;
 }
