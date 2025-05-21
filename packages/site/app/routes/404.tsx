@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 
 export default function () {
 	return (
@@ -14,7 +14,9 @@ export default function () {
 		>
 			<h1>404: Not Found</h1>
 			<p>Looking for something?</p>
-			<Link to="/">{"<- Go back to home"}</Link>
+			<NavLink to="/" viewTransition>
+				{"<- Go back to home"}
+			</NavLink>
 		</div>
 	);
 }

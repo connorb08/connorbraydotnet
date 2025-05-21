@@ -56,3 +56,18 @@ export const ResumeData: Resume = {
 		},
 	],
 };
+
+export const EmptyResume: Resume = {
+	name: "",
+	about: {
+		phoneNumber: "",
+		emailAddress: "",
+		location: "",
+		languages: [],
+		technologies: [],
+		interests: [],
+	},
+	career: [],
+	education: [],
+	projects: [],
+};

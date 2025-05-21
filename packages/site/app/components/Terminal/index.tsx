@@ -79,7 +79,7 @@ const handleKeyDown = (
 			} else {
 				clearTerminal();
 				const path = args.join(" ").replace(/~/g, "");
-				nav(path);
+				nav(path, { viewTransition: true });
 			}
 			break;
 		case "pwd":

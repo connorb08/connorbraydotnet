@@ -1,22 +1,29 @@
 import { memo } from "react";
 import type { ResumeCareer } from "shared";
+import style from "../style.module.scss";
 
-const Career = memo((career: ResumeCareer) => {
+type Props = {
+	icon_url?: string | undefined;
+	data: ResumeCareer;
+};
+
+const Career = memo(({ data, icon_url }: Props) => {
 	return (
-		<div className="mb-5 item-section">
+		// <div className="mb-5 item-section">
+		<div className={style.educationItem}>
 			<div
 				className="flex-shrink-0 w-12 h-12 rounded-xl bg-cover"
 				style={{
 					backgroundPosition: "center",
 					backgroundSize: "cover",
-					backgroundImage: `url('https://connorbray.net/cdn-cgi/image/format=auto/${career.icon_url}')`,
+					backgroundImage: `url('https://connorbray.net/cdn-cgi/image/format=auto/tyler.jpg')`,
 				}}
 			/>
 
 			<div className="w-full space-y-5">
 				<div className="item-header">
 					<div className="space-y-1.5">
-						<div className="font-medium">{career.title}</div>
+						<div className="font-medium">{data.title}</div>
 						<div className="flex space-x-5">
 							<div className="item-header-info">
 								<svg
@@ -33,7 +40,7 @@ const Career = memo((career: ResumeCareer) => {
 										d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
 									/>
 								</svg>
-								<span>{career.company}</span>
+								<span>{data.company}</span>
 							</div>
 							<div className="item-header-info">
 								<svg
@@ -56,7 +63,7 @@ const Career = memo((career: ResumeCareer) => {
 										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 									/>
 								</svg>
-								<span>{career.location}</span>
+								<span>{data.location}</span>
 							</div>
 						</div>
 					</div>
@@ -78,12 +85,12 @@ const Career = memo((career: ResumeCareer) => {
 								/>
 							</svg>
 							<span>
-								{career.startDate} &ndash; {career.endDate}
+								{data.startDate} &ndash; {data.endDate}
 							</span>
 						</div>
 					</div>
 				</div>
-				<p className="text-gray-600">{career.about?.join(", ")}</p>
+				<p className="text-gray-600">{data.about?.join(", ")}</p>
 			</div>
 		</div>
 	);

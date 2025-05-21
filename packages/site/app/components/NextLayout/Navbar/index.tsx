@@ -1,7 +1,7 @@
 import SidebarIcon from "app/components/SvgIcon/sidebar";
 import { memo, type ReactNode, useState } from "react";
 import { VscAccount, VscHome } from "react-icons/vsc";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import style from "../layout.module.scss";
 
 const routes = [
@@ -51,10 +51,12 @@ const Navbar = memo(() => {
 			<nav className={style.layout__sideBar__content}>
 				<nav className={style.layout__sideBar__content__navigation}>
 					{routes.map((route) => (
-						<Link
+						<NavLink
 							to={route.href}
 							className={`${style.layout__sideBar__content__navigation__link}${isOpen ? ` ${style["--sidebarOpen"]}` : ""}`}
 							key={route.id}
+							prefetch="intent"
+							viewTransition
 						>
 							{route.icon(
 								style.layout__sideBar__content__navigation__link__icon,
@@ -64,7 +66,7 @@ const Navbar = memo(() => {
 							>
 								{route.title}
 							</span>
-						</Link>
+						</NavLink>
 					))}
 				</nav>
 			</nav>

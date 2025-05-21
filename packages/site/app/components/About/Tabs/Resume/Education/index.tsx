@@ -1,11 +1,12 @@
 import { CiLocationOn } from "react-icons/ci";
 import { FaGraduationCap, FaRegCalendar } from "react-icons/fa";
 import type { ResumeEducation } from "shared";
-import style from "./style.module.scss";
+import style from "../style.module.scss";
 
-interface EducationProps extends ResumeEducation {
+type Props = {
 	icon_url?: string | undefined;
-}
+	data: ResumeEducation;
+};
 
 function getDateString(startDate?: string, endDate?: string) {
 	if (!endDate) {
@@ -19,8 +20,8 @@ function getDateString(startDate?: string, endDate?: string) {
 	return `${startDate} – ${endDate}`;
 }
 
-export default function Education(education: EducationProps) {
-	const dateString = getDateString(education.startDate, education.endDate);
+export default function Education({ data }: Props) {
+	const dateString = getDateString(data.startDate, data.endDate);
 
 	return (
 		<div className={style.educationItem}>
@@ -34,17 +35,15 @@ export default function Education(education: EducationProps) {
 			/>
 
 			<div className={style.educationItem__content}>
-				<h3 className={style.educationItem__content__heading}>
-					{education.degree}
-				</h3>
+				<h3 className={style.educationItem__content__heading}>{data.degree}</h3>
 				<div className={style.educationItem__content__subheading}>
 					<div className={style.educationItem__content__subheading__school}>
 						<FaGraduationCap />
-						<span>{education.school}</span>
+						<span>{data.school}</span>
 					</div>
 					<div className={style.educationItem__content__subheading__location}>
 						<CiLocationOn />
-						<span>{education.location}</span>
+						<span>{data.location}</span>
 					</div>
 					{dateString !== "" ? (
 						<div className={style.educationItem__content__subheading__date}>
@@ -54,8 +53,31 @@ export default function Education(education: EducationProps) {
 					) : null}
 				</div>
 				<div className={style.educationItem__content__description}>
-					{education.about?.join(", ")}
+					{data.about?.join(", ")}
 				</div>
+			</div>
+		</div>
+	);
+}
+
+export function EducationSkeleton() {
+	return (
+		<div className={`${style.educationItem}`} aria-busy="true">
+			<div
+				className={`${style.educationItem__schoolLogo} ${style.skeleton}`}
+				style={{
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+				}}
+			/>
+			<div className={`${style.educationItem__content} ${style.skeleton}`}>
+				<div className={style.educationItem__content__heading} />
+				<div className={style.educationItem__content__subheading}>
+					<div className={style.educationItem__content__subheading__school} />
+					<div className={style.educationItem__content__subheading__location} />
+					<div className={style.educationItem__content__subheading__date} />
+				</div>
+				<div className={style.educationItem__content__description} />
 			</div>
 		</div>
 	);

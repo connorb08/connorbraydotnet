@@ -13,13 +13,12 @@ import "./styles/material.scss";
 
 export const links: Route.LinksFunction = () => [];
 
-// export function loader() {
-// 	// Print all environment variables available to the server
-// 	console.log(import.meta); //process.versions.bun);
-// 	return {
-// 		name: "Connor Bray",
-// 	};
-// }
+export const meta: Route.MetaFunction = () => {
+	return [
+		{ title: "Connor Bray" },
+		{ name: "description", content: "connorbray.net" },
+	];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (

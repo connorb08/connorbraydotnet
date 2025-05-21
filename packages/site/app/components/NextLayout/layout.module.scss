@@ -188,6 +188,9 @@
                 overflow-y: auto;
                 padding: 0rem 1.5rem;
                 scrollbar-color: color.$tertiary color.$surfaceContainer;
+
+                view-transition-name: mainContent;
+
             }
         }
 
@@ -198,4 +201,36 @@
 
     }
 
+}
+
+::view-transition-old(mainContent) {
+    animation: shrink-out 0.5s ease-out forwards;
+}
+
+::view-transition-new(mainContent) {
+    animation: grow-in 0.5s ease-out forwards;
+}
+
+@keyframes shrink-out {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes grow-in {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
