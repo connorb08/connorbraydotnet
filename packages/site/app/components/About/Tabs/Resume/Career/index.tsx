@@ -1,5 +1,8 @@
 import { memo } from "react";
+import { CiLocationOn } from "react-icons/ci";
+import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
 import type { ResumeCareer } from "shared";
+import { getDateString } from "../Education";
 import style from "../style.module.scss";
 
 type Props = {
@@ -8,89 +11,39 @@ type Props = {
 };
 
 const Career = memo(({ data, icon_url }: Props) => {
+	const dateString = getDateString(data.startDate, data.endDate);
 	return (
-		// <div className="mb-5 item-section">
-		<div className={style.educationItem}>
+		<div className={style.listItem}>
 			<div
-				className="flex-shrink-0 w-12 h-12 rounded-xl bg-cover"
+				className={style.listItem__logo}
 				style={{
 					backgroundPosition: "center",
 					backgroundSize: "cover",
-					backgroundImage: `url('https://connorbray.net/cdn-cgi/image/format=auto/tyler.jpg')`,
+					backgroundImage: `url('https://content.connorbray.net/images/tyler.png')`,
 				}}
 			/>
 
-			<div className="w-full space-y-5">
-				<div className="item-header">
-					<div className="space-y-1.5">
-						<div className="font-medium">{data.title}</div>
-						<div className="flex space-x-5">
-							<div className="item-header-info">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-									/>
-								</svg>
-								<span>{data.company}</span>
-							</div>
-							<div className="item-header-info">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-									/>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-									/>
-								</svg>
-								<span>{data.location}</span>
-							</div>
-						</div>
+			<div className={style.listItem__content}>
+				<h3 className={style.listItem__content__heading}>{data.title}</h3>
+				<div className={style.listItem__content__subheading}>
+					<div className={style.listItem__content__subheading__company}>
+						<FaBriefcase />
+						<span>{data.company}</span>
 					</div>
-					<div className="space-y-2 sm:text-right">
-						<div className="job-item-badge">{}</div>
-						<div className="item-header-info">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								className="h-4 w-4"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-								/>
-							</svg>
-							<span>
-								{data.startDate} &ndash; {data.endDate}
-							</span>
-						</div>
+					<div className={style.listItem__content__subheading__location}>
+						<CiLocationOn />
+						<span>{data.location}</span>
 					</div>
+					{dateString !== "" ? (
+						<div className={style.listItem__content__subheading__date}>
+							<FaRegCalendar />
+							<span>{dateString}</span>
+						</div>
+					) : null}
 				</div>
-				<p className="text-gray-600">{data.about?.join(", ")}</p>
+				<div className={style.listItem__content__description}>
+					{data.about?.join(", ")}
+				</div>
 			</div>
 		</div>
 	);

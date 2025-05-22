@@ -1,26 +1,39 @@
 import { useEffect, useState } from "react";
 
+type SuccessState<T> = {
+	data: T;
+	error: null;
+	loading: false;
+};
+type FailureState<T> = {
+	data: T;
+	error: Error;
+	loading: false;
+};
+type LoadingState<T> = {
+	data: T;
+	error: null;
+	loading: true;
+};
+
+type StateData<T> = SuccessState<T> | FailureState<T> | LoadingState<T>;
+
 export function usePromise<T>(promise: Promise<T>, defaultValue: T) {
-	const [data, setData] = useState<T>(defaultValue);
-	const [error, setError] = useState<Error | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [state, setState] = useState<StateData<T>>({
+		data: defaultValue,
+		error: null,
+		loading: true,
+	});
 
 	useEffect(() => {
-		setLoading(true);
 		promise
 			.then((result) => {
-				setData(result);
-				setLoading(false);
+				setState({ data: result, error: null, loading: false });
 			})
 			.catch((err) => {
-				setError(err);
-				setLoading(false);
+				setState({ data: defaultValue, error: err, loading: false });
 			});
-	}, [promise]);
+	}, [promise, defaultValue]);
 
-	return { data, error, loading } as {
-		data: T;
-		error: Error | null;
-		loading: boolean;
-	};
+	return state;
 }

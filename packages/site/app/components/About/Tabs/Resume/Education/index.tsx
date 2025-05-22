@@ -8,7 +8,7 @@ type Props = {
 	data: ResumeEducation;
 };
 
-function getDateString(startDate?: string, endDate?: string) {
+export function getDateString(startDate?: string, endDate?: string) {
 	if (!endDate) {
 		return "";
 	}
