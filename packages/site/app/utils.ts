@@ -18,7 +18,7 @@ type LoadingState<T> = {
 
 type StateData<T> = SuccessState<T> | FailureState<T> | LoadingState<T>;
 
-export function usePromise<T>(promise: Promise<T>, defaultValue: T) {
+export function usePromise<T>(promise: Promise<T> | T, defaultValue: T) {
 	const [state, setState] = useState<StateData<T>>({
 		data: defaultValue,
 		error: null,
@@ -26,13 +26,17 @@ export function usePromise<T>(promise: Promise<T>, defaultValue: T) {
 	});
 
 	useEffect(() => {
-		promise
-			.then((result) => {
-				setState({ data: result, error: null, loading: false });
-			})
-			.catch((err) => {
-				setState({ data: defaultValue, error: err, loading: false });
-			});
+		if (promise instanceof Promise) {
+			promise
+				.then((result) => {
+					setState({ data: result, error: null, loading: false });
+				})
+				.catch((err) => {
+					setState({ data: defaultValue, error: err, loading: false });
+				});
+		} else {
+			setState({ data: promise, error: null, loading: false });
+		}
 	}, [promise, defaultValue]);
 
 	return state;

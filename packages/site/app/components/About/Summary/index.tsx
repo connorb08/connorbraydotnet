@@ -51,7 +51,8 @@ export const UserBlock = memo(() => {
 								width: "90px",
 								height: "90px",
 							}}
-							className="user-photo"
+							// className="user-photo"
+							className={style.userBlock__content__headshot}
 							decoding="sync"
 							loading="eager"
 							src="https://connorbray.net/cdn-cgi/image/format=auto,fit=scale-down,width=180/https://content.connorbray.net/images/headshot.jpeg"
@@ -94,7 +95,7 @@ export const UserBlock = memo(() => {
 	);
 });
 
-export const Information = memo(() => {
+export const InformationBlock = memo(() => {
 	return (
 		<div className={style.information}>
 			<h2 className={style.information__title}>Information</h2>
@@ -113,6 +114,22 @@ export const Information = memo(() => {
 						4+ years
 					</div>
 				</div>
+			</div>
+		</div>
+	);
+});
+
+export const SkillsBlock = memo(() => {
+	return (
+		<div className={style.skills}>
+			<h2 className={style.skills__title}>Skills</h2>
+			<div className={style.skills__content}>
+				<span className={style.skills__content__tag}>JavaScript</span>
+				<span className={style.skills__content__tag}>React</span>
+				<span className={style.skills__content__tag}>Web Development</span>
+				<span className={style.skills__content__tag}>Python</span>
+				<span className={style.skills__content__tag}>HTML/CSS</span>
+				<span className={style.skills__content__tag}>C</span>
 			</div>
 		</div>
 	);

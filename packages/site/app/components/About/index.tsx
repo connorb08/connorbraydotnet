@@ -1,11 +1,9 @@
 import { memo, useState } from "react";
-import "./style.css";
 import { FaLinkedin as LinkedinIcon } from "react-icons/fa";
 import { VscGithub as GithubIcon } from "react-icons/vsc";
 import { Link } from "react-router";
 import type { Resume } from "shared";
-import Information from "./information";
-import { UserBlock } from "./Summary";
+import { InformationBlock, SkillsBlock, UserBlock } from "./Summary";
 import style from "./style.module.scss";
 import Leadership from "./Tabs/Leadership/leadership";
 import Portfolio from "./Tabs/Portfolio/portfolio";
@@ -28,27 +26,9 @@ export const About = memo((props: Props) => {
 		<div className={style.container}>
 			<div className={style.container__grid}>
 				<div className={style.container__grid__left}>
-					{
-						//#region User Block
-					}
 					<UserBlock />
-					{
-						//#endregion User Block
-					}
-					<Information />
-					<div className={style.skills}>
-						<h2 className={style.skills__title}>Skills</h2>
-						<div className={style.skills__content}>
-							<span className={style.skills__content__tag}>JavaScript</span>
-							<span className={style.skills__content__tag}>React</span>
-							<span className={style.skills__content__tag}>
-								Web Development
-							</span>
-							<span className={style.skills__content__tag}>Python</span>
-							<span className={style.skills__content__tag}>HTML/CSS</span>
-							<span className={style.skills__content__tag}>C</span>
-						</div>
-					</div>
+					<InformationBlock />
+					<SkillsBlock />
 				</div>
 				<div className={style.container__grid__main}>
 					<div className={style.aboutBlock}>

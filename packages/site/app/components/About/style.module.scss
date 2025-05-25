@@ -150,6 +150,16 @@
             margin-bottom: 2rem;
         }
 
+        &__headshot {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 0.75rem;
+            border: 2px solid var(--gray-3);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: -2.5rem;
+        }
+
         &__downloadButton {
             text-decoration: none;
             display: flex;

@@ -1,6 +1,10 @@
 import type { ResumeProject } from "shared";
 
-const Portfolio = ({ projects }: { projects: ResumeProject[] }) => {
+const Portfolio = ({
+	projects,
+}: {
+	projects?: ResumeProject[] | undefined;
+}) => {
 	const bottomBorder = <div className="border-b border-gray-8 mb-5" />;
 
 	return (
@@ -8,7 +12,7 @@ const Portfolio = ({ projects }: { projects: ResumeProject[] }) => {
 			<div className="p-7 block-section">
 				<h2 className="block-title">Projects</h2>
 
-				{projects.map((project, index, arr) => {
+				{projects?.map((project, index, arr) => {
 					return (
 						<div key={index}>
 							<Project {...project} />
