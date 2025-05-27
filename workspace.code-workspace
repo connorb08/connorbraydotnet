@@ -55,7 +55,7 @@
 		"editor.gotoLocation.multipleDeclarations": "goto",
 		"scss.format.preserveNewLines": true,
 		"[scss]": {
-			"editor.defaultFormatter": "vscode.css-language-features"
+			"editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
 		},
 		"[terraform]": {
 			"editor.defaultFormatter": "hashicorp.terraform"

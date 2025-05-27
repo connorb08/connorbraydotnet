@@ -77,7 +77,6 @@ $primaryFixedDim: var(--md-sys-color-primary-fixed-dim);
 $secondaryFixedDim: var(--md-sys-color-secondary-fixed-dim);
 $tertiaryFixedDim: var(--md-sys-color-tertiary-fixed-dim);
 
-
 @mixin surfaceContainer {
     background-color: $surfaceContainer;
     color: $onSurface;

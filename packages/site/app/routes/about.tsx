@@ -1,6 +1,6 @@
-import { usePromise } from "app/utils";
 import type { Resume } from "shared";
 import { ValidResume } from "shared/test-data";
+import { usePromise } from "#app/utils";
 import About from "#components/About";
 import { EmptyResume } from "../../../shared/src/types/resume/test-data";
 import type { Route } from "./+types/about";
@@ -44,6 +44,7 @@ export async function clientLoader({
 }
 
 export default function ({ loaderData }: Route.ComponentProps) {
+	// @ts-expect-error unused error variable
 	const { data, error, loading } = usePromise<Resume>(
 		loaderData.resumeData,
 		EmptyResume,

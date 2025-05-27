@@ -35,7 +35,6 @@
 		"shared": "workspace:*"
 	},
 	"devDependencies": {
-		"@castlenine/vite-remove-attribute": "^1.0.2",
 		"@cloudflare/vite-plugin": "^1.0.5",
 		"@cloudflare/vitest-pool-workers": "^0.8.15",
 		"@react-router/dev": "^7.5.0",
@@ -51,7 +50,8 @@
 		"@testing-library/react": "*",
 		"@vitejs/plugin-react": "*",
 		"@vitest/coverage-istanbul": "*",
-		"vitest": "*"
+		"vitest": "*",
+		"vite-plugin-react-remove-attributes": "*"
 	},
 	"packageManager": "bun@10.8.0"
 }

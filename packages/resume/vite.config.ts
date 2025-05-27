@@ -1,23 +1,30 @@
 import { resolve } from "node:path";
-import removeAttribute from "@castlenine/vite-remove-attribute";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
+import removeAttributesPlugin from "vite-plugin-react-remove-attributes";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const ENV_NAME = process.env.NODE_ENV;
+const IS_PRODUCTION = ENV_NAME === "production";
+const IS_DEVELOPMENT = ENV_NAME === "development";
+
+const removeAttributes = (
+	removeAttributesPlugin as unknown as {
+		default: typeof removeAttributesPlugin;
+	}
+).default;
 
 const viteConfig = defineConfig({
 	plugins: [
-		IS_PRODUCTION
-			? removeAttribute({
-					extensions: ["tsx"],
-					attributes: ["data-testid"],
-				})
-			: null,
 		reactRouter(),
 		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		tsconfigPaths(),
+		IS_PRODUCTION
+			? removeAttributes({
+					attributes: ["data-testid"],
+				})
+			: null,
 	],
 	server: {
 		host: "127.0.0.1",
@@ -25,7 +32,7 @@ const viteConfig = defineConfig({
 		hmr: true,
 	},
 	build: {
-		sourcemap: process.env.NODE_ENV === "development",
+		sourcemap: IS_DEVELOPMENT,
 	},
 	resolve: {
 		alias: {

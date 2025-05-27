@@ -1,3 +1,4 @@
+
 export const Resume = validate10;
 const schema11 = {
 	$id: "Resume",
@@ -592,7 +593,8 @@ function validate10(
 							const data16 = data12.startDate;
 							if (typeof data16 !== "string" && data16 !== null) {
 								const err29 = {
-									instancePath: `${instancePath}/education/${i3}/startDate`,
+									instancePath:
+										`${instancePath}/education/${i3}/startDate`,
 									schemaPath:
 										"#/properties/education/items/properties/startDate/type",
 									keyword: "type",
@@ -633,7 +635,8 @@ function validate10(
 								for (let i4 = 0; i4 < len4; i4++) {
 									if (typeof data18[i4] !== "string") {
 										const err31 = {
-											instancePath: `${instancePath}/education/${i3}/about/${i4}`,
+											instancePath:
+												`${instancePath}/education/${i3}/about/${i4}`,
 											schemaPath:
 												"#/properties/education/items/properties/about/items/type",
 											keyword: "type",
@@ -857,7 +860,8 @@ function validate10(
 								for (let i6 = 0; i6 < len6; i6++) {
 									if (typeof data26[i6] !== "string") {
 										const err44 = {
-											instancePath: `${instancePath}/career/${i5}/about/${i6}`,
+											instancePath:
+												`${instancePath}/career/${i5}/about/${i6}`,
 											schemaPath:
 												"#/properties/career/items/properties/about/items/type",
 											keyword: "type",
@@ -997,7 +1001,8 @@ function validate10(
 						if (data30.description !== undefined) {
 							if (typeof data30.description !== "string") {
 								const err52 = {
-									instancePath: `${instancePath}/projects/${i7}/description`,
+									instancePath:
+										`${instancePath}/projects/${i7}/description`,
 									schemaPath:
 										"#/properties/projects/items/properties/description/type",
 									keyword: "type",
@@ -1019,7 +1024,8 @@ function validate10(
 								for (let i8 = 0; i8 < len8; i8++) {
 									if (typeof data33[i8] !== "string") {
 										const err53 = {
-											instancePath: `${instancePath}/projects/${i7}/about/${i8}`,
+											instancePath:
+												`${instancePath}/projects/${i7}/about/${i8}`,
 											schemaPath:
 												"#/properties/projects/items/properties/about/items/type",
 											keyword: "type",

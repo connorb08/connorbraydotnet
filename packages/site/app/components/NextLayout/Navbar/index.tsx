@@ -1,7 +1,7 @@
-import SidebarIcon from "app/components/SvgIcon/sidebar";
 import { memo, type ReactNode, useState } from "react";
 import { VscAccount, VscHome } from "react-icons/vsc";
-import { Link, NavLink, useLocation } from "react-router";
+import { NavLink, useLocation } from "react-router";
+import { SidebarIcon } from "#components/SvgIcon";
 import style from "../layout.module.scss";
 
 const routes = [

@@ -26,6 +26,7 @@
 		"nx": "20.8.0",
 		"tslib": "^2.3.0",
 		"typescript": "^5.8.3",
+		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^3.1.2",
 		"wrangler": "^4.14.1"
 	},
@@ -33,13 +34,13 @@
 	"packageManager": "bun@10.8.0",
 	"private": true,
 	"scripts": {
-		"check": "bun run check:format && bun run check:lint",
-		"check:format": "biome format",
-		"check:lint": "biome lint",
+		"precommit": "bun run checks",
+		"checks": "bun run build && bun run test && bun run typecheck && bun run format && bun run lint",
+		"format": "biome format && nx run-many -t format",
+		"lint": "biome lint && nx run-many -t lint",
 		"typecheck": "nx run-many -t typecheck",
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build",
-		"ci": "nx run-many -t build",
 		"cloc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore",
 		"depcheck": "nx run-many -t depcheck"
 	},
