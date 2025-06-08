@@ -19,6 +19,10 @@
 		{
 			"path": "./packages/shared",
 			"name": "shared"
+		},
+		{
+			"path": "./packages/database",
+			"name": "database"
 		}
 	],
 	"settings": {

@@ -1,0 +1,20 @@
+{
+	"name": "database",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"cf-typegen": "wrangler types"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*"
+	},
+	"dependencies": {
+		"kysely": "^0.28.2",
+		"kysely-do": "^0.0.1-rc.1",
+		"uuid": "^11.1.0"
+	}
+}

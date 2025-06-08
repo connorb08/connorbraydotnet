@@ -13,6 +13,9 @@
 		},
 		{
 			"path": "./packages/content-manager/tsconfig.json"
+		},
+		{
+			"path": "./packages/database/tsconfig.json"
 		}
 	],
 	"compilerOptions": {
