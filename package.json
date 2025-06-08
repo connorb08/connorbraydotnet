@@ -28,7 +28,7 @@
 		"typescript": "^5.8.3",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^3.1.2",
-		"wrangler": "^4.14.1"
+		"wrangler": "^4.19.1"
 	},
 	"license": "UNLICENSED",
 	"packageManager": "bun@10.8.0",

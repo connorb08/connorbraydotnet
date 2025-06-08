@@ -1,0 +1,23 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "content-manager",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-28",
+	"r2_buckets": [
+		{
+			"binding": "BUCKET",
+			"bucket_name": "connorbray-net",
+			"preview_bucket_name": "connorbray-net-preview"
+		}
+	],
+	"images": {
+		"binding": "IMAGES"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"dev": {
+		"ip": "127.0.0.1",
+		"port": 9997
+	}
+}

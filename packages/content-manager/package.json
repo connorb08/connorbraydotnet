@@ -4,11 +4,8 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev -c wrangler.jsonc -c backend/wrangler.jsonc",
-		"start": "wrangler dev",
-		"typegen:backend": "wrangler types --cwd backend",
-		"typegen:frontend": "wrangler types",
-		"typegen": "bun run typegen:backend && bun run typegen:frontend",
+		"dev": "wrangler dev --experimental-images-local-mode",
+		"typegen": "wrangler types",
 		"seed": "bun run seed.ts",
 		"format": "biome format",
 		"lint": "biome lint",

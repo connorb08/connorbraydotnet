@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ../.env
+
 alias r="bun run"
 alias tf="terraform"
 alias n="bun nx run"
