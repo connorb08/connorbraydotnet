@@ -1,5 +1,6 @@
 @use "../../style.module.scss" as base;
 @use "../../../../styles/color.scss" as color;
+@use "../../../../styles/variables.scss" as vars;
 
 .section {
     @include base.block-section;
@@ -21,10 +22,12 @@
     border-radius: 1rem;
 
     animation: shimmer 1.5s infinite linear;
-    background-image: linear-gradient(90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            rgba(255, 255, 255, 0) 100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
     background-size: 200% 100%;
 
     @keyframes shimmer {
@@ -40,12 +43,9 @@
     *::after {
         content: "\00a0";
     }
-
 }
 
 .contentblock {
-
-
     &__listItem {
         display: flex;
 
@@ -56,7 +56,6 @@
             border-radius: 0.75rem;
             background-size: cover;
         }
-
     }
 }
 
@@ -85,6 +84,11 @@
             gap: 1rem;
             line-height: 1.2;
 
+            @media (max-width: vars.breakpoint(sm)) {
+                flex-direction: column;
+                gap: 0.1rem;
+            }
+
             &__company {
                 display: flex;
                 gap: 0.5rem;
@@ -103,13 +107,15 @@
                 align-items: center;
                 gap: 0.5rem;
                 justify-content: end;
+                @media (max-width: vars.breakpoint(sm)) {
+                    justify-content: start;
+                }
             }
         }
 
         &__description {
             margin-top: 1.25rem;
         }
-
     }
 }
 
@@ -139,6 +145,11 @@
             gap: 1rem;
             line-height: 1.2;
 
+            @media (max-width: vars.breakpoint(sm)) {
+                flex-direction: column;
+                gap: 0.1rem;
+            }
+
             &__school {
                 display: flex;
                 gap: 0.5rem;
@@ -157,6 +168,9 @@
                 align-items: center;
                 gap: 0.5rem;
                 justify-content: end;
+                @media (max-width: vars.breakpoint(sm)) {
+                    justify-content: start;
+                }
             }
         }
 

@@ -8,10 +8,8 @@
 
 .layout {
     box-sizing: border-box;
-    // height: 100%;
-    // padding-bottom: 120px;
     display: flex;
-    height: calc(100% - 121px);
+    height: 100%;
 
     &__column {
         height: 100%;
@@ -24,16 +22,6 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        // transition: margin-left 0.3s ease;
-        // margin-left: 50px;
-
-        // &--shifted {
-        //     margin-left: 200px;
-        // }
-
-        // &--normal {
-        //     margin-left: 50px;
-        // }
     }
 }
 
@@ -46,17 +34,19 @@
     position: relative;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: repeating-linear-gradient(0deg,
-                transparent,
-                transparent 2px,
-                rgba(color.$primary, 0.03) 2px,
-                rgba(color.$primary, 0.03) 4px);
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(color.$primary, 0.03) 2px,
+            rgba(color.$primary, 0.03) 4px
+        );
         pointer-events: none;
     }
 }
@@ -107,7 +97,6 @@
 }
 
 @keyframes blink {
-
     0%,
     100% {
         opacity: 1;

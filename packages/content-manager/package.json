@@ -11,5 +11,9 @@
 		"lint": "biome lint",
 		"typecheck": "tsc -b && tsc -p backend/tsconfig.json",
 		"depcheck": "bunx depcheck"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*"
 	}
 }

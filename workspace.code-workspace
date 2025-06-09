@@ -23,6 +23,10 @@
 		{
 			"path": "./packages/database",
 			"name": "database"
+		},
+		{
+			"path": "./packages/admin",
+			"name": "admin"
 		}
 	],
 	"settings": {

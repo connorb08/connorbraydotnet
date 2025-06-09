@@ -5,7 +5,7 @@ import About from "#components/About";
 import { EmptyResume } from "../../../shared/src/types/resume/test-data";
 import type { Route } from "./+types/about";
 
-export async function loader() {
+export async function loader({ context }: Route.LoaderArgs) {
 	const resumeData: Promise<Resume> = new Promise((resolve) => {
 		setTimeout(() => resolve(ValidResume()), 1000);
 	});

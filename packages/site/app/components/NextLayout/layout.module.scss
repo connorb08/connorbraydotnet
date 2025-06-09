@@ -1,8 +1,8 @@
 @use "../../styles/color.scss";
 @use "../../styles/font.scss";
+@use "../../styles/variables.scss";
 
 .layout {
-    height: 100%;
     display: flex;
 
     &__sideBar {
@@ -11,6 +11,10 @@
         flex-direction: column;
         width: 52px;
         transition: width 0.3s ease;
+
+        @media (max-width: variables.breakpoint(md)) {
+            display: none;
+        }
 
         &__topBox {
             display: flex;
@@ -46,13 +50,11 @@
                         transform: scale(-1, 1);
                     }
                 }
-
             }
 
             &.--marginLeft {
                 margin-left: 6px;
             }
-
         }
 
         &__bottomBox {
@@ -110,19 +112,17 @@
                     &:focus {
                         outline-color: color.$primary;
                     }
-
                 }
             }
-
         }
 
         &.open {
             width: 10rem;
         }
-
     }
 
     &__middleColumn {
+        width: 100%;
         display: flex;
         flex-direction: column;
         flex: 1;
@@ -135,7 +135,6 @@
             justify-content: center;
 
             &__logo {
-
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -157,7 +156,6 @@
                     animation: blink 1s step-end infinite;
 
                     @keyframes blink {
-
                         0%,
                         100% {
                             opacity: 1;
@@ -168,12 +166,11 @@
                         }
                     }
                 }
-
             }
-
         }
 
         &__content {
+            box-sizing: border-box;
             flex: 1;
             background-color: color.$surfaceContainer;
             color: color.$onSurface;
@@ -182,25 +179,33 @@
             border-radius: 2rem;
             overflow: hidden;
 
+            @media (max-width: variables.breakpoint(md)) {
+                padding: 0rem;
+            }
+
             &__container {
                 @include font.sans;
                 height: 100%;
                 overflow-y: auto;
                 padding: 0rem 1.5rem;
                 scrollbar-color: color.$tertiary color.$surfaceContainer;
-
                 view-transition-name: mainContent;
 
+                @media (max-width: variables.breakpoint(md)) {
+                    padding: 0rem;
+                }
             }
         }
 
         &__footer {
             @include color.surfaceDim;
             padding: 1rem 0;
+
+            @media (max-width: variables.breakpoint(md)) {
+                display: none;
+            }
         }
-
     }
-
 }
 
 ::view-transition-old(mainContent) {

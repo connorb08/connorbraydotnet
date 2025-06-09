@@ -22,7 +22,7 @@
 }
 
 .container {
-    width: clamp(20rem, 100%, 80rem);
+    width: 100%;
     padding: clamp(1rem, 3vw, 2rem);
     margin: 0 auto;
 
@@ -30,6 +30,7 @@
         display: grid;
         gap: 1.25rem;
         grid-template-columns: minmax(min(100%, 15rem), 1fr) minmax(min(100%, 30rem), 2fr);
+        width: 100%;
 
         @media (max-width: vars.breakpoint(lg)) {
             grid-template-columns: 1fr;
@@ -37,6 +38,7 @@
 
         &__left {
             display: flex;
+            width: 100%;
             flex-direction: column;
             gap: 1.25rem;
         }
@@ -45,6 +47,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
+            width: 100%;
         }
     }
 }
@@ -118,13 +121,13 @@
                 border-bottom: 2px solid color.$secondary;
             }
         }
-
-
     }
 }
 
 .userBlock {
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
     border-radius: 1rem;
     overflow: hidden;
 
@@ -174,7 +177,6 @@
             position: relative;
             box-sizing: border-box;
 
-
             &:hover {
                 background-color: color.$secondary;
                 color: color.$onSecondary;
@@ -210,7 +212,6 @@
                     height: 1.5rem;
                 }
             }
-
         }
     }
 }
@@ -264,8 +265,6 @@
             font-size: 0.875rem;
             background-color: color.$tertiary;
             color: color.$onTertiary;
-
         }
     }
-
 }

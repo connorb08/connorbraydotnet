@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-source ../.env
+source $(dirname "${BASH_SOURCE[0]}")/.env
 
 alias r="bun run"
 alias tf="terraform"

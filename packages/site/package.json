@@ -5,6 +5,7 @@
 	"scripts": {
 		"build": "react-router build",
 		"cf-typegen": "wrangler types 1> /dev/null",
+		"typegen": "wrangler types && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",

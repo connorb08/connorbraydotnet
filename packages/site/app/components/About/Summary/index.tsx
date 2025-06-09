@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router";
+import { CONTENT_PATH } from "#app/config";
 import style from "../style.module.scss";
 
 // const EmploymentStatus = ({
@@ -55,7 +56,7 @@ export const UserBlock = memo(() => {
 							className={style.userBlock__content__headshot}
 							decoding="sync"
 							loading="eager"
-							src="https://connorbray.net/cdn-cgi/image/format=auto,fit=scale-down,width=180/https://content.connorbray.net/images/headshot.jpeg"
+							src={CONTENT_PATH("images/headshot.jpeg?size=sm")}
 							alt="Headshot of Connor Bray"
 						/>
 					</picture>

@@ -9,22 +9,20 @@ function Layout() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
 	return (
-		<>
-			<div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-				<div className={style.layout}>
-					<Navbar isOpen={isNavOpen} onToggle={setIsNavOpen} />
-					<div
-						className={`${style.layout__content} ${isNavOpen ? style["layout__content--shifted"] : style["layout__content--normal"]}`}
-					>
-						<Header />
-						<main className={style.main}>
-							<Outlet />
-						</main>
-					</div>
+		<div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+			<div className={style.layout}>
+				<Navbar isOpen={isNavOpen} onToggle={setIsNavOpen} />
+				<div
+					className={`${style.layout__content} ${isNavOpen ? style["layout__content--shifted"] : style["layout__content--normal"]}`}
+				>
+					<Header />
+					<main className={style.main}>
+						<Outlet />
+					</main>
 				</div>
-				<Terminal />
 			</div>
-		</>
+			<Terminal />
+		</div>
 	);
 }
 
