@@ -1,0 +1,24 @@
+{
+  "name": "linkedin-game-solver",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "bun run src/index.ts"
+  },
+  "imports": {
+    "#config": "./config.ts",
+    "#root/*": "./src/*"
+  },
+  "keywords": [],
+  "author": "Connor Bray",
+  "license": "MIT",
+  "type": "module",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^24.0.1"
+  },
+  "dependencies": {
+    "playwright": "^1.53.0"
+  }
+}

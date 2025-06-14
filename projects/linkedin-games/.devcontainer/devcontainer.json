@@ -1,0 +1,7 @@
+{
+	"name": "linked-game-solver",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	}
+}
