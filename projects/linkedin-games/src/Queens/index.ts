@@ -150,6 +150,7 @@ class Graph {
 
 	private removeNodeAndNeighbors(node: Node) {
 		this.removeNode(node);
+		this.colors.delete(node.color);
 		for (const edge of node.edges) {
 			const edgeNode = this.nodes.get(edge);
 			if (edgeNode) {
@@ -250,34 +251,50 @@ export const PlayQueens = async () => {
 		);
 
 		graph.createEdges();
-		// graph.print();
-		// graph.printColors();
-		graph.placeQueen(41);
+		// graph.placeQueen(41);
+
 		await SearchGraph(graph);
+
 		graph.print();
 		graph.printColors();
-		console.log(graph.rows());
 		await page.pause();
 	});
 };
 
 async function SearchGraph(graph: Graph) {
-	for (const [color, nodes] of graph.getColors()) {
-		if (nodes.size === 1) {
-			const idx = nodes.values().next().value;
-			if (idx === undefined) {
-				throw new Error(`No node found for color ${color}`);
+	// for (const [color, nodes] of graph.getColors()) {
+	// 	console.log(color, nodes.size);
+	// 	if (nodes.size === 1) {
+	// 		console.log("inner loop");
+	// 		console.log(nodes);
+	// 		const idx = nodes.values().next().value;
+	// 		if (idx === undefined) {
+	// 			throw new Error(`No node found for color ${color}`);
+	// 		}
+	// 		graph.placeQueen(idx);
+	// 		break;
+	// 	}
+	// }
+
+	let continueSearch = true;
+
+	search: while (continueSearch) {
+		console.log("loop");
+		for (const [color, nodes] of graph.getColors()) {
+			console.log(nodes.size);
+			if (nodes.size === 1) {
+				console.log("inner loop");
+				console.log(nodes);
+				const idx = nodes.values().next().value;
+				if (idx === undefined) {
+					throw new Error(`No node found for color ${color}`);
+				}
+				graph.placeQueen(idx);
+				continue search;
 			}
-			graph.placeQueen(idx);
 		}
+		continueSearch = false;
 	}
 }
-
-/*
-0 1 2 3
-4 5 6 7
-8 9 10 11
-12 13 14 15
-*/
 
 export default PlayQueens;
