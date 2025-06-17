@@ -38,6 +38,9 @@ export const BaseGame = async (config: GameConfig) => {
 		start,
 		playGame,
 		stop,
+		[Symbol.dispose]: async () => {
+			await stop();
+		},
 	};
 };
 

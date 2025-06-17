@@ -1,13 +1,24 @@
-interface Config {
-    headless: boolean;
-    Urls: {
-        Queens: string;
-    }
+const logLevels = ["none", "debug", "error"] as const;
+
+export interface Config {
+	headless: boolean;
+	logLevel: (typeof logLevels)[number];
+	Urls: {
+		Queens: string;
+	};
 }
 
+const isValidLogLevel = (level?: string): level is Config["logLevel"] =>
+	logLevels.includes(level as Config["logLevel"]);
+
+const logLevel = isValidLogLevel(process.env.LOG_LEVEL)
+	? (process.env.LOG_LEVEL as Config["logLevel"])
+	: "error";
+
 export default {
-    headless: false,
-    Urls: {
-        Queens: "https://www.linkedin.com/games/view/queens/desktop",
-    }
+	headless: false,
+	logLevel,
+	Urls: {
+		Queens: "https://www.linkedin.com/games/view/queens/desktop",
+	},
 } satisfies Config;
