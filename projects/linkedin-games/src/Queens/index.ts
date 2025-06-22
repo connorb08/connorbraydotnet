@@ -2,8 +2,8 @@ import config from "#config";
 import BaseGame from "#root/Game/index.ts";
 import { Logger } from "#root/utils/Logger.ts";
 import type { Page } from "playwright";
-import type { Node } from "./node.ts";
-import { Graph } from "./graph.ts";
+import type { Node } from "./Node.ts";
+import { Graph } from "./Graph.ts";
 import { exit } from "node:process";
 
 const logger = Logger({
@@ -157,18 +157,30 @@ async function SearchGraph({ graph, page }: { graph: Graph; page: Page }) {
 		}
 
 		for (const [color, colorSet] of graph.colors.entries()) {
-			const colorNodeIds = new Set(Array.from(colorSet).map((node) => node.id));
-			const intersectionSet = new Set<number>();
-			colorNodeIds;
+			logger.debug(`Searching color ${color} (${graph.colorNames.get(color)})`);
+
+			let intersectionSet = new Set<number>(
+				colorSet.values().next()?.value?.edges || [],
+			);
+
 			for (const node of colorSet) {
-				for (const edge of node.edges) {
-					nodeEdges.add(edge);
-				}
+				intersectionSet = intersectionSet.intersection(node.edges);
 			}
 
-			const overlapping = nodeEdges.intersection(colorNodeIds);
-			const conflicts = overlapping.difference(colorSet);
-			logger.debug(`Color ${color} has conflicts:`, Array.from(conflicts));
+			if (intersectionSet.size > 0) {
+				for (const nodeId of intersectionSet) {
+					const node = graph.nodes.get(nodeId);
+					if (!node) {
+						logger.error(`Node ${nodeId} not found in graph.`);
+						continue;
+					}
+					logger.debug(
+						`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
+					);
+					await graph.excludeCell(node);
+				}
+				continue search;
+			}
 		}
 
 		continueSearch = false;

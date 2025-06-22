@@ -1,6 +1,6 @@
 import { Logger } from "#root/utils/Logger.ts";
 import type { Page } from "playwright";
-import { Node } from "./node.ts";
+import { Node } from "./Node.ts";
 
 const logger = Logger({
 	logLevel: "debug",

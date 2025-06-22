@@ -3,6 +3,7 @@ const logLevels = ["none", "debug", "error"] as const;
 export interface Config {
 	headless: boolean;
 	logLevel: (typeof logLevels)[number];
+	interactive: boolean;
 	Urls: {
 		Queens: string;
 	};
@@ -18,6 +19,7 @@ const logLevel = isValidLogLevel(process.env.LOG_LEVEL)
 export default {
 	headless: false,
 	logLevel,
+	interactive: true,
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},
