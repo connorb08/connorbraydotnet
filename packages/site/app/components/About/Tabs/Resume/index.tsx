@@ -1,4 +1,4 @@
-import { Fragment, memo } from "react";
+import { Fragment } from "react";
 import type { ResumeCareer, ResumeEducation } from "shared";
 import Career from "./Career";
 import Education, { EducationSkeleton } from "./Education";
@@ -10,7 +10,7 @@ interface ExperienceProps {
 	loading?: boolean;
 }
 
-const Experience = memo((props: ExperienceProps) => {
+const Experience = (props: ExperienceProps) => {
 	const bottomBorder = <div className={style.bottomBorder} />;
 
 	return (
@@ -45,6 +45,6 @@ const Experience = memo((props: ExperienceProps) => {
 			</div>
 		</Fragment>
 	);
-});
+};
 
 export default Experience;

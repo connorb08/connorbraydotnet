@@ -10,7 +10,7 @@ type Props = {
 	data: ResumeCareer;
 };
 
-const Career = memo(({ data, icon_url }: Props) => {
+const Career = ({ data, icon_url }: Props) => {
 	const dateString = getDateString(data.startDate, data.endDate);
 	return (
 		<div className={style.listItem}>
@@ -47,6 +47,6 @@ const Career = memo(({ data, icon_url }: Props) => {
 			</div>
 		</div>
 	);
-});
+};
 
 export default Career;

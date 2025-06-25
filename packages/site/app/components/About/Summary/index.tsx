@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Link } from "react-router";
 import { CONTENT_PATH } from "#app/config";
 import style from "../style.module.scss";
@@ -29,7 +28,7 @@ import style from "../style.module.scss";
 // 	return <span className={`status-badge ${textColor} ${bgColor}`}>{text}</span>;
 // };
 
-export const UserBlock = memo(() => {
+export const UserBlock = () => {
 	return (
 		<div className={style.userBlock}>
 			<div
@@ -94,9 +93,9 @@ export const UserBlock = memo(() => {
 			</div>
 		</div>
 	);
-});
+};
 
-export const InformationBlock = memo(() => {
+export const InformationBlock = () => {
 	return (
 		<div className={style.information}>
 			<h2 className={style.information__title}>Information</h2>
@@ -118,9 +117,9 @@ export const InformationBlock = memo(() => {
 			</div>
 		</div>
 	);
-});
+};
 
-export const SkillsBlock = memo(() => {
+export const SkillsBlock = () => {
 	return (
 		<div className={style.skills}>
 			<h2 className={style.skills__title}>Skills</h2>
@@ -134,4 +133,4 @@ export const SkillsBlock = memo(() => {
 			</div>
 		</div>
 	);
-});
+};

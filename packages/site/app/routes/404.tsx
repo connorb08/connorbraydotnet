@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-export default function () {
+export default function NotFound() {
 	return (
 		<div
 			style={{

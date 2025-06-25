@@ -1,7 +1,7 @@
 import { index, layout, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
-	layout("components/NextLayout/index.tsx", [
+	layout("components/Layout/index.tsx", [
 		index("routes/index.tsx"),
 		{
 			path: "/about",

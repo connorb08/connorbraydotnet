@@ -2,7 +2,7 @@ import type { ChangeEventHandler } from "react";
 import { type NavigateFunction, useLocation, useNavigate } from "react-router";
 import style from "./style.module.scss";
 
-export default function () {
+export default function Terminal() {
 	const location = useLocation().pathname;
 	const nav = useNavigate();
 

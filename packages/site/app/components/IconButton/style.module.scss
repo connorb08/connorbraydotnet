@@ -1,0 +1,43 @@
+@use "../../styles/color.scss";
+
+.button {
+    /* Positioning */
+    display: flex;
+    align-items: center;
+
+    /* Sizing */
+    height: 2rem;
+    width: 2rem;
+    box-sizing: content-box;
+    padding: 0.25rem;
+
+    /* Style */
+    color: color.$onSurface;
+    background-color: inherit;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: color.$primary;
+        color: color.$onPrimary;
+        fill: color.$onPrimary;
+    }
+
+    &:focus {
+        outline-color: color.$primary;
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        padding: 0.125rem;
+        // fill: currentColor;
+
+        & path {
+            vertical-align: text-bottom;
+        }
+    }
+
+    &__text {
+        color: red;
+    }
+}

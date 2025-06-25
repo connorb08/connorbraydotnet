@@ -1,0 +1,82 @@
+@use "../../../styles/color.scss";
+@use "../../../styles/font.scss";
+@use "../../../styles/variables.scss";
+
+.navbar {
+    @include color.surfaceDim;
+    display: flex;
+    flex-direction: column;
+    width: 3.25rem;
+    transition: width 0.3s ease;
+
+    @media (max-width: variables.breakpoint(md)) {
+        display: none;
+    }
+
+    &__content {
+        flex: 1;
+        padding-top: 1rem;
+
+        &__button {
+            margin-left: 6px;
+            &.--sidebarOpen {
+                transform: scale(-1, 1);
+            }
+        }
+
+        &__navigation {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            gap: 2rem;
+
+            &__link {
+                padding: 0.25rem;
+                color: color.$onSurface;
+                fill: color.$onSurface;
+                border-radius: 0.5rem;
+                box-sizing: content-box;
+                margin-left: 6px;
+                margin-right: auto;
+                display: flex;
+                align-items: center;
+
+                &.--sidebarOpen {
+                    width: 8rem;
+                }
+
+                &__icon {
+                    height: 2rem;
+                    width: 2rem;
+                }
+
+                &__text {
+                    display: none;
+                    flex: 1;
+                    margin-left: clamp(0.5rem, 50%, 1.5rem);
+
+                    &.--sidebarOpen {
+                        display: inline-block;
+                    }
+                }
+
+                &:hover {
+                    fill: color.$onPrimary;
+                    background-color: color.$primary;
+                    color: color.$onPrimary;
+                }
+
+                &:focus {
+                    outline-color: color.$primary;
+                }
+            }
+        }
+    }
+
+    &.open {
+        width: 10rem;
+    }
+}

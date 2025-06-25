@@ -8,7 +8,7 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 		about: {
 			phoneNumber: "(207) 272-6463",
 			emailAddress: "connor@connorbray.net",
-			location: "Portland, ME",
+			location: "Boston, MA",
 			languages: ["C#", "JavaScript/TypeScript", "Python", "SQL", "C"],
 			technologies: ["Git", "React", "Terraform", "AWS", "Containerization"],
 			interests: [
@@ -25,12 +25,11 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 				startDate: "May 2021",
 				endDate: "Present",
 				about: [
-					"Translated legacy codebase to C# .NET, improving code maintainability and scalability",
-					"Designed and implemented end-to-end, unit, and regression tests to ensure functional parity with the original system",
-					"Streamlined deployment infrastructure by automating key components of the CI/CD pipeline",
-					"Collaborated with cross-functional teams to improve product modernization",
-					"Oversaw a team of 3 engineers and an intern, providing mentorship and guidance on best practices",
-					"Primary responsibility for product team's translation efforts, 3 million lines of code",
+					"Worked on team tasked with migrating a legacy codebase to a C# .NET stack",
+					"Owned the modernization effort of a product team, responsible for the translation of 3 million lines of code",
+					"Engineered a robust testing framework with comprehensive unit, regression, and end-to-end (E2E) tests to ensure functional parity and prevent regressions",
+					"Improved CI/CD pipeline performance by enhancing test and deployment components",
+					"Mentored and led a team of 3 engineers, establishing best practices for code review, agile methodologies, and system architecture to improve team performance and code quality",
 				],
 			},
 			{
@@ -50,7 +49,8 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 				school: "University of Maine",
 				location: "Orono, ME",
 				degree: "B.S. Computer Science",
-				endDate: "",
+				startDate: "",
+				endDate: "May 2023",
 				about: [],
 			},
 		],
@@ -62,7 +62,7 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 				about: [
 					"Emphasized accessibility and speed with fully tested architecture (unit, integration, e2e)",
 					"Resume generated using HTML/CSS and validated with JSON schema validation",
-					"Technologies: TypeScript, React, Cloudflare Workers, Terraform, GitHub Actions, and Playwright",
+					"Technologies: TypeScript, Remix, React, Cloudflare Workers, Terraform, GitHub Actions, Playwright",
 				],
 			},
 			{
@@ -71,7 +71,7 @@ export function loader({ context }: Route.LoaderArgs): Resume {
 					"Website for a local convenience store, featuring online ordering, product catalog, and store information.",
 				about: [
 					"Includes admin dashboard allowing for easy updates to product catalog and store information",
-					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, and Terraform",
+					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, Terraform",
 				],
 			},
 		],

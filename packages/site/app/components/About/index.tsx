@@ -12,6 +12,7 @@ import ResumeTab from "./Tabs/Resume";
 interface Props {
 	data: Resume;
 	loading?: boolean;
+	error?: Error | null;
 }
 
 export const About = memo((props: Props) => {
