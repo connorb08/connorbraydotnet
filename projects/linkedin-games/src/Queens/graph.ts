@@ -1,5 +1,4 @@
 import { Logger } from "#root/utils/Logger.ts";
-import type { Page } from "playwright";
 import { Node } from "./Node.ts";
 
 const logger = Logger({
@@ -12,8 +11,6 @@ export class Graph {
 	private readonly _nodes: Map<number, Node> = new Map();
 	private readonly _colors: Map<number, Set<number>> = new Map();
 	private readonly _colorNames: Map<number, string> = new Map();
-	private readonly _page: Page;
-	private readonly _modifyPage: boolean = false;
 	private _queens: number[] = [];
 
 	public get queens(): number[] {
@@ -24,13 +21,12 @@ export class Graph {
 	 * Initializes a new Graph instance with the specified number of nodes.
 	 * @param n The sidelength of the grid
 	 */
-	constructor(sideLength: number, page: Page) {
+	constructor(sideLength: number) {
 		logger.debug(`Initializing graph with side length: ${sideLength}`);
 		if (sideLength <= 0) {
 			throw new Error("sideLength must be greater than 0");
 		}
 		this._sideLength = sideLength;
-		this._page = page;
 		for (let i = 0; i < sideLength; i++) {
 			this._colors.set(i, new Set());
 			this._colorNames.set(i, "");
@@ -228,9 +224,6 @@ export class Graph {
 		this._nodes.delete(node.id);
 		this._colors.get(node.color)?.delete(node.id);
 		if (!node.removed) {
-			if (this._modifyPage) {
-				await this._page.locator(`[data-cell-idx="${node.id}"]`).click();
-			}
 			node.removed = true;
 		}
 	}
@@ -248,9 +241,6 @@ export class Graph {
 
 	public async placeQueen(node: Node) {
 		this._queens.push(node.id);
-		if (this._modifyPage) {
-			await this._page.locator(`[data-cell-idx="${node.id}"]`).click();
-		}
 		await this.removeNodeAndNeighbors(node);
 	}
 

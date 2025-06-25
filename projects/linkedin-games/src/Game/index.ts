@@ -35,6 +35,7 @@ export const BaseGame = async (config: GameConfig) => {
 	};
 
 	return {
+		page,
 		start,
 		playGame,
 		stop,

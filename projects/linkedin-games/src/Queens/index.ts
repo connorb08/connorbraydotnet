@@ -5,21 +5,11 @@ import type { Page } from "playwright";
 import type { Node } from "./Node.ts";
 import { Graph } from "./Graph.ts";
 import { exit } from "node:process";
+import PageController from "./PageController.ts";
 
 const logger = Logger({
 	logLevel: "debug",
 });
-
-// async function PlaceQueen(node: Node, page: Page) {
-// 	logger.debug(
-// 		`Placing queen on node ${node.id} at row ${node.row}, column ${node.column}`,
-// 	);
-// 	await page
-// 		.locator(`div.queens-cell-with-border[data-cell-idx="${node.id}"]`)
-// 		.click();
-// 	await page.waitForTimeout(1000); // Wait for the animation to complete
-// 	node.removed = true;
-// }
 
 /**
  * Queens Game
@@ -29,19 +19,13 @@ const logger = Logger({
  */
 export const PlayQueens = async () => {
 	using queens = await BaseGame({ url: config.Urls.Queens });
+	const pageController = await PageController({ page: queens.page });
 	await queens.start();
 
 	await queens.playGame(async (page) => {
-		/* Close the popup windows */
-		await page.locator("button#launch-footer-start-button").click();
-		await page.locator('button[aria-label="Dismiss"]').click();
-
-		/* Get the number of rows */
-		const rows = await page.locator("div#queens-grid").evaluate((el) => {
-			return window.getComputedStyle(el).getPropertyValue("--rows");
-		});
-
-		const graph = new Graph(+rows, page);
+		await pageController.StartGame();
+		const rows = await pageController.GetRows();
+		const graph = new Graph(+rows);
 
 		const nodes = await page.locator("div.queens-cell-with-border").all();
 		await Promise.all(
@@ -78,14 +62,22 @@ export const PlayQueens = async () => {
 			throw new Error("No starting node found in the graph.");
 		}
 
-		await SearchGraph({ graph, page });
+		await SearchGraph({ graph, page, pageController });
 		graph.print();
 		console.log(graph.queens);
 		await page.pause();
 	});
 };
 
-async function SearchGraph({ graph, page }: { graph: Graph; page: Page }) {
+async function SearchGraph({
+	graph,
+	page,
+	pageController,
+}: {
+	graph: Graph;
+	page: Page;
+	pageController: Awaited<ReturnType<typeof PageController>>;
+}) {
 	let continueSearch = true;
 	let nLoops = 0;
 	const maxLoops = 100000;
@@ -106,6 +98,7 @@ async function SearchGraph({ graph, page }: { graph: Graph; page: Page }) {
 			if (edges.size === 0) {
 				console.log("Placing queen on node with no edges:", node.id);
 				await graph.placeQueen(node);
+				await pageController.PlaceQueen(node);
 				continue search;
 			}
 
@@ -137,6 +130,7 @@ async function SearchGraph({ graph, page }: { graph: Graph; page: Page }) {
 					node.id,
 				);
 				await graph.placeQueen(node);
+				await pageController.PlaceQueen(node);
 				continue search;
 			}
 
@@ -178,6 +172,7 @@ async function SearchGraph({ graph, page }: { graph: Graph; page: Page }) {
 						`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
 					);
 					await graph.excludeCell(node);
+					await pageController.PlaceCross(node);
 				}
 				continue search;
 			}
