@@ -18,6 +18,7 @@
 	"imports": {
 		"#types": "./src/types/index.ts",
 		"#types/*": "./src/types/*.ts",
+		"#utils": "./src/utils.ts",
 		"#validate": "./src/validate/index.ts",
 		"#schemas": "./src/schemas/index.ts",
 		"#validator": "./validator/index.js"

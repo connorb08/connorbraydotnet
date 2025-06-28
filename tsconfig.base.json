@@ -29,7 +29,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
-		"noUnusedLocals": true,
+		// "noUnusedLocals": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
 		"suppressExcessPropertyErrors": false,
@@ -44,6 +44,9 @@
 
 		/* Library */
 		"lib": ["ESNext"],
-		"customConditions": ["development"]
+		"customConditions": ["development"],
+
+		/* Output */
+		"outDir": ".tsbuildinfo"
 	}
 }

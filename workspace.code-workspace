@@ -5,28 +5,12 @@
 			"name": "root"
 		},
 		{
-			"path": "./packages/site",
-			"name": "site"
+			"path": "./apps",
+			"name": "apps"
 		},
 		{
-			"path": "./packages/resume",
-			"name": "resume"
-		},
-		{
-			"path": "./packages/content-manager",
-			"name": "content-manager"
-		},
-		{
-			"path": "./packages/shared",
-			"name": "shared"
-		},
-		{
-			"path": "./packages/database",
-			"name": "database"
-		},
-		{
-			"path": "./packages/admin",
-			"name": "admin"
+			"path": "./packages",
+			"name": "packages"
 		}
 	],
 	"settings": {
@@ -47,7 +31,8 @@
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
 			"**/build": true,
-			"packages": true
+			"packages": true,
+			"apps": true
 		},
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "biomejs.biome",

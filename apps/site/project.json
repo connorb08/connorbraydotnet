@@ -1,0 +1,26 @@
+{
+	"name": "site",
+	"targets": {
+		"build": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/app",
+				"{projectRoot}/workers",
+				"{projectRoot}/wrangler.json"
+			],
+			"outputs": ["{projectRoot}/build"]
+		},
+		"typegen": {
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/src",
+				"{projectRoot}/workers",
+				"{projectRoot}/wrangler.json"
+			],
+			"outputs": [
+				"{projectRoot}/worker-configuration.d.ts",
+				"{projectRoot}/.react-router/types"
+			]
+		}
+	}
+}
