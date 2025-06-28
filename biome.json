@@ -39,36 +39,44 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
+			"recommended": true,
+			"nursery": "error",
+			"performance": "error",
+			"security": "error",
+			"a11y": "error",
 			"complexity": "error",
-			"style": {
-				"useLiteralEnumMembers": "error",
-				"useNodejsImportProtocol": "error",
-				"useAsConstAssertion": "error",
-				"useEnumInitializers": "error",
-				"useSelfClosingElements": "error",
-				"useConst": "error",
-				"useSingleVarDeclarator": "error",
-				"noUnusedTemplateLiteral": "error",
-				"useNumberNamespace": "error",
-				"noInferrableTypes": "error",
-				"useExponentiationOperator": "error",
-				"useTemplate": "error",
-				"noParameterAssign": "error",
-				"noNonNullAssertion": "error",
-				"useDefaultParameterLast": "error",
-				"useImportType": "error",
-				"useExportType": "error",
-				"noUselessElse": "error",
-				"useShorthandFunctionType": "error"
-			},
+			"correctness": "error",
+			"style": "error",
 			"suspicious": {
 				"noArrayIndexKey": "info"
 			}
 		}
 	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double"
+	"overrides": [
+		{
+			"includes": ["**/*.ts", "**/*.tsx"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"useImportExtensions": "off"
+					},
+					"style": {
+						"noDefaultExport": "off"
+					},
+					"nursery": {
+						"useExplicitType": "off",
+						"noUnresolvedImports": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/wrangler.json"],
+			"json": {
+				"parser": {
+					"allowComments": true
+				}
+			}
 		}
-	}
+	]
 }
