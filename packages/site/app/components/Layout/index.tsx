@@ -10,7 +10,7 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 export default function Layout() {
-	const [showTerminal, setShowTerminal] = useState<boolean>(true);
+	const [showTerminal, _setShowTerminall] = useState<boolean>(true);
 	const [navbarOpen, setNavbarOpen] = useState(false);
 	const toggleNavbar = () => {
 		setNavbarOpen((prev) => !prev);

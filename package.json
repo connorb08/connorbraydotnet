@@ -1,8 +1,26 @@
 {
 	"name": "@connorbraydotnet/source",
 	"version": "0.0.0",
+	"license": "UNLICENSED",
+	"private": true,
+	"packageManager": "bun@10.8.0",
+	"workspaces": [
+		"packages/*",
+		"inf/"
+	],
+	"scripts": {
+		"precommit": "bun run checks",
+		"checks": "bun run build && bun run test && bun run typecheck && bun run format && bun run lint",
+		"format": "biome format && nx run-many -t format",
+		"lint": "biome lint && nx run-many -t lint",
+		"typecheck": "nx run-many -t typecheck",
+		"test": "nx run-many -t test",
+		"build": "nx run-many -t build",
+		"cloc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore",
+		"depcheck": "nx run-many -t depcheck"
+	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.0.0-beta.1",
+		"@biomejs/biome": "^2.0.6",
 		"@biomejs/js-api": "^0.7.1",
 		"@biomejs/wasm-nodejs": "^1.9.4",
 		"@nx/js": "20.8.0",
@@ -29,23 +47,5 @@
 		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^3.1.2",
 		"wrangler": "^4.19.1"
-	},
-	"license": "UNLICENSED",
-	"packageManager": "bun@10.8.0",
-	"private": true,
-	"scripts": {
-		"precommit": "bun run checks",
-		"checks": "bun run build && bun run test && bun run typecheck && bun run format && bun run lint",
-		"format": "biome format && nx run-many -t format",
-		"lint": "biome lint && nx run-many -t lint",
-		"typecheck": "nx run-many -t typecheck",
-		"test": "nx run-many -t test",
-		"build": "nx run-many -t build",
-		"cloc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore",
-		"depcheck": "nx run-many -t depcheck"
-	},
-	"workspaces": [
-		"packages/*",
-		"inf/"
-	]
+	}
 }
