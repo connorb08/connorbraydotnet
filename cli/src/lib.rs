@@ -18,9 +18,9 @@ use std::path::PathBuf;
 /// ```
 #[derive(Parser, Debug)]
 #[command(name = "cbnet")]
-#[command(author = "Connor Bray <connect@connorbray.net>")]
+#[command(author = "Connor Bray <connor@connorbray.net>")]
 #[command(version = "1.0")]
-#[command(about = "Connor Bray's website management CLI", long_about = None)]
+#[command(about = "Dev CLI", long_about = None)]
 #[command(arg_required_else_help = true)]
 pub struct Cli {
     #[command(subcommand)]
@@ -33,17 +33,17 @@ pub struct Cli {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Database management commands
-    Database {
+    /// Infrastructure management commands
+    Infrastructure {
         #[command(subcommand)]
-        command: DatabaseCommands,
+        command: InfrastructureCommands,
     },
-    /// Code quality check commands
+    /// Code quality checks
     Check {
         #[command(subcommand)]
         command: CheckCommands,
     },
-    /// Deployment commands
+    /// Deploy commands
     Deploy {
         #[command(subcommand)]
         command: DeployCommands,
@@ -51,25 +51,18 @@ pub enum Commands {
 }
 
 #[derive(Subcommand, Debug)]
-pub enum DatabaseCommands {
-    /// Create a backup of the database
-    Backup {
-        /// Output path for the backup file
-        #[arg(short, long, value_parser)]
-        output: Option<PathBuf>,
-    },
-    /// Restore database from a backup
-    Restore {
-        /// Path to backup file
-        #[arg(short = 'i', long, value_parser)]
-        file: PathBuf,
+pub enum InfrastructureCommands {
+    /// Show information about the infrastructure
+    Info
+    // Restore {
+    //     /// Path to backup file
+    //     #[arg(short = 'i', long, value_parser)]
+    //     file: PathBuf,
 
-        /// Force restore without confirmation
-        #[arg(short, long)]
-        force: bool,
-    },
-    /// Seed the database with sample data
-    Seed,
+    //     /// Force restore without confirmation
+    //     #[arg(short, long)]
+    //     force: bool,
+    // },
 }
 
 #[derive(Subcommand, Debug)]
@@ -105,46 +98,12 @@ pub enum DeployCommands {
     },
 }
 
-// Re-export the command execution functions
 pub mod commands {
     use std::path::PathBuf;
     use std::io;
 
-    pub fn run_database_backup(output_path: Option<PathBuf>) -> anyhow::Result<()> {
-        let path = output_path.unwrap_or_else(|| PathBuf::from("backup.db"));
-        println!("Creating database backup at: {}", path.display());
-        // Actually create a test file, both in test and regular execution for this example
-        std::fs::write(&path, "test backup data")?;
-        Ok(())
-    }
-
-    pub fn run_database_restore(file: PathBuf, force: bool) -> anyhow::Result<()> {
-        if !force {
-            // In test mode, we'll skip the prompt
-            if !cfg!(test) {
-                println!("Warning: This will overwrite the current database.");
-                println!("Are you sure you want to continue? (y/N)");
-                
-                let mut input = String::new();
-                io::stdin().read_line(&mut input)?;
-                
-                if !input.trim().eq_ignore_ascii_case("y") {
-                    println!("Restore cancelled.");
-                    return Ok(());
-                }
-            }
-        }
-        
-        println!("Restoring database from: {}", file.display());
-        // Actually check if the file exists for testing
-        if !file.exists() {
-            return Err(anyhow::anyhow!("Backup file not found: {}", file.display()));
-        }
-        Ok(())
-    }
-
-    pub fn run_database_seed() -> anyhow::Result<()> {
-        println!("Seeding database with sample data...");
+    pub fn run_infrastructure_info() -> anyhow::Result<()> {
+        println!("Displaying infrastructure information...");
         Ok(())
     }
 
@@ -201,28 +160,10 @@ pub mod commands {
     }
 }
 
-
 // Unit tests
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::path::PathBuf;
-
-    #[test]
-    fn test_cli_parser_database_backup() {
-        let args = vec!["cbnet", "database", "backup", "--output", "test.db"];
-        let cli = Cli::parse_from(args);
-        
-        if let Some(Commands::Database { command }) = cli.command {
-            if let DatabaseCommands::Backup { output } = command {
-                assert_eq!(output, Some(PathBuf::from("test.db")));
-            } else {
-                panic!("Expected DatabaseCommands::Backup");
-            }
-        } else {
-            panic!("Expected Commands::Database");
-        }
-    }
 
     #[test]
     fn test_cli_parser_check_lint() {
@@ -256,19 +197,4 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_database_backup_default_path() {
-        let result = commands::run_database_backup(None);
-        assert!(result.is_ok());
-    }
-
-    #[test]
-    fn test_database_backup_custom_path() {
-        let temp_dir = tempfile::tempdir().expect("Failed to create temp dir");
-        let backup_path = temp_dir.path().join("custom_backup.db");
-        
-        let result = commands::run_database_backup(Some(backup_path.clone()));
-        assert!(result.is_ok());
-        assert!(backup_path.exists());
-    }
 }

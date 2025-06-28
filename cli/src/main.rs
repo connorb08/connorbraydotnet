@@ -2,7 +2,7 @@ use std::io;
 use clap::{CommandFactory, Parser};
 
 // Use the library code
-use cli::{Cli, Commands, DatabaseCommands, CheckCommands, DeployCommands};
+use cli::{Cli, Commands, InfrastructureCommands, CheckCommands, DeployCommands};
 use cli::commands::*;
 
 fn print_completions(shell: clap_complete::Shell, cmd: &mut clap::Command) {
@@ -21,10 +21,8 @@ fn main() -> anyhow::Result<()> {
 
     // Handle commands
     match cli.command {
-        Some(Commands::Database { command }) => match command {
-            DatabaseCommands::Backup { output } => run_database_backup(output),
-            DatabaseCommands::Restore { file, force } => run_database_restore(file, force),
-            DatabaseCommands::Seed => run_database_seed(),
+        Some(Commands::Infrastructure { command }) => match command {
+            InfrastructureCommands::Info => run_infrastructure_info(),
         },
         Some(Commands::Check { command }) => match command {
             CheckCommands::Lint { fix } => run_check_lint(fix),
