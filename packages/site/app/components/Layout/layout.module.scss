@@ -2,163 +2,95 @@
 @use "../../styles/font.scss";
 @use "../../styles/variables.scss";
 
-.container {
+.layout {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.layout {
-    height: 100%;
+.header {
+    @include color.surfaceDim;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-    &__middleColumn {
-        width: 100%;
+    &__link {
         display: flex;
-        flex-direction: column;
         flex: 1;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        font-size: 1.5rem;
 
-        &__header {
-            @include color.surfaceDim;
-            padding: 1rem;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-
-            &__logo {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                text-decoration: none;
-                font-size: 1.5rem;
-
-                &__prompt {
-                    color: color.$tertiary;
-                    font-weight: bold;
-                }
-
-                &__text {
-                    color: color.$primary;
-                    font-weight: 600;
-                }
-
-                &__cursor {
-                    color: color.$primary;
-                    animation: blink 1s step-end infinite;
-
-                    @keyframes blink {
-                        0%,
-                        100% {
-                            opacity: 1;
-                        }
-
-                        50% {
-                            opacity: 0;
-                        }
-                    }
-                }
-            }
+        &__icon {
+            color: color.$tertiary;
+            font-weight: bold;
         }
 
-        &__content {
-            box-sizing: border-box;
-            flex: 1;
-            background-color: color.$surfaceContainer;
-            color: color.$onSurface;
-            // padding: 2rem;
-            padding: 1.5rem 0rem;
-            border-radius: 2rem;
-            overflow: hidden;
+        &__text {
+            color: color.$primary;
+            font-weight: 600;
+        }
 
-            // @media (max-width: variables.breakpoint(md)) {
-            //     padding: 0rem;
-            // }
+        &__cursor {
+            color: color.$primary;
+            animation: blink 1s step-end infinite;
 
-            &__container {
-                @include font.sans;
-                height: 100%;
-                overflow-y: auto;
-                padding: 0rem 1.5rem;
-                scrollbar-color: color.$tertiary color.$surfaceContainer;
-                view-transition-name: mainContent;
+            @keyframes blink {
+                0%,
+                100% {
+                    opacity: 1;
+                }
 
-                // @media (max-width: variables.breakpoint(md)) {
-                //     padding: 0rem;
-                // }
+                50% {
+                    opacity: 0;
+                }
             }
         }
     }
 
-    &__sideBar {
-        @include color.surfaceDim;
-        padding-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        width: 3.25rem;
-        transition: width 0.3s ease;
-
+    &__navbarButton {
         @media (max-width: variables.breakpoint(md)) {
             display: none;
         }
-
-        &__button {
-            margin-left: 6px;
-            &.--sidebarOpen {
-                transform: scale(-1, 1);
-            }
+        &.--navbarOpen {
+            transform: scale(-1, 1);
         }
+    }
+}
 
-        &__navigation {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-            gap: 2rem;
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
 
-            &__link {
-                padding: 0.25rem;
-                color: color.$onSurface;
-                fill: color.$onSurface;
-                border-radius: 0.5rem;
-                box-sizing: content-box;
-                margin-left: 6px;
-                margin-right: auto;
-                display: flex;
-                align-items: center;
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+    flex: 1;
+    background-color: color.$surfaceContainer;
+    color: color.$onSurface;
+    padding: 1.5rem 0rem;
+    border-radius: 2rem;
+    overflow: hidden;
 
-                &.--sidebarOpen {
-                    width: 8rem;
-                }
-
-                &__icon {
-                    height: 2rem;
-                    width: 2rem;
-                }
-
-                &__text {
-                    display: none;
-                    flex: 1;
-                    margin-left: clamp(0.5rem, 50%, 1.5rem);
-
-                    &.--sidebarOpen {
-                        display: inline-block;
-                    }
-                }
-
-                &:hover {
-                    fill: color.$onPrimary;
-                    background-color: color.$primary;
-                    color: color.$onPrimary;
-                }
-
-                &:focus {
-                    outline-color: color.$primary;
-                }
-            }
-        }
+    &__main {
+        @include font.sans;
+        height: 100%;
+        overflow-y: auto;
+        padding: 0rem 1.5rem;
+        scrollbar-color: color.$tertiary color.$surfaceContainer;
+        view-transition-name: mainContent;
     }
 }
 

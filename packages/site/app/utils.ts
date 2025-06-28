@@ -41,3 +41,16 @@ export function usePromise<T>(promise: Promise<T> | T, defaultValue: T) {
 
 	return state;
 }
+
+
+export function toggleTheme() {
+	const htmlElement = document.querySelector("html");
+	if (htmlElement) {
+		htmlElement.classList.toggle("dark");
+		htmlElement.classList.toggle("light");
+		window.localStorage.setItem(
+			"theme",
+			htmlElement.classList.contains("dark") ? "dark" : "light"
+		);
+	}
+}

@@ -4,12 +4,13 @@
     /* Positioning */
     display: flex;
     align-items: center;
+    justify-content: center;
 
     /* Sizing */
-    height: 2rem;
-    width: 2rem;
-    box-sizing: content-box;
-    padding: 0.25rem;
+    height: clamp(40px, 2rem, 64px);
+    width: clamp(40px, 2rem, 64px);
+    padding: clamp(2px, 0.25rem, 6px);
+    box-sizing: border-box;
 
     /* Style */
     color: color.$onSurface;
@@ -27,10 +28,9 @@
     }
 
     &__icon {
-        height: 2rem;
-        width: 2rem;
-        padding: 0.125rem;
-        // fill: currentColor;
+        height: clamp(40px, 2rem, 64px);
+        width: clamp(40px, 2rem, 64px);
+        margin: 5%;
 
         & path {
             vertical-align: text-bottom;

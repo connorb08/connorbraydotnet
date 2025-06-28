@@ -1,12 +1,18 @@
-import type { IconType } from "react-icons/lib";
-import { VscCircle } from "react-icons/vsc";
+import {
+	type ComponentProps,
+	cloneElement,
+	isValidElement,
+	type JSXElementConstructor,
+	type PropsWithChildren,
+	type ReactElement,
+} from "react";
 import { NavLink, type NavLinkProps } from "react-router";
 import style from "./style.module.scss";
 
 type Props = BaseProps & (ButtonProps | LinkProps);
 
 type BaseProps = {
-	Icon: IconType;
+	// icon: IconType;
 	className?: string;
 	onClick?: () => void;
 };
@@ -22,8 +28,8 @@ type LinkProps = {
 } & NavLinkProps;
 
 export default function IconButton(
-	props: Props = {
-		Icon: VscCircle,
+	props: PropsWithChildren<Props> = {
+		// icon: VscCircle,
 		as: "button",
 		to: undefined,
 	},
@@ -31,7 +37,18 @@ export default function IconButton(
 	if (props.as === "link") {
 		return (
 			<NavLink {...props} className={`${style.button} ${props.className}`}>
-				<props.Icon className={style.button__icon} />
+				{isValidElement(props.children)
+					? // biome-ignore lint/suspicious/noExplicitAny: allow any for generic component props
+						cloneElement<ComponentProps<JSXElementConstructor<any>>>(
+							props.children,
+							{
+								className: `${
+									(props.children as ReactElement<{ className: string }>).props
+										.className ?? ""
+								} ${style.button__icon}`,
+							},
+						)
+					: props.children}
 			</NavLink>
 		);
 	}
@@ -41,7 +58,18 @@ export default function IconButton(
 			className={`${style.button} ${props.className}`}
 			onClick={props.onClick}
 		>
-			<props.Icon className={style.button__icon} />
+			{isValidElement(props.children)
+				? // biome-ignore lint/suspicious/noExplicitAny: allow any for generic component props
+					cloneElement<ComponentProps<JSXElementConstructor<any>>>(
+						props.children,
+						{
+							className: `${
+								(props.children as ReactElement<{ className: string }>).props
+									.className ?? ""
+							} ${style.button__icon}`,
+						},
+					)
+				: props.children}
 		</button>
 	);
 }

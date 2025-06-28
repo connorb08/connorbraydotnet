@@ -6,8 +6,9 @@
     @include color.surfaceDim;
     display: flex;
     flex-direction: column;
-    width: 3.25rem;
+    width: fit-content;
     transition: width 0.3s ease;
+    margin: 0.75rem;
 
     @media (max-width: variables.breakpoint(md)) {
         display: none;
@@ -15,23 +16,14 @@
 
     &__content {
         flex: 1;
-        padding-top: 1rem;
-
-        &__button {
-            margin-left: 6px;
-            &.--sidebarOpen {
-                transform: scale(-1, 1);
-            }
-        }
 
         &__navigation {
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: start;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
             gap: 2rem;
+            margin-top: 2rem;
 
             &__link {
                 padding: 0.25rem;
@@ -39,8 +31,8 @@
                 fill: color.$onSurface;
                 border-radius: 0.5rem;
                 box-sizing: content-box;
-                margin-left: 6px;
-                margin-right: auto;
+                // margin-left: 6px;
+                // margin-right: auto;
                 display: flex;
                 align-items: center;
 

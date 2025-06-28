@@ -22,12 +22,13 @@ export const meta: Route.MetaFunction = () => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className="light">
+		<html lang="en">
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
+				<script src="theme.js" />
 			</head>
 			<body>
 				{children}

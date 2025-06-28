@@ -1,67 +1,49 @@
+import { useState } from "react";
 import { GoGear } from "react-icons/go";
+import { RxChevronRight } from "react-icons/rx";
 import { Link, Outlet } from "react-router";
+import { toggleTheme } from "#app/utils";
 import IconButton from "../IconButton";
 import Footer from "./Footer";
 import style from "./layout.module.scss";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
-export default function () {
+export default function Layout() {
+	const [showTerminal, setShowTerminal] = useState<boolean>(true);
+	const [navbarOpen, setNavbarOpen] = useState(false);
+	const toggleNavbar = () => {
+		setNavbarOpen((prev) => !prev);
+	};
+
 	return (
-		<div className={style.container}>
-			<div className={style.layout}>
-				<Navbar />
-				<div className={style.layout__middleColumn}>
-					<header className={style.layout__middleColumn__header}>
-						<Link to="/" className={style.layout__middleColumn__header__logo}>
-							<span
-								className={style.layout__middleColumn__header__logo__prompt}
-							>
-								&gt;
-							</span>
-							<span className={style.layout__middleColumn__header__logo__text}>
-								connor_bray
-							</span>
-							{/* <span className={style.layout__middleColumn__header__logo__cursor}>
-							_
-						</span> */}
-						</Link>
-					</header>
-					<div className={style.layout__middleColumn__content}>
-						<main className={style.layout__middleColumn__content__container}>
-							<Outlet />
-						</main>
-					</div>
+		<div className={style.layout}>
+			<header className={style.header}>
+				<IconButton
+					onClick={toggleNavbar}
+					className={`${style.header__navbarButton}${navbarOpen ? ` ${style["-navbarOpen"]}` : ""}`}
+				>
+					<RxChevronRight />
+				</IconButton>
+				<Link to="/" className={style.header__link}>
+					<span className={style.header__link__icon}>&gt;</span>
+					<span className={style.header__link__text}>connor_bray</span>
+					<span className={style.header__link__cursor}>_</span>
+				</Link>
+				<IconButton onClick={toggleTheme}>
+					<GoGear />
+				</IconButton>
+			</header>
+			<div className={style.container}>
+				<Navbar open={navbarOpen} />
+				<div className={style.content}>
+					<main className={style.content__main}>
+						<Outlet />
+					</main>
 				</div>
-				<div className={style.layout__sideBar}>
-					<IconButton
-						Icon={GoGear}
-						className={style.layout__sideBar__button}
-						onClick={() => {
-							const htmlElement = document.querySelector("html");
-							if (htmlElement) {
-								htmlElement.classList.replace("light", "dark") ||
-									htmlElement.classList.replace("dark", "light");
-							}
-						}}
-					/>
-					{/* <button
-						type="button"
-						className={style.layout__sideBar__button}
-						aria-label="settings"
-						onClick={() => {
-							const htmlElement = document.querySelector("html");
-							if (htmlElement) {
-								htmlElement.classList.replace("light", "dark") ||
-									htmlElement.classList.replace("dark", "light");
-							}
-						}}
-					>
-						
-						{/* <GearIcon className={style.layout__sideBar__button__icon} /> */
-					/* </button>  */}
-				</div>
+				<Sidebar />
 			</div>
-			<Footer />
+			<Footer showTerminal={showTerminal} />
 		</div>
 	);
 }
