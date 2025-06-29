@@ -48,6 +48,7 @@ export function toggleTheme() {
 	if (htmlElement) {
 		htmlElement.classList.toggle("dark");
 		htmlElement.classList.toggle("light");
+		htmlElement.classList.toggle("color-transition");
 		window.localStorage.setItem(
 			"theme",
 			htmlElement.classList.contains("dark") ? "dark" : "light",

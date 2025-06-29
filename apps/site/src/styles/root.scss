@@ -1,20 +1,49 @@
 @use "reset.scss";
 @use "font.scss";
 @use "color.scss";
+@use "material.scss";
 
 :root {
     @include font.mono;
     color: color.$primary;
     background-color: color.$surfaceDim;
+    // transition-property: color, background-color, border-color, box-shadow;
+    // transition-duration: 1s;
+    // transition-timing-function: ease-in-out;
 }
 
 html,
 body {
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     overscroll-behavior: none;
 }
 
 :root * {
     box-sizing: border-box;
+    // transition: color 1s ease-in-out;
+    // transition:
+    //     background-color 1s ease-in-out,
+    //     color 1s ease-in-out;
+}
+* {
+    transform-origin: center center;
+    transition:
+        clip-path 0.8s ease-in-out,
+        color 0.25s ease-in-out,
+        background-color 0.25s ease-in-out;
+    clip-path: circle(100% at center);
+}
+
+*:root.color-transition * {
+    animation: reveal 0.25s ease-in-out forwards;
+}
+
+@keyframes reveal {
+    0% {
+        clip-path: circle(0% at center);
+    }
+    100% {
+        clip-path: circle(100% at center);
+    }
 }

@@ -1,4 +1,5 @@
 @use "../../../styles/color.scss";
+@use "../../../styles/style.scss";
 
 .button {
     /* Positioning */
@@ -13,9 +14,9 @@
     box-sizing: border-box;
 
     /* Style */
+    @include style.rounded;
     color: color.$onSurface;
     background-color: inherit;
-    border-radius: 0.5rem;
 
     &:hover {
         background-color: color.$primary;

@@ -1,6 +1,7 @@
 import { memo, type ReactElement } from "react";
 import { GrHomeOption } from "react-icons/gr";
 import type { IconType } from "react-icons/lib";
+import { LuHouse } from "react-icons/lu";
 import { VscAccount } from "react-icons/vsc";
 import { useLocation } from "react-router";
 import IconButton from "../../../ui/icon-button/index.js";
@@ -10,7 +11,7 @@ const routes = [
 	{
 		id: "home",
 		title: "Home",
-		icon: <GrHomeOption />,
+		icon: <LuHouse />,
 		href: "/",
 	},
 	{

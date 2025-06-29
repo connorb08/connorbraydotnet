@@ -7,7 +7,10 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
-    transition: width 0.3s ease;
+    // transition:
+    //     width 0.3s ease,
+    //     color 1s ease-in-out,
+    //     background-color 1s ease-in-out;
     margin: 0.75rem;
 
     @media (max-width: variables.breakpoint(md)) {

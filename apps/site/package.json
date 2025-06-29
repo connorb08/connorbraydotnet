@@ -18,8 +18,7 @@
 		"#components/*": "./src/components/*/index.tsx",
 		"#pages/*": "./src/pages/*/index.tsx",
 		"#utils": "./src/utils/index.ts",
-		"#config": "./src/config.ts",
-		"#styles/*": "./src/styles/"
+		"#config": "./src/config.ts"
 	},
 	"dependencies": {
 		"isbot": "^5.1.17",

@@ -1,10 +1,11 @@
 @use "../../styles/color.scss";
 @use "../../styles/variables.scss" as vars;
+@use "../../styles/style.scss" as style;
 
 @mixin block-section {
     @include color.surfaceContainerHighest;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 0.75rem;
+    @include style.shadow;
+    @include style.rounded("lg");
 }
 
 @mixin block-title {
@@ -125,10 +126,11 @@
 }
 
 .userBlock {
-    box-shadow:
-        0 4px 6px -1px rgb(0 0 0 / 0.1),
-        0 2px 4px -2px rgb(0 0 0 / 0.1);
-    border-radius: 1rem;
+    @include block-section;
+    // box-shadow:
+    //     0 4px 6px -1px rgb(0 0 0 / 0.1),
+    //     0 2px 4px -2px rgb(0 0 0 / 0.1);
+    // border-radius: 1rem;
     overflow: hidden;
 
     &__backgroundImage {
@@ -138,7 +140,6 @@
     }
 
     &__content {
-        @include block-section;
         padding: 2rem;
         padding-top: 3.5rem;
         position: relative;
@@ -154,10 +155,11 @@
         }
 
         &__headshot {
-            width: 5rem;
+            @include style.border(2px);
             height: 5rem;
             border-radius: 0.75rem;
-            border: 2px solid var(--gray-3);
+            // border: 1px solid color.$outline;
+            // border: 2px solid var(--gray-3);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             position: absolute;
             top: -2.5rem;

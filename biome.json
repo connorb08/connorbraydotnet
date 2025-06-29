@@ -40,7 +40,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"nursery": "error",
+			"nursery": {
+				"recommended": true
+			},
 			"performance": "error",
 			"security": "error",
 			"a11y": "error",
@@ -71,6 +73,11 @@
 			"suspicious": {
 				"noArrayIndexKey": "info"
 			}
+		},
+		"domains": {
+			"project": "all",
+			"react": "all",
+			"test": "all"
 		}
 	},
 	"overrides": [
