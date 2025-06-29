@@ -54,6 +54,9 @@
 		"[terraform]": {
 			"editor.defaultFormatter": "hashicorp.terraform"
 		},
-		"nxConsole.generateAiAgentRules": true
+		"nxConsole.generateAiAgentRules": true,
+		"[typescript]": {
+			"editor.defaultFormatter": "biomejs.biome"
+		}
 	}
 }

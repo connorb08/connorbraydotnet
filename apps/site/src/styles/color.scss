@@ -89,3 +89,18 @@ $tertiaryFixedDim: var(--md-sys-color-tertiary-fixed-dim);
     background-color: $surfaceContainerHighest;
     color: $onSurface;
 }
+
+@mixin surfaceContainerHighest {
+    background-color: $surfaceContainerHighest;
+    color: $onSurface;
+}
+
+@mixin primary {
+    background-color: $primary;
+    color: $onPrimary;
+}
+
+@mixin tertiary {
+    background-color: $tertiary;
+    color: $onTertiary;
+}

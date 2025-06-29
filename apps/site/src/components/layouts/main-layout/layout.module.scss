@@ -19,37 +19,42 @@
     flex-direction: row;
     justify-content: space-between;
 
-    &__link {
+    &__main {
         display: flex;
         flex: 1;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        font-size: 1.5rem;
 
-        &__icon {
-            color: color.$tertiary;
-            font-weight: bold;
-        }
+        &__link {
+            display: flex;
 
-        &__text {
-            color: color.$primary;
-            font-weight: 600;
-        }
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1.5rem;
 
-        &__cursor {
-            color: color.$primary;
-            animation: blink 1s step-end infinite;
+            &__icon {
+                color: color.$tertiary;
+                font-weight: bold;
+            }
 
-            @keyframes blink {
-                0%,
-                100% {
-                    opacity: 1;
-                }
+            &__text {
+                color: color.$primary;
+                font-weight: 600;
+            }
 
-                50% {
-                    opacity: 0;
+            &__cursor {
+                color: color.$primary;
+                animation: blink 1s step-end infinite;
+
+                @keyframes blink {
+                    0%,
+                    100% {
+                        opacity: 1;
+                    }
+
+                    50% {
+                        opacity: 0;
+                    }
                 }
             }
         }

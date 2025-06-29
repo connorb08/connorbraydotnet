@@ -166,6 +166,8 @@
         }
 
         &__downloadButton {
+            @include color.primary;
+
             text-decoration: none;
             display: flex;
             justify-content: space-evenly;
@@ -174,19 +176,12 @@
             border-radius: 0.5rem;
             align-items: center;
             font-weight: 600;
-            color: color.$onPrimary;
-            background-color: color.$primary;
             position: relative;
             box-sizing: border-box;
 
             &:hover {
-                background-color: color.$secondary;
-                color: color.$onSecondary;
-
-                .userBlock__content__downloadButton__icon {
-                    background-color: inherit;
-                    color: inherit;
-                }
+                background-color: color.$inversePrimary;
+                color: color.$onSurface;
             }
 
             &__text {
@@ -261,12 +256,12 @@
         margin: -0.5rem;
 
         &__tag {
+            @include style.shadow;
+            @include color.tertiary;
+            @include style.rounded;
             margin: 0.25rem;
             padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
             font-size: 0.875rem;
-            background-color: color.$tertiary;
-            color: color.$onTertiary;
         }
     }
 }

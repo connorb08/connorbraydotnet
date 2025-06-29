@@ -15,13 +15,16 @@
 
     /* Style */
     @include style.rounded;
+
     color: color.$onSurface;
-    background-color: inherit;
+    background-color: color.$surfaceDim;
 
     &:hover {
         background-color: color.$primary;
         color: color.$onPrimary;
         fill: color.$onPrimary;
+        @include style.border;
+        @include style.shadow;
     }
 
     &:focus {

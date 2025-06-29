@@ -9,6 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "../styles/root.scss";
+import { useRef } from "react";
+import { ProjectContext } from "#utils/context";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -20,8 +22,10 @@ export const meta: Route.MetaFunction = () => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
+	const rootRef = useRef<HTMLHtmlElement>(null);
+
 	return (
-		<html lang="en">
+		<html lang="en" ref={rootRef}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,7 +34,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<script src="theme.js" />
 			</head>
 			<body>
-				{children}
+				<ProjectContext.Provider value={{ rootRef }}>
+					{children}
+				</ProjectContext.Provider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

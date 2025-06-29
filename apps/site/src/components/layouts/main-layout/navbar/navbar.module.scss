@@ -3,16 +3,22 @@
 @use "../../../../styles/variables.scss";
 
 .navbar {
+    /* Includes */
     @include color.surfaceDim;
+
+    /* Position and Layout */
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    // transition:
-    //     width 0.3s ease,
-    //     color 1s ease-in-out,
-    //     background-color 1s ease-in-out;
-    margin: 0.75rem;
 
+    /* Box Model */
+    margin: 0.75rem;
+    width: fit-content;
+    min-width: 0;
+
+    /* Animation */
+    transition: min-width 0.3s ease;
+
+    /* Breakpoint */
     @media (max-width: variables.breakpoint(md)) {
         display: none;
     }
@@ -34,8 +40,6 @@
                 fill: color.$onSurface;
                 border-radius: 0.5rem;
                 box-sizing: content-box;
-                // margin-left: 6px;
-                // margin-right: auto;
                 display: flex;
                 align-items: center;
 
@@ -71,7 +75,7 @@
         }
     }
 
-    &.open {
-        width: 10rem;
+    &.--open {
+        min-width: 10rem;
     }
 }

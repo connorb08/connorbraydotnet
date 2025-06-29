@@ -21,10 +21,10 @@ const routes = [
 		href: "/about",
 	},
 	{
-		id: "home2",
-		title: "Home2",
+		id: "photos",
+		title: "Photos",
 		icon: <GrHomeOption />,
-		href: "/",
+		href: "/photos",
 	},
 ] satisfies {
 	id: string;
@@ -41,7 +41,7 @@ const Navbar = memo((props: NavbarProps) => {
 	const location = useLocation();
 
 	return (
-		<div className={`${style.navbar} ${props.open ? style.open : ""}`}>
+		<div className={`${style.navbar} ${props.open ? style["--open"] : ""}`}>
 			<nav className={style.navbar__content}>
 				<nav className={style.navbar__content__navigation}>
 					{routes.map((route) => (
