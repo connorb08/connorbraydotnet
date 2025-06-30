@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import type { LoaderFunctionArgs } from "react-router";
-import { type Resume, ValidateResume } from "shared";
-import { ValidResume } from "shared/test-data";
+import { type Resume, ValidateResume, ValidResume } from "shared";
 import type { Route } from "./+types/index";
 import Index, { loader } from "./index";
 
@@ -38,7 +37,7 @@ describe("Index route", () => {
 		const { ok } = await ValidateResume(data);
 
 		// Assert
-		assert.isTrue(ok);
+		expect(ok).toBe(true);
 	});
 });
 

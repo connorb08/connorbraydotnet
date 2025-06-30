@@ -2,8 +2,15 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"references": [
-		{ "path": "./tsconfig.node.json" },
-		{ "path": "./tsconfig.cloudflare.json" }
+		{
+			"path": "../../packages/shared"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		}
 	],
 	"compilerOptions": {
 		"allowJs": true,
@@ -11,6 +18,9 @@
 		"verbatimModuleSyntax": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"noEmit": true
+		"noEmit": true,
+		"composite": true,
+		"rootDir": ".",
+		"outDir": ".tsbuildinfo"
 	}
 }

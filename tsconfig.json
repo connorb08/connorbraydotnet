@@ -2,22 +2,22 @@
 	"extends": "./tsconfig.base.json",
 	"files": [],
 	"references": [
-		{
-			"path": "./apps/site/tsconfig.json"
-		},
-		{
-			"path": "./packages/shared/tsconfig.json"
-		},
-		{
-			"path": "./packages/resume/tsconfig.json"
-		},
-		{
-			"path": "./packages/content-manager/tsconfig.json"
-		},
-		{
-			"path": "./packages/database/tsconfig.json"
-		}
-	],
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/resume"
+    },
+    {
+      "path": "./packages/content-manager"
+    },
+    {
+      "path": "./packages/database"
+    },
+    {
+      "path": "./apps/site"
+    }
+  ],
 	"compilerOptions": {
 		"rootDir": ".",
 		"outDir": ".tsbuildinfo"

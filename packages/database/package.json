@@ -6,7 +6,8 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"cf-typegen": "wrangler types"
+		"typegen": "wrangler types",
+		"typecheck": "nx run typegen && tsc -b"
 	},
 	"peerDependencies": {
 		"typescript": "*",

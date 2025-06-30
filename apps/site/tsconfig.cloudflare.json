@@ -22,6 +22,7 @@
 		"baseUrl": ".",
 		"rootDirs": [".", "./.react-router/types"],
 		"esModuleInterop": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"allowJs": true
 	}
 }
