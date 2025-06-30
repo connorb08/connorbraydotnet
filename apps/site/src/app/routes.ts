@@ -1,7 +1,7 @@
 import { index, layout, type RouteConfig } from "@react-router/dev/routes";
 
 const routeConfig = [
-	layout("../components/layouts/main-layout/index.tsx", [
+	layout("../layouts/main-layout/index.tsx", [
 		index("routes/index.tsx"),
 		{
 			path: "/about",

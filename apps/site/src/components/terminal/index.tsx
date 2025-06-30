@@ -7,7 +7,7 @@ export default function Terminal() {
 	const nav = useNavigate();
 
 	return (
-		<div className={style.container} onClick={focusInput}>
+		<div role="none" className={style.container} onClick={focusInput}>
 			<div className={style.container__terminal}>
 				<p
 					id="terminal-result"
@@ -31,7 +31,6 @@ export default function Terminal() {
 						onChange={handleType}
 						onBlur={removeCursor}
 						onFocus={handleFocus}
-						tabIndex={0}
 						autoComplete="off"
 						onKeyDown={(e) => handleKeyDown(e, nav)}
 					/>

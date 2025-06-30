@@ -1,9 +1,18 @@
 @use "../../styles/color.scss";
+@use "../../styles/style.scss";
 
 .container {
+    @include style.rounded("lg");
     background-color: color.$surfaceContainerHighest;
-    border-radius: 1rem;
     height: 8rem;
+    border: 1px solid transparent;
+
+    &:focus-within {
+        // @include style.border;
+        border: 1px solid color.$primary;
+        box-shadow: 0 0 0 1px color.$primary;
+        // @include style.shadow;
+    }
 
     &__terminal {
         height: 100%;
@@ -43,7 +52,8 @@
                     // \00a0
                     content: attr(data-after);
                     position: absolute;
-                    color: inherit;
+                    // color: inherit;
+                    color: color.$primary;
                     // color: color.$onSurface;
                     animation: blink 1s infinite;
                     margin-left: 0.6rem;
@@ -62,7 +72,8 @@
                 font-size: inherit;
                 width: 100%;
                 background-color: inherit;
-                color: inherit;
+                // color: inherit;
+                color: color.$primary;
                 border: none;
                 position: relative;
                 display: inline-block;

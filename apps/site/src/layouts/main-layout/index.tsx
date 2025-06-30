@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { GoGear } from "react-icons/go";
-import { RxChevronRight } from "react-icons/rx";
 import { Link, Outlet } from "react-router";
+import { IconButton as IconButton2 } from "#components/ui/button";
 import IconButton from "#components/ui/icon-button";
 import { toggleTheme } from "#utils";
 import { ProjectContext } from "#utils/context";
@@ -21,12 +21,11 @@ export function MainLayout() {
 	return (
 		<div className={style.layout}>
 			<header className={style.header}>
-				<IconButton
+				<IconButton2
 					onClick={toggleNavbar}
 					className={`${style.header__navbarButton}${navbarOpen ? ` ${style["--navbarOpen"]}` : ""}`}
-				>
-					<RxChevronRight />
-				</IconButton>
+					icon="chevron"
+				/>
 				<span className={style.header__main}>
 					<Link to="/" className={style.header__main__link}>
 						<span className={style.header__main__link__icon}>&gt;</span>

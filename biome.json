@@ -91,6 +91,9 @@
 					"nursery": {
 						"useExplicitType": "off",
 						"noUnresolvedImports": "off"
+					},
+					"performance": {
+						"noBarrelFile": "off"
 					}
 				}
 			}

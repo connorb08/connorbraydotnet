@@ -1,6 +1,7 @@
-@use "../../../styles/color.scss" as color;
-@use "../../../styles/font.scss" as font;
-@use "../../../styles/variables.scss" as variables;
+@use "../../styles/color.scss" as color;
+@use "../../styles/font.scss" as font;
+@use "../../styles/variables.scss" as variables;
+@use "../../styles/style.scss" as style;
 
 .layout {
     width: 100%;
@@ -64,7 +65,7 @@
         @media (max-width: variables.breakpoint(md)) {
             display: none;
         }
-        &.--navbarOpen {
+        &.--navbarOpen svg {
             transform: scale(-1, 1);
         }
     }
@@ -77,6 +78,7 @@
 }
 
 .content {
+    @include style.border(2px);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -88,6 +90,7 @@
     padding: 1.5rem 0rem;
     border-radius: 2rem;
     overflow: hidden;
+    margin-bottom: 0.5rem;
 
     &__main {
         @include font.sans;

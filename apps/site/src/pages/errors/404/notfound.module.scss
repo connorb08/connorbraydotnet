@@ -24,19 +24,24 @@
         @include style.rounded;
         margin-top: 1rem;
         width: fit-content;
-        background-color: color.$error;
-        color: color.$onError;
+        // background-color: color.$error;
+        // color: color.$onError;
         font-size: 1.25rem;
         text-decoration: none;
         padding: 0.5rem 1rem;
         margin: 1rem auto;
 
         // Add transparent border initially to maintain consistent size
-        border: 1px solid transparent;
+        // border: 1px solid transparent;
+        @include style.border;
 
         &:hover {
-            background-color: color.$errorContainer;
-            color: color.$onErrorContainer;
+            background-color: color.$tertiary;
+            color: color.$onTertiary;
+            // background-color: color.$errorContainer;
+            // color: color.$onErrorContainer;
+            // box-shadow: 1px 1px 4px color.$errorContainer;
+            // border: 1px solid color.$errorContainer;
             @include style.shadow;
             @include style.border;
         }
