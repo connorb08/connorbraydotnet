@@ -1,17 +1,16 @@
-@use "../../styles/color.scss";
-@use "../../styles/style.scss";
+@use "~/styles" as *;
 
 .container {
-    @include style.rounded("lg");
-    background-color: color.$surfaceContainerHighest;
+    @include rounded("lg");
+    background-color: $surfaceContainerHighest;
     height: 8rem;
     border: 1px solid transparent;
 
     &:focus-within {
-        // @include style.border;
-        border: 1px solid color.$primary;
-        box-shadow: 0 0 0 1px color.$primary;
-        // @include style.shadow;
+        // @include border;
+        border: 1px solid $primary;
+        box-shadow: 0 0 0 1px $primary;
+        // @include shadow;
     }
 
     &__terminal {
@@ -36,7 +35,7 @@
             }
 
             &[command-result="error"] {
-                color: color.$error;
+                color: $error;
             }
         }
 
@@ -53,8 +52,8 @@
                     content: attr(data-after);
                     position: absolute;
                     // color: inherit;
-                    color: color.$primary;
-                    // color: color.$onSurface;
+                    color: $primary;
+                    // color: $onSurface;
                     animation: blink 1s infinite;
                     margin-left: 0.6rem;
                     margin-top: 0.2rem;
@@ -73,7 +72,7 @@
                 width: 100%;
                 background-color: inherit;
                 // color: inherit;
-                color: color.$primary;
+                color: $primary;
                 border: none;
                 position: relative;
                 display: inline-block;

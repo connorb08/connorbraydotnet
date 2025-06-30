@@ -7,6 +7,10 @@
 		"worker-configuration.d.ts"
 	],
 	"compilerOptions": {
+		"plugins": [{ "name": "typescript-plugin-css-modules" }],
+		"paths": {
+			"~/styles": ["src/styles/_index.scss"]
+		},
 		"composite": true,
 		"strict": true,
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],

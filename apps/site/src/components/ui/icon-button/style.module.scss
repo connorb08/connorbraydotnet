@@ -1,5 +1,4 @@
-@use "../../../styles/color.scss";
-@use "../../../styles/style.scss";
+@use "~/styles" as *;
 
 .button {
     /* Positioning */
@@ -17,23 +16,23 @@
     box-sizing: border-box;
 
     /* Style */
-    @include style.rounded;
+    @include rounded;
 
-    color: color.$onSurface;
-    background-color: color.$surfaceDim;
+    color: $onSurface;
+    background-color: $surfaceDim;
 
     &:hover {
-        background-color: color.$primary;
-        color: color.$onPrimary;
-        fill: color.$onPrimary;
-        @include style.border;
-        @include style.shadow;
+        background-color: $primary;
+        color: $onPrimary;
+        fill: $onPrimary;
+        @include border;
+        @include shadow;
         // top: -1px;
         // right: -1px;
     }
 
     &:focus {
-        outline-color: color.$primary;
+        outline-color: $primary;
     }
 
     &__icon {

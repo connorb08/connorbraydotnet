@@ -1,0 +1,8 @@
+@mixin monospace {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+@mixin sans-serif {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 500;
+}

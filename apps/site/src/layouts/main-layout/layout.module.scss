@@ -1,7 +1,4 @@
-@use "../../styles/color.scss" as color;
-@use "../../styles/font.scss" as font;
-@use "../../styles/variables.scss" as variables;
-@use "../../styles/style.scss" as style;
+@use "~/styles" as *;
 
 .layout {
     width: 100%;
@@ -11,7 +8,7 @@
 }
 
 .header {
-    @include color.surfaceDim;
+    @include surfaceDim;
     padding-top: 1rem;
     padding-bottom: 1rem;
     margin-left: 0.75rem;
@@ -34,17 +31,17 @@
             font-size: 1.5rem;
 
             &__icon {
-                color: color.$tertiary;
+                color: $tertiary;
                 font-weight: bold;
             }
 
             &__text {
-                color: color.$primary;
+                color: $primary;
                 font-weight: 600;
             }
 
             &__cursor {
-                color: color.$primary;
+                color: $primary;
                 animation: blink 1s step-end infinite;
 
                 @keyframes blink {
@@ -62,7 +59,7 @@
     }
 
     &__navbarButton {
-        @media (max-width: variables.breakpoint(md)) {
+        @media (max-width: breakpoint(md)) {
             display: none;
         }
         &.--navbarOpen svg {
@@ -78,26 +75,26 @@
 }
 
 .content {
-    @include style.border(2px);
+    @include border(2px);
     width: 100%;
     display: flex;
     flex-direction: column;
     flex: 1;
     box-sizing: border-box;
     flex: 1;
-    background-color: color.$surfaceContainer;
-    color: color.$onSurface;
+    background-color: $surfaceContainer;
+    color: $onSurface;
     padding: 1.5rem 0rem;
     border-radius: 2rem;
     overflow: hidden;
     margin-bottom: 0.5rem;
 
     &__main {
-        @include font.sans;
+        @include sans-serif;
         height: 100%;
         overflow-y: auto;
         padding: 0rem 1.5rem;
-        scrollbar-color: color.$tertiary color.$surfaceContainer;
+        scrollbar-color: $tertiary $surfaceContainer;
         view-transition-name: mainContent;
     }
 }

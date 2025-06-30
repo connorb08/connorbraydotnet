@@ -86,7 +86,8 @@
 			"linter": {
 				"rules": {
 					"correctness": {
-						"useImportExtensions": "off"
+						"useImportExtensions": "off",
+						"noNodejsModules": "off"
 					},
 					"nursery": {
 						"useExplicitType": "off",

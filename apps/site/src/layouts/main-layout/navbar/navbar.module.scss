@@ -1,10 +1,8 @@
-@use "../../../styles/color.scss";
-@use "../../../styles/font.scss";
-@use "../../../styles/variables.scss";
+@use "~/styles" as *;
 
 .navbar {
     /* Includes */
-    @include color.surfaceDim;
+    @include surfaceDim;
 
     /* Position and Layout */
     display: flex;
@@ -19,7 +17,7 @@
     transition: min-width 0.3s ease;
 
     /* Breakpoint */
-    @media (max-width: variables.breakpoint(md)) {
+    @media (max-width: breakpoint(md)) {
         display: none;
     }
 
@@ -36,8 +34,8 @@
 
             &__link {
                 padding: 0.25rem;
-                color: color.$onSurface;
-                fill: color.$onSurface;
+                color: $onSurface;
+                fill: $onSurface;
                 border-radius: 0.5rem;
                 box-sizing: content-box;
                 display: flex;
@@ -63,13 +61,13 @@
                 }
 
                 &:hover {
-                    fill: color.$onPrimary;
-                    background-color: color.$primary;
-                    color: color.$onPrimary;
+                    fill: $onPrimary;
+                    background-color: $primary;
+                    color: $onPrimary;
                 }
 
                 &:focus {
-                    outline-color: color.$primary;
+                    outline-color: $primary;
                 }
             }
         }

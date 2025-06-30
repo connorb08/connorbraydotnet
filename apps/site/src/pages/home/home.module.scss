@@ -1,5 +1,4 @@
-@use "../../styles/color.scss" as color;
-@use "../../styles/style.scss" as style;
+@use "~/styles" as *;
 
 .home {
     display: flex;
@@ -10,8 +9,8 @@
 }
 
 .hero {
-    background-color: color.$secondaryContainer;
-    color: color.$onSecondaryContainer;
+    background-color: $secondaryContainer;
+    color: $onSecondaryContainer;
     border-radius: 1rem;
     height: 200px;
     width: 100%;
@@ -22,20 +21,20 @@
         font-weight: bold;
         text-align: center;
         padding-top: 60px;
-        color: color.$onSecondaryContainer;
+        color: $onSecondaryContainer;
     }
 
     &__subtitle {
         font-size: 18px;
         text-align: center;
-        color: color.$onSecondaryContainer;
+        color: $onSecondaryContainer;
         margin-top: 10px;
     }
 
     &__content {
         font-size: 16px;
         text-align: center;
-        color: color.$onSecondaryContainer;
+        color: $onSecondaryContainer;
         margin-top: 10px;
     }
 }
@@ -51,11 +50,11 @@
     top: 0;
     right: 0;
 
-    background-color: color.$tertiaryContainer;
-    color: color.$onTertiaryContainer;
+    background-color: $tertiaryContainer;
+    color: $onTertiaryContainer;
 
     border: 1px solid transparent;
-    // box-shadow: 1px 1px 4px color.$shadow;
+    // box-shadow: 1px 1px 4px $shadow;
 
     padding: 20px;
     border-radius: 8px;
@@ -66,8 +65,8 @@
         box-shadow 0.2s ease;
 
     &:hover {
-        @include style.border;
-        box-shadow: 1px 1px 4px color.$shadow;
+        @include border;
+        box-shadow: 1px 1px 4px $shadow;
         top: -3px;
         right: -3px;
     }

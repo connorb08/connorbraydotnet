@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
@@ -12,17 +13,17 @@ export default defineConfig({
 	server: {
 		host: "127.0.0.1",
 	},
-	// resolve: {
-	// 	alias: {
-	// 		"~/styles/*": "./src/styles/*",
-	// 	},
-	// },
+	resolve: {
+		alias: {
+			"~/styles": resolve(__dirname, "src/styles"),
+		},
+	},
 	// css: {
 	// 	preprocessorOptions: {
 	// 		sass: {
-	// 			additionalData: `@use "${join(currentDir, "./src/styles/color.scss")}" as *;`,
+	// 			// additionalData: `@use "${join(currentDir, "./src/styles/color.scss")}" as *;`,
 	// 			api: "modern",
-	// 			// loadPaths: ["./src/styles"],
+	// 			loadPaths: ["./src/styles"],
 	// 		},
 	// 	},
 	// },

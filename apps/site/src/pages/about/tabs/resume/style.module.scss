@@ -1,6 +1,5 @@
 @use "../../style.module.scss" as base;
-@use "../../../../styles/color.scss" as color;
-@use "../../../../styles/variables.scss" as vars;
+@use "~/styles" as *;
 
 .section {
     @include base.block-section;
@@ -12,12 +11,12 @@
 }
 
 .bottomBorder {
-    border-bottom: 1px solid color.$outline;
+    border-bottom: 1px solid $outline;
     margin: 1rem 0;
 }
 
 .skeleton {
-    background-color: color.$scrim;
+    background-color: $scrim;
     opacity: 0.2;
     border-radius: 1rem;
 
@@ -84,7 +83,7 @@
             gap: 1rem;
             line-height: 1.2;
 
-            @media (max-width: vars.breakpoint(sm)) {
+            @media (max-width: breakpoint(sm)) {
                 flex-direction: column;
                 gap: 0.1rem;
             }
@@ -107,7 +106,7 @@
                 align-items: center;
                 gap: 0.5rem;
                 justify-content: end;
-                @media (max-width: vars.breakpoint(sm)) {
+                @media (max-width: breakpoint(sm)) {
                     justify-content: start;
                 }
             }
@@ -145,7 +144,7 @@
             gap: 1rem;
             line-height: 1.2;
 
-            @media (max-width: vars.breakpoint(sm)) {
+            @media (max-width: breakpoint(sm)) {
                 flex-direction: column;
                 gap: 0.1rem;
             }
@@ -168,7 +167,7 @@
                 align-items: center;
                 gap: 0.5rem;
                 justify-content: end;
-                @media (max-width: vars.breakpoint(sm)) {
+                @media (max-width: breakpoint(sm)) {
                     justify-content: start;
                 }
             }

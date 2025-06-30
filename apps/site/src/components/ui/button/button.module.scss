@@ -1,5 +1,4 @@
-@use "../../../styles/color.scss";
-@use "../../../styles/style.scss";
+@use "../../../styles" as *;
 
 @mixin base-button {
     /* Positioning */
@@ -11,11 +10,11 @@
     padding: clamp(2px, 0.25rem, 6px) clamp(1px, 0.25rem, 3px);
 
     /* Style */
-    @include style.rounded;
+    @include rounded;
 
     &:hover {
-        @include style.border;
-        @include style.shadow;
+        @include border;
+        @include shadow;
     }
 }
 
@@ -32,21 +31,21 @@
     box-sizing: border-box;
 
     /* Style */
-    @include style.rounded;
+    @include rounded;
 
-    color: color.$onSurface;
-    background-color: color.$surfaceDim;
+    color: $onSurface;
+    background-color: $surfaceDim;
 
     &:hover {
-        background-color: color.$primary;
-        color: color.$onPrimary;
-        fill: color.$onPrimary;
-        @include style.border;
-        @include style.shadow;
+        background-color: $primary;
+        color: $onPrimary;
+        fill: $onPrimary;
+        @include border;
+        @include shadow;
     }
 
     &:focus {
-        outline-color: color.$primary;
+        outline-color: $primary;
     }
 
     &__icon {
@@ -77,21 +76,21 @@
     box-sizing: border-box;
 
     /* Style */
-    @include style.rounded;
+    @include rounded;
 
-    color: color.$onSurface;
-    background-color: color.$surfaceDim;
+    color: $onSurface;
+    background-color: $surfaceDim;
 
     &:hover {
-        background-color: color.$primary;
-        color: color.$onPrimary;
-        fill: color.$onPrimary;
-        @include style.border;
-        @include style.shadow;
+        background-color: $primary;
+        color: $onPrimary;
+        fill: $onPrimary;
+        @include border;
+        @include shadow;
     }
 
     &:focus {
-        outline-color: color.$primary;
+        outline-color: $primary;
     }
 
     &__icon {
@@ -111,23 +110,23 @@
 
 .buttonColor {
     &--primary {
-        color: color.$onPrimary;
-        background-color: color.$primary;
+        color: $onPrimary;
+        background-color: $primary;
     }
 
     &--secondary {
-        color: color.$onSecondary;
-        background-color: color.$secondary;
+        color: $onSecondary;
+        background-color: $secondary;
     }
 
     &--tertiary {
-        color: color.$onTertiary;
-        background-color: color.$tertiary;
+        color: $onTertiary;
+        background-color: $tertiary;
     }
 
     &--error {
-        color: color.$onError;
-        background-color: color.$error;
+        color: $onError;
+        background-color: $error;
     }
 }
 

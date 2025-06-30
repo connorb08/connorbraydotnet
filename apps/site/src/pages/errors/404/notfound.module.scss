@@ -1,5 +1,4 @@
-@use "../../../styles/color.scss" as color;
-@use "../../../styles/style.scss" as style;
+@use "~/styles" as *;
 
 .notFound {
     height: 100%;
@@ -21,11 +20,11 @@
     }
 
     &__link {
-        @include style.rounded;
+        @include rounded;
         margin-top: 1rem;
         width: fit-content;
-        // background-color: color.$error;
-        // color: color.$onError;
+        // background-color: colors.$error;
+        // color: colors.$onError;
         font-size: 1.25rem;
         text-decoration: none;
         padding: 0.5rem 1rem;
@@ -33,17 +32,17 @@
 
         // Add transparent border initially to maintain consistent size
         // border: 1px solid transparent;
-        @include style.border;
+        @include border;
 
         &:hover {
-            background-color: color.$tertiary;
-            color: color.$onTertiary;
-            // background-color: color.$errorContainer;
-            // color: color.$onErrorContainer;
-            // box-shadow: 1px 1px 4px color.$errorContainer;
-            // border: 1px solid color.$errorContainer;
-            @include style.shadow;
-            @include style.border;
+            background-color: $tertiary;
+            color: $onTertiary;
+            // background-color: colors.$errorContainer;
+            // color: colors.$onErrorContainer;
+            // box-shadow: 1px 1px 4px colors.$errorContainer;
+            // border: 1px solid colors.$errorContainer;
+            @include shadow;
+            @include border;
         }
     }
 }

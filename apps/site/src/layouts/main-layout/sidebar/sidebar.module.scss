@@ -1,9 +1,7 @@
-@use "../../../styles/color.scss";
-@use "../../../styles/font.scss";
-@use "../../../styles/variables.scss";
+@use "~/styles" as *;
 
 .sidebar {
-    @include color.surfaceDim;
+    @include surfaceDim;
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -15,7 +13,7 @@
         box-sizing: border-box;
     }
 
-    @media (max-width: variables.breakpoint(md)) {
+    @media (max-width: breakpoint(md)) {
         display: none;
     }
 }
