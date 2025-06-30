@@ -19,7 +19,8 @@
 		"#pages/*": "./src/pages/*/index.tsx",
 		"#utils": "./src/utils/index.ts",
 		"#utils/*": "./src/utils/*.ts",
-		"#config": "./src/config.ts"
+		"#config": "./src/config.ts",
+		"#styles/": "./src/styles/*"
 	},
 	"dependencies": {
 		"isbot": "^5.1.17",
@@ -35,11 +36,9 @@
 		"@types/react": "^19.0.1",
 		"@types/react-dom": "^19.0.1",
 		"react-icons": "^5.5.0",
+		"sass-embedded": "^1.89.2",
 		"vite": "^6.2.1",
 		"vite-tsconfig-paths": "^5.1.4"
-	},
-	"peerDependencies": {
-		"sass": "*"
 	},
 	"packageManager": "bun@10.8.0"
 }

@@ -12,9 +12,18 @@ export default defineConfig({
 	server: {
 		host: "127.0.0.1",
 	},
-	resolve: {
-		alias: {
-			"#styles/*": "./src/styles/*",
-		},
-	},
+	// resolve: {
+	// 	alias: {
+	// 		"~/styles/*": "./src/styles/*",
+	// 	},
+	// },
+	// css: {
+	// 	preprocessorOptions: {
+	// 		sass: {
+	// 			additionalData: `@use "${join(currentDir, "./src/styles/color.scss")}" as *;`,
+	// 			api: "modern",
+	// 			// loadPaths: ["./src/styles"],
+	// 		},
+	// 	},
+	// },
 });
