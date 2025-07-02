@@ -1,15 +1,10 @@
-import config from "#config";
-import BaseGame from "#root/Game/index.ts";
-import { Logger } from "#root/utils/Logger.ts";
-import type { Page } from "playwright";
-import type { Node } from "./Node.ts";
-import { Graph } from "./Graph.ts";
-import { exit } from "node:process";
-import PageController from "./PageController.ts";
+import { logger } from "#utils/Logger";
+import { Graph } from "./graph.ts";
+import type { IGraphNode, IPageController } from "./types.ts";
 
-const logger = Logger({
-	logLevel: "debug",
-});
+interface PlayQueensConfig {
+	pageController: IPageController;
+}
 
 /**
  * Queens Game
@@ -17,66 +12,28 @@ const logger = Logger({
  * This module handles the Queens game on LinkedIn.
  * It initializes the game, starts it, and provides a method to play the game.
  */
-export const PlayQueens = async () => {
-	using queens = await BaseGame({ url: config.Urls.Queens });
-	const pageController = await PageController({ page: queens.page });
-	await queens.start();
+export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
+	await pageController.startGame();
+	const sideLength = await pageController.getSideLength();
+	const graph = new Graph(sideLength);
+	await pageController.populateGraph(graph);
 
-	await queens.playGame(async (page) => {
-		await pageController.StartGame();
-		const rows = await pageController.GetRows();
-		const graph = new Graph(+rows);
-
-		const nodes = await page.locator("div.queens-cell-with-border").all();
-		await Promise.all(
-			nodes.map(async (cell) => {
-				const [cellIdx, cellColor, ariaLabel] = await Promise.all([
-					cell.getAttribute("data-cell-idx"),
-					cell.getAttribute("class"),
-					cell.getAttribute("aria-label"),
-				]);
-
-				const idx = +(cellIdx ?? -1);
-				const color = +(cellColor?.split("-").slice(-1)[0]?.trim() ?? -1);
-
-				const [, colorName = ""] =
-					ariaLabel?.match(/of color\s*([^,]+)/i) ?? [];
-
-				if (idx === -1) {
-					console.error("Invalid cell index found:", cellIdx);
-					exit(1);
-				}
-
-				if (color === -1) {
-					console.error("No color found for cell", cellIdx);
-					exit(1);
-				}
-				graph.addNode(idx, color);
-				graph.setColorName(color, colorName.trim());
-			}),
-		);
-
-		graph.createEdges();
-		const startingNode = graph.nodes.values().next().value;
-		if (!startingNode) {
-			throw new Error("No starting node found in the graph.");
-		}
-
-		await SearchGraph({ graph, page, pageController });
-		graph.print();
-		console.log(graph.queens);
-		await page.pause();
+	await SearchGraph({
+		graph,
+		pageController,
 	});
+
+	console.log("queens placed:", graph.queens);
+
+	await pageController.pause();
 };
 
 async function SearchGraph({
 	graph,
-	page,
 	pageController,
 }: {
 	graph: Graph;
-	page: Page;
-	pageController: Awaited<ReturnType<typeof PageController>>;
+	pageController: IPageController;
 }) {
 	let continueSearch = true;
 	let nLoops = 0;
@@ -97,14 +54,14 @@ async function SearchGraph({
 			/* Place queen if the node has no edges */
 			if (edges.size === 0) {
 				console.log("Placing queen on node with no edges:", node.id);
+				await pageController.placeQueen(node);
 				await graph.placeQueen(node);
-				await pageController.PlaceQueen(node);
 				continue search;
 			}
 
-			const sameRow: Set<Node> = new Set();
-			const sameColumn: Set<Node> = new Set();
-			const sameColor: Set<Node> = new Set();
+			const sameRow: Set<IGraphNode> = new Set();
+			const sameColumn: Set<IGraphNode> = new Set();
+			const sameColor: Set<IGraphNode> = new Set();
 
 			for (const edge of edges) {
 				const edgeNode = graph.nodes.get(edge);
@@ -130,7 +87,8 @@ async function SearchGraph({
 					node.id,
 				);
 				await graph.placeQueen(node);
-				await pageController.PlaceQueen(node);
+				await pageController.placeQueen(node);
+
 				continue search;
 			}
 
@@ -150,8 +108,8 @@ async function SearchGraph({
 			}
 		}
 
-		for (const [color, colorSet] of graph.colors.entries()) {
-			logger.debug(`Searching color ${color} (${graph.colorNames.get(color)})`);
+		for (const [colorId, colorSet] of graph.colors.entries()) {
+			logger.debug(`Searching color ${colorId} (${graph.colorInfo[colorId]})`);
 
 			let intersectionSet = new Set<number>(
 				colorSet.values().next()?.value?.edges || [],
@@ -171,8 +129,8 @@ async function SearchGraph({
 					logger.debug(
 						`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
 					);
+					await pageController.placeCross(node);
 					await graph.excludeCell(node);
-					await pageController.PlaceCross(node);
 				}
 				continue search;
 			}

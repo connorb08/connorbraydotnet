@@ -1,15 +1,7 @@
-import config, { type Config } from "#config";
+import config from "#root/config.ts";
+import type { Logger } from "#types";
 
-interface LoggerOptions {
-	logLevel?: Config["logLevel"];
-}
-
-type Logger = ({ logLevel }?: LoggerOptions) => {
-	debug: (message: string, ...args: unknown[]) => void;
-	error: (message: string, ...args: unknown[]) => void;
-};
-
-export const Logger: Logger = (
+const LoggerClosure: Logger = (
 	{ logLevel = config.logLevel } = {
 		logLevel: config.logLevel,
 	},
@@ -33,3 +25,9 @@ export const Logger: Logger = (
 		error,
 	};
 };
+
+const logger = LoggerClosure({
+	logLevel: "debug",
+});
+
+export { logger };

@@ -7,6 +7,9 @@ export interface Config {
 	Urls: {
 		Queens: string;
 	};
+	Queens: {
+		placePreExistingQueens: boolean;
+	};
 }
 
 const isValidLogLevel = (level?: string): level is Config["logLevel"] =>
@@ -22,5 +25,8 @@ export default {
 	interactive: true,
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
+	},
+	Queens: {
+		placePreExistingQueens: true,
 	},
 } satisfies Config;

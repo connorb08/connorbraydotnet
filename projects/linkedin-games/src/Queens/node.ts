@@ -1,4 +1,6 @@
-export class Node {
+import type { IGraphNode } from "./types";
+
+export class GraphNode implements IGraphNode {
 	private readonly _id: number;
 	public readonly _row: number;
 	private readonly _column: number;
@@ -33,8 +35,8 @@ export class Node {
 		return this._edges;
 	}
 
-	public addEdge(node: Node): void {
-		this._edges.add(node.id);
+	public async addEdge(node: GraphNode | number) {
+		this._edges.add(typeof node === "number" ? node : node.id);
 	}
 
 	public addEdgeById(nodeId: number): void {

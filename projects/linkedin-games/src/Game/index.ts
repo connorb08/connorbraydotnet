@@ -1,6 +1,6 @@
 import type { Browser, BrowserContext, Page } from "playwright";
 import { chromium } from "playwright";
-import projectConfig from "#config";
+import projectConfig from "#root/config.ts";
 
 export interface GameConfig {
 	url: string;
