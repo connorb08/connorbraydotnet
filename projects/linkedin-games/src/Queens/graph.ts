@@ -2,10 +2,6 @@ import { logger } from "#utils/Logger";
 import { GraphNode } from "./node";
 import type { ColorInfo, IGraph, INode } from "./types";
 
-// #region types
-
-// #endregion types
-
 export class Graph implements IGraph {
 	/** The number of rows and columns in the grid */
 	private readonly _sideLength: number = -1;
@@ -86,21 +82,6 @@ export class Graph implements IGraph {
 		}
 	}
 
-	// public get colors(): Map<number, Set<GraphNode>> {
-	// 	const returnMap = new Map<number, Set<GraphNode>>();
-	// 	for (const [color, GraphNodes] of this._colors) {
-	// 		const GraphNodeList = returnMap.get(color) || new Set<GraphNode>();
-	// 		for (const GraphNodeId of GraphNodes) {
-	// 			const GraphNode = this._nodes.get(GraphNodeId);
-	// 			if (GraphNode) {
-	// 				GraphNodeList.add(GraphNode);
-	// 			}
-	// 		}
-	// 		returnMap.set(color, GraphNodeList);
-	// 	}
-	// 	return returnMap;
-	// }
-
 	public get nodes(): Map<number, INode> {
 		return this._nodes;
 	}
@@ -136,18 +117,6 @@ export class Graph implements IGraph {
 		return columnMap;
 	}
 
-	// public get colorNames(): Map<number, string> {
-	// 	return this._colorNames;
-	// }
-
-	public get n(): number {
-		return this._sideLength;
-	}
-
-	// public get colorInfo(colorId: number): ColorInfoTuple | undefined {
-	// 	return this._colorInfo.get(colorId);
-	// }
-
 	private connectNodes(node1: INode, node2: INode) {
 		node1.addEdge(node2);
 		node2.addEdge(node1);
@@ -169,16 +138,16 @@ export class Graph implements IGraph {
 		if (!colorSet) {
 			throw new Error(`Color ${nodeColor} does not exist in the graph.`);
 		}
-		const row = Math.floor(nodeId / this.n);
-		const column = nodeId % this.n;
+		const row = Math.floor(nodeId / this._sideLength);
+		const column = nodeId % this._sideLength;
 		this._nodes.set(nodeId, new GraphNode(nodeId, nodeColor, row, column));
 		colorSet.add(nodeId);
 	}
 
 	public createEdges() {
-		for (let column = 0; column < this.n; column++) {
-			for (let row = 0; row < this.n; row++) {
-				const idx = row * this.n + column;
+		for (let column = 0; column < this._sideLength; column++) {
+			for (let row = 0; row < this._sideLength; row++) {
+				const idx = row * this._sideLength + column;
 				const currentNode = this._nodes.get(idx);
 				if (!currentNode) {
 					throw new Error(`Node ${idx} does not exist in the graph.`);
@@ -194,25 +163,25 @@ export class Graph implements IGraph {
 				colorSet.add(idx);
 
 				// Add edges to the right
-				if (column < this.n - 1) {
-					for (let i = 1; i < this.n - column; i++) {
+				if (column < this._sideLength - 1) {
+					for (let i = 1; i < this._sideLength - column; i++) {
 						this.connectGraphNodesById(idx, idx + i);
 					}
 				}
 
 				// Add edges downwards
-				if (row < this.n - 1) {
-					for (let i = 1; i < this.n - row; i++) {
-						this.connectGraphNodesById(idx, idx + i * this.n);
+				if (row < this._sideLength - 1) {
+					for (let i = 1; i < this._sideLength - row; i++) {
+						this.connectGraphNodesById(idx, idx + i * this._sideLength);
 					}
 				}
 
 				// Add diagonal edges
-				if (row < this.n - 1 && column < this.n - 1) {
-					this.connectGraphNodesById(idx, idx + this.n + 1); // Down-right diagonal
+				if (row < this._sideLength - 1 && column < this._sideLength - 1) {
+					this.connectGraphNodesById(idx, idx + this._sideLength + 1); // Down-right diagonal
 				}
-				if (row < this.n - 1 && column > 0) {
-					this.connectGraphNodesById(idx, idx + this.n - 1); // Down-left diagonal
+				if (row < this._sideLength - 1 && column > 0) {
+					this.connectGraphNodesById(idx, idx + this._sideLength - 1); // Down-left diagonal
 				}
 			}
 		}
@@ -233,20 +202,6 @@ export class Graph implements IGraph {
 				}
 			}
 		}
-	}
-
-	public print(): void {
-		let returnString = "";
-		for (const GraphNode of this._nodes.values()) {
-			let edgeString = "[";
-			const edges = GraphNode.edges;
-			for (const edge of edges) {
-				edgeString += `${edge},`;
-			}
-			edgeString += "]";
-			returnString += `${GraphNode.id} -> ${edgeString}\n`;
-		}
-		console.log(returnString);
 	}
 
 	private async removeNode(
@@ -283,12 +238,7 @@ export class Graph implements IGraph {
 		callback?: (node: INode) => Promise<void>,
 	) {
 		this._queens.push(node.id);
-		// const nodeEdges = Array.from(graphNode.edges.values());
 		await this.removeNodeAndNeighbors(node, callback);
-		// return {
-		// 	id: graphNode.id,
-		// 	edges: nodeEdges,
-		// };
 	}
 
 	public async excludeCell(

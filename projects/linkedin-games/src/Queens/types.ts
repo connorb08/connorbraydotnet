@@ -15,19 +15,18 @@ interface IGraph {
 	placeQueen(node: INode): Promise<void>;
 }
 
-interface INodeInfo {
-	id: number;
-	edges: number[];
-}
-
 interface INode {
-	removed: boolean;
+	// Properties
 	readonly id: number;
 	readonly row: number;
 	readonly column: number;
 	readonly color: number;
 	readonly edges: Map<number, INode>;
 
+	// Flags
+	removed: boolean;
+
+	// Methods
 	addEdge(node: INode | number): Promise<void>;
 }
 
@@ -44,21 +43,10 @@ interface IPageController {
 	[Symbol.asyncDispose](): Promise<void>;
 }
 
-interface IGameController {
-	readonly pageController: IPageController;
-}
-
 interface ColorInfo {
 	id: number;
 	name: string;
 	hex: string;
 }
 
-export type {
-	IGraph,
-	INode,
-	IPageController,
-	IGameController,
-	ColorInfo,
-	INodeInfo,
-};
+export type { IGraph, INode, IPageController, ColorInfo };
