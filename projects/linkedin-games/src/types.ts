@@ -5,8 +5,9 @@ interface LoggerOptions {
 }
 
 type Logger = ({ logLevel }?: LoggerOptions) => {
-	debug: (message: string, ...args: unknown[]) => void;
-	error: (message: string, ...args: unknown[]) => void;
+	debug: (...args: unknown[]) => void;
+	error: (...args: unknown[]) => void;
+	warn: (...args: unknown[]) => void;
 };
 
 export type { Logger, LoggerOptions };

@@ -1,32 +1,50 @@
 const logLevels = ["none", "debug", "error"] as const;
 
-export interface Config {
+interface Config {
 	headless: boolean;
 	logLevel: (typeof logLevels)[number];
-	interactive: boolean;
 	Urls: {
 		Queens: string;
 	};
-	Queens: {
-		placePreExistingQueens: boolean;
-	};
 }
 
-const isValidLogLevel = (level?: string): level is Config["logLevel"] =>
-	logLevels.includes(level as Config["logLevel"]);
-
-const logLevel = isValidLogLevel(process.env.LOG_LEVEL)
-	? (process.env.LOG_LEVEL as Config["logLevel"])
-	: "error";
-
-export default {
+const defaultConfig: Config = {
 	headless: false,
-	logLevel,
-	interactive: true,
+	logLevel: "error",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},
-	Queens: {
-		placePreExistingQueens: true,
+};
+
+const getHeadless = (): Config["headless"] => {
+	if (
+		process.env.HEADLESS &&
+		["true", "false"].includes(process.env.HEADLESS)
+	) {
+		return process.env.HEADLESS === "true";
+	}
+	return defaultConfig.headless;
+};
+
+const getLogLevel = (): Config["logLevel"] => {
+	if (
+		process.env.LOG_LEVEL &&
+		logLevels.includes(process.env.LOG_LEVEL as Config["logLevel"])
+	) {
+		return process.env.LOG_LEVEL as Config["logLevel"];
+	}
+	return defaultConfig.logLevel;
+};
+
+const config = {
+	headless: getHeadless(),
+	logLevel: getLogLevel(),
+	interactive: true,
+	Urls: {
+		Queens: defaultConfig.Urls.Queens,
 	},
-} satisfies Config;
+} satisfies Config & {
+	interactive: boolean;
+};
+
+export default config;

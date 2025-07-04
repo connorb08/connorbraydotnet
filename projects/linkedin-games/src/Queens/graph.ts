@@ -1,6 +1,6 @@
 import { logger } from "#utils/Logger";
 import { GraphNode } from "./node";
-import type { ColorInfo, IGraph, IGraphNode, INodeInfo } from "./types";
+import type { ColorInfo, IGraph, INode } from "./types";
 
 // #region types
 
@@ -9,7 +9,7 @@ import type { ColorInfo, IGraph, IGraphNode, INodeInfo } from "./types";
 export class Graph implements IGraph {
 	/** The number of rows and columns in the grid */
 	private readonly _sideLength: number = -1;
-	private readonly _nodes: Map<number, GraphNode> = new Map();
+	private readonly _nodes: Map<number, INode> = new Map();
 	private readonly _colorNodes: Map<number, Set<number>> = new Map();
 	private readonly _colorInfo: Map<number, ColorInfo> = new Map();
 	private _queens: number[] = [];
@@ -34,10 +34,10 @@ export class Graph implements IGraph {
 
 	// #region Getters and Setters
 
-	public get colors(): Map<number, Set<IGraphNode>> {
-		const returnMap = new Map<number, Set<IGraphNode>>();
+	public get colors(): Map<number, Set<INode>> {
+		const returnMap = new Map<number, Set<INode>>();
 		for (const [color, nodes] of this._colorNodes) {
-			const nodeList = returnMap.get(color) || new Set<IGraphNode>();
+			const nodeList = returnMap.get(color) || new Set<INode>();
 			for (const nodeId of nodes) {
 				const node = this._nodes.get(nodeId);
 				if (node) {
@@ -72,8 +72,8 @@ export class Graph implements IGraph {
 	// #endregion Getters and Setters
 
 	public async filter(
-		nodes: Set<IGraphNode>,
-		filterFunction: (node: IGraphNode) => boolean,
+		nodes: Set<INode>,
+		filterFunction: (node: INode) => boolean,
 	): Promise<void> {
 		logger.debug(`Filtering ${nodes.size} GraphNodes in graph`);
 		for (const node of nodes) {
@@ -81,7 +81,7 @@ export class Graph implements IGraph {
 				logger.debug(
 					`Removing GraphNode ${node.id} with color ${node.color} at row ${node.row}, column ${node.column}`,
 				);
-				await this.removeGraphNode(node);
+				await this.removeNode(node);
 			}
 		}
 	}
@@ -101,19 +101,19 @@ export class Graph implements IGraph {
 	// 	return returnMap;
 	// }
 
-	public get nodes(): Map<number, GraphNode> {
+	public get nodes(): Map<number, INode> {
 		return this._nodes;
 	}
 
-	public get rows(): Map<number, Set<GraphNode>> {
-		const rowMap: Map<number, Set<GraphNode>> = new Map();
+	public get rows(): Map<number, Set<INode>> {
+		const rowMap: Map<number, Set<INode>> = new Map();
 		for (let i = 0; i < this._sideLength; i++) {
-			const rowSet = rowMap.get(i) || new Set<GraphNode>();
+			const rowSet = rowMap.get(i) || new Set<INode>();
 			for (let j = 0; j < this._sideLength; j++) {
 				const idx = i * this._sideLength + j;
-				const GraphNode = this._nodes.get(idx);
-				if (GraphNode) {
-					rowSet.add(GraphNode);
+				const node = this._nodes.get(idx);
+				if (node) {
+					rowSet.add(node);
 				}
 			}
 			rowMap.set(i, rowSet);
@@ -121,14 +121,15 @@ export class Graph implements IGraph {
 		return rowMap;
 	}
 
-	public get columns(): Map<number, GraphNode[]> {
-		const columnMap: Map<number, GraphNode[]> = new Map();
+	public get columns(): Map<number, Set<INode>> {
+		const columnMap: Map<number, Set<INode>> = new Map();
 		for (let i = 0; i < this._sideLength; i++) {
+			const columnSet = columnMap.get(i) || new Set<INode>();
 			for (let j = 0; j < this._sideLength; j++) {
 				const idx = i * this._sideLength + j;
-				const GraphNode = this._nodes.get(idx);
-				if (GraphNode) {
-					columnMap.set(j, [...(columnMap.get(j) || []), GraphNode]);
+				const node = this._nodes.get(idx);
+				if (node) {
+					columnSet.add(node);
 				}
 			}
 		}
@@ -147,20 +148,20 @@ export class Graph implements IGraph {
 	// 	return this._colorInfo.get(colorId);
 	// }
 
-	private connectGraphNodes(GraphNode1: GraphNode, GraphNode2: GraphNode) {
-		GraphNode1.addEdge(GraphNode2);
-		GraphNode2.addEdge(GraphNode1);
+	private connectNodes(node1: INode, node2: INode) {
+		node1.addEdge(node2);
+		node2.addEdge(node1);
 	}
 
 	private connectGraphNodesById(id1: number, id2: number) {
-		const GraphNode1 = this._nodes.get(id1);
-		const GraphNode2 = this._nodes.get(id2);
-		if (!GraphNode1 || !GraphNode2) {
+		const node1 = this._nodes.get(id1);
+		const node2 = this._nodes.get(id2);
+		if (!node1 || !node2) {
 			throw new Error(
 				`One or both GraphNodes with IDs ${id1} and ${id2} do not exist in the graph.`,
 			);
 		}
-		this.connectGraphNodes(GraphNode1, GraphNode2);
+		this.connectNodes(node1, node2);
 	}
 
 	public addNode(nodeId: number, nodeColor: number) {
@@ -248,12 +249,12 @@ export class Graph implements IGraph {
 		console.log(returnString);
 	}
 
-	private async removeGraphNode(node: IGraphNode) {
-		for await (const edgeId of node.edges) {
-			const edgeNode = this._nodes.get(edgeId);
-			if (edgeNode) {
-				edgeNode.edges.delete(node.id);
-			}
+	private async removeNode(
+		node: INode,
+		callback?: (node: INode) => Promise<void>,
+	) {
+		for await (const edgeNode of node.edges.values()) {
+			edgeNode.edges.delete(node.id);
 		}
 		node.edges.clear();
 		this._nodes.delete(node.id);
@@ -261,31 +262,40 @@ export class Graph implements IGraph {
 		if (!node.removed) {
 			node.removed = true;
 		}
+		if (callback) {
+			await callback(node);
+		}
 	}
 
-	private async removeGraphNodeAndNeighbors(node: IGraphNode) {
-		for await (const edgeId of node.edges) {
-			const edgeNode = this._nodes.get(edgeId);
-			if (edgeNode) {
-				await this.removeGraphNode(edgeNode);
-			}
+	private async removeNodeAndNeighbors(
+		node: INode,
+		callback?: (node: INode) => Promise<void>,
+	) {
+		for await (const edgeNode of node.edges.values()) {
+			await this.removeNode(edgeNode, callback);
 		}
 		this._colorNodes.delete(node.color);
 		this._nodes.delete(node.id);
 	}
 
-	public async placeQueen(node: IGraphNode) {
+	public async placeQueen(
+		node: INode,
+		callback?: (node: INode) => Promise<void>,
+	) {
 		this._queens.push(node.id);
 		// const nodeEdges = Array.from(graphNode.edges.values());
-		await this.removeGraphNodeAndNeighbors(node);
+		await this.removeNodeAndNeighbors(node, callback);
 		// return {
 		// 	id: graphNode.id,
 		// 	edges: nodeEdges,
 		// };
 	}
 
-	public async excludeCell(node: IGraphNode) {
-		await this.removeGraphNode(node);
+	public async excludeCell(
+		node: INode,
+		callback?: (node: INode) => Promise<void>,
+	) {
+		await this.removeNode(node, callback);
 	}
 
 	public getColorSet(color: number): Set<number> {

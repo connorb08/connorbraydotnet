@@ -6,22 +6,30 @@ const LoggerClosure: Logger = (
 		logLevel: config.logLevel,
 	},
 ) => {
-	function debug(message: string, ...args: unknown[]) {
+	function debug(...args: unknown[]) {
 		if (logLevel !== "debug") {
 			return;
 		}
-		console.log(message, ...args);
+		console.log(...args);
 	}
 
-	function error(message: string, ...args: unknown[]) {
+	function warn(...args: unknown[]) {
 		if (logLevel === "none") {
 			return;
 		}
-		console.error(message, ...args);
+		console.warn(...args);
+	}
+
+	function error(...args: unknown[]) {
+		if (logLevel === "none") {
+			return;
+		}
+		console.error(...args);
 	}
 
 	return {
 		debug,
+		warn,
 		error,
 	};
 };

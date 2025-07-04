@@ -1,7 +1,7 @@
 interface IGraph {
 	readonly queens: number[];
 
-	readonly colors: Map<number, Set<IGraphNode>>;
+	readonly colors: Map<number, Set<INode>>;
 
 	// get colors(): Map<number, Set<number>>;
 
@@ -13,7 +13,7 @@ interface IGraph {
 	addNode(nodeId: number, colorId: number): void;
 	createEdges(): void;
 
-	placeQueen(node: IGraphNode): Promise<void>;
+	placeQueen(node: INode): Promise<void>;
 }
 
 interface INodeInfo {
@@ -21,23 +21,26 @@ interface INodeInfo {
 	edges: number[];
 }
 
-interface IGraphNode {
+interface INode {
 	removed: boolean;
 	readonly id: number;
 	readonly row: number;
 	readonly column: number;
 	readonly color: number;
-	readonly edges: Set<number>;
+	readonly edges: Map<number, INode>;
 
-	addEdge(node: IGraphNode | number): Promise<void>;
+	addEdge(node: INode | number): Promise<void>;
 }
 
 interface IPageController {
 	startGame(): Promise<void>;
 	getSideLength(): Promise<number>;
 	populateGraph(graph: IGraph): Promise<void>;
-	placeQueen(node: IGraphNode): Promise<void>;
-	placeCross(node: IGraphNode): Promise<void>;
+	placeQueen(node: INode): Promise<void>;
+	placeCross(node: INode): Promise<void>;
+	clickSquare(node: INode): Promise<void>;
+	clickSquareById(nodeId: number): Promise<void>;
+	placeQueenById(nodeId: number): Promise<void>;
 	pause(): Promise<void>;
 	[Symbol.asyncDispose](): Promise<void>;
 }
@@ -54,7 +57,7 @@ interface ColorInfo {
 
 export type {
 	IGraph,
-	IGraphNode,
+	INode,
 	IPageController,
 	IGameController,
 	ColorInfo,

@@ -1,11 +1,11 @@
-import type { IGraphNode } from "./types";
+import type { INode } from "./types";
 
-export class GraphNode implements IGraphNode {
+export class GraphNode implements INode {
 	private readonly _id: number;
 	public readonly _row: number;
 	private readonly _column: number;
 	private readonly _color: number;
-	private readonly _edges: Set<number> = new Set<number>();
+	private readonly _edges: Map<number, INode> = new Map<number, INode>();
 	public removed = false;
 
 	public constructor(id: number, color: number, row: number, column: number) {
@@ -31,15 +31,11 @@ export class GraphNode implements IGraphNode {
 		return this._color;
 	}
 
-	public get edges(): Set<number> {
+	public get edges(): Map<number, INode> {
 		return this._edges;
 	}
 
-	public async addEdge(node: GraphNode | number) {
-		this._edges.add(typeof node === "number" ? node : node.id);
-	}
-
-	public addEdgeById(nodeId: number): void {
-		this._edges.add(nodeId);
+	public async addEdge(node: INode) {
+		this._edges.set(node.id, node);
 	}
 }
