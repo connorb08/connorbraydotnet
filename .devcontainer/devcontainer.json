@@ -27,7 +27,8 @@
 				"ms-vscode.vscode-websearchforcopilot",
 				"pranaygp.vscode-css-peek",
 				"sibiraj-s.vscode-scss-formatter",
-				"mrmlnc.vscode-scss"
+				"mrmlnc.vscode-scss",
+				"ms-azuretools.vscode-containers"
 			],
 			"settings": {
 				"files.associations": {
