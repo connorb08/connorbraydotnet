@@ -5,7 +5,7 @@ import {
 	type BrowserWorker,
 	type Page,
 } from "@cloudflare/playwright";
-import config from "#root/config.ts";
+import config from "#config";
 import type { IGraph, INode, IPageController } from "./types";
 import { logger } from "#utils/Logger";
 

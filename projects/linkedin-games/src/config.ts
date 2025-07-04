@@ -9,7 +9,7 @@ export interface Config {
 }
 
 const defaultConfig: Config = {
-	headless: false,
+	headless: true,
 	logLevel: "debug",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
@@ -39,7 +39,7 @@ const getLogLevel = (): Config["logLevel"] => {
 const config = {
 	headless: getHeadless(),
 	logLevel: getLogLevel(),
-	interactive: true,
+	interactive: false,
 	Urls: {
 		Queens: defaultConfig.Urls.Queens,
 	},

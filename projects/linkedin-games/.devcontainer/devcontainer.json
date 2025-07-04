@@ -1,7 +1,17 @@
 {
 	"name": "linked-game-solver",
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node",
+	// https://containers.dev/features
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {}
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/audacioustux/devcontainers/bun:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"biomejs.biome"
+			]
+		}
 	}
+	// "postCreateCommand": "bun setup"
 }

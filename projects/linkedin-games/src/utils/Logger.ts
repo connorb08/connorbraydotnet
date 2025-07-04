@@ -1,4 +1,4 @@
-import config from "#root/config.ts";
+import config from "#config";
 import type { Logger } from "#types";
 
 const LoggerClosure: Logger = (

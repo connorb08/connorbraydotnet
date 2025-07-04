@@ -1,7 +1,28 @@
 {
+	/*
+	 * Formatting
+	 */
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.formatOnSave": true,
 	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
+	},
+	/*
+	 * Files and Explorer
+	 */
+	"files.exclude": {
+		"node_modules": true
+	},
+	"files.associations": {
+		"wrangler.json": "jsonc",
+		"biome.json": "jsonc"
+	},
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.patterns": {
+		"wrangler.json": "worker-configuration.d.ts"
+	},
+	"explorer.sortOrder": "foldersNestsFiles",
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
 	}
 }

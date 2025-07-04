@@ -1,28 +1,29 @@
 {
 	"name": "linkedin-game-solver",
 	"version": "1.0.0",
+	"author": "Connor Bray",
 	"main": "src/index.ts",
-	"scripts": {
-		"queens": "bun run src/index.ts",
-		"cf:queens": "bun run src/index.ts"
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@cloudflare/playwright": "^0.0.10",
+		"@types/node": "^24.0.10",
+		"playwright": "^1.53.2",
+		"typescript": "^5.8.3",
+		"wrangler": "^4.23.0"
 	},
+	"description": "",
 	"imports": {
 		"#config": "./src/config.ts",
 		"#types": "./src/types.ts",
 		"#utils/*": "./src/utils/*.ts",
-		"#root/*": "./src/*"
+		"#src/*": "./src/*"
 	},
 	"keywords": [],
-	"author": "Connor Bray",
 	"license": "MIT",
-	"type": "module",
-	"description": "",
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@cloudflare/playwright": "^0.0.10",
-		"@types/node": "^24.0.1"
+	"scripts": {
+		"playwright:setup": "playwright install chromium && playwright install-deps chromium",
+		"queens": "bun run src/index.ts",
+		"cf": "wrangler dev"
 	},
-	"dependencies": {
-		"playwright": "^1.53.0"
-	}
+	"type": "module"
 }

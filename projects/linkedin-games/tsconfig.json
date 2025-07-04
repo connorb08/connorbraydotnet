@@ -1,29 +1,18 @@
 {
-	"include": ["src"],
+	"extends": "./tsconfig.base.json",
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.main.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		}
+	],
 	"compilerOptions": {
-		"allowJs": false,
-		"allowImportingTsExtensions": true,
-		"isolatedModules": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"target": "ESNext",
-		"verbatimModuleSyntax": true,
-		"strict": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noUnusedLocals": true,
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"suppressExcessPropertyErrors": false,
-		"suppressImplicitAnyIndexErrors": false,
-		"noStrictGenericChecks": false,
-		"erasableSyntaxOnly": true,
-		"module": "esnext",
-		"moduleResolution": "bundler",
 		"noEmit": true,
-		"lib": ["ESNext", "DOM"]
+		"composite": true,
+		"rootDir": ".",
+		"outDir": ".tsbuildinfo"
 	}
 }
