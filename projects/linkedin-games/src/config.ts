@@ -1,6 +1,6 @@
 const logLevels = ["none", "debug", "error"] as const;
 
-interface Config {
+export interface Config {
 	headless: boolean;
 	logLevel: (typeof logLevels)[number];
 	Urls: {
@@ -10,7 +10,7 @@ interface Config {
 
 const defaultConfig: Config = {
 	headless: false,
-	logLevel: "error",
+	logLevel: "debug",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},

@@ -1,6 +1,5 @@
 interface IGraph {
 	readonly queens: number[];
-
 	readonly colors: Map<number, Set<INode>>;
 
 	// get colors(): Map<number, Set<number>>;

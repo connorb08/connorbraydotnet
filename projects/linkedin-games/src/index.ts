@@ -2,4 +2,5 @@ import PlayQueens from "./queens/index.ts";
 import PageController from "./queens/page-controller.ts";
 
 await using pageController = await PageController();
-await PlayQueens({ pageController });
+const queenLocations = await PlayQueens({ pageController });
+console.log("Queen locations:", queenLocations);

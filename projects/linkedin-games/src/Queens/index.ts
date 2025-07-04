@@ -22,11 +22,11 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 
 	async function playGame() {
 		await SearchGraph();
-		console.log("queens placed:", graph.queens);
 		for await (const node of graph.queens) {
 			await pageController.placeQueenById(node);
 		}
-		await pageController.pause();
+		return graph.queens;
+		// await pageController.pause();
 	}
 
 	async function placeQueen(node: INode) {
@@ -35,9 +35,9 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 			return;
 		}
 		// use a callback here?
-		await pageController.clickSquare(node);
+		// await pageController.clickSquare(node);
 		await graph.placeQueen(node, async (placedNode) => {
-			await pageController.clickSquare(placedNode);
+			// await pageController.clickSquare(placedNode);
 		});
 	}
 
@@ -47,7 +47,7 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 		const maxLoops = 100000;
 
 		search: while (continueSearch) {
-			if (nLoops > maxLoops) {
+			if (-nLoops > maxLoops) {
 				return;
 			}
 			nLoops++;
@@ -60,7 +60,6 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 
 				/* Place queen if the node has no edges */
 				if (edges.size === 0) {
-					console.log("Placing queen on node with no edges:", node.id);
 					placeQueen(node);
 					break search;
 				}
@@ -117,7 +116,7 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 
 			for (const [colorId, colorSet] of graph.colors.entries()) {
 				logger.debug(
-					`Searching color ${colorId} (${graph.colorInfo[colorId]})`,
+					`Searching color ${colorId} (${graph.colorInfo[colorId]?.name}: ${graph.colorInfo[colorId]?.hex})`,
 				);
 
 				let intersectionSet = new Set<number>(
@@ -138,7 +137,7 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 						logger.debug(
 							`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
 						);
-						await pageController.placeCross(node);
+						// await pageController.placeCross(node);
 						await graph.excludeCell(node);
 					}
 					continue search;

@@ -12,11 +12,7 @@ export class Graph implements IGraph {
 	private readonly _nodes: Map<number, INode> = new Map();
 	private readonly _colorNodes: Map<number, Set<number>> = new Map();
 	private readonly _colorInfo: Map<number, ColorInfo> = new Map();
-	private _queens: number[] = [];
-
-	public get queens(): number[] {
-		return this._queens;
-	}
+	private readonly _queens: number[] = [];
 
 	/**
 	 * Initializes a new Graph instance with the specified number of GraphNodes.
@@ -30,6 +26,10 @@ export class Graph implements IGraph {
 			throw new Error(errorMessage);
 		}
 		this._sideLength = sideLength;
+	}
+
+	public get queens(): number[] {
+		return this._queens;
 	}
 
 	// #region Getters and Setters
@@ -296,13 +296,5 @@ export class Graph implements IGraph {
 		callback?: (node: INode) => Promise<void>,
 	) {
 		await this.removeNode(node, callback);
-	}
-
-	public getColorSet(color: number): Set<number> {
-		const colorSet = this._colorNodes.get(color);
-		if (!colorSet) {
-			throw new Error(`Color ${color} does not exist in the graph.`);
-		}
-		return colorSet;
 	}
 }

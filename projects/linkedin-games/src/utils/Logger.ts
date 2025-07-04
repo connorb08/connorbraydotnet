@@ -35,7 +35,7 @@ const LoggerClosure: Logger = (
 };
 
 const logger = LoggerClosure({
-	logLevel: "debug",
+	// logLevel: "debug",
 });
 
 export { logger };
