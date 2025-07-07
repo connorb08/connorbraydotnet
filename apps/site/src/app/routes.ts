@@ -1,4 +1,4 @@
-import { index, layout, type RouteConfig } from "@react-router/dev/routes";
+import { index, layout, route, type RouteConfig } from "@react-router/dev/routes";
 
 const routeConfig = [
 	layout("../layouts/main-layout/index.tsx", [
@@ -19,6 +19,7 @@ const routeConfig = [
 			id: "404",
 		},
 	]),
+	route("/content/*", "routes/content.ts"),
 ] satisfies RouteConfig;
 
 export default routeConfig;

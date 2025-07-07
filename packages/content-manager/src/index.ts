@@ -30,7 +30,7 @@ export default class MainEntrypoint extends WorkerEntrypoint<Env> {
 			const size = new URL(request.url).searchParams.get("size");
 			const width = calculateWidth(size);
 
-			/* If no key is provided, return a list of images */
+			/* Return 404 if not found */
 			const object = await this.env.BUCKET.get(key, {});
 			if (!object) {
 				return new Response("Not Found", { status: 404 });

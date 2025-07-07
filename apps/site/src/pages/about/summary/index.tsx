@@ -35,7 +35,7 @@ export const UserBlock = () => {
 				className={style.userBlock__backgroundImage}
 				style={{
 					backgroundImage:
-						"url('https://connorbray.net/cdn-cgi/image/format=auto,quality=50,fit=scale-down,width=960/https://content.connorbray.net/images/um_mall.jpeg')",
+						"url('/content/images/umaine-mall.jpeg?size=xs')",
 				}}
 			/>
 			<div className={style.userBlock__content}>

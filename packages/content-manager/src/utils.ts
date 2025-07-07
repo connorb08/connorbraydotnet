@@ -8,6 +8,8 @@ export enum Quality {
 
 export function calculateWidth(size: string | null): number {
 	switch (size) {
+		case "xs":
+			return 320;
 		case "sm":
 			return 640;
 		case "md":

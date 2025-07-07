@@ -24,6 +24,8 @@
 		"@biomejs/biome": "^2.0.6",
 		"@biomejs/js-api": "^0.7.1",
 		"@biomejs/wasm-nodejs": "^1.9.4",
+		"@cloudflare/vite-plugin": "^1.9.0",
+		"@cloudflare/vitest-pool-workers": "^0.8.49",
 		"@nx/js": "20.8.0",
 		"@playwright/test": "^1.52.0",
 		"@swc-node/register": "~1.9.1",
@@ -45,8 +47,9 @@
 		"nx": "20.8.0",
 		"tslib": "^2.3.0",
 		"typescript": "^5.8.3",
+		"vite": "^7.0.2",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
-		"vitest": "^3.1.2",
+		"vitest": "^3.2.4",
 		"wrangler": "^4.19.1"
 	}
 }

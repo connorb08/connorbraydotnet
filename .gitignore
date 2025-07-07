@@ -48,3 +48,5 @@ Thumbs.db
 **/.tsbuildinfo
 
 .env
+
+.wrangler

@@ -15,5 +15,11 @@
 			"pattern": "next.connorbray.net",
 			"custom_domain": true
 		}
+	],
+	"services": [
+		{
+			"binding": "CONTENT_MANAGER",
+			"service": "content-manager",
+		}
 	]
 }

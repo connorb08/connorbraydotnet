@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
-		"typegen": "wrangler types 1> /dev/null && react-router typegen",
+		"typegen": "wrangler types && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",

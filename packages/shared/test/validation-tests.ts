@@ -2,7 +2,7 @@
 
 import { assert, type TestFunction } from "vitest";
 import type { ValidationHandler } from "#types";
-import { ResumeData } from "#types/resume/test-data";
+import { ResumeData } from "../";
 import { DeepCopy } from "../src/utils";
 
 interface ITestData {

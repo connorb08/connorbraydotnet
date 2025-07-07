@@ -7,7 +7,7 @@ import {
 } from "@cloudflare/vitest-pool-workers/config";
 import react from "@vitejs/plugin-react";
 
-import { defineConfig, type ViteUserConfig } from "vitest/config";
+import { defineConfig, defineProject, type ViteUserConfig } from "vitest/config";
 
 const workerProjectConfig = {
 	test: {
@@ -27,9 +27,9 @@ const workerProjectConfig = {
 const workerProject = defineWorkersProject(workerProjectConfig);
 
 const vitestConfig = {
-	plugins: [react()],
 	test: {
 		name: "Resume",
+		exclude: ["test/e2e"],
 		globals: true,
 		reporters: ["default", "json"],
 		outputFile: {
@@ -42,7 +42,7 @@ const vitestConfig = {
 			reportsDirectory: "./test/reports/coverage",
 			exclude: ["app/entry.server.tsx"],
 		},
-		workspace: [
+		projects: [
 			{
 				extends: true,
 				test: {
@@ -57,4 +57,4 @@ const vitestConfig = {
 	},
 } satisfies ViteUserConfig;
 
-export default defineConfig(vitestConfig);
+export default defineProject(vitestConfig);
