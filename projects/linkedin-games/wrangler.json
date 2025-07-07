@@ -9,6 +9,11 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	"triggers": {
+		"crons": [
+			"0 14 * * *"
+		]
+	},
 	"containers": [
 		{
 			"class_name": "DockerContainer",

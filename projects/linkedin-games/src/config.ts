@@ -1,6 +1,7 @@
 const logLevels = ["none", "debug", "error"] as const;
 
 export interface Config {
+	browserExecutablePath?: string | undefined;
 	headless: boolean;
 	logLevel: (typeof logLevels)[number];
 	Urls: {
@@ -37,6 +38,7 @@ const getLogLevel = (): Config["logLevel"] => {
 };
 
 const config = {
+	browserExecutablePath: import.meta.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
 	headless: getHeadless(),
 	logLevel: getLogLevel(),
 	interactive: false,

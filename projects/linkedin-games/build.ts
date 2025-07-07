@@ -1,12 +1,10 @@
-import { build } from "esbuild";
+import { build } from "bun";
 
 await build({
-	entryPoints: ["src/index.ts"],
-	target: ["esnext", "node22"],
+	entrypoints: ["src/index.ts"],
+	target: "bun",
 	external: ["playwright"],
-	bundle: true,
 	minify: true,
-	platform: "node",
 	outdir: "dist",
 	format: "esm",
 });
