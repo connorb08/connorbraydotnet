@@ -10,7 +10,7 @@ export interface Config {
 
 const defaultConfig: Config = {
 	headless: true,
-	logLevel: "debug",
+	logLevel: "error",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},

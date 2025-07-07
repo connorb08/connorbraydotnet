@@ -25,8 +25,8 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 		for await (const node of graph.queens) {
 			await pageController.placeQueenById(node);
 		}
-		return graph.queens;
 		// await pageController.pause();
+		return graph.queens;
 	}
 
 	async function placeQueen(node: INode) {

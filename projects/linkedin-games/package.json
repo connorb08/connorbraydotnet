@@ -5,11 +5,12 @@
 	"main": "src/index.ts",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@cloudflare/playwright": "^0.0.10",
 		"@types/node": "^24.0.10",
-		"playwright": "^1.53.2",
-		"typescript": "^5.8.3",
-		"wrangler": "^4.23.0"
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"esbuild": "^0.25.5",
+		"playwright": "^1.53.2"
 	},
 	"description": "",
 	"imports": {
@@ -23,7 +24,12 @@
 	"scripts": {
 		"playwright:setup": "playwright install chromium && playwright install-deps chromium",
 		"queens": "bun run src/index.ts",
-		"cf": "wrangler dev"
+		"dev": "npx tsx src/index.ts",
+		"cf": "wrangler dev --remote",
+		"build": "node build.ts",
+		"docker:build": "docker build -t linkedin-game-solver .",
+		"docker:run": "docker run linkedin-game-solver",
+		"docker:attach": "docker run -it --entrypoint=/bin/sh linkedin-game-solver"
 	},
 	"type": "module"
 }

@@ -1,4 +1,4 @@
-import type { Config } from "#root/config.ts";
+import type { Config } from "#config";
 
 interface LoggerOptions {
 	logLevel?: Config["logLevel"];

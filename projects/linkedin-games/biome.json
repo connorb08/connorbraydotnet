@@ -6,9 +6,13 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"include": ["src", "worker"],
+		"include": [
+			"**/*"
+		],
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [
+			"worker-configuration.d.ts"
+		]
 	},
 	"formatter": {
 		"enabled": true,

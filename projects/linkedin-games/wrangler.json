@@ -5,15 +5,12 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
-	"compatibility_date": "2025-07-04",
+	"compatibility_date": "2025-03-05",
 	"compatibility_flags": [
 		"nodejs_compat_v2"
 	],
 	"observability": {
 		"enabled": true
-	},
-	"browser": {
-		"binding": "BROWSER"
 	},
 	"dev": {
 		"ip": "127.0.0.1",
