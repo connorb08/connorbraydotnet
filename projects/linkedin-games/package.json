@@ -1,12 +1,15 @@
 {
 	"name": "linkedin-game-solver",
 	"version": "1.0.0",
+	"type": "module",
 	"author": "Connor Bray",
 	"main": "src/index.ts",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@cloudflare/containers": "^0.0.19",
 		"@types/node": "^24.0.10",
-		"typescript": "^5.8.3"
+		"typescript": "^5.8.3",
+		"wrangler": "^4.23.0"
 	},
 	"dependencies": {
 		"esbuild": "^0.25.5",
@@ -22,14 +25,14 @@
 	"keywords": [],
 	"license": "MIT",
 	"scripts": {
-		"playwright:setup": "playwright install chromium && playwright install-deps chromium",
-		"queens": "bun run src/index.ts",
-		"dev": "npx tsx src/index.ts",
-		"cf": "wrangler dev --remote",
+		"cf": "wrangler dev",
+		"typegen": "wrangler types",
 		"build": "node build.ts",
 		"docker:build": "docker build -t linkedin-game-solver .",
-		"docker:run": "docker run linkedin-game-solver",
+		"docker:run": "docker run -p 3000:3000 linkedin-game-solver",
 		"docker:attach": "docker run -it --entrypoint=/bin/sh linkedin-game-solver"
 	},
-	"type": "module"
+	"engines": {
+		"node": ">=24.0.0"
+	}
 }

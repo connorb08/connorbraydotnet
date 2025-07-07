@@ -5,9 +5,33 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
-	"compatibility_date": "2025-03-05",
+	"compatibility_date": "2025-05-06",
 	"compatibility_flags": [
-		"nodejs_compat_v2"
+		"nodejs_compat"
+	],
+	"containers": [
+		{
+			"class_name": "DockerContainer",
+			"image": "./Dockerfile",
+			"name": "linkedin-games",
+			"max_instances": 1
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "DockerContainer",
+				"name": "CONTAINER"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"new_sqlite_classes": [
+				"DockerContainer"
+			],
+			"tag": "v1"
+		}
 	],
 	"observability": {
 		"enabled": true
