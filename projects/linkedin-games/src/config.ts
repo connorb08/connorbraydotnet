@@ -38,7 +38,6 @@ const getLogLevel = (): Config["logLevel"] => {
 };
 
 const config = {
-	browserExecutablePath: import.meta.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
 	headless: getHeadless(),
 	logLevel: getLogLevel(),
 	interactive: false,

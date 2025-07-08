@@ -14,7 +14,6 @@ export async function PageController(): Promise<IPageController> {
 	const url = config.Urls.Queens;
 	const browser: Browser = await chromium.launch({
 		headless: config.headless,
-		executablePath: config.browserExecutablePath,
 	});
 	const context: BrowserContext = await browser.newContext();
 	await context.route("**.jpg", (route) => route.abort());

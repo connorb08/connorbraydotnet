@@ -11,3 +11,6 @@ dist/
 
 # Cloudflare Workers
 .wrangler/
+
+
+.pnpm-store

@@ -6,9 +6,7 @@
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"workers_dev": true,
 	"triggers": {
 		"crons": [
 			"0 14 * * *"
@@ -19,7 +17,8 @@
 			"class_name": "DockerContainer",
 			"image": "./Dockerfile",
 			"name": "linkedin-games",
-			"max_instances": 1
+			"max_instances": 1,
+			"instance_type": "standard"
 		}
 	],
 	"durable_objects": {

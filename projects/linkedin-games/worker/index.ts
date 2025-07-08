@@ -11,6 +11,20 @@ export class DockerContainer extends Container {
 	override requiredPorts = [3000];
 	// manualStart = true;
 
+	constructor(ctx: DurableObjectState, env: Env) {
+		super(ctx, env);
+		this.ctx.blockConcurrencyWhile(async () => {
+			const container = this.ctx.container;
+			if (!container) {
+				throw new Error("Container is not available");
+			}
+			container.start({
+				entrypoint: ["node", "index.js"],
+				enableInternet: false,
+			});
+		});
+	}
+
 	override onStart() {
 		console.log("Container started");
 	}
@@ -28,37 +42,41 @@ export class DockerContainer extends Container {
 	override onError(error: unknown) {
 		console.error("Container error:", error);
 	}
+
+	async getData() {
+		console.log("Fetching data from container...");
+		const container = this.ctx.container;
+		if (!container) {
+			throw new Error("Container is not available");
+		}
+		console.log(container.running);
+		const port = container.getTcpPort(3000);
+		console.log("Container port:", port);
+		const res = await port.fetch("http://connorbray.net:3000");
+		console.log("Response from container:", res);
+		return await res.text();
+	}
+
 }
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		console.log("Scheduled event triggered");
 		const container = getContainer(env.CONTAINER);
-		await container.startAndWaitForPorts(3000);
-		const res = await container.fetch(request);
+		const res = await container.getData();
 		console.log("Container response:", res);
-		// await container.start();
-		// console.log("Container started successfully");
 		return new Response(
 			"This Worker runs a cron job to execute a container on a schedule.",
 		);
 	},
 	async scheduled(controller, env, ctx) {
-		console.log("Scheduled event triggered");
-		const container = getContainer(env.CONTAINER);
-		await container.start();
-		console.log("Container started successfully");
-
-		// await container.start({
+		try {
+			console.log("Scheduled event triggered");
+			const container = getContainer(env.CONTAINER);
+			const res = await container.fetch("http://connorbray.net:3000");
+			console.log("Container response:", res);
+		} catch (error) {
+			console.error("Error starting container:", error);
+			throw error;
+		}
 	},
-	// async fetch(request, env, ctx): Promise<Response> {
-	// 	try {
-	// 		const container = getContainer(env.CONTAINER);
-	// 		const res = await container.fetch(request);
-	// 		console.log("Container response:", res);
-	// 		return new Response("res");
-	// 	} catch (error) {
-	// 		return new Response("err");
-	// 	}
-	// },
 } satisfies ExportedHandler<Env>;

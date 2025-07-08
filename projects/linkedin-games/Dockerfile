@@ -5,7 +5,7 @@ COPY . .
 RUN bun install --production --frozen-lockfile
 RUN bun run build.ts
 
-FROM oven/bun:1.2.18-alpine AS main
+FROM node:lts-slim AS main
 
 WORKDIR /app
 
@@ -16,19 +16,22 @@ COPY --from=build /app/dist .
 COPY --from=build /app/node_modules/playwright ./node_modules/playwright
 COPY --from=build /app/node_modules/playwright-core ./node_modules/playwright-core
 
-RUN apk upgrade -U -a --no-cache \
-    && apk add --no-cache \
-    libstdc++ \
-    chromium \
-    harfbuzz \
-    nss \
-    freetype \
-    && rm -rf /var/cache/* \
-    && mkdir /var/cache/apk
+RUN node ./node_modules/playwright/cli.js install --with-deps chromium
 
-ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# RUN bunx playwright install --with-deps chromium
+# RUN apk upgrade -U -a --no-cache \
+#     && apk add --no-cache \
+#     libstdc++ \
+#     chromium \
+#     harfbuzz \
+#     nss \
+#     freetype \
+#     && rm -rf /var/cache/* \
+#     && mkdir /var/cache/apk
+
+# ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+# ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 EXPOSE 3000
 
-CMD ["bun", "run", "index.js"]
+ENTRYPOINT [ "node", "index.js" ]
