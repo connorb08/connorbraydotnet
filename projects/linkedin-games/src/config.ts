@@ -1,51 +1,55 @@
-const logLevels = ["none", "debug", "error"] as const;
+import { logLevels, type LogLevel } from "#utils/Logger";
 
-export interface Config {
-	browserExecutablePath?: string | undefined;
-	headless: boolean;
-	logLevel: (typeof logLevels)[number];
+// #region Types
+
+type EnvironmentConfig = {
+	LOG_LEVEL?: string | undefined;
+};
+
+type IConfig = {
+	logLevel: LogLevel;
 	Urls: {
 		Queens: string;
 	};
-}
+};
 
-const defaultConfig: Config = {
-	headless: true,
+export type { EnvironmentConfig, IConfig };
+
+// #endregion
+
+const defaultConfig = {
 	logLevel: "error",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},
-};
+} satisfies IConfig;
 
-const getHeadless = (): Config["headless"] => {
-	if (
-		process.env.HEADLESS &&
-		["true", "false"].includes(process.env.HEADLESS)
-	) {
-		return process.env.HEADLESS === "true";
+class ConfigSingleton {
+	private static _instance: ConfigSingleton = new ConfigSingleton();
+	private _config: IConfig;
+
+	private constructor() {
+		if (ConfigSingleton._instance) {
+			throw new Error("Error creating singleton instance of Config.");
+		}
+		ConfigSingleton._instance = this;
+		this._config = defaultConfig;
 	}
-	return defaultConfig.headless;
-};
 
-const getLogLevel = (): Config["logLevel"] => {
-	if (
-		process.env.LOG_LEVEL &&
-		logLevels.includes(process.env.LOG_LEVEL as Config["logLevel"])
-	) {
-		return process.env.LOG_LEVEL as Config["logLevel"];
+	static get data(): IConfig {
+		return ConfigSingleton._instance._config;
 	}
-	return defaultConfig.logLevel;
-};
 
-const config = {
-	headless: getHeadless(),
-	logLevel: getLogLevel(),
-	interactive: false,
-	Urls: {
-		Queens: defaultConfig.Urls.Queens,
-	},
-} satisfies Config & {
-	interactive: boolean;
-};
+	static set env(env: EnvironmentConfig) {
+		ConfigSingleton._instance._config.logLevel = logLevels.includes(
+			env.LOG_LEVEL as LogLevel,
+		)
+			? (env.LOG_LEVEL as LogLevel)
+			: ConfigSingleton._instance._config.logLevel;
+	}
+}
 
+const config = ConfigSingleton.data;
+
+export { config, ConfigSingleton };
 export default config;

@@ -1,6 +1,7 @@
 import { logger } from "#utils/Logger";
 import { Graph } from "./graph.ts";
-import type { INode, IPageController } from "./types.ts";
+import type { IPageController } from "./page-controller/types.ts";
+import type { INode } from "./types.ts";
 
 interface PlayQueensConfig {
 	pageController: IPageController;
@@ -13,8 +14,8 @@ interface PlayQueensConfig {
  * It initializes the game, starts it, and provides a method to play the game.
  */
 export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
-
 	const graph = new Graph();
+	await pageController.start();
 	await pageController.populateGraph(graph);
 	await pageController.dispose();
 	await SearchGraph();
@@ -35,6 +36,8 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 	}
 
 	async function SearchGraph() {
+		logger.debug("Starting graph search...");
+
 		let continueSearch = true;
 		let nLoops = 0;
 		const maxLoops = 100000;

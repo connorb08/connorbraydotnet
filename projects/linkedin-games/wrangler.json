@@ -10,6 +10,12 @@
 		"nodejs_compat_v2"
 	],
 	"workers_dev": true,
+	"routes": [
+		{
+			"custom_domain": true,
+			"pattern": "linkedin-games.connorbray.net",
+		}
+	],
 	"triggers": {
 		"crons": [
 			"0 14 * * *"
@@ -37,8 +43,7 @@
 	"observability": {
 		"enabled": true
 	},
-	"dev": {
-		"ip": "127.0.0.1",
-		"port": 8989
+	"vars": {
+		"LOG_LEVEL": "error",
 	}
 }

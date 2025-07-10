@@ -34,18 +34,10 @@ interface INode {
 	addEdge(node: INode | number): Promise<void>;
 }
 
-interface IPageController {
-	start(): Promise<void>;
-	populateGraph(graph: IGraph): Promise<void>;
-	dispose(): Promise<void>;
-	[Symbol.dispose](): void;
-	[Symbol.asyncDispose](): Promise<void>;
-}
-
 interface ColorInfo {
 	id: number;
 	name: string;
 	hex: string;
 }
 
-export type { IGraph, INode, IPageController, ColorInfo };
+export type { IGraph, INode, ColorInfo };

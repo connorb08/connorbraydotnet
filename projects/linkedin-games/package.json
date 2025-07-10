@@ -20,6 +20,9 @@
 	"keywords": [],
 	"license": "MIT",
 	"scripts": {
+		"debug": "LOG_LEVEL=debug wrangler dev",
+		"debug:remote": "LOG_LEVEL=debug wrangler dev --remote",
+		"cron": "curl http://localhost:8787/cdn-cgi/handler/scheduled",
 		"dev": "bun run src/index.ts",
 		"start": "wrangler dev",
 		"typegen": "wrangler types"

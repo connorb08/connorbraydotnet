@@ -5,8 +5,8 @@ import {
 	type Page,
 } from "playwright";
 import config from "#config";
-import type { IGraph, INode, IPageController } from "../types";
-import { logger } from "#utils/Logger";
+import type { IGraph } from "../types";
+import type { IPageController } from "./types";
 
 export async function PageController(): Promise<IPageController> {
 	// #region Setup
@@ -24,7 +24,8 @@ export async function PageController(): Promise<IPageController> {
 			channel: "chromium",
 		});
 		context = await browser.newContext({
-			userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+			userAgent:
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 			viewport: { width: 1280, height: 720 },
 		});
 		await context.route("**.jpg", (route) => route.abort());
@@ -34,7 +35,6 @@ export async function PageController(): Promise<IPageController> {
 	}
 
 	async function populateGraph(graph: IGraph): Promise<void> {
-
 		if (!browser || !page) {
 			throw new Error("Page controller has not been started.");
 		}

@@ -194,9 +194,7 @@ export class Graph implements IGraph {
 		}
 	}
 
-	private async removeNode(
-		node: INode
-	) {
+	private async removeNode(node: INode) {
 		for await (const edgeNode of node.edges.values()) {
 			edgeNode.edges.delete(node.id);
 		}
@@ -208,9 +206,7 @@ export class Graph implements IGraph {
 		}
 	}
 
-	private async removeNodeAndNeighbors(
-		node: INode
-	) {
+	private async removeNodeAndNeighbors(node: INode) {
 		for await (const edgeNode of node.edges.values()) {
 			await this.removeNode(edgeNode);
 		}
@@ -223,9 +219,7 @@ export class Graph implements IGraph {
 		await this.removeNodeAndNeighbors(node);
 	}
 
-	public async excludeCell(
-		node: INode,
-	) {
+	public async excludeCell(node: INode) {
 		await this.removeNode(node);
 	}
 }
