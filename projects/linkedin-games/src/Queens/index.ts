@@ -13,32 +13,25 @@ interface PlayQueensConfig {
  * It initializes the game, starts it, and provides a method to play the game.
  */
 export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
-	await pageController.startGame();
-	const sideLength = await pageController.getSideLength();
-	const graph = new Graph(sideLength);
+
+	const graph = new Graph();
 	await pageController.populateGraph(graph);
-
-	return playGame();
-
-	async function playGame() {
-		await SearchGraph();
-		for await (const node of graph.queens) {
-			await pageController.placeQueenById(node);
-		}
-		// await pageController.pause();
-		return graph.queens;
-	}
+	await pageController.dispose();
+	await SearchGraph();
+	return graph.queens;
 
 	async function placeQueen(node: INode) {
 		if (node.removed) {
-			logger.warn(`Node ${node.id} is already removed, skipping placement.`);
 			return;
 		}
-		// use a callback here?
-		// await pageController.clickSquare(node);
-		await graph.placeQueen(node, async (placedNode) => {
-			// await pageController.clickSquare(placedNode);
-		});
+		await graph.placeQueen(node);
+	}
+
+	async function placeCross(node: INode) {
+		if (node.removed) {
+			return;
+		}
+		await graph.excludeCell(node);
 	}
 
 	async function SearchGraph() {
@@ -91,10 +84,6 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 						node.id,
 					);
 					await placeQueen(node);
-					// await graph.placeQueen(node, async (placedNode) => {
-					// 	await pageController.clickSquare(placedNode);
-					// });
-
 					continue search;
 				}
 
@@ -137,8 +126,7 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 						logger.debug(
 							`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
 						);
-						// await pageController.placeCross(node);
-						await graph.excludeCell(node);
+						await placeCross(node);
 					}
 					continue search;
 				}

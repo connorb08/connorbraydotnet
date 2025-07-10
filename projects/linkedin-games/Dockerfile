@@ -1,37 +1,16 @@
-FROM oven/bun:1.2.18-alpine AS build
+FROM node:lts-slim
 
-WORKDIR /app
-COPY . .
-RUN bun install --production --frozen-lockfile
-RUN bun run build.ts
-
-FROM node:lts-slim AS main
-
-WORKDIR /app
-
+ENV NODE_ENV=production
 ENV HEADLESS=true
 ENV LOG_LEVEL=error
+# ENV DEBUG=pw:browser
 
-COPY --from=build /app/dist .
-COPY --from=build /app/node_modules/playwright ./node_modules/playwright
-COPY --from=build /app/node_modules/playwright-core ./node_modules/playwright-core
+WORKDIR /app
+RUN npx playwright install --with-deps --no-shell chromium
 
-RUN node ./node_modules/playwright/cli.js install --with-deps chromium
-
-# RUN bunx playwright install --with-deps chromium
-# RUN apk upgrade -U -a --no-cache \
-#     && apk add --no-cache \
-#     libstdc++ \
-#     chromium \
-#     harfbuzz \
-#     nss \
-#     freetype \
-#     && rm -rf /var/cache/* \
-#     && mkdir /var/cache/apk
-
-# ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-# ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium-browser
+COPY . .
+RUN npm ci
+RUN npm run esbuild
 
 EXPOSE 3000
-
-ENTRYPOINT [ "node", "index.js" ]
+ENTRYPOINT [ "node", "dist/index.js" ]

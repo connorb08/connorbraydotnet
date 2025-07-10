@@ -4,31 +4,21 @@ import type { ColorInfo, IGraph, INode } from "./types";
 
 export class Graph implements IGraph {
 	/** The number of rows and columns in the grid */
-	private readonly _sideLength: number = -1;
 	private readonly _nodes: Map<number, INode> = new Map();
 	private readonly _colorNodes: Map<number, Set<number>> = new Map();
 	private readonly _colorInfo: Map<number, ColorInfo> = new Map();
 	private readonly _queens: number[] = [];
+	private _sideLength = -1;
 
-	/**
-	 * Initializes a new Graph instance with the specified number of GraphNodes.
-	 * @param n The sidelength of the grid
-	 */
-	constructor(sideLength: number) {
-		logger.debug(`Initializing graph with side length: ${sideLength}`);
-		if (sideLength <= 0) {
-			const errorMessage = "sideLength must be greater than 0";
-			logger.error(errorMessage);
-			throw new Error(errorMessage);
-		}
-		this._sideLength = sideLength;
-	}
+	// #region Getters and Setters
 
 	public get queens(): number[] {
 		return this._queens;
 	}
 
-	// #region Getters and Setters
+	public set sideLength(length: number) {
+		this._sideLength = length;
+	}
 
 	public get colors(): Map<number, Set<INode>> {
 		const returnMap = new Map<number, Set<INode>>();
@@ -205,8 +195,7 @@ export class Graph implements IGraph {
 	}
 
 	private async removeNode(
-		node: INode,
-		callback?: (node: INode) => Promise<void>,
+		node: INode
 	) {
 		for await (const edgeNode of node.edges.values()) {
 			edgeNode.edges.delete(node.id);
@@ -217,34 +206,26 @@ export class Graph implements IGraph {
 		if (!node.removed) {
 			node.removed = true;
 		}
-		if (callback) {
-			await callback(node);
-		}
 	}
 
 	private async removeNodeAndNeighbors(
-		node: INode,
-		callback?: (node: INode) => Promise<void>,
+		node: INode
 	) {
 		for await (const edgeNode of node.edges.values()) {
-			await this.removeNode(edgeNode, callback);
+			await this.removeNode(edgeNode);
 		}
 		this._colorNodes.delete(node.color);
 		this._nodes.delete(node.id);
 	}
 
-	public async placeQueen(
-		node: INode,
-		callback?: (node: INode) => Promise<void>,
-	) {
+	public async placeQueen(node: INode) {
 		this._queens.push(node.id);
-		await this.removeNodeAndNeighbors(node, callback);
+		await this.removeNodeAndNeighbors(node);
 	}
 
 	public async excludeCell(
 		node: INode,
-		callback?: (node: INode) => Promise<void>,
 	) {
-		await this.removeNode(node, callback);
+		await this.removeNode(node);
 	}
 }

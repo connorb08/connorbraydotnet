@@ -4,9 +4,13 @@ interface IGraph {
 
 	// get colors(): Map<number, Set<number>>;
 
-	// Getters and Setters
-	set colorInfo(color: ColorInfo);
+	// Getters
 	get colorInfo(): ColorInfo[];
+	get sideLength(): number;
+
+	// Setters
+	set colorInfo(color: ColorInfo);
+	set sideLength(length: number);
 
 	// Methods
 	addNode(nodeId: number, colorId: number): void;
@@ -31,15 +35,10 @@ interface INode {
 }
 
 interface IPageController {
-	startGame(): Promise<void>;
-	getSideLength(): Promise<number>;
+	start(): Promise<void>;
 	populateGraph(graph: IGraph): Promise<void>;
-	placeQueen(node: INode): Promise<void>;
-	placeCross(node: INode): Promise<void>;
-	clickSquare(node: INode): Promise<void>;
-	clickSquareById(nodeId: number): Promise<void>;
-	placeQueenById(nodeId: number): Promise<void>;
-	pause(): Promise<void>;
+	dispose(): Promise<void>;
+	[Symbol.dispose](): void;
 	[Symbol.asyncDispose](): Promise<void>;
 }
 

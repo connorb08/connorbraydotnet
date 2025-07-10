@@ -6,35 +6,32 @@
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
+	"compatibility_flags": [
+		"nodejs_compat_v2"
+	],
 	"workers_dev": true,
 	"triggers": {
 		"crons": [
 			"0 14 * * *"
 		]
 	},
-	"containers": [
-		{
-			"class_name": "DockerContainer",
-			"image": "./Dockerfile",
-			"name": "linkedin-games",
-			"max_instances": 1,
-			"instance_type": "standard"
-		}
-	],
+	"browser": {
+		"binding": "BROWSER"
+	},
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "DockerContainer",
-				"name": "CONTAINER"
+				"class_name": "Storage",
+				"name": "STORAGE"
 			}
 		]
 	},
 	"migrations": [
 		{
+			"tag": "v1",
 			"new_sqlite_classes": [
-				"DockerContainer"
-			],
-			"tag": "v1"
+				"Storage"
+			]
 		}
 	],
 	"observability": {
@@ -42,6 +39,6 @@
 	},
 	"dev": {
 		"ip": "127.0.0.1",
-		"port": 8787
+		"port": 8989
 	}
 }

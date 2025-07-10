@@ -1,9 +1,8 @@
 {
 	"name": "linked-game-solver",
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:dev-24",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node",
 	// https://containers.dev/features
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {},
 		"ghcr.io/audacioustux/devcontainers/bun:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
@@ -14,5 +13,4 @@
 			]
 		}
 	}
-	// "postCreateCommand": "bun setup"
 }
