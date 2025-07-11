@@ -1,6 +1,6 @@
 import { logger } from "#utils/Logger";
 import { GraphNode } from "./node";
-import type { ColorInfo, IGraph, INode } from "./types";
+import type { ColorInfo, GameData, IGraph, INode } from "./types";
 
 export class Graph implements IGraph {
 	/** The number of rows and columns in the grid */
@@ -8,6 +8,12 @@ export class Graph implements IGraph {
 	private readonly _colorNodes: Map<number, Set<number>> = new Map();
 	private readonly _colorInfo: Map<number, ColorInfo> = new Map();
 	private readonly _queens: number[] = [];
+	private readonly _gameData: GameData = {
+		sideLength: 0,
+		queens: [],
+		colors: [],
+		nodesColors: [],
+	};
 	private _sideLength = -1;
 
 	// #region Getters and Setters
@@ -16,8 +22,13 @@ export class Graph implements IGraph {
 		return this._queens;
 	}
 
+	public get gameData(): GameData {
+		return this._gameData;
+	}
+
 	public set sideLength(length: number) {
 		this._sideLength = length;
+		this._gameData.sideLength = length;
 	}
 
 	public get colors(): Map<number, Set<INode>> {
@@ -52,6 +63,7 @@ export class Graph implements IGraph {
 		const colorInfo = this._colorInfo.get(color.id);
 		if (!colorInfo) {
 			this._colorInfo.set(color.id, color);
+			this._gameData.colors[color.id] = color.hex;
 		}
 	}
 
@@ -132,6 +144,7 @@ export class Graph implements IGraph {
 		const column = nodeId % this._sideLength;
 		this._nodes.set(nodeId, new GraphNode(nodeId, nodeColor, row, column));
 		colorSet.add(nodeId);
+		this._gameData.nodesColors[nodeId] = nodeColor;
 	}
 
 	public createEdges() {
@@ -215,6 +228,7 @@ export class Graph implements IGraph {
 	}
 
 	public async placeQueen(node: INode) {
+		this._gameData.queens.push(node.id);
 		this._queens.push(node.id);
 		await this.removeNodeAndNeighbors(node);
 	}

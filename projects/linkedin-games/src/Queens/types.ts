@@ -40,4 +40,11 @@ interface ColorInfo {
 	hex: string;
 }
 
-export type { IGraph, INode, ColorInfo };
+interface GameData {
+	sideLength: number;
+	queens: number[];
+	colors: string[];
+	nodesColors: number[];
+}
+
+export type { IGraph, INode, ColorInfo, GameData };

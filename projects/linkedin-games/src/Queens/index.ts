@@ -19,12 +19,16 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 	await pageController.populateGraph(graph);
 	await pageController.dispose();
 	await SearchGraph();
-	return graph.queens;
+	logger.debug("Nodes in graph:", graph.nodes.size);
+	return graph.gameData;
 
 	async function placeQueen(node: INode) {
 		if (node.removed) {
 			return;
 		}
+		logger.debug(
+			`Placing queen on node ${node.id} at row ${node.row}, column ${node.column}, color ${node.color}`,
+		);
 		await graph.placeQueen(node);
 	}
 
@@ -32,6 +36,9 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 		if (node.removed) {
 			return;
 		}
+		logger.debug(
+			`Excluding node ${node.id} at row ${node.row}, column ${node.column}, color ${node.color}`,
+		);
 		await graph.excludeCell(node);
 	}
 
@@ -126,9 +133,6 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 							logger.error(`Node ${nodeId} not found in graph.`);
 							continue;
 						}
-						logger.debug(
-							`Excluding node ${node.id} at row ${node.row}, column ${node.column} with color ${node.color}`,
-						);
 						await placeCross(node);
 					}
 					continue search;
@@ -140,3 +144,6 @@ export const PlayQueens = async ({ pageController }: PlayQueensConfig) => {
 	}
 };
 export default PlayQueens;
+
+// Check conditions:
+// - If all cells in a row or column (or color) have a common edge, remove that edge

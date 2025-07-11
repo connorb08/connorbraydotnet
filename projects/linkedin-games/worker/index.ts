@@ -3,6 +3,7 @@ import { PageController } from "../src/queens/page-controller/cloudflare";
 import { PlayQueens } from "../src/queens/index";
 import { logger } from "#utils/Logger";
 import { ConfigSingleton, type EnvironmentConfig } from "#config";
+import type { GameData } from "#src/queens/types.ts";
 
 export class Storage extends DurableObject<Env> {
 	// #region Constructor
@@ -10,16 +11,26 @@ export class Storage extends DurableObject<Env> {
 	public constructor(ctx: DurableObjectState, env: Env) {
 		super(ctx, env);
 		ctx.blockConcurrencyWhile(async () => {
-			this._currentAnswer = (await ctx.storage.get<string>("result")) || "";
+			this._currentAnswer = (await ctx.storage.get<GameData>("today")) || {
+				sideLength: 0,
+				queens: [],
+				colors: [],
+				nodesColors: [],
+			};
 		});
-		this._currentAnswer ||= "No result stored.";
+		this._currentAnswer ||= {
+			sideLength: 0,
+			queens: [],
+			colors: [],
+			nodesColors: [],
+		};
 	}
 
 	// #endregion
 
 	// #region Instance Variables
 
-	private _currentAnswer: string;
+	private _currentAnswer: GameData;
 
 	// #endregion
 
@@ -29,13 +40,19 @@ export class Storage extends DurableObject<Env> {
 		if (this._currentAnswer) {
 			return this._currentAnswer;
 		}
-		this._currentAnswer =
-			(await this.ctx.storage.get<string>("result")) || "[]";
+		this._currentAnswer = (await this.ctx.storage.get<GameData>("current")) || {
+			sideLength: 0,
+			queens: [],
+			colors: [],
+			nodesColors: [],
+		};
 		return this._currentAnswer;
 	}
 
-	public async storeResult(result: string): Promise<void> {
-		this.ctx.storage.put("result", result);
+	public async storeResult(result: GameData): Promise<void> {
+		const date = new Date().toLocaleDateString();
+		this.ctx.storage.put("current", result);
+		this.ctx.storage.put(date, result);
 		this._currentAnswer = result;
 	}
 
@@ -61,7 +78,7 @@ export default {
 		const id = env.STORAGE.idFromName("queens-storage");
 		const storage = env.STORAGE.get(id);
 		const body = await storage.getCurrentAnswer();
-		return new Response(body, {
+		return new Response(JSON.stringify(body), {
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -73,12 +90,12 @@ export default {
 			logger.debug("Creating PageController...");
 			const pageController = await PageController(env.BROWSER);
 			logger.debug("Calling PlayQueens...");
-			const queenLocations = await PlayQueens({ pageController });
-			logger.debug("Queen Locations:", queenLocations);
+			const gameData = await PlayQueens({ pageController });
+			logger.debug("Queen Game Data:", gameData);
 			const id = env.STORAGE.idFromName("queens-storage");
 			const storage = env.STORAGE.get(id);
 			logger.debug("Storing result in Durable Object...");
-			await storage.storeResult(JSON.stringify(queenLocations));
+			await storage.storeResult(gameData);
 			logger.debug("Result stored successfully.");
 		} catch (error) {
 			console.error("Error with schedule:", error);
