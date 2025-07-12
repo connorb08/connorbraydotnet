@@ -6,8 +6,7 @@ import { ConfigSingleton, type EnvironmentConfig } from "#config";
 import type { GameData } from "#src/queens/types.ts";
 
 export class Storage extends DurableObject<Env> {
-	// #region Constructor
-
+	private _currentAnswer!: GameData;
 	public constructor(ctx: DurableObjectState, env: Env) {
 		super(ctx, env);
 		ctx.blockConcurrencyWhile(async () => {
@@ -18,45 +17,18 @@ export class Storage extends DurableObject<Env> {
 				nodesColors: [],
 			};
 		});
-		this._currentAnswer ||= {
-			sideLength: 0,
-			queens: [],
-			colors: [],
-			nodesColors: [],
-		};
 	}
 
-	// #endregion
-
-	// #region Instance Variables
-
-	private _currentAnswer: GameData;
-
-	// #endregion
-
-	// #region Methods
-
 	public async getCurrentAnswer() {
-		if (this._currentAnswer) {
-			return this._currentAnswer;
-		}
-		this._currentAnswer = (await this.ctx.storage.get<GameData>("current")) || {
-			sideLength: 0,
-			queens: [],
-			colors: [],
-			nodesColors: [],
-		};
 		return this._currentAnswer;
 	}
 
 	public async storeResult(result: GameData): Promise<void> {
 		const date = new Date().toLocaleDateString();
-		this.ctx.storage.put("current", result);
+		this.ctx.storage.put("today", result);
 		this.ctx.storage.put(date, result);
 		this._currentAnswer = result;
 	}
-
-	// #endregion
 }
 
 export default {
