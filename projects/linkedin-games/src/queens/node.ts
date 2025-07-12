@@ -1,6 +1,19 @@
-import type { INode } from "./types";
+interface INode {
+	// Properties
+	readonly id: number;
+	readonly row: number;
+	readonly column: number;
+	readonly color: number;
+	readonly edges: Map<number, INode>;
 
-export class GraphNode implements INode {
+	// Flags
+	removed: boolean;
+
+	// Methods
+	addEdge(node: INode | number): Promise<void>;
+}
+
+class GraphNode implements INode {
 	// #region Properties
 
 	private readonly _id: number;
@@ -68,3 +81,5 @@ export class GraphNode implements INode {
 
 	// #endregion Methods
 }
+
+export { GraphNode, type INode };

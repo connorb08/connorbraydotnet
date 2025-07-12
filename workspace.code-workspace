@@ -11,6 +11,10 @@
 		{
 			"path": "./packages",
 			"name": "packages"
+		},
+		{
+			"path": "./projects",
+			"name": "projects"
 		}
 	],
 	"settings": {
@@ -31,8 +35,10 @@
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
 			"**/build": true,
+			"apps": true,
 			"packages": true,
-			"apps": true
+			"projects": true,
+			"bun.lock": true,
 		},
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "biomejs.biome",

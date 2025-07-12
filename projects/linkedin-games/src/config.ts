@@ -1,4 +1,5 @@
-import { logLevels, type LogLevel } from "#utils/Logger";
+/** biome-ignore-all lint/style/noDefaultExport: allow config to be exported */
+import { type LogLevel, logLevels } from "#utils/Logger";
 
 // #region Types
 
@@ -6,50 +7,64 @@ type EnvironmentConfig = {
 	LOG_LEVEL?: string | undefined;
 };
 
-type IConfig = {
-	logLevel: LogLevel;
-	Urls: {
-		Queens: string;
+type Config = {
+	readonly logLevel: LogLevel;
+	readonly Urls: {
+		readonly Queens: string;
 	};
+	env: EnvironmentConfig;
 };
 
-export type { EnvironmentConfig, IConfig };
+export type { Config };
 
 // #endregion
 
 const defaultConfig = {
-	logLevel: "error",
+	logLevel: "normal",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
 	},
-} satisfies IConfig;
+	env: {},
+} satisfies Config;
 
-class ConfigSingleton {
-	private static _instance: ConfigSingleton = new ConfigSingleton();
-	private _config: IConfig;
+class Singleton {
+	// private static _instance: Singleton = new Singleton();
+	private static _logLevel: LogLevel = defaultConfig.logLevel;
+	private static _Urls: {
+		Queens: string;
+	} = defaultConfig.Urls;
+	// private static _env: EnvironmentConfig = defaultConfig.env;
 
 	private constructor() {
-		if (ConfigSingleton._instance) {
-			throw new Error("Error creating singleton instance of Config.");
-		}
-		ConfigSingleton._instance = this;
-		this._config = defaultConfig;
+		// if (ConfigSingleton._instance) {
+		// 	throw new Error("Error creating singleton instance of Config.");
+		// }
+		// ConfigSingleton._instance = this;
+		// this._config = {
+		// 	...defaultConfig,
+		// };
 	}
 
-	static get data(): IConfig {
-		return ConfigSingleton._instance._config;
+	static get logLevel() {
+		return Singleton._logLevel;
+	}
+
+	static get Urls() {
+		return Singleton._Urls;
 	}
 
 	static set env(env: EnvironmentConfig) {
-		ConfigSingleton._instance._config.logLevel = logLevels.includes(
-			env.LOG_LEVEL as LogLevel,
-		)
+		Singleton._logLevel = logLevels.includes(env.LOG_LEVEL as LogLevel)
 			? (env.LOG_LEVEL as LogLevel)
-			: ConfigSingleton._instance._config.logLevel;
+			: Singleton._logLevel;
 	}
 }
 
-const config = ConfigSingleton.data;
+// const config: ConfigObject = {
+// 	...ConfigSingleton.data,
+// 	env: ConfigSingleton.env,
+// };
 
-export { config, ConfigSingleton };
+const config = Singleton;
+
 export default config;

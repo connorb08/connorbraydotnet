@@ -2,20 +2,14 @@
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
+	"$schema": "../../node_modules/wrangler/config-schema.json",
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
 	"compatibility_flags": [
 		"nodejs_compat_v2"
 	],
-	"workers_dev": true,
-	"routes": [
-		{
-			"custom_domain": true,
-			"pattern": "linkedin-games.connorbray.net",
-		}
-	],
+	"workers_dev": false,
 	"triggers": {
 		"crons": [
 			"0 14 * * *"

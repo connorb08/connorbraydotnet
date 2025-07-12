@@ -1,16 +1,18 @@
 import {
-	launch,
 	type Browser,
-	type BrowserEndpoint,
-	type Page,
 	type BrowserContext,
+	type BrowserEndpoint,
+	launch,
+	type Page,
 } from "@cloudflare/playwright";
 import config from "#config";
-import type { IGraph } from "../types";
 import { logger } from "#utils/Logger";
+import type { IGraph } from "../graph";
 import type { IPageController } from "./types";
 
-export async function PageController(
+const ariaLabelRegex = /of color\s*([^,]+)/i;
+
+async function PageController(
 	browserEndpoint: BrowserEndpoint,
 ): Promise<IPageController> {
 	// #region Setup
@@ -46,7 +48,7 @@ export async function PageController(
 	}
 
 	async function populateGraph(graph: IGraph): Promise<void> {
-		if (!browser || !page) {
+		if (!(browser && page)) {
 			throw new Error("Page controller has not been started.");
 		}
 
@@ -63,8 +65,7 @@ export async function PageController(
 				const cellId = +(cellIdx ?? -1);
 				const colorId = +(cellColor?.split("-").slice(-1)[0]?.trim() ?? -1);
 
-				const [, colorName = ""] =
-					ariaLabel?.match(/of color\s*([^,]+)/i) ?? [];
+				const [, colorName = ""] = ariaLabel?.match(ariaLabelRegex) ?? [];
 
 				if (cellId === -1) {
 					console.error("Invalid cell index found:", cellIdx);
@@ -124,4 +125,4 @@ export async function PageController(
 	// #endregion
 }
 
-export default PageController;
+export { PageController };

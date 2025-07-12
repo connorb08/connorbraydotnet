@@ -1,11 +1,7 @@
 {
-	"extends": "./tsconfig.base.json",
-	"files": [
-		"worker/index.ts"
-	],
+	"extends": "./tsconfig.json",
+	"include": ["src", "worker/index.ts"],
 	"compilerOptions": {
-		"types": [
-			"./worker-configuration.d.ts"
-		]
+		"types": ["./worker-configuration.d.ts"]
 	}
 }

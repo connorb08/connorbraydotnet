@@ -1,4 +1,4 @@
-import type { IGraph } from "../types";
+import type { IGraph } from "../graph";
 
 type IPageController = {
 	start(): Promise<void>;

@@ -68,7 +68,8 @@
 				"useImportType": "error",
 				"useExportType": "error",
 				"noUselessElse": "error",
-				"useShorthandFunctionType": "error"
+				"useShorthandFunctionType": "error",
+				"noDefaultExport": "error"
 			},
 			"suspicious": {
 				"noArrayIndexKey": "info"

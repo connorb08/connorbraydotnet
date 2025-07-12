@@ -1,26 +1,48 @@
 import { logger } from "#utils/Logger";
-import { GraphNode } from "./node";
-import type { ColorInfo, GameData, IGraph, INode } from "./types";
+import { GraphNode, type INode } from "./node";
+import type { ColorInfo, GameData } from "./types";
 
-export class Graph implements IGraph {
+interface IGraph {
+	// Properties
+	get colors(): Map<number, Set<INode>>;
+	get colorInfo(): ColorInfo[];
+	get sideLength(): number;
+	get nodes(): Map<number, INode>;
+
+	// Setters
+	set colorInfo(color: ColorInfo);
+	set sideLength(length: number);
+
+	// Setup methods
+	addNode(nodeId: number, colorId: number): void;
+	createEdges(): void;
+
+	// Node manipulation methods
+	placeQueen(node: INode): void;
+	excludeCell(node: INode): void;
+
+	// Solution methods
+	filter(
+		nodes: Set<INode>,
+		filterFunction: (node: INode) => boolean,
+	): Promise<void>;
+}
+
+class Graph implements IGraph {
 	/** The number of rows and columns in the grid */
 	private readonly _nodes: Map<number, INode> = new Map();
 	private readonly _colorNodes: Map<number, Set<number>> = new Map();
 	private readonly _colorInfo: Map<number, ColorInfo> = new Map();
-	private readonly _queens: number[] = [];
 	private readonly _gameData: GameData = {
 		sideLength: 0,
 		queens: [],
+		removed: [],
 		colors: [],
 		nodesColors: [],
 	};
 	private _sideLength = -1;
 
 	// #region Getters and Setters
-
-	public get queens(): number[] {
-		return this._queens;
-	}
 
 	public get gameData(): GameData {
 		return this._gameData;
@@ -127,7 +149,7 @@ export class Graph implements IGraph {
 	private connectGraphNodesById(id1: number, id2: number) {
 		const node1 = this._nodes.get(id1);
 		const node2 = this._nodes.get(id2);
-		if (!node1 || !node2) {
+		if (!(node1 && node2)) {
 			throw new Error(
 				`One or both GraphNodes with IDs ${id1} and ${id2} do not exist in the graph.`,
 			);
@@ -207,33 +229,31 @@ export class Graph implements IGraph {
 		}
 	}
 
-	private async removeNode(node: INode) {
-		for await (const edgeNode of node.edges.values()) {
+	private removeNode(node: INode) {
+		for (const edgeNode of node.edges.values()) {
 			edgeNode.edges.delete(node.id);
 		}
 		node.edges.clear();
 		this._nodes.delete(node.id);
 		this._colorNodes.get(node.color)?.delete(node.id);
-		if (!node.removed) {
-			node.removed = true;
-		}
 	}
 
-	private async removeNodeAndNeighbors(node: INode) {
-		for await (const edgeNode of node.edges.values()) {
-			await this.removeNode(edgeNode);
+	private removeNodeAndNeighbors(node: INode) {
+		for (const edgeNode of node.edges.values()) {
+			this.removeNode(edgeNode);
 		}
 		this._colorNodes.delete(node.color);
 		this._nodes.delete(node.id);
 	}
 
-	public async placeQueen(node: INode) {
+	public placeQueen(node: INode) {
 		this._gameData.queens.push(node.id);
-		this._queens.push(node.id);
-		await this.removeNodeAndNeighbors(node);
+		this.removeNodeAndNeighbors(node);
 	}
 
-	public async excludeCell(node: INode) {
-		await this.removeNode(node);
+	public excludeCell(node: INode) {
+		this.removeNode(node);
 	}
 }
+
+export { Graph, type IGraph };

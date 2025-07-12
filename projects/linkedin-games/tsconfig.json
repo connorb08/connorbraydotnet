@@ -1,18 +1,19 @@
 {
-	"extends": "./tsconfig.base.json",
+	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"references": [
 		{
-			"path": "./tsconfig.main.json"
+			"path": "./tsconfig.dev.json"
 		},
 		{
 			"path": "./tsconfig.cloudflare.json"
 		}
 	],
 	"compilerOptions": {
-		"noEmit": true,
 		"composite": true,
 		"rootDir": ".",
-		"outDir": ".tsbuildinfo"
+		"outDir": ".tsbuildinfo",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true
 	}
 }

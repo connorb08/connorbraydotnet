@@ -1,9 +1,10 @@
+/** biome-ignore-all lint/style/noDefaultExport: worker file */
 import { DurableObject } from "cloudflare:workers";
-import { PageController } from "../src/queens/page-controller/cloudflare";
-import { PlayQueens } from "../src/queens/index";
-import { logger } from "#utils/Logger";
-import { ConfigSingleton, type EnvironmentConfig } from "#config";
+import config from "#config";
+import { SolutionManager } from "#src/queens/manager.ts";
+import { PageController } from "#src/queens/page-controller/cloudflare.ts";
 import type { GameData } from "#src/queens/types.ts";
+import { logger } from "#utils/Logger";
 
 export class Storage extends DurableObject<Env> {
 	private _currentAnswer!: GameData;
@@ -15,6 +16,7 @@ export class Storage extends DurableObject<Env> {
 				queens: [],
 				colors: [],
 				nodesColors: [],
+				removed: [],
 			};
 		});
 	}
@@ -33,17 +35,12 @@ export class Storage extends DurableObject<Env> {
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		ConfigSingleton.env = env as EnvironmentConfig;
+		config.env = {
+			LOG_LEVEL: env.LOG_LEVEL,
+		};
 
 		if (new URL(request.url).pathname === "/cron") {
-			const scheduled =
-				this.scheduled ||
-				(async (
-					controller: ScheduledController,
-					env: Env,
-					ctx: ExecutionContext,
-				) => Promise.resolve());
-			await scheduled({} as ScheduledController, env, ctx);
+			await this.scheduled?.({} as ScheduledController, env, ctx);
 			return new Response("Scheduled task executed successfully.");
 		}
 
@@ -56,18 +53,18 @@ export default {
 			},
 		});
 	},
-	async scheduled(controller, env, ctx) {
+	async scheduled(
+		_controllerr: ScheduledController,
+		env: Env,
+		_ctxx: ExecutionContext,
+	) {
 		try {
-			ConfigSingleton.env = env as EnvironmentConfig;
-			logger.debug("Creating PageController...");
-			const pageController = await PageController(env.BROWSER);
-			logger.debug("Calling PlayQueens...");
-			const gameData = await PlayQueens({ pageController });
-			logger.debug("Queen Game Data:", gameData);
-			const id = env.STORAGE.idFromName("queens-storage");
-			const storage = env.STORAGE.get(id);
-			logger.debug("Storing result in Durable Object...");
-			await storage.storeResult(gameData);
+			const gameData = await SolutionManager({
+				pageController: await PageController(env.BROWSER),
+			});
+			await env.STORAGE.get(env.STORAGE.idFromName("default")).storeResult(
+				gameData,
+			);
 			logger.debug("Result stored successfully.");
 		} catch (error) {
 			console.error("Error with schedule:", error);
