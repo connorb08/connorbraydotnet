@@ -5,35 +5,33 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin: 2.5rem 5rem 0 5rem;
 }
 
 .hero {
     background-color: $secondaryContainer;
     color: $onSecondaryContainer;
     border-radius: 1rem;
-    height: 200px;
+    height: fit-content;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+    padding: 1rem clamp(1rem, 20%, 100%) 1rem clamp(1rem, 40%, 40%);
 
     &__title {
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: bold;
-        text-align: center;
-        padding-top: 60px;
         color: $onSecondaryContainer;
     }
 
     &__subtitle {
-        font-size: 18px;
-        text-align: center;
+        font-size: 1.2rem;
+        // text-align: center;
         color: $onSecondaryContainer;
         margin-top: 10px;
     }
 
     &__content {
-        font-size: 16px;
-        text-align: center;
+        font-size: 1rem;
+        // text-align: center;
         color: $onSecondaryContainer;
         margin-top: 10px;
     }
@@ -79,4 +77,49 @@
     &__content {
         margin-top: 10px;
     }
+}
+
+.projects {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border-radius: 1rem;
+    height: 200px;
+    width: 100%;
+    background-color: $surfaceContainerHighest;
+    color: $onPrimaryContainer;
+
+    &__header {
+        width: 100%;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 10px;
+        // margin: 1rem;
+        color: $onPrimaryContainer;
+    }
+
+    &__content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(clamp(30rem, 45%, 100%), 1fr));
+        gap: 20px;
+
+        &__projectItem {
+            position: relative;
+            padding: 1rem;
+            @include border;
+            @include rounded;
+            cursor: pointer;
+            transition:
+                top 0.3s ease,
+                right 0.3s ease,
+                box-shadow 0.2s ease;
+
+            &:hover {
+                @include shadow;
+                top: -3px;
+                right: -3px;
+            }
+        }
+
+    }
+
 }
