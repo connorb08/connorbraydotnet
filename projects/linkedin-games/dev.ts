@@ -1,7 +1,7 @@
 import config from "#config";
+import logger from "#logger";
 import { SolutionManager } from "#src/queens/index.ts";
 import { PageController } from "#src/queens/page-controller/playwright.ts";
-import { logger } from "#utils/Logger";
 
 logger.debug("Setting envioronment variables");
 config.env = import.meta.env as Record<string, string>;

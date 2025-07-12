@@ -5,7 +5,7 @@ import {
 	type Page,
 } from "playwright";
 import config from "#config";
-import type { IGraph } from "../graph";
+import type { IGraph } from "../data-structures/graph";
 import type { IPageController } from "./types";
 
 const ariaLabelRegex = /of color\s*([^,]+)/i;

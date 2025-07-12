@@ -6,11 +6,20 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	plugins: [
-		cloudflare({ viteEnvironment: { name: "ssr" }, persistState: {
-			path: "../../packages/content-manager/.wrangler/state",
-		}, auxiliaryWorkers: [{
-			configPath: "../../packages/content-manager/wrangler.json",
-		}]}),
+		cloudflare({
+			viteEnvironment: { name: "ssr" },
+			persistState: {
+				path: "../../packages/content-manager/.wrangler/state",
+			},
+			auxiliaryWorkers: [
+				{
+					configPath: "../../packages/content-manager/wrangler.json",
+				},
+				{
+					configPath: "../../packages/api/wrangler.json",
+				},
+			],
+		}),
 		reactRouter(),
 		tsconfigPaths(),
 	],

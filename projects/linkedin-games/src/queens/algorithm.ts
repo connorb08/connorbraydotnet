@@ -1,6 +1,6 @@
-import { logger } from "#utils/Logger";
-import type { IGraph } from "./graph";
-import type { INode } from "./node";
+import logger from "#logger";
+import type { IGraph } from "./data-structures/graph";
+import type { INode } from "./data-structures/node";
 
 const placeQueen = (graph: IGraph, node: INode) => {
 	logger.debug(

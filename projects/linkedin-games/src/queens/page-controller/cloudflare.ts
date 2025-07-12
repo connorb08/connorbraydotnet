@@ -6,8 +6,8 @@ import {
 	type Page,
 } from "@cloudflare/playwright";
 import config from "#config";
-import { logger } from "#utils/Logger";
-import type { IGraph } from "../graph";
+import logger from "#logger";
+import type { IGraph } from "../data-structures/graph";
 import type { IPageController } from "./types";
 
 const ariaLabelRegex = /of color\s*([^,]+)/i;

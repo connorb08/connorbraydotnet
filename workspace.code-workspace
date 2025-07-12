@@ -21,6 +21,7 @@
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
 			"*.tsx": "${capture}.scss, ${capture}.spec.tsx",
+			"wrangler.json": "worker-configuration.d.ts",
 			"wrangler.jsonc": "worker-configuration.d.ts",
 			"package.json": "bun.lock, project.json, .depcheckrc, .clocignore",
 			"vite.config.ts": "vite-env.d.ts",
@@ -38,7 +39,7 @@
 			"apps": true,
 			"packages": true,
 			"projects": true,
-			"bun.lock": true,
+			"bun.lock": true
 		},
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "biomejs.biome",

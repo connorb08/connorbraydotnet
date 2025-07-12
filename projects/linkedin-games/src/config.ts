@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/style/noDefaultExport: allow config to be exported */
-import { type LogLevel, logLevels } from "#utils/Logger";
+import { type LogLevel, logLevels } from "#src/logger.ts";
 
 // #region Types
 

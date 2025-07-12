@@ -1,6 +1,6 @@
-import { logger } from "#utils/Logger";
+import logger from "#logger";
 import { findSolution } from "./algorithm";
-import { Graph } from "./graph";
+import { Graph } from "./data-structures/graph";
 import type { IPageController } from "./page-controller/types";
 
 /**

@@ -1,10 +1,10 @@
 /** biome-ignore-all lint/style/noDefaultExport: worker file */
 import { DurableObject } from "cloudflare:workers";
 import config from "#config";
+import logger from "#logger";
 import { SolutionManager } from "#src/queens/manager.ts";
 import { PageController } from "#src/queens/page-controller/cloudflare.ts";
 import type { GameData } from "#src/queens/types.ts";
-import { logger } from "#utils/Logger";
 
 export class Storage extends DurableObject<Env> {
 	private _currentAnswer!: GameData;

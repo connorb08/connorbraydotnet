@@ -1,0 +1,17 @@
+{
+	"name": "api",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"test": "vitest",
+		"typegen": "wrangler types"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"@cloudflare/vitest-pool-workers": "*",
+		"vitest": "*",
+		"wrangler": "*"
+	}
+}

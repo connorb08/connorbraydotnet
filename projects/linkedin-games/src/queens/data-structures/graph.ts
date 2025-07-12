@@ -1,6 +1,6 @@
-import { logger } from "#utils/Logger";
+import logger from "#logger";
+import type { ColorInfo, GameData } from "../types";
 import { GraphNode, type INode } from "./node";
-import type { ColorInfo, GameData } from "./types";
 
 interface IGraph {
 	// Properties

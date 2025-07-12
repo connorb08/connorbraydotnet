@@ -7,10 +7,9 @@
 	"license": "MIT",
 	"main": "dev.ts",
 	"imports": {
+		"#src/*": "./src/*",
 		"#config": "./src/config.ts",
-		"#types": "./src/types.ts",
-		"#utils/*": "./src/utils/*.ts",
-		"#src/*": "./src/*"
+		"#logger": "./src/logger.ts"
 	},
 	"scripts": {
 		"dev": "bun run dev.ts",
@@ -18,7 +17,9 @@
 		"cf": "wrangler dev",
 		"cf:debug": "LOG_LEVEL=debug wrangler dev --remote",
 		"cron": "curl localhost:8787/cron",
-		"typegen": "wrangler types"
+		"typegen": "wrangler types",
+		"pretypecheck": "bun run typegen",
+		"typecheck": "tsc -b"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

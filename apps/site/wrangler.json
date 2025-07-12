@@ -19,7 +19,11 @@
 	"services": [
 		{
 			"binding": "CONTENT_MANAGER",
-			"service": "content-manager",
+			"service": "content-manager"
+		},
+		{
+			"binding": "API",
+			"service": "api"
 		}
 	]
 }

@@ -61,7 +61,6 @@ class Logger implements ILogger {
 }
 
 const logger: ILogger = Logger.instance;
-
-export { logger };
+export default logger;
 
 // #endregion
