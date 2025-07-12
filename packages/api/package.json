@@ -8,6 +8,9 @@
 		"test": "vitest",
 		"typegen": "wrangler types"
 	},
+	"dependencies": {
+		"shared": "workspace:*"
+	},
 	"peerDependencies": {
 		"typescript": "*",
 		"@cloudflare/vitest-pool-workers": "*",

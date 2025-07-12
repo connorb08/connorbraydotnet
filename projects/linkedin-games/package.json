@@ -17,7 +17,7 @@
 		"cf": "wrangler dev",
 		"cf:debug": "LOG_LEVEL=debug wrangler dev --remote",
 		"cron": "curl localhost:8787/cron",
-		"typegen": "wrangler types",
+		"typegen": "wrangler types worker/worker-configuration.d.ts",
 		"pretypecheck": "bun run typegen",
 		"typecheck": "tsc -b"
 	},

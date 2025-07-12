@@ -25,6 +25,7 @@ const routeConfig = [
 		},
 	]),
 	route("/content/*", "routes/content.ts"),
+	route("/queens", "routes/queens.tsx"),
 	route("/api", "routes/api.ts"),
 ] satisfies RouteConfig;
 

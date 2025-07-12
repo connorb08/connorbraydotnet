@@ -28,7 +28,8 @@
 		"react-aria-components": "^1.10.1",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.5.0",
-		"shared": "workspace:*"
+		"shared": "workspace:*",
+		"components": "workspace:*"
 	},
 	"devDependencies": {
 		"@material/material-color-utilities": "^0.3.0",

@@ -1,7 +1,8 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
+import type { GameData } from "shared";
 
 export default class APIWorker extends WorkerEntrypoint<Env> {
-	async linkedinGames(): Promise<Response> {
-		return new Response("LinkedIn Games API is running.");
+	async linkedinGames(date?: string | undefined): Promise<GameData> {
+		return await this.env.LINKEDIN_GAMES.getResult(date);
 	}
 }

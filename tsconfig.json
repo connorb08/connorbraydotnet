@@ -15,6 +15,9 @@
 			"path": "./packages/database"
 		},
 		{
+			"path": "./packages/components"
+		},
+		{
 			"path": "./apps/site"
 		}
 	],

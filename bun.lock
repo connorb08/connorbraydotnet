@@ -99,6 +99,17 @@
         "wrangler": "*",
       },
     },
+    "packages/components": {
+      "name": "components",
+      "version": "0.0.0",
+      "dependencies": {
+        "shared": "workspace:*",
+      },
+      "peerDependencies": {
+        "depcheck": "*",
+        "typescript": "*",
+      },
+    },
     "packages/content-manager": {
       "name": "content-manager",
       "version": "0.0.0",
@@ -1411,6 +1422,8 @@
     "combined-stream": ["combined-stream@1.0.8", "", { "dependencies": { "delayed-stream": "~1.0.0" } }, "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg=="],
 
     "commander": ["commander@2.20.3", "", {}, "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="],
+
+    "components": ["components@workspace:packages/components"],
 
     "concat-map": ["concat-map@0.0.1", "", {}, "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="],
 

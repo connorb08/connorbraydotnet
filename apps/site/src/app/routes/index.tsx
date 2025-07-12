@@ -8,10 +8,10 @@ export function meta() {
 	];
 }
 
-export function loader({ context }: Route.LoaderArgs) {
+export function loader(_: Route.LoaderArgs) {
 	return { message: "Hello World" };
 }
 
-export default function ({ loaderData }: Route.ComponentProps) {
+export default function (_: Route.ComponentProps) {
 	return <Home />;
 }
