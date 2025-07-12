@@ -2,19 +2,19 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"references": [
-    {
-      "path": "../shared"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.cloudflare.json"
-    },
-    {
-      "path": "./tsconfig.test.json"
-    }
-  ],
+		{
+			"path": "../shared"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		},
+		{
+			"path": "./tsconfig.test.json"
+		}
+	],
 	"compilerOptions": {
 		"composite": true,
 		"rootDir": ".",

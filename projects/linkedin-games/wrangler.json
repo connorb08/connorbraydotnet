@@ -6,14 +6,10 @@
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
-	"compatibility_flags": [
-		"nodejs_compat_v2"
-	],
+	"compatibility_flags": ["nodejs_compat_v2"],
 	"workers_dev": false,
 	"triggers": {
-		"crons": [
-			"0 14 * * *"
-		]
+		"crons": ["0 14 * * *"]
 	},
 	"browser": {
 		"binding": "BROWSER"
@@ -29,15 +25,13 @@
 	"migrations": [
 		{
 			"tag": "v1",
-			"new_sqlite_classes": [
-				"Storage"
-			]
+			"new_sqlite_classes": ["Storage"]
 		}
 	],
 	"observability": {
 		"enabled": true
 	},
 	"vars": {
-		"LOG_LEVEL": "error",
+		"LOG_LEVEL": "error"
 	}
 }

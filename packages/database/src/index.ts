@@ -45,7 +45,7 @@ export class DatabaseObject extends DurableObject<Env> {
 }
 
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
+	async fetch(request, env, _ctx): Promise<Response> {
 		const id: DurableObjectId = env.DATABASE.idFromName("foo");
 		const stub = env.DATABASE.get(id);
 

@@ -1,6 +1,6 @@
 import type { Resume } from "shared";
 import { EmptyResume, ValidResume } from "shared";
-import About from "#pages/about";
+import { About } from "#pages/about";
 import { usePromise } from "#utils";
 import type { Route } from "./+types/about";
 

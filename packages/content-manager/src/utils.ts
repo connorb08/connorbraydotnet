@@ -33,12 +33,15 @@ export function forbiddenReferer(request: Request): boolean {
 	return false;
 }
 
+const avifRegex = /image\/avif/;
+const webpRegex = /image\/webp/;
+
 export function getOutputType(request: Request): ImageOutputOptions["format"] {
 	const accept = request.headers.get("Accept") || "";
-	if (/image\/avif/.test(accept)) {
+	if (avifRegex.test(accept)) {
 		return "image/avif";
 	}
-	if (/image\/webp/.test(accept)) {
+	if (webpRegex.test(accept)) {
 		return "image/webp";
 	}
 

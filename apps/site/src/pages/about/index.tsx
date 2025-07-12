@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, use, useState } from "react";
 import { FaLinkedin as LinkedinIcon } from "react-icons/fa";
 import { VscGithub as GithubIcon } from "react-icons/vsc";
 import { Link } from "react-router";
@@ -10,13 +10,20 @@ import Portfolio from "./tabs/portfolio";
 import ResumeTab from "./tabs/resume";
 
 interface Props {
-	data: Resume;
+	data: Resume | Promise<Resume> | undefined;
 	loading?: boolean;
 	error?: Error | null;
 }
 
-export const About = memo((props: Props) => {
-	const resume = props.data;
+const About = memo((props: Props) => {
+	// TODO: get rid of this mess
+	const resume = use(
+		props.data
+			? props.data instanceof Promise
+				? props.data
+				: Promise.resolve(props.data)
+			: Promise.resolve({} as Resume),
+	);
 	const [tab, setTab] = useState<number>(0);
 	const tab0 = () => setTab(0);
 	const tab1 = () => setTab(1);
@@ -133,4 +140,4 @@ export const About = memo((props: Props) => {
 	);
 });
 
-export default About;
+export { About };
