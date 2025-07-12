@@ -1,0 +1,5 @@
+*
+!package.json
+!src/
+!package-lock.json
+!esbuild.js

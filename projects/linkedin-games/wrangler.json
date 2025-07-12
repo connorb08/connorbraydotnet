@@ -1,0 +1,49 @@
+/**
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "linkedin-games",
+	"main": "worker/index.ts",
+	"compatibility_date": "2025-05-06",
+	"compatibility_flags": [
+		"nodejs_compat_v2"
+	],
+	"workers_dev": true,
+	"routes": [
+		{
+			"custom_domain": true,
+			"pattern": "linkedin-games.connorbray.net",
+		}
+	],
+	"triggers": {
+		"crons": [
+			"0 14 * * *"
+		]
+	},
+	"browser": {
+		"binding": "BROWSER"
+	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "Storage",
+				"name": "STORAGE"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"Storage"
+			]
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	"vars": {
+		"LOG_LEVEL": "error",
+	}
+}

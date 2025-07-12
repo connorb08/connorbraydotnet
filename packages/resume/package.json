@@ -1,57 +1,57 @@
 {
-	"name": "resume",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "react-router build",
-		"typegen-cf": "wrangler types 1> /dev/null",
-		"typegen-rr": "react-router typegen",
-		"typegen": "bun run typegen-cf && bun run typegen-rr",
-		"deploy": "bun run build && wrangler deploy",
-		"dev": "react-router dev",
-		"preview": "bun run build && vite preview",
-		"test": "nx run build && vitest --run",
-		"e2e": "playwright test",
-		"test:watch": "nx run build && vitest",
-		"coverage": "vitest run --coverage",
-		"format": "biome format --write",
-		"lint": "biome lint",
-		"typecheck": "nx run typegen && tsc -b",
-		"depcheck": "bunx depcheck"
-	},
-	"imports": {
-		"#styles/*": "./app/styles/*",
-		"#models": "./models/index.ts",
-		"#validate": "./validate/index.ts",
-		"#validate/validate.js": "./validate/validate.js",
-		"#worker": "./workers/app.ts",
-		"#test/*": "./test/*.ts"
-	},
-	"dependencies": {
-		"isbot": "^5.1.26",
-		"react": "^19.1.0",
-		"react-dom": "^19.1.0",
-		"react-router": "^7.6.3",
-		"shared": "workspace:*"
-	},
-	"devDependencies": {
-		"@react-router/dev": "^7.6.3",
-		"@types/react": "^19.1.1",
-		"@types/react-dom": "^19.1.2",
-		"sass-embedded": "^1.87.0",
-		"vite-tsconfig-paths": "^5.1.4"
-	},
-	"peerDependencies": {
-		"@playwright/test": "*",
-		"@testing-library/jest-dom": "*",
-		"@testing-library/react": "*",
-		"@vitejs/plugin-react": "^4.4.1",
-		"@vitest/coverage-istanbul": "*",
-		"vitest": "*",
-		"vite-plugin-react-remove-attributes": "*",
-		"@cloudflare/vitest-pool-workers": "^0.8.49",
-		"@cloudflare/vite-plugin": "*",
-		"vite": "*"
-	},
-	"packageManager": "bun@10.8.0"
+  "name": "resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "typegen-cf": "wrangler types 1> /dev/null",
+    "typegen-rr": "react-router typegen",
+    "typegen": "bun run typegen-cf && bun run typegen-rr",
+    "deploy": "bun run build && wrangler deploy",
+    "dev": "react-router dev",
+    "preview": "bun run build && vite preview",
+    "test": "nx run build && vitest --run",
+    "e2e": "nx playwright:e2e",
+    "test:watch": "nx run build && vitest",
+    "coverage": "vitest run --coverage",
+    "format": "biome format --write",
+    "lint": "biome lint",
+    "typecheck": "nx run typegen && tsc -b",
+    "depcheck": "bunx depcheck"
+  },
+  "imports": {
+    "#styles/*": "./app/styles/*",
+    "#models": "./models/index.ts",
+    "#validate": "./validate/index.ts",
+    "#validate/validate.js": "./validate/validate.js",
+    "#worker": "./workers/app.ts",
+    "#test/*": "./test/*.ts"
+  },
+  "dependencies": {
+    "isbot": "^5.1.26",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.3",
+    "shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.6.3",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "sass-embedded": "^1.87.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "peerDependencies": {
+    "@playwright/test": "*",
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "*",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/coverage-istanbul": "*",
+    "vitest": "*",
+    "vite-plugin-react-remove-attributes": "*",
+    "@cloudflare/vitest-pool-workers": "^0.8.49",
+    "@cloudflare/vite-plugin": "*",
+    "vite": "*"
+  },
+  "packageManager": "bun@10.8.0"
 }

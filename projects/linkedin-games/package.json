@@ -1,0 +1,30 @@
+{
+	"name": "linkedin-game-solver",
+	"type": "module",
+	"version": "1.0.0",
+	"author": "Connor Bray",
+	"description": "",
+	"license": "MIT",
+	"main": "src/index.ts",
+	"imports": {
+		"#config": "./src/config.ts",
+		"#types": "./src/types.ts",
+		"#utils/*": "./src/utils/*.ts",
+		"#src/*": "./src/*"
+	},
+	"scripts": {
+		"dev": "bun run src/index.ts",
+		"dev:debug": "LOG_LEVEL=debug bun run src/index.ts",
+		"cf": "wrangler dev",
+		"cf:debug": "LOG_LEVEL=debug wrangler dev --remote",
+		"cron": "curl localhost:8787/cron",
+		"typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@cloudflare/playwright": "^0.0.10",
+		"playwright": "^1.53.2",
+		"typescript": "^5.8.3",
+		"wrangler": "^4.23.0"
+	}
+}
