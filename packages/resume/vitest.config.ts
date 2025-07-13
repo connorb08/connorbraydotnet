@@ -26,7 +26,7 @@ const vitestConfig = {
 	test: {
 		name: "Resume",
 		exclude: ["test/e2e"],
-		globals: false,
+		globals: true,
 		reporters: ["default", "json"],
 		outputFile: {
 			json: "./test/reports/results.json",

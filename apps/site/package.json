@@ -23,11 +23,7 @@
 		"#styles/": "./src/styles/*"
 	},
 	"dependencies": {
-		"isbot": "^5.1.17",
-		"react": "^19.0.0",
 		"react-aria-components": "^1.10.1",
-		"react-dom": "^19.0.0",
-		"react-router": "^7.5.0",
 		"shared": "workspace:*",
 		"components": "workspace:*"
 	},
@@ -42,6 +38,10 @@
 		"vite-tsconfig-paths": "^5.1.4"
 	},
 	"peerDependencies": {
+		"isbot": "*",
+		"react": "*",
+		"react-dom": "*",
+		"react-router": "*",
 		"vite": "*",
 		"@cloudflare/vite-plugin": "*"
 	},

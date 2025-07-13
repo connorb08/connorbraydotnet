@@ -2,10 +2,9 @@
 	"name": "api",
 	"version": "0.0.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"test": "vitest",
+		"dev": "vite dev",
 		"typegen": "wrangler types"
 	},
 	"dependencies": {
@@ -13,8 +12,8 @@
 	},
 	"peerDependencies": {
 		"typescript": "*",
-		"@cloudflare/vitest-pool-workers": "*",
-		"vitest": "*",
-		"wrangler": "*"
+		"wrangler": "*",
+		"vite": "*",
+		"@cloudflare/vite-plugin": "*"
 	}
 }

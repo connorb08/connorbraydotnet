@@ -25,10 +25,11 @@
 		"shared": "workspace:*"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@cloudflare/playwright": "^0.0.10",
-		"playwright": "^1.53.2",
-		"typescript": "^5.8.3",
-		"wrangler": "^4.23.0"
+		"@cloudflare/playwright": "^0.0.10"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*",
+		"playwright": "*"
 	}
 }
