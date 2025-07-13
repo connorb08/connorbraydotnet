@@ -1,10 +1,9 @@
 {
 	"build": {
-		"dockerfile": "./Dockerfile",
-		"context": "."
+		"dockerfile": "./build/Dockerfile",
+		"context": "./build"
 	},
-	"overrideCommand": false,
-	"postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+	"postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/postCreateCommand.sh",
 	"containerEnv": {
 		"NODE_VERSION": "23.11.0"
 	},

@@ -261,6 +261,19 @@ export { Graph, type IGraph };
 
 type ColorId = number & { __brand: "ColorId" };
 
+type FixedLengthTuple<T, L extends number> = {
+	[K in keyof TupleOf<T, L>]: T;
+} & { length: L };
+
+// Helper type to create a tuple of a given length
+type TupleOf<
+	T,
+	L extends number,
+	Acc extends T[] = [],
+> = Acc["length"] extends L ? Acc : TupleOf<T, L, [...Acc, T]>;
+const _myArrayy: FixedLengthTuple<string, 3> = ["a", "b", "c"]; // Valid
+
+
 interface IGraph2 {
 	/**
 	 * Row
