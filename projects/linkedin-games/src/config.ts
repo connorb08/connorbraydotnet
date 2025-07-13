@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/style/noDefaultExport: allow config to be exported */
 import { type LogLevel, logLevels } from "#src/logger.ts";
 
 // #region Types
@@ -8,6 +7,7 @@ type EnvironmentConfig = {
 };
 
 type Config = {
+	readonly headless: boolean;
 	readonly logLevel: LogLevel;
 	readonly Urls: {
 		readonly Queens: string;
@@ -20,6 +20,7 @@ export type { Config };
 // #endregion
 
 const defaultConfig = {
+	headless: true,
 	logLevel: "normal",
 	Urls: {
 		Queens: "https://www.linkedin.com/games/view/queens/desktop",
@@ -28,21 +29,21 @@ const defaultConfig = {
 } satisfies Config;
 
 class Singleton {
-	// private static _instance: Singleton = new Singleton();
+	private static _instance: Singleton = new Singleton();
 	private static _logLevel: LogLevel = defaultConfig.logLevel;
+	private static _headless: boolean = defaultConfig.headless;
 	private static _Urls: {
 		Queens: string;
 	} = defaultConfig.Urls;
-	// private static _env: EnvironmentConfig = defaultConfig.env;
 
-	private constructor() {
-		// if (ConfigSingleton._instance) {
-		// 	throw new Error("Error creating singleton instance of Config.");
-		// }
-		// ConfigSingleton._instance = this;
-		// this._config = {
-		// 	...defaultConfig,
-		// };
+	private constructor() {}
+
+	static get instance(): Singleton {
+		return Singleton._instance;
+	}
+
+	static get headless(): boolean {
+		return Singleton._headless;
 	}
 
 	static get logLevel() {
@@ -60,11 +61,6 @@ class Singleton {
 	}
 }
 
-// const config: ConfigObject = {
-// 	...ConfigSingleton.data,
-// 	env: ConfigSingleton.env,
-// };
-
-const config = Singleton;
+const config: Config = Singleton;
 
 export default config;

@@ -21,6 +21,9 @@
 		"pretypecheck": "bun run typegen",
 		"typecheck": "tsc -b"
 	},
+	"dependencies": {
+		"shared": "workspace:*"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@cloudflare/playwright": "^0.0.10",

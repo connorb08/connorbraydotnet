@@ -1,10 +1,9 @@
-/** biome-ignore-all lint/style/noDefaultExport: worker file */
 import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
+import type { GameData } from "shared";
 import config from "#config";
 import logger from "#logger";
 import { SolutionManager } from "#src/queens/manager.ts";
 import { PageController } from "#src/queens/page-controller/cloudflare.ts";
-import type { GameData } from "#src/queens/types.ts";
 import type { LinkedinGamesWorker } from "./interface";
 
 const defaultGameData: GameData = {
@@ -55,7 +54,7 @@ export default class Entrypoint
 		return storage.getCurrentAnswer();
 	}
 
-	override async scheduled(_: ScheduledController): Promise<void> {
+	async solveGame(): Promise<boolean> {
 		try {
 			config.env = {
 				LOG_LEVEL: this.env.LOG_LEVEL,
@@ -66,50 +65,15 @@ export default class Entrypoint
 			await this.env.STORAGE.get(
 				this.env.STORAGE.idFromName("default"),
 			).storeResult(gameData);
-			logger.debug("Result stored successfully.");
+			logger.debug("Game solved and result stored successfully.");
+			return true;
 		} catch (error) {
-			console.error("Error with schedule:", error);
-			throw error;
+			logger.error("Error solving game:", error);
+			return false;
 		}
 	}
+
+	override async scheduled(_: ScheduledController): Promise<void> {
+		await this.solveGame();
+	}
 }
-
-// export default {
-// 	async fetch(request, env, ctx): Promise<Response> {
-// 		config.env = {
-// 			LOG_LEVEL: env.LOG_LEVEL,
-// 		};
-
-// 		if (new URL(request.url).pathname === "/cron") {
-// 			await this.scheduled?.({} as ScheduledController, env, ctx);
-// 			return new Response("Scheduled task executed successfully.");
-// 		}
-
-// 		const id = env.STORAGE.idFromName("queens-storage");
-// 		const storage = env.STORAGE.get(id);
-// 		const body = await storage.getCurrentAnswer();
-// 		return new Response(JSON.stringify(body), {
-// 			headers: {
-// 				"Content-Type": "application/json",
-// 			},
-// 		});
-// 	},
-// 	async scheduled(
-// 		_controllerr: ScheduledController,
-// 		env: Env,
-// 		_ctxx: ExecutionContext,
-// 	) {
-// 		try {
-// 			const gameData = await SolutionManager({
-// 				pageController: await PageController(env.BROWSER),
-// 			});
-// 			await env.STORAGE.get(env.STORAGE.idFromName("default")).storeResult(
-// 				gameData,
-// 			);
-// 			logger.debug("Result stored successfully.");
-// 		} catch (error) {
-// 			console.error("Error with schedule:", error);
-// 			throw error;
-// 		}
-// 	},
-// } satisfies ExportedHandler<Env>;

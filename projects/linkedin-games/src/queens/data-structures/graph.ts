@@ -1,5 +1,6 @@
+import type { GameData } from "shared";
 import logger from "#logger";
-import type { ColorInfo, GameData } from "../types";
+import type { ColorInfo } from "../types";
 import { GraphNode, type INode } from "./node";
 
 interface IGraph {
@@ -257,3 +258,35 @@ class Graph implements IGraph {
 }
 
 export { Graph, type IGraph };
+
+type ColorId = number & { __brand: "ColorId" };
+
+interface IGraph2 {
+	/**
+	 * Row
+	 * 0	[ColorId, ColorId, ColorId]
+	 * 1	[ColorId, ColorId, ColorId]
+	 * 2	[ColorId, ColorId, ColorId]
+	 */
+	rows: number[][];
+	/**
+	 * Column
+	 * 0	[ColorId, ColorId, ColorId]
+	 * 1	[ColorId, ColorId, ColorId]
+	 * 2	[ColorId, ColorId, ColorId]
+	 */
+	columns: number[][];
+}
+
+export class Graph2 implements IGraph2 {
+	// private readonly _nodes: Map<number, Set<number>> = new Map();
+	// private readonly _colorInfo: Map<number, ColorInfo> = new Map();
+	// private readonly _gameData: GameData = {
+	// 	sideLength: 0,
+	// 	queens: [],
+	// 	removed: [],
+	// 	colors: [],
+	// 	nodesColors: [],
+	// };
+	// private _sideLength = -1;
+}

@@ -69,6 +69,7 @@ async function findSolution(graph: IGraph) {
 				continue search;
 			}
 
+			//
 			if (
 				sameColumn.isSubsetOf(sameColor) &&
 				sameColumn.size !== sameColor.size

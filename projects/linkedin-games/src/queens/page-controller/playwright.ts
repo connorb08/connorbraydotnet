@@ -24,6 +24,7 @@ async function PageController(): Promise<IPageController> {
 	async function start(): Promise<void> {
 		browser = await chromium.launch({
 			channel: "chromium",
+			headless: config.headless,
 		});
 		context = await browser.newContext({
 			userAgent:

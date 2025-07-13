@@ -9,7 +9,7 @@ export default defineConfig({
 		cloudflare({
 			viteEnvironment: { name: "ssr" },
 			persistState: {
-				path: "../../packages/content-manager/.wrangler/state",
+				path: "../../.wrangler/state",
 			},
 			auxiliaryWorkers: [
 				{
@@ -34,13 +34,4 @@ export default defineConfig({
 			"~/styles": resolve(__dirname, "src/styles"),
 		},
 	},
-	// css: {
-	// 	preprocessorOptions: {
-	// 		sass: {
-	// 			// additionalData: `@use "${join(currentDir, "./src/styles/color.scss")}" as *;`,
-	// 			api: "modern",
-	// 			loadPaths: ["./src/styles"],
-	// 		},
-	// 	},
-	// },
 });

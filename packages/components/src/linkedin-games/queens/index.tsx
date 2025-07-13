@@ -45,7 +45,7 @@ export function QueensResult(_: Props) {
 					}}
 					data-queen={gameData.queens.includes(index)}
 				>
-					{gameData.queens.includes(index) ? "♛" : "X"}
+					{gameData.queens.includes(index) ? "♛" : index}
 				</div>
 			))}
 		</div>
