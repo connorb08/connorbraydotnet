@@ -1,7 +1,7 @@
 import type { Resume } from "#types";
 import { DeepCopy } from "#utils";
 
-export const ResumeData: Resume = {
+const ResumeData: Resume = {
 	name: "Ronald McDonald",
 	about: {
 		phoneNumber: "(555) 555-5555",
@@ -58,7 +58,7 @@ export const ResumeData: Resume = {
 	],
 };
 
-export const EmptyResume: Resume = {
+const EmptyResume: Resume = {
 	name: "",
 	about: {
 		phoneNumber: "",
@@ -73,6 +73,8 @@ export const EmptyResume: Resume = {
 	projects: [],
 };
 
-export const ValidResume = () => {
-    return DeepCopy<Resume>(ResumeData);
+const ValidResume = () => {
+	return DeepCopy<Resume>(ResumeData);
 };
+
+export { EmptyResume, ResumeData, ValidResume };

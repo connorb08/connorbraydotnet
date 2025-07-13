@@ -1,1 +1,1 @@
-export * from "./resume";
+export { ResumeSchema } from "./resume";

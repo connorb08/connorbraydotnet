@@ -9,17 +9,17 @@ const Portfolio = ({
 
 	return (
 		<div className="block-section p-7">
-				<h2 className="block-title">Projects</h2>
+			<h2 className="block-title">Projects</h2>
 
-				{projects?.map((project, index, arr) => {
-					return (
-						<div key={index}>
-							<Project {...project} />
-							{index !== arr.length - 1 ? bottomBorder : ""}
-						</div>
-					);
-				})}
-			</div>
+			{projects?.map((project, index, arr) => {
+				return (
+					<div key={index}>
+						<Project {...project} />
+						{index !== arr.length - 1 ? bottomBorder : ""}
+					</div>
+				);
+			})}
+		</div>
 	);
 };
 

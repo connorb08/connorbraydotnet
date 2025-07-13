@@ -5,7 +5,7 @@ import { ResumeCareerSchema } from "./career";
 import { ResumeEducationSchema } from "./education";
 import { ResumeProjectSchema } from "./project";
 
-export const ResumeSchema: JSONSchemaType<Resume> = {
+const ResumeSchema: JSONSchemaType<Resume> = {
 	$id: "Resume",
 	type: "object",
 	properties: {
@@ -18,3 +18,5 @@ export const ResumeSchema: JSONSchemaType<Resume> = {
 	required: ["name", "about", "education", "career", "projects"],
 	additionalProperties: false,
 };
+
+export { ResumeSchema };

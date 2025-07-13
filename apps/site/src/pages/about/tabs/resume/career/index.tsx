@@ -9,7 +9,7 @@ type Props = {
 	data: ResumeCareer;
 };
 
-export function Career({ data, icon_url }: Props) {
+export function Career({ data }: Props) {
 	const dateString = getDateString(data.startDate, data.endDate);
 	return (
 		<div className={style.listItem}>

@@ -8,7 +8,6 @@ interface IMainEntrypoint {
 
 const requestHandler = createRequestHandler(
 	/* istanbul ignore next */
-	// @ts-ignore
 	() => import("virtual:react-router/server-build"),
 	import.meta.env.MODE,
 );

@@ -22,7 +22,9 @@
 			"!**/validate.js",
 			"!**/build",
 			"!**/.gitignore",
-			"!**/.wrangler"
+			"!**/.wrangler",
+			"!cli",
+			"!packages/shared/validator"
 		]
 	},
 	"formatter": {

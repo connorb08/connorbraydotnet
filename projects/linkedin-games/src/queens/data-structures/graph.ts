@@ -273,7 +273,6 @@ type TupleOf<
 > = Acc["length"] extends L ? Acc : TupleOf<T, L, [...Acc, T]>;
 const _myArrayy: FixedLengthTuple<string, 3> = ["a", "b", "c"]; // Valid
 
-
 interface IGraph2 {
 	/**
 	 * Row
@@ -281,25 +280,24 @@ interface IGraph2 {
 	 * 1	[ColorId, ColorId, ColorId]
 	 * 2	[ColorId, ColorId, ColorId]
 	 */
-	rows: number[][];
+	rows: ColorId[][];
 	/**
 	 * Column
 	 * 0	[ColorId, ColorId, ColorId]
 	 * 1	[ColorId, ColorId, ColorId]
 	 * 2	[ColorId, ColorId, ColorId]
 	 */
-	columns: number[][];
+	columns: ColorId[][];
 }
 
 export class Graph2 implements IGraph2 {
-	// private readonly _nodes: Map<number, Set<number>> = new Map();
-	// private readonly _colorInfo: Map<number, ColorInfo> = new Map();
-	// private readonly _gameData: GameData = {
-	// 	sideLength: 0,
-	// 	queens: [],
-	// 	removed: [],
-	// 	colors: [],
-	// 	nodesColors: [],
-	// };
-	// private _sideLength = -1;
+	private readonly _rows: ColorId[][] = [];
+	private readonly _columns: ColorId[][] = [];
+
+	public get rows(): ColorId[][] {
+		return this._rows;
+	}
+	public get columns(): ColorId[][] {
+		return this._columns;
+	}
 }

@@ -1,3 +1,3 @@
 export type * from "#types";
-export * from "#validate";
-export * from "./test-data";
+export { ValidateResume } from "#validate";
+export { EmptyResume, ResumeData, ValidResume } from "./test-data";

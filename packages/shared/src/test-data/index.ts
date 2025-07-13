@@ -1,1 +1,1 @@
-export * from "./resume";
+export { EmptyResume, ResumeData, ValidResume } from "./resume";

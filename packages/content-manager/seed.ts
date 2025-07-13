@@ -49,13 +49,13 @@ console.log("Seeding complete.");
 
 const uploadedFiles: string[] = [];
 
-result.forEach((res) => {
+for (const res of result) {
 	if (res.status === "fulfilled") {
 		uploadedFiles.push(res.value);
 	} else {
 		console.error("Upload failed:", res.reason);
 	}
-});
+}
 
 console.log("Uploaded files:", uploadedFiles);
 

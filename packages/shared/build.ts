@@ -2,7 +2,6 @@ import { rm } from "node:fs/promises";
 import { join as joinPath } from "node:path";
 import { Biome, Distribution } from "@biomejs/js-api";
 import Ajv, { _ } from "ajv";
-import { _Code } from "ajv/dist/compile/codegen/code";
 import standaloneCode from "ajv/dist/standalone";
 import addFormats from "ajv-formats";
 import {
@@ -24,7 +23,7 @@ addFormats(ajv);
 ajv.addKeyword({
 	keyword: "isNotEmpty",
 	type: "string",
-	validate: (schema: unknown, data: unknown) =>
+	validate: (_schema: unknown, data: unknown) =>
 		typeof data === "string" && data.trim() !== "",
 	code: (cxt) => {
 		const { data } = cxt;
@@ -38,6 +37,8 @@ const moduleCode = standaloneCode(ajv);
 const biome = await Biome.create({
 	distribution: Distribution.NODE,
 });
+
+// biome.applyConfiguration()
 
 const formatted = biome.formatContent(moduleCode, {
 	filePath: "example.js",
