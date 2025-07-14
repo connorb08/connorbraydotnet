@@ -6,14 +6,15 @@
 			"path": "./tsconfig.dev.json"
 		},
 		{
-			"path": "worker/tsconfig.json"
+			"path": "./worker/tsconfig.json"
+		},
+		{
+			"path": "./tests/tsconfig.json"
 		}
 	],
 	"compilerOptions": {
 		"composite": true,
 		"rootDir": ".",
-		"outDir": ".tsbuildinfo",
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true
+		"outDir": ".tsbuildinfo"
 	}
 }

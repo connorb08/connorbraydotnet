@@ -1,4 +1,4 @@
-import { type LogLevel, logLevels } from "#src/logger.ts";
+import { type LogLevel, logLevels } from "#logger";
 
 // #region Types
 

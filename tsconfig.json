@@ -19,6 +19,9 @@
 		},
 		{
 			"path": "./apps/site"
+		},
+		{
+			"path": "./projects/linkedin-games"
 		}
 	],
 	"compilerOptions": {

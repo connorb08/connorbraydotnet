@@ -2,8 +2,8 @@ import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
 import type { GameData } from "shared";
 import config from "#config";
 import logger from "#logger";
-import { SolutionManager } from "#src/queens/manager.ts";
-import { PageController } from "#src/queens/page-controller/cloudflare.ts";
+import { SolutionManager } from "#src/queens/manager";
+import { PageController } from "#src/queens/page-controller/cloudflare";
 import type { LinkedinGamesWorker } from "./interface";
 
 const defaultGameData: GameData = {

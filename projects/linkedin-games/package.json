@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"main": "dev.ts",
 	"imports": {
-		"#src/*": "./src/*",
+		"#src/*": "./src/*.ts",
 		"#config": "./src/config.ts",
 		"#logger": "./src/logger.ts"
 	},
