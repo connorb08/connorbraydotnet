@@ -1,9 +1,12 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+	"$schema": "node_modules/@biomejs/biome/configuration_schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
 		"useIgnoreFile": true
+	},
+	"javascript": {
+		"globals": ["Bun"]
 	},
 	"files": {
 		"ignoreUnknown": true,
@@ -22,6 +25,7 @@
 			"!**/validate.js",
 			"!**/build",
 			"!**/.gitignore",
+			"!**/.tsbuildinfo",
 			"!**/.wrangler",
 			"!cli",
 			"!packages/shared/validator"
