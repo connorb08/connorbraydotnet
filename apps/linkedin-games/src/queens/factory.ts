@@ -1,27 +1,26 @@
 import logger from "#logger";
-import { findSolution } from "./algorithm";
-import { Graph } from "./data-structures/graph";
+import { Graph, type IGraph } from "./data-structures/graph-new";
 import type { IPageController } from "./page-controller/types";
 
 /**
- * SolutionManager
+ * SolutionFactory
  *
  * This module handles the Queens game on LinkedIn
  *
  * It initializes the game, finds the solution, and returns the result.
  */
-const SolutionManager = async ({
+const SolutionFactory = async ({
 	pageController,
 }: {
 	pageController: IPageController;
 }) => {
-	const graph = new Graph();
+	logger.trace("Starting SolutionFactory");
+	const graph: IGraph = new Graph();
 	await pageController.start();
 	await pageController.populateGraph(graph);
 	await pageController.dispose();
-	await findSolution(graph);
-	logger.debug("Nodes in graph:", graph.nodes.size);
-	return graph.gameData;
+	graph.createEdges();
+	return graph.findSolution();
 };
 
-export { SolutionManager };
+export { SolutionFactory };

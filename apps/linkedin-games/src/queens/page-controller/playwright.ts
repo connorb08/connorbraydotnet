@@ -5,7 +5,7 @@ import {
 	type Page,
 } from "playwright";
 import config from "#config";
-import type { IGraph } from "../data-structures/graph";
+import type { IGraph } from "../data-structures/graph-new";
 import type { IPageController } from "./types";
 
 const ariaLabelRegex = /of color\s*([^,]+)/i;
@@ -67,16 +67,18 @@ async function PageController(): Promise<IPageController> {
 					throw new Error("No color found for cell");
 				}
 
-				graph.colorInfo = {
-					id: colorId,
-					name: colorName.trim(),
-					hex: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random hex color for demonstration
-				};
-				graph.addNode(cellId, colorId);
+				graph.addCell({
+					id: cellId,
+					rowId: Math.floor(cellId / graph.sideLength),
+					columnId: cellId % graph.sideLength,
+					colorInfo: {
+						id: colorId,
+						name: colorName.trim(),
+						hex: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random hex color for demonstration
+					},
+				});
 			}),
 		);
-
-		graph.createEdges();
 	}
 
 	// #endregion

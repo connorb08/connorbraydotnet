@@ -1,0 +1,8 @@
+{
+	"name": "clog",
+	"module": "src/index.ts",
+	"type": "module",
+	"peerDependencies": {
+		"typescript": "*"
+	}
+}

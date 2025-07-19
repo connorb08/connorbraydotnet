@@ -1,6 +1,6 @@
 import config from "#config";
 import logger from "#logger";
-import { SolutionManager } from "#src/queens/index";
+import { SolutionFactory } from "#src/queens/index";
 import { PageController } from "#src/queens/page-controller/playwright";
 
 logger.debug("Setting envioronment variables");
@@ -9,7 +9,7 @@ logger.debug("Environment variables set");
 
 logger.debug("Start");
 const start = performance.now();
-const queenLocations = await SolutionManager({
+const queenLocations = await SolutionFactory({
 	pageController: await PageController(),
 });
 const end = performance.now();

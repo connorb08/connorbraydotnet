@@ -47,6 +47,50 @@
         "wrangler": "^4.24.3",
       },
     },
+    "apps/linkedin-games": {
+      "name": "linkedin-game-solver",
+      "version": "1.0.0",
+      "dependencies": {
+        "shared": "workspace:*",
+      },
+      "devDependencies": {
+        "@cloudflare/playwright": "^0.0.10",
+      },
+      "peerDependencies": {
+        "playwright": "*",
+        "typescript": "*",
+        "wrangler": "*",
+      },
+    },
+    "apps/resume": {
+      "name": "resume",
+      "dependencies": {
+        "shared": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/react": "^19.1.1",
+        "@types/react-dom": "^19.1.2",
+        "sass-embedded": "^1.87.0",
+        "vite-tsconfig-paths": "^5.1.4",
+      },
+      "peerDependencies": {
+        "@cloudflare/vite-plugin": "*",
+        "@cloudflare/vitest-pool-workers": "*",
+        "@playwright/test": "*",
+        "@react-router/dev": "*",
+        "@testing-library/jest-dom": "*",
+        "@testing-library/react": "*",
+        "@vitejs/plugin-react": "*",
+        "@vitest/coverage-istanbul": "*",
+        "isbot": "*",
+        "react": "*",
+        "react-dom": "*",
+        "react-router": "*",
+        "vite": "*",
+        "vite-plugin-react-remove-attributes": "*",
+        "vitest": "*",
+      },
+    },
     "apps/site": {
       "name": "site",
       "dependencies": {
@@ -108,6 +152,15 @@
         "wrangler": "*",
       },
     },
+    "packages/clog": {
+      "name": "clog",
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
     "packages/components": {
       "name": "components",
       "version": "0.0.0",
@@ -140,35 +193,6 @@
         "wrangler": "*",
       },
     },
-    "packages/resume": {
-      "name": "resume",
-      "dependencies": {
-        "shared": "workspace:*",
-      },
-      "devDependencies": {
-        "@types/react": "^19.1.1",
-        "@types/react-dom": "^19.1.2",
-        "sass-embedded": "^1.87.0",
-        "vite-tsconfig-paths": "^5.1.4",
-      },
-      "peerDependencies": {
-        "@cloudflare/vite-plugin": "*",
-        "@cloudflare/vitest-pool-workers": "*",
-        "@playwright/test": "*",
-        "@react-router/dev": "*",
-        "@testing-library/jest-dom": "*",
-        "@testing-library/react": "*",
-        "@vitejs/plugin-react": "*",
-        "@vitest/coverage-istanbul": "*",
-        "isbot": "*",
-        "react": "*",
-        "react-dom": "*",
-        "react-router": "*",
-        "vite": "*",
-        "vite-plugin-react-remove-attributes": "*",
-        "vitest": "*",
-      },
-    },
     "packages/shared": {
       "name": "shared",
       "version": "0.0.0",
@@ -181,21 +205,6 @@
         "depcheck": "*",
         "typescript": "*",
         "vitest": "*",
-      },
-    },
-    "projects/linkedin-games": {
-      "name": "linkedin-game-solver",
-      "version": "1.0.0",
-      "dependencies": {
-        "shared": "workspace:*",
-      },
-      "devDependencies": {
-        "@cloudflare/playwright": "^0.0.10",
-      },
-      "peerDependencies": {
-        "playwright": "*",
-        "typescript": "*",
-        "wrangler": "*",
       },
     },
   },
@@ -1410,6 +1419,8 @@
 
     "cliui": ["cliui@8.0.1", "", { "dependencies": { "string-width": "^4.2.0", "strip-ansi": "^6.0.1", "wrap-ansi": "^7.0.0" } }, "sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ=="],
 
+    "clog": ["clog@workspace:packages/clog"],
+
     "clone": ["clone@1.0.4", "", {}, "sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg=="],
 
     "clsx": ["clsx@2.1.1", "", {}, "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA=="],
@@ -1914,7 +1925,7 @@
 
     "lines-and-columns": ["lines-and-columns@2.0.3", "", {}, "sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w=="],
 
-    "linkedin-game-solver": ["linkedin-game-solver@workspace:projects/linkedin-games"],
+    "linkedin-game-solver": ["linkedin-game-solver@workspace:apps/linkedin-games"],
 
     "loader-runner": ["loader-runner@4.3.0", "", {}, "sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg=="],
 
@@ -2200,7 +2211,7 @@
 
     "restore-cursor": ["restore-cursor@3.1.0", "", { "dependencies": { "onetime": "^5.1.0", "signal-exit": "^3.0.2" } }, "sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA=="],
 
-    "resume": ["resume@workspace:packages/resume"],
+    "resume": ["resume@workspace:apps/resume"],
 
     "retry": ["retry@0.12.0", "", {}, "sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow=="],
 
@@ -2712,6 +2723,8 @@
 
     "chokidar/readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
 
+    "clog/@types/bun": ["@types/bun@1.2.18", "", { "dependencies": { "bun-types": "1.2.18" } }, "sha512-Xf6RaWVheyemaThV0kUfaAUvCNokFr+bH8Jxp+tTZfx7dAPA8z9ePnP9S9+Vspzuxxx9JRAXhnyccRj3GyCMdQ=="],
+
     "cosmiconfig/yaml": ["yaml@1.10.2", "", {}, "sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg=="],
 
     "cross-spawn/which": ["which@2.0.2", "", { "dependencies": { "isexe": "^2.0.0" }, "bin": { "node-which": "./bin/node-which" } }, "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA=="],
@@ -3003,6 +3016,8 @@
     "@testing-library/jest-dom/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
     "body-parser/debug/ms": ["ms@2.0.0", "", {}, "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="],
+
+    "clog/@types/bun/bun-types": ["bun-types@1.2.18", "", { "dependencies": { "@types/node": "*" }, "peerDependencies": { "@types/react": "^19" } }, "sha512-04+Eha5NP7Z0A9YgDAzMk5PHR16ZuLVa83b26kH5+cp1qZW4F6FmAURngE7INf4tKOvCE69vYvDEwoNl1tGiWw=="],
 
     "csso/css-tree/mdn-data": ["mdn-data@2.0.28", "", {}, "sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g=="],
 

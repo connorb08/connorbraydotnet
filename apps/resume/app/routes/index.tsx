@@ -74,6 +74,24 @@ export function loader({ context: _context }: Route.LoaderArgs): Resume {
 					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, Terraform",
 				],
 			},
+			{
+				name: "resume-generator",
+				description:
+					"Generate a resume from a JSON file using HTML/CSS and validate it with JSON schema validation.",
+				about: [
+					"This resume was generated using this project",
+					"Generates a resume from a JSON file using HTML/CSS and validates it with JSON schema validation",
+					"Technologies: TypeScript, Remix, React, Cloudflare Workers, Terraform, GitHub Actions, Playwright",
+					"You are likely viewing this resume as a PDF, but it was created using HTML/CSS and is available at resume.connorbray.net.",
+				],
+			},
+			{
+				name: "queens",
+				description: "Solver for daily linkedin queens puzzle",
+				about: [
+					"Creates an indirected graph of the queens puzzle and solves it using constraint propagation",
+				],
+			},
 		],
 	} as const satisfies Resume;
 }

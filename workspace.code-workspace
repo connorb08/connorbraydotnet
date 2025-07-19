@@ -11,10 +11,6 @@
 		{
 			"path": "./packages",
 			"name": "packages"
-		},
-		{
-			"path": "./projects",
-			"name": "projects"
 		}
 	],
 	"settings": {
