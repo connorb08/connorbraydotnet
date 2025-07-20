@@ -1,6 +1,7 @@
 import type { CellId, ColumnId } from "../types";
 import type { Cell } from "./cell";
 import type { Color } from "./color";
+import type { IVariable } from "./types";
 
 class Column implements IColumn {
 	// #region Properties
@@ -69,12 +70,11 @@ export { Column };
 
 // #region Types
 
-interface IColumn {
+interface IColumn extends IVariable {
 	readonly id: ColumnId;
 	readonly cells: ReadonlySet<Cell>;
 
 	addCell(cell: Cell): void;
-	localSearch(): void;
 }
 
 export type { IColumn };

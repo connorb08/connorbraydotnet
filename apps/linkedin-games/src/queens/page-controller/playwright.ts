@@ -37,7 +37,7 @@ async function PageController(): Promise<IPageController> {
 		await page.getByText("Start game").click();
 	}
 
-	async function populateGraph(graph: IGraph): Promise<void> {
+	async function constructGraph(graph: IGraph): Promise<void> {
 		if (!(browser && page)) {
 			throw new Error("Page controller has not been started.");
 		}
@@ -107,7 +107,7 @@ async function PageController(): Promise<IPageController> {
 
 	return {
 		start,
-		populateGraph,
+		constructGraph,
 		dispose: disposeAsync,
 		[Symbol.dispose]: dispose,
 		[Symbol.asyncDispose]: disposeAsync,

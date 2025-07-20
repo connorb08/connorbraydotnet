@@ -1,5 +1,6 @@
 import type { GameData } from "shared";
 import logger from "#logger";
+import type { CellId } from "../types";
 import { Cell } from "../variables/cell";
 import { Color } from "../variables/color";
 import { Column } from "../variables/column";
@@ -8,6 +9,7 @@ import { Row } from "../variables/row";
 class Graph implements IGraph {
 	// #region Properties
 	private readonly _cells: Set<Cell> = new Set();
+	private readonly _cellMap: Map<CellId, Cell> = new Map();
 	private readonly _colors: Set<Color> = new Set();
 	private readonly _rows: Set<Row> = new Set();
 	private readonly _columns: Set<Column> = new Set();
@@ -59,6 +61,7 @@ class Graph implements IGraph {
 				return row;
 			}
 		}
+		logger.trace("Creating new row", { rowId });
 		const row = new Row(rowId);
 		this._rows.add(row);
 		return row;
@@ -70,6 +73,7 @@ class Graph implements IGraph {
 				return column;
 			}
 		}
+		logger.trace("Creating new column", { columnId });
 		const column = new Column(columnId);
 		this._columns.add(column);
 		return column;
@@ -81,10 +85,12 @@ class Graph implements IGraph {
 				return color;
 			}
 		}
+		logger.trace("Creating new color", { colorId, colorName, hex });
 		const color = new Color({ id: colorId, name: colorName, hex });
 		this._colors.add(color);
 		return color;
 	}
+
 	public addCell({
 		id,
 		rowId,
@@ -96,7 +102,7 @@ class Graph implements IGraph {
 		columnId: number;
 		colorInfo: { id: number; name: string; hex: string };
 	}): void {
-		logger.trace("Adding cell", { id, rowId, columnId, colorInfo });
+		logger.trace(`Adding cell ${id}`);
 		const row = this._getRow(rowId);
 		const column = this._getColumn(columnId);
 		const color = this._getColor(colorInfo.id, colorInfo.name, colorInfo.hex);
@@ -107,16 +113,30 @@ class Graph implements IGraph {
 			color,
 		});
 		this._cells.add(cell);
-	}
+		row.addCell(cell);
+		column.addCell(cell);
+		color.addCell(cell);
+		this._cellMap.set(id as CellId, cell);
 
-	public createEdges(): void {
-		logger.trace("Creating edges for cells");
-		for (const cell of this._cells) {
-			cell.row.addCell(cell);
-			cell.column.addCell(cell);
-			cell.color.addCell(cell);
+		// Add diagonal edges to the top left and top right cells
+		// creating an edge is bidirectional
+		// bottom left and bottom right cells will also be connected on the next iteration
+		if (rowId > 0 && columnId > 0) {
+			const topLeftCellId = (rowId - 1) * this._sideLength + (columnId - 1);
+			const topLeftCell = this._cellMap.get(topLeftCellId as CellId);
+			if (topLeftCell) {
+				cell.addEdge(topLeftCell);
+			}
+		}
+		if (rowId > 0 && columnId < this._sideLength - 1) {
+			const topRightCellId = (rowId - 1) * this._sideLength + (columnId + 1);
+			const topRightCell = this._cellMap.get(topRightCellId as CellId);
+			if (topRightCell) {
+				cell.addEdge(topRightCell);
+			}
 		}
 	}
+
 	// #region Methods
 
 	public get solution(): GameData | null {
@@ -124,40 +144,17 @@ class Graph implements IGraph {
 	}
 
 	public findSolution(): GameData {
-		for (let i = 0; i < 1000; i++) {
-			for (const color of this._colors) {
-				color.localSearch();
-			}
+		for (const color of this._colors) {
+			color.localSearch();
 		}
-
 		for (const row of this._rows) {
 			row.localSearch();
 		}
-
 		for (const column of this._columns) {
 			column.localSearch();
 		}
-
 		for (const cell of this._cells) {
 			cell.localSearch();
-		}
-
-		logger.trace("Cells after local search", {
-			cells: Array.from(this._cells).map((cell) => ({
-				id: cell.id,
-				row: cell.row.id,
-				column: cell.column.id,
-				color: cell.color.id,
-			})),
-		});
-
-		for (const color of this._colors) {
-			logger.trace("Color", {
-				id: color.id,
-				name: color.name,
-				hex: color.hex,
-				queen: color.queen,
-			});
 		}
 
 		return this._solution as GameData;
@@ -181,7 +178,6 @@ interface IGraph {
 	findSolution(): void;
 
 	// Methods
-	createEdges(): void;
 	addCell({
 		id,
 		rowId,

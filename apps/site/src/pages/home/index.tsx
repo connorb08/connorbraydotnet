@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import style from "./home.module.scss";
 
 type Section = {
@@ -10,7 +11,7 @@ const sections: Section[] = [
 	{
 		title: "Professional Summary",
 		content: "",
-		href: "",
+		href: "/about",
 	},
 	{
 		title: "Site Architecture",
@@ -43,20 +44,22 @@ function Home() {
 					aliquip ex ea commodo consequat. Duis aute irure dolor in
 					reprehenderit in voluptate velit esse <span>...learn more</span>
 				</p>
-				<button>Professional Summary</button>
+				<button type="button">Professional Summary</button>
 			</div>
 			<div className={style.content}>
 				{sections.map((section, index) => (
-					<section key={index} className={style.section}>
-						<h2 className={style.section__title}>{section.title}</h2>
-						<p className={style.section__content}>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-							reprehenderit in voluptate velit esse
-						</p>
-					</section>
+					<NavLink to={section.href} key={index} viewTransition>
+						<section className={style.section}>
+							<h2 className={style.section__title}>{section.title}</h2>
+							<p className={style.section__content}>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+								enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+								in reprehenderit in voluptate velit esse
+							</p>
+						</section>
+					</NavLink>
 				))}
 			</div>
 			<div className={style.projects}>

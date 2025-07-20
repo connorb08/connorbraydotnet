@@ -16,14 +16,16 @@ interface Props {
 }
 
 const About = memo((props: Props) => {
+	const resume = props.data;
 	// TODO: get rid of this mess
-	const resume = use(
-		props.data
-			? props.data instanceof Promise
-				? props.data
-				: Promise.resolve(props.data)
-			: Promise.resolve({} as Resume),
-	);
+	// const resume = use(
+	// 	props.data
+	// 		? props.data instanceof Promise
+	// 			? props.data
+	// 			: Promise.resolve(props.data)
+	// 		: Promise.resolve({} as Resume),
+	// );
+
 	const [tab, setTab] = useState<number>(0);
 	const tab0 = () => setTab(0);
 	const tab1 = () => setTab(1);

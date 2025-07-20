@@ -17,9 +17,8 @@ const SolutionFactory = async ({
 	logger.trace("Starting SolutionFactory");
 	const graph: IGraph = new Graph();
 	await pageController.start();
-	await pageController.populateGraph(graph);
+	await pageController.constructGraph(graph);
 	await pageController.dispose();
-	graph.createEdges();
 	return graph.findSolution();
 };
 

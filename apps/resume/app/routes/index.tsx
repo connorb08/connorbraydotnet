@@ -30,6 +30,7 @@ export function loader({ context: _context }: Route.LoaderArgs): Resume {
 					"Engineered a robust testing framework with comprehensive unit, regression, and end-to-end (E2E) tests to ensure functional parity and prevent regressions",
 					"Improved CI/CD pipeline performance by enhancing test and deployment components",
 					"Mentored and led a team of 3 engineers, establishing best practices for code review, agile methodologies, and system architecture to improve team performance and code quality",
+					"Improved end-to-end test performance by X% through the implementation of parallelization and test optimization techniques. Total test suite execution time reduced from 72 hours 3 hours",
 				],
 			},
 			{

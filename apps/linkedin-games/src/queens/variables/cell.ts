@@ -3,6 +3,7 @@ import type { CellId } from "../types";
 import type { Color } from "./color";
 import type { Column } from "./column";
 import type { Row } from "./row";
+import type { IVariable } from "./types";
 
 class Cell implements ICell {
 	// #region Properties
@@ -49,6 +50,15 @@ class Cell implements ICell {
 		return this._edges;
 	}
 
+	public addEdge(edge: Cell): void {
+		if (this._edges.has(edge)) {
+			logger.warn(`Edge ${edge.id} already exists for cell ${this._id}.`);
+		} else {
+			this._edges.add(edge);
+			edge.addEdge(this); // Ensure bidirectional edge
+		}
+	}
+
 	public localSearch(): void {
 		if (this._isQueen !== null) {
 			logger.warn(
@@ -76,10 +86,10 @@ class Cell implements ICell {
 				queenId: this._id,
 			});
 			this._row.propagateConstraints({
-				queenId: this._id,
+				queen: this,
 			});
 			this._color.propagateConstraints({
-				queenId: this._id,
+				queen: this,
 			});
 			for (const edge of this._edges) {
 				edge.propagateConstraints({ isQueen: false });
@@ -92,14 +102,13 @@ export { Cell };
 
 // #region Types
 
-interface ICell {
+interface ICell extends IVariable {
 	readonly id: CellId;
 	readonly row: Row;
 	readonly column: Column;
 	readonly color: Color;
 	readonly edges: ReadonlySet<Cell>;
 	propagateConstraints({ isQueen }: { isQueen: boolean }): void;
-	localSearch(): void;
 }
 
 export type { ICell };

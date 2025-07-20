@@ -9,6 +9,8 @@ const BUCKET_NAME = IS_PROD
 	: ("connorbray-net-preview" as const);
 const currentDirectory = import.meta.dir;
 const seedDirectory = join(currentDirectory, "seed");
+const persistDirectory = join(currentDirectory, "../../", ".wrangler", "state");
+console.log(persistDirectory);
 //#endregion
 
 //#region seeding
@@ -33,7 +35,7 @@ const result = await Promise.allSettled(
 		const fileObject = Bun.file(file);
 		const contentType = fileObject.type;
 		try {
-			const command = `wrangler r2 object put ${destinationPath} -f ${sourcePath} --content-type ${contentType} ${IS_PROD ? "--remote" : "--local"}`;
+			const command = `wrangler r2 object put ${destinationPath} -f ${sourcePath} --content-type ${contentType} --persist-to ${persistDirectory} ${IS_PROD ? "--remote" : "--local"}`;
 			await $`${command}`.quiet();
 			return file;
 		} catch (_error) {

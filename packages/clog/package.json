@@ -2,7 +2,13 @@
 	"name": "clog",
 	"module": "src/index.ts",
 	"type": "module",
+	"imports": {
+		"#types": "./src/types/index.ts"
+	},
+	"scripts": {
+		"dev": "bun run index.ts"
+	},
 	"peerDependencies": {
-		"typescript": "*"
+		"vitest": "*"
 	}
 }

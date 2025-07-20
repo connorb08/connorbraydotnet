@@ -1,8 +1,9 @@
 import logger from "#src/logger";
-import type { CellId, ColorId, ColumnId } from "../types";
+import type { ColorId } from "../types";
 import type { Cell } from "./cell";
 import type { Column } from "./column";
 import type { Row } from "./row";
+import type { IVariable } from "./types";
 
 class Color implements IColor {
 	// #region Properties
@@ -14,7 +15,7 @@ class Color implements IColor {
 	private readonly _cells: Set<Cell> = new Set();
 
 	// #region Domain
-	private _queen: CellId | null = null;
+	private _queen: Cell | null = null;
 	// #endregion Domain
 
 	// #region Constructor
@@ -57,7 +58,7 @@ class Color implements IColor {
 		return columns;
 	}
 
-	public get queen(): CellId | null {
+	public get queen(): Cell | null {
 		if (this._queen === null) {
 			logger.warn(`Color ${this._id} does not have a queen placed.`);
 		}
@@ -72,104 +73,105 @@ class Color implements IColor {
 	}
 
 	public localSearch(): void {
-		if (this._queen !== null) {
-			throw new Error(
-				`Color ${this._id} already has constraint satisfied by queen ${this._queen}.`,
-			);
-		}
-		if (this._cells.size === 0) {
-			throw new Error(`Color ${this._id} doesn't have any cells.`);
-		}
-
-		/**
-		 * If there is only one cell, we can place the queen there
-		 * and remove all other cells of this color
-		 */
-		if (this._cells.size === 1) {
-			const cell = this._cells.values().next()?.value;
-			if (!cell?.id) {
-				throw new Error(
-					`Error getting value of last cell in color ${this._id}.`,
-				);
-			}
-			this._queen = cell.id;
-			cell.propagateConstraints({ isQueen: true });
-			return;
-		}
-
-		/**
-		 * All cells of this color are in the same row
-		 * We can remove all cells in this row that are a different color
-		 */
-		if (this.rows.size === 1) {
-			this.rows.values().next()?.value?.propagateConstraints({
-				color: this,
-			});
-		}
-
-		/**
-		 * All cells of this color are in the same column
-		 * We can remove all cells in this column that are a different color
-		 */
-		if (this.columns.size === 1) {
-			this.columns.values().next()?.value?.propagateConstraints({
-				color: this,
-			});
-		}
-
-		for (const column of this.columns) {
-			if (column.cells.isSubsetOf(this._cells)) {
-				// all cells in this column are of this color, remove cells in other columns
-				for (const cell of this._cells) {
-					if (cell.column !== column) {
-						cell.propagateConstraints({ isQueen: false });
-					}
-				}
-			}
-		}
-
-		for (const row of this.rows) {
-			if (row.cells.isSubsetOf(this._cells)) {
-				// all cells in this row are of this color, remove cells in other rows
-				for (const cell of this._cells) {
-					if (cell.row !== row) {
-						cell.propagateConstraints({ isQueen: false });
-					}
-				}
-			}
-		}
+		// if (this._queen !== null) {
+		// 	throw new Error(
+		// 		`Color ${this._id} already has constraint satisfied by queen ${this._queen}.`,
+		// 	);
+		// }
+		// if (this._cells.size === 0) {
+		// 	throw new Error(`Color ${this._id} doesn't have any cells.`);
+		// }
+		// /**
+		//  * If there is only one cell, we can place the queen there
+		//  * and remove all other cells of this color
+		//  */
+		// if (this._cells.size === 1) {
+		// 	const cell = this._cells.values().next()?.value;
+		// 	if (!cell?.id) {
+		// 		throw new Error(
+		// 			`Error getting value of last cell in color ${this._id}.`,
+		// 		);
+		// 	}
+		// 	this._queen = cell.id;
+		// 	cell.propagateConstraints({ isQueen: true });
+		// 	return;
+		// }
+		// /**
+		//  * All cells of this color are in the same row
+		//  * We can remove all cells in this row that are a different color
+		//  */
+		// if (this.rows.size === 1) {
+		// 	this.rows.values().next()?.value?.propagateConstraints({
+		// 		color: this,
+		// 	});
+		// }
+		// /**
+		//  * All cells of this color are in the same column
+		//  * We can remove all cells in this column that are a different color
+		//  */
+		// if (this.columns.size === 1) {
+		// 	this.columns.values().next()?.value?.propagateConstraints({
+		// 		color: this,
+		// 	});
+		// }
+		// for (const column of this.columns) {
+		// 	if (column.cells.isSubsetOf(this._cells)) {
+		// 		// all cells in this column are of this color, remove cells in other columns
+		// 		for (const cell of this._cells) {
+		// 			if (cell.column !== column) {
+		// 				cell.propagateConstraints({ isQueen: false });
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// for (const row of this.rows) {
+		// 	if (row.cells.isSubsetOf(this._cells)) {
+		// 		// all cells in this row are of this color, remove cells in other rows
+		// 		for (const cell of this._cells) {
+		// 			if (cell.row !== row) {
+		// 				cell.propagateConstraints({ isQueen: false });
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 
 	public propagateConstraints({
-		queenId,
-		columnId,
+		queen,
+		row,
 	}: {
-		queenId?: CellId;
-		columnId?: ColumnId;
+		queen?: Cell;
+		row?: Row;
 	}): void {
-		if (queenId) {
+		if (queen) {
 			if (this._queen !== null) {
 				throw new Error(
 					`Color ${this._id} already has a queen placed at ${this._queen}.`,
 				);
 			}
-			this._queen = queenId;
+			this._queen = queen;
 			for (const cell of this._cells) {
-				if (cell.id === queenId) {
+				if (cell === queen) {
 					cell.propagateConstraints({ isQueen: true });
+				} else {
+					cell.propagateConstraints({ isQueen: false });
 				}
 			}
 			return;
 		}
-		if (columnId) {
-			for (const column of this.columns) {
-				if (column.id === columnId) {
-					column.propagateConstraints({
+		if (row) {
+			for (const r of this.rows) {
+				if (r === row) {
+					r.propagateConstraints({
 						color: this,
 					});
-					return;
+				} else {
+					r.propagateConstraints({
+						notColor: this,
+					});
 				}
 			}
+			return;
 		}
 	}
 }
@@ -178,11 +180,11 @@ export { Color };
 
 // #region Types
 
-interface IColor {
+interface IColor extends IVariable {
 	readonly id: ColorId;
 	readonly name: string;
 	readonly hex: string;
-	readonly queen: CellId | null;
+	readonly queen: Cell | null;
 
 	addCell(cell: Cell): void;
 }
