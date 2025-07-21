@@ -9,10 +9,11 @@ logger.debug("Environment variables set");
 
 logger.debug("Start");
 const start = performance.now();
-const queenLocations = await SolutionFactory({
+const [queenLocations, graph] = await SolutionFactory({
 	pageController: await PageController(),
 });
 const end = performance.now();
+graph.print();
 logger.debug("Stop");
 logger.debug(`Execution time: ${end - start} milliseconds`);
 console.log("Result:", queenLocations);

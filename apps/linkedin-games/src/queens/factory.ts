@@ -1,3 +1,4 @@
+import type { GameData } from "shared";
 import logger from "#logger";
 import { Graph, type IGraph } from "./data-structures/graph-new";
 import type { IPageController } from "./page-controller/types";
@@ -13,13 +14,14 @@ const SolutionFactory = async ({
 	pageController,
 }: {
 	pageController: IPageController;
-}) => {
-	logger.trace("Starting SolutionFactory");
+}): Promise<[GameData, IGraph]> => {
+	logger.debug("Starting SolutionFactory");
 	const graph: IGraph = new Graph();
 	await pageController.start();
 	await pageController.constructGraph(graph);
 	await pageController.dispose();
-	return graph.findSolution();
+	graph.print();
+	return [graph.findSolution(), graph];
 };
 
 export { SolutionFactory };

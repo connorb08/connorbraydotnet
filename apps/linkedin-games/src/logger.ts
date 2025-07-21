@@ -1,4 +1,4 @@
-import config from "#config";
+// import config from "#config";
 
 // #region Constants
 
@@ -16,20 +16,20 @@ export { logLevels };
 
 // #endregion
 
-enum LogLevelFlags {
-	None = 0,
-	Fatal = 1 << 0,
-	Error = 1 << 1,
-	Warn = 1 << 2,
-	Normal = 1 << 3,
-	Debug = 1 << 4,
-	Trace = 1 << 5,
-}
+// enum LogLevelFlags {
+// 	None = 0,
+// 	Fatal = 1 << 0,
+// 	Error = 1 << 1,
+// 	Warn = 1 << 2,
+// 	Normal = 1 << 3,
+// 	Debug = 1 << 4,
+// 	Trace = 1 << 5,
+// }
 
 // #region Types
 
 type LogLevel = (typeof logLevels)[number];
-type LogLevelBitmap = number;
+// type LogLevelBitmap = number;
 
 /**
  * Logger interface
@@ -59,38 +59,32 @@ class Logger implements ILogger {
 	private _logLevel: LogLevel = "trace";
 
 	public fatal(...args: unknown[]): void {
-		if (this._logLevel !== "none") {
-			console.error(...args);
-		}
+		console.error(...args);
 	}
 
 	public error(...args: unknown[]): void {
-		if (this._logLevel !== "none") {
-			console.error(...args);
-		}
+		console.error(...args);
 	}
 
 	public warn(...args: unknown[]): void {
-		if (this._logLevel in ["warn", "normal", "debug"]) {
-			console.warn(...args);
-		}
+		console.warn(...args);
 	}
 
 	public log(...args: unknown[]): void {
-		if (this._logLevel in ["normal", "debug"]) {
+		if (["normal", "debug", "trace"].includes(this._logLevel)) {
 			console.log(...args);
 		}
 	}
 
 	public debug(...args: unknown[]): void {
-		if (this._logLevel === "debug") {
+		if (["debug", "trace"].includes(this._logLevel)) {
 			console.log(...args);
 		}
 	}
 
 	public trace(...args: unknown[]): void {
 		if (this._logLevel === "trace") {
-			console.log(...args);
+			console.trace(...args);
 		}
 	}
 

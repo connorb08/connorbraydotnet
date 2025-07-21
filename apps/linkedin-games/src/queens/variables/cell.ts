@@ -8,7 +8,7 @@ import type { IVariable } from "./types";
 class Cell implements ICell {
 	// #region Properties
 	private readonly _id: CellId;
-	private readonly _edges: Set<Cell> = new Set();
+	private readonly _corners: Set<ICell> = new Set();
 	private readonly _row: Row;
 	private readonly _column: Column;
 	private readonly _color: Color;
@@ -46,54 +46,62 @@ class Cell implements ICell {
 		return this._color;
 	}
 
-	public get edges(): ReadonlySet<Cell> {
-		return this._edges;
+	public get corners(): ReadonlySet<ICell> {
+		return this._corners;
 	}
 
-	public addEdge(edge: Cell): void {
-		if (this._edges.has(edge)) {
-			logger.warn(`Edge ${edge.id} already exists for cell ${this._id}.`);
+	public get edges(): ReadonlySet<ICell> {
+		return new Set<ICell>()
+			.union(this._corners)
+			.union(this._row.cells)
+			.union(this._column.cells);
+	}
+
+	public get isQueen(): boolean | null {
+		return this._isQueen;
+	}
+
+	public addCorner(corner: Cell): void {
+		if (this._corners.has(corner)) {
+			logger.warn(`Corner ${corner.id} already exists for cell ${this._id}.`);
 		} else {
-			this._edges.add(edge);
-			edge.addEdge(this); // Ensure bidirectional edge
+			this._corners.add(corner);
+			corner.addCorner(this); // Ensure bidirectional corner
 		}
 	}
 
 	public localSearch(): void {
-		if (this._isQueen !== null) {
-			logger.warn(
-				`Cell ${this._id} already has constraint satisfied — isQueen: ${this._isQueen}.`,
-			);
-		}
-		if (this._edges.size === 0) {
-			this._isQueen = true;
-			// this._column.propagateConstraints({ color: this._color });
-			// this._row.propagateConstraints({ color: this._color });
-			// this._color.localSearch();
-			return;
+		if (this.edges.size === 0) {
+			this.placeQueen();
 		}
 	}
 
-	public propagateConstraints({ isQueen }: { isQueen: boolean }): void {
-		if (this._isQueen !== null) {
-			logger.warn(
-				`Cell ${this._id} already has constraint satisfied — isQueen: ${this._isQueen}.`,
-			);
+	public placeQueen(): void {
+		logger.debug(`Placing queen at cell ${this._id}.`);
+		this._isQueen = true;
+		this._color.queen = this;
+		this._row.queen = this;
+		this._column.queen = this;
+		for (const corner of this._corners) {
+			logger.trace(`Removing corner ${corner.id} from cell ${this._id}.`);
+			corner.placeCross();
 		}
-		this._isQueen = isQueen;
-		if (isQueen) {
-			this._column.propagateConstraints({
-				queenId: this._id,
-			});
-			this._row.propagateConstraints({
-				queen: this,
-			});
-			this._color.propagateConstraints({
-				queen: this,
-			});
-			for (const edge of this._edges) {
-				edge.propagateConstraints({ isQueen: false });
-			}
+	}
+
+	public placeCross(): void {
+		logger.debug(`Placing cross at cell ${this._id}.`);
+		this._isQueen = false;
+		this._color.filter((c) => c !== this);
+		this._row.filter((c) => c !== this);
+		this._column.filter((c) => c !== this);
+		for (const corner of this._corners) {
+			corner.filter((c) => c !== this);
+		}
+	}
+
+	public filter(filterFunction: (cell: Cell) => boolean): void {
+		if (!filterFunction(this)) {
+			this.placeCross();
 		}
 	}
 }
@@ -107,8 +115,10 @@ interface ICell extends IVariable {
 	readonly row: Row;
 	readonly column: Column;
 	readonly color: Color;
-	readonly edges: ReadonlySet<Cell>;
-	propagateConstraints({ isQueen }: { isQueen: boolean }): void;
+	readonly edges: ReadonlySet<ICell>;
+
+	placeQueen(): void;
+	placeCross(): void;
 }
 
 export type { ICell };

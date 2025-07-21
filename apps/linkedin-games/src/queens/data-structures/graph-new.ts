@@ -91,6 +91,26 @@ class Graph implements IGraph {
 		return color;
 	}
 
+	public print(): void {
+		for (let rowId = 0; rowId < this._sideLength; rowId++) {
+			const rowCellValues: string[] = [];
+			for (let columnId = 0; columnId < this._sideLength; columnId++) {
+				const cellId = rowId * this._sideLength + columnId;
+				const cell = this._cellMap.get(cellId as CellId);
+				if (cell) {
+					if (cell.isQueen === null) {
+						rowCellValues.push(cell.color.id.toString());
+					} else if (cell.isQueen) {
+						rowCellValues.push("Q");
+					} else {
+						rowCellValues.push("X");
+					}
+				}
+			}
+			console.log(rowCellValues);
+		}
+	}
+
 	public addCell({
 		id,
 		rowId,
@@ -125,14 +145,14 @@ class Graph implements IGraph {
 			const topLeftCellId = (rowId - 1) * this._sideLength + (columnId - 1);
 			const topLeftCell = this._cellMap.get(topLeftCellId as CellId);
 			if (topLeftCell) {
-				cell.addEdge(topLeftCell);
+				cell.addCorner(topLeftCell);
 			}
 		}
 		if (rowId > 0 && columnId < this._sideLength - 1) {
 			const topRightCellId = (rowId - 1) * this._sideLength + (columnId + 1);
 			const topRightCell = this._cellMap.get(topRightCellId as CellId);
 			if (topRightCell) {
-				cell.addEdge(topRightCell);
+				cell.addCorner(topRightCell);
 			}
 		}
 	}
@@ -144,15 +164,18 @@ class Graph implements IGraph {
 	}
 
 	public findSolution(): GameData {
-		for (const color of this._colors) {
-			color.localSearch();
-		}
 		for (const row of this._rows) {
 			row.localSearch();
 		}
+
 		for (const column of this._columns) {
 			column.localSearch();
 		}
+
+		for (const color of this._colors) {
+			color.localSearch();
+		}
+
 		for (const cell of this._cells) {
 			cell.localSearch();
 		}
@@ -174,10 +197,9 @@ interface IGraph {
 	// Setters
 	sideLength: number;
 
-	//
-	findSolution(): void;
-
 	// Methods
+	print(): void;
+	findSolution(): GameData;
 	addCell({
 		id,
 		rowId,
