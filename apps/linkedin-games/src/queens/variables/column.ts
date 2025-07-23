@@ -3,7 +3,7 @@ import type { Color } from "./color";
 import { VariableSet } from "./common";
 
 class Column extends VariableSet {
-	protected search(): void {
+	protected search(): boolean {
 		const colorSet = new Set<Color>();
 
 		for (const cell of this._cells) {
@@ -16,8 +16,9 @@ class Column extends VariableSet {
 				`Column ${this._id} only has one color left. Removing cells of color ${color.id} in other columns.`,
 			);
 			color.filter((cell) => cell.column === this);
-			return;
+			return true;
 		}
+		return false;
 	}
 }
 

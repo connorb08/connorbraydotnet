@@ -160,27 +160,62 @@ class Graph implements IGraph {
 	// #region Methods
 
 	public get solution(): GameData | null {
+		const queens: number[] = [];
+		const removed: number[] = [];
+		const colors: string[] = [];
+		const nodesColors: number[] = [];
+
+		for (const cell of this._cells) {
+			if (cell.isQueen) {
+				queens.push(cell.id);
+			}
+		}
+
+		for (const color of this._colors) {
+			colors[color.id] = color.name;
+		}
+
+		this._solution = {
+			queens,
+			colors,
+			sideLength: this._sideLength,
+			removed,
+			nodesColors,
+		};
 		return this._solution;
 	}
 
 	public findSolution(): GameData {
-		for (const row of this._rows) {
-			row.localSearch();
+		let constraintUpdated = true;
+		while (constraintUpdated) {
+			constraintUpdated = false;
+
+			for (const row of this._rows) {
+				if (row.localSearch()) {
+					constraintUpdated = true;
+				}
+			}
+
+			for (const column of this._columns) {
+				if (column.localSearch()) {
+					constraintUpdated = true;
+				}
+			}
+
+			for (const color of this._colors) {
+				if (color.localSearch()) {
+					constraintUpdated = true;
+				}
+			}
+
+			for (const cell of this._cells) {
+				if (cell.localSearch()) {
+					constraintUpdated = true;
+				}
+			}
 		}
 
-		for (const column of this._columns) {
-			column.localSearch();
-		}
-
-		for (const color of this._colors) {
-			color.localSearch();
-		}
-
-		for (const cell of this._cells) {
-			cell.localSearch();
-		}
-
-		return this._solution as GameData;
+		return this.solution as GameData;
 	}
 }
 

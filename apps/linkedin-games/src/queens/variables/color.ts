@@ -43,7 +43,7 @@ class Color extends VariableSet {
 		return columns;
 	}
 
-	protected search(): void {
+	protected search(): boolean {
 		/**
 		 * All cells of this color are in the same row
 		 * We can remove all cells in this row that are a different color
@@ -54,6 +54,7 @@ class Color extends VariableSet {
 				`Row ${row.id} has only one color left. Removing cells of color ${this.id} in other rows.`,
 			);
 			row.filter((cell) => cell.color === this);
+			return true;
 		}
 		/**
 		 * All cells of this color are in the same column
@@ -66,6 +67,7 @@ class Color extends VariableSet {
 				?.value?.filter((cell) => {
 					return cell.color === this;
 				});
+			return true;
 		}
 		for (const column of this.columns) {
 			if (column.cells.isSubsetOf(this._cells)) {
@@ -76,6 +78,7 @@ class Color extends VariableSet {
 					// 	cell.propagateConstraints({ isQueen: false });
 					// }
 				}
+				return true;
 			}
 		}
 		for (const row of this.rows) {
@@ -84,8 +87,11 @@ class Color extends VariableSet {
 				for (const cell of this._cells) {
 					cell.filter((c) => c.row === row);
 				}
+				return true;
 			}
 		}
+
+		return false;
 	}
 }
 

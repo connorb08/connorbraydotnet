@@ -70,10 +70,12 @@ class Cell implements ICell {
 		}
 	}
 
-	public localSearch(): void {
+	public localSearch(): boolean {
 		if (this.edges.size === 0) {
 			this.placeQueen();
+			return true;
 		}
+		return false;
 	}
 
 	public placeQueen(): void {
@@ -120,6 +122,17 @@ interface ICell extends IVariable {
 	placeQueen(): void;
 	placeCross(): void;
 }
+
+// Cell.prototype.placeCross = function (this: Cell): void {
+// 	logger.debug(`Placing cross at cell ${this._id}.`);
+// 	this._isQueen = false;
+// 	this._color.filter((c) => c !== this);
+// 	this._row.filter((c) => c !== this);
+// 	this._column.filter((c) => c !== this);
+// 	for (const corner of this._corners) {
+// 		corner.filter((c) => c !== this);
+// 	}
+// };
 
 export type { ICell };
 

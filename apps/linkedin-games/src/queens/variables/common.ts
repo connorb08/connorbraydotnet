@@ -13,7 +13,7 @@ interface IVariableSet {
 
 	// Methods
 	addCell(cell: ICell): void;
-	localSearch(): void;
+	localSearch(): boolean;
 }
 
 abstract class VariableSet implements IVariableSet {
@@ -68,23 +68,38 @@ abstract class VariableSet implements IVariableSet {
 		}
 	}
 
-	protected abstract search(): void;
+	protected abstract search(): boolean;
 
-	public localSearch(): void {
+	public localSearch(): boolean {
 		if (this.invalidState()) {
-			return;
+			return false;
 		}
+
+		const [firstCell] = this._cells;
+
 		/**
 		 * Place queen on last cell if only one cell remains
 		 */
-		const [cell] = this._cells;
-		if (this._cells.size === 1 && cell) {
-			this._queen = cell;
-			cell.placeQueen();
-			return;
+		if (this._cells.size === 1 && firstCell) {
+			this._queen = firstCell;
+			firstCell.placeQueen();
+			return true;
 		}
 
-		this.search();
+		// Create a set of edges that are shared by all cells in a variable set.
+		// Any common edges must have a cross placed on them.
+		let sharedEdges = new Set<ICell>(firstCell?.edges);
+		for (const cell of this._cells) {
+			sharedEdges = sharedEdges.intersection(cell.edges);
+		}
+
+		// Place crosses on all shared edges.
+		for (const cell of sharedEdges) {
+			cell.placeCross();
+			return true;
+		}
+
+		return this.search();
 	}
 	// #endregion Public Methods
 
