@@ -22,7 +22,8 @@
 		"typecheck": "tsc -b"
 	},
 	"dependencies": {
-		"shared": "workspace:*"
+		"shared": "workspace:*",
+		"clog": "workspace:*"
 	},
 	"devDependencies": {
 		"@cloudflare/playwright": "^0.0.10"

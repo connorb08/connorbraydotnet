@@ -7,6 +7,10 @@ logger.debug("Setting envioronment variables");
 config.env = import.meta.env as Record<string, string>;
 logger.debug("Environment variables set");
 
+import clog from "clog";
+
+clog.log("Starting LinkedIn Games Queens solution...");
+
 logger.debug("Start");
 const start = performance.now();
 const [queenLocations, graph] = await SolutionFactory({

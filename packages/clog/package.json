@@ -3,7 +3,11 @@
 	"module": "src/index.ts",
 	"type": "module",
 	"imports": {
-		"#types": "./src/types/index.ts"
+		"#types": "./src/types/index.ts",
+		"#environment": "./src/environment/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	},
 	"scripts": {
 		"dev": "bun run index.ts"

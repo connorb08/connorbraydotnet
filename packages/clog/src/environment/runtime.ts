@@ -34,7 +34,8 @@ export const Runtime: RuntimeEnvironment = (() => {
 	if (
 		runtimeUserAgent.includes("Chrome") ||
 		runtimeUserAgent.includes("Firefox") ||
-		runtimeUserAgent.includes("Safari")
+		runtimeUserAgent.includes("Safari") ||
+		runtimeUserAgent.includes("Mozilla")
 	) {
 		return RuntimeEnvironment.Browser;
 	}

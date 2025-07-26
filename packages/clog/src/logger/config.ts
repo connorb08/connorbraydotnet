@@ -1,10 +1,9 @@
-import type { BaseLogLevel } from "#types";
-import type { LogLevel } from ".";
+import type { LogLevel } from "#types";
 
 export type LogFormat = "text" | "json" | "xml" | "markdown" | "csv" | "yaml";
 
 export type ClogConfig = {
-	level: BaseLogLevel;
+	level: LogLevel;
 	customLevel: LogLevel;
 	format: LogFormat;
 };

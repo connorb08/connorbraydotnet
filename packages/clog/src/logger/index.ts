@@ -1,7 +1,8 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: singleton pattern - #instance is guaranteed to be assigned */
-import type { BaseLogLevel, ILogger } from "#types";
+import type { ILogger, LogLevel } from "#types";
+import { ClogEnv, EnvironmentVars } from "../environment/variables";
 
-export enum LogLevel {
+export enum LogLevels {
 	Fatal = 1 << 1,
 	Error = 1 << 2,
 	Warn = 1 << 3,
@@ -10,7 +11,8 @@ export enum LogLevel {
 	Trace = 1 << 6,
 }
 
-const defaultLogLevel: BaseLogLevel = "info";
+const defaultLogLevel: LogLevel =
+	(EnvironmentVars[ClogEnv.LogLevel] as LogLevel) ?? "info";
 
 const noLoggingConfig: InternalLogLevelConfig = {
 	fatal: false,
@@ -48,14 +50,14 @@ class Logger implements ILogger {
 
 	// #region Private Properties
 
-	#logLevel: BaseLogLevel = "custom";
+	#logLevel: LogLevel = "custom";
 	#loggerConfig: InternalLogLevelConfig = noLoggingConfig;
 
 	// #endregion Private Properties
 
 	// #region Private Methods
 
-	#setBaseLogLevel(level: BaseLogLevel): void {
+	#setBaseLogLevel(level: LogLevel): void {
 		switch (level) {
 			case "none":
 				this.#loggerConfig = {
@@ -113,6 +115,8 @@ class Logger implements ILogger {
 					trace: true,
 				};
 				return;
+			case "custom":
+				return;
 			default:
 				throw new Error(`Unknown log level: ${level}`);
 		}
@@ -122,7 +126,7 @@ class Logger implements ILogger {
 
 	// #region Public Getters
 
-	public get logLevel(): BaseLogLevel {
+	public get logLevel(): LogLevel {
 		return this.#logLevel;
 	}
 
@@ -134,19 +138,19 @@ class Logger implements ILogger {
 
 	// #region Public Setters
 
-	public set logLevel(level: Exclude<BaseLogLevel, "custom">) {
+	public set logLevel(level: Exclude<LogLevel, "custom">) {
 		this.#setBaseLogLevel(level);
 		this.#logLevel = level;
 	}
 
-	public set customLogLevel(bitmask: LogLevel) {
+	public set customLogLevel(bitmask: LogLevels) {
 		this.#loggerConfig = {
-			fatal: Boolean(bitmask & LogLevel.Fatal),
-			error: Boolean(bitmask & LogLevel.Error),
-			warn: Boolean(bitmask & LogLevel.Warn),
-			info: Boolean(bitmask & LogLevel.Info),
-			debug: Boolean(bitmask & LogLevel.Debug),
-			trace: Boolean(bitmask & LogLevel.Trace),
+			fatal: Boolean(bitmask & LogLevels.Fatal),
+			error: Boolean(bitmask & LogLevels.Error),
+			warn: Boolean(bitmask & LogLevels.Warn),
+			info: Boolean(bitmask & LogLevels.Info),
+			debug: Boolean(bitmask & LogLevels.Debug),
+			trace: Boolean(bitmask & LogLevels.Trace),
 		};
 		this.#logLevel = "custom";
 	}
@@ -205,7 +209,7 @@ export default Logger.instance as ILogger;
 // #region Types
 
 type InternalLogLevelConfig = {
-	[key in Exclude<BaseLogLevel, "none" | "custom">]: boolean;
+	[key in Exclude<LogLevel, "none" | "custom">]: boolean;
 };
 
 // #endregion Types
