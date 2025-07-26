@@ -5,10 +5,27 @@ import type { Column } from "./column";
 import type { Row } from "./row";
 import type { IVariable } from "./types";
 
+// #region Types
+
+interface ICell extends IVariable {
+	readonly id: CellId;
+	readonly row: Row;
+	readonly column: Column;
+	readonly color: Color;
+	readonly edges: ReadonlySet<ICell>;
+
+	placeQueen(): void;
+	placeCross(): void;
+}
+
+export type { ICell };
+
+// #endregion Types
+
 class Cell implements ICell {
 	// #region Properties
+	readonly #corners: Set<ICell> = new Set();
 	private readonly _id: CellId;
-	private readonly _corners: Set<ICell> = new Set();
 	private readonly _row: Row;
 	private readonly _column: Column;
 	private readonly _color: Color;
@@ -46,13 +63,9 @@ class Cell implements ICell {
 		return this._color;
 	}
 
-	public get corners(): ReadonlySet<ICell> {
-		return this._corners;
-	}
-
 	public get edges(): ReadonlySet<ICell> {
 		return new Set<ICell>()
-			.union(this._corners)
+			.union(this.#corners)
 			.union(this._row.cells)
 			.union(this._column.cells);
 	}
@@ -62,11 +75,11 @@ class Cell implements ICell {
 	}
 
 	public addCorner(corner: Cell): void {
-		if (this._corners.has(corner)) {
+		if (this.#corners.has(corner)) {
 			logger.warn(`Corner ${corner.id} already exists for cell ${this._id}.`);
 		} else {
-			this._corners.add(corner);
-			corner.addCorner(this); // Ensure bidirectional corner
+			this.#corners.add(corner);
+			corner.#corners.add(this); // Ensure bidirectional corner
 		}
 	}
 
@@ -84,7 +97,7 @@ class Cell implements ICell {
 		this._color.queen = this;
 		this._row.queen = this;
 		this._column.queen = this;
-		for (const corner of this._corners) {
+		for (const corner of this.#corners) {
 			logger.trace(`Removing corner ${corner.id} from cell ${this._id}.`);
 			corner.placeCross();
 		}
@@ -96,7 +109,7 @@ class Cell implements ICell {
 		this._color.filter((c) => c !== this);
 		this._row.filter((c) => c !== this);
 		this._column.filter((c) => c !== this);
-		for (const corner of this._corners) {
+		for (const corner of this.#corners) {
 			corner.filter((c) => c !== this);
 		}
 	}
@@ -109,31 +122,3 @@ class Cell implements ICell {
 }
 
 export { Cell };
-
-// #region Types
-
-interface ICell extends IVariable {
-	readonly id: CellId;
-	readonly row: Row;
-	readonly column: Column;
-	readonly color: Color;
-	readonly edges: ReadonlySet<ICell>;
-
-	placeQueen(): void;
-	placeCross(): void;
-}
-
-// Cell.prototype.placeCross = function (this: Cell): void {
-// 	logger.debug(`Placing cross at cell ${this._id}.`);
-// 	this._isQueen = false;
-// 	this._color.filter((c) => c !== this);
-// 	this._row.filter((c) => c !== this);
-// 	this._column.filter((c) => c !== this);
-// 	for (const corner of this._corners) {
-// 		corner.filter((c) => c !== this);
-// 	}
-// };
-
-export type { ICell };
-
-// #endregion Types

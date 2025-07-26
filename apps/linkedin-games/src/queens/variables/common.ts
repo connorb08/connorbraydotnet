@@ -88,7 +88,7 @@ abstract class VariableSet implements IVariableSet {
 
 		// Create a set of edges that are shared by all cells in a variable set.
 		// Any common edges must have a cross placed on them.
-		let sharedEdges = new Set<ICell>(firstCell?.edges);
+		let sharedEdges = new Set<ICell>(firstCell?.edges).difference(this._cells);
 		for (const cell of this._cells) {
 			sharedEdges = sharedEdges.intersection(cell.edges);
 		}

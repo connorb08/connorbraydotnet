@@ -2,6 +2,7 @@
 	"extends": "../../tsconfig.base.json",
 	"include": ["**/*.ts"],
 	"compilerOptions": {
+		// "lib": ["DOM", "ES6", "ScriptHost", "WebWorker"],
 		"composite": true,
 		"erasableSyntaxOnly": false
 	}

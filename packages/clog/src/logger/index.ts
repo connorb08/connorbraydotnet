@@ -1,13 +1,13 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: singleton pattern - #instance is guaranteed to be assigned */
 import type { BaseLogLevel, ILogger } from "#types";
 
-enum LogLevel {
-	Fatal = 1 << 0,
-	Error = 1 << 1,
-	Warn = 1 << 2,
-	Normal = 1 << 3,
-	Debug = 1 << 4,
-	Trace = 1 << 5,
+export enum LogLevel {
+	Fatal = 1 << 1,
+	Error = 1 << 2,
+	Warn = 1 << 3,
+	Info = 1 << 4,
+	Debug = 1 << 5,
+	Trace = 1 << 6,
 }
 
 const defaultLogLevel: BaseLogLevel = "info";
@@ -144,7 +144,7 @@ class Logger implements ILogger {
 			fatal: Boolean(bitmask & LogLevel.Fatal),
 			error: Boolean(bitmask & LogLevel.Error),
 			warn: Boolean(bitmask & LogLevel.Warn),
-			info: Boolean(bitmask & LogLevel.Normal),
+			info: Boolean(bitmask & LogLevel.Info),
 			debug: Boolean(bitmask & LogLevel.Debug),
 			trace: Boolean(bitmask & LogLevel.Trace),
 		};

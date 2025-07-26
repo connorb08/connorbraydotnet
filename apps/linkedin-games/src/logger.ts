@@ -31,6 +31,8 @@ export { logLevels };
 type LogLevel = (typeof logLevels)[number];
 // type LogLevelBitmap = number;
 
+type LogFormat = "text" | "json" | "xml" | "markdown" | "csv" | "yaml";
+
 /**
  * Logger interface
  */
@@ -43,7 +45,7 @@ type ILogger = {
 	fatal: (...args: unknown[]) => void;
 } & {};
 
-export type { LogLevel, ILogger };
+export type { LogLevel, ILogger, LogFormat };
 
 // #endregion
 
@@ -59,32 +61,32 @@ class Logger implements ILogger {
 	private _logLevel: LogLevel = "trace";
 
 	public fatal(...args: unknown[]): void {
-		console.error(...args);
+		console.error("FATAL:", ...args);
 	}
 
 	public error(...args: unknown[]): void {
-		console.error(...args);
+		console.error("ERROR:", ...args);
 	}
 
 	public warn(...args: unknown[]): void {
-		console.warn(...args);
+		console.warn("WARN:", ...args);
 	}
 
 	public log(...args: unknown[]): void {
 		if (["normal", "debug", "trace"].includes(this._logLevel)) {
-			console.log(...args);
+			console.log("LOG:", ...args);
 		}
 	}
 
 	public debug(...args: unknown[]): void {
 		if (["debug", "trace"].includes(this._logLevel)) {
-			console.log(...args);
+			console.log("DEBUG:", ...args);
 		}
 	}
 
 	public trace(...args: unknown[]): void {
 		if (this._logLevel === "trace") {
-			console.trace(...args);
+			console.trace("TRACE:", ...args);
 		}
 	}
 
