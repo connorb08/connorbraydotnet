@@ -1,9 +1,9 @@
-interface GameData {
+type GameData = {
 	sideLength: number;
-	queens: number[];
-	colors: string[];
-	nodesColors: number[];
-	removed: number[];
-}
+	colorNames: string[];
+	cellColors: number[];
+	cellsRemoved: number[];
+	queenPositions: number[];
+};
 
 export type { GameData };

@@ -1,0 +1,49 @@
+{
+	"name": "pretty-tsdoc",
+	"displayName": "pretty-tsdoc",
+	"description": "Improve the apperance of tsdoc tooltips",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.102.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "pretty-tsdoc.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "bun run package",
+		"compile": "bun run check-types && bun run lint && bun run esbuild.ts",
+		"watch": "npm-run-all -p watch:*",
+		"watch:esbuild": "bun run esbuild.ts --watch",
+		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+		"package": "bun run check-types && bun run lint && bun run esbuild.ts --production",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "bun run compile-tests && bun run compile && bun run lint",
+		"check-types": "tsc --noEmit",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.102.0",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "20.x",
+		"@typescript-eslint/eslint-plugin": "^8.31.1",
+		"@typescript-eslint/parser": "^8.31.1",
+		"eslint": "^9.25.1",
+		"esbuild": "^0.25.3",
+		"npm-run-all": "^4.1.5",
+		"typescript": "^5.8.3",
+		"@vscode/test-cli": "^0.0.11",
+		"@vscode/test-electron": "^2.5.2"
+	}
+}

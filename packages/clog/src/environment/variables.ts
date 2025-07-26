@@ -1,10 +1,10 @@
 import type { LogLevel } from "#types";
 import { Runtime, RuntimeEnvironment } from "./runtime";
 
-enum ClogEnv {
-	LogLevel = "CLOG_LOG_LEVEL",
-	Runtime = "CLOG_RUNTIME",
-}
+const ClogEnv = {
+	LogLevel: "CLOG_LEVEL",
+	Runtime: "CLOG_RUNTIME",
+} as const;
 
 interface EnvironmentVariables {
 	[ClogEnv.LogLevel]?: string | undefined;
@@ -16,31 +16,31 @@ const EnvironmentVars: EnvironmentVariables = {
 	[ClogEnv.Runtime]: undefined,
 };
 
-EnvironmentVars[ClogEnv.LogLevel] ??= process.env.CLOG_LOG_LEVEL;
-EnvironmentVars[ClogEnv.Runtime] ??= process.env.CLOG_RUNTIME;
+EnvironmentVars[ClogEnv.LogLevel] ??= process.env[ClogEnv.LogLevel];
+EnvironmentVars[ClogEnv.Runtime] ??= process.env[ClogEnv.Runtime];
 
-EnvironmentVars[ClogEnv.LogLevel] ??= import.meta.env.CLOG_LOG_LEVEL;
-EnvironmentVars[ClogEnv.Runtime] ??= import.meta.env.CLOG_RUNTIME;
+EnvironmentVars[ClogEnv.LogLevel] ??= import.meta.env[ClogEnv.LogLevel];
+EnvironmentVars[ClogEnv.Runtime] ??= import.meta.env[ClogEnv.Runtime];
 
 if (Runtime === RuntimeEnvironment.Deno) {
 	// @ts-expect-error Deno global is not defined in all environments
-	EnvironmentVars[ClogEnv.LogLevel] ??= Deno.env.get("CLOG_LOG_LEVEL");
+	EnvironmentVars[ClogEnv.LogLevel] ??= Deno.env.get(ClogEnv.LogLevel);
 	// @ts-expect-error Deno global is not defined in all environments
-	EnvironmentVars[ClogEnv.Runtime] ??= Deno.env.get("CLOG_RUNTIME");
+	EnvironmentVars[ClogEnv.Runtime] ??= Deno.env.get(ClogEnv.Runtime);
 }
 
 if (Runtime === RuntimeEnvironment.CloudflareWorkers) {
 	// @ts-expect-error globalThis does not have CLOG_LOG_LEVEL in all environments
-	EnvironmentVars[ClogEnv.LogLevel] ??= globalThis.CLOG_LOG_LEVEL;
+	EnvironmentVars[ClogEnv.LogLevel] ??= globalThis[ClogEnv.LogLevel];
 	// @ts-expect-error globalThis does not have CLOG_RUNTIME in all environments
-	EnvironmentVars[ClogEnv.Runtime] ??= globalThis.CLOG_RUNTIME;
+	EnvironmentVars[ClogEnv.Runtime] ??= globalThis[ClogEnv.Runtime];
 }
 
 if (Runtime === RuntimeEnvironment.Browser) {
 	// @ts-expect-error window global is not defined in all environments
-	EnvironmentVars[ClogEnv.LogLevel] ??= window?.CLOG_LOG_LEVEL;
+	EnvironmentVars[ClogEnv.LogLevel] ??= window?.[ClogEnv.LogLevel];
 	// @ts-expect-error window global is not defined in all environments
-	EnvironmentVars[ClogEnv.Runtime] ??= window?.CLOG_RUNTIME;
+	EnvironmentVars[ClogEnv.Runtime] ??= window?.[ClogEnv.Runtime];
 }
 
 EnvironmentVars[ClogEnv.LogLevel] = EnvironmentVars[ClogEnv.LogLevel]

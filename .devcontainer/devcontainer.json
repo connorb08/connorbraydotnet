@@ -27,7 +27,8 @@
 				"pranaygp.vscode-css-peek",
 				"sibiraj-s.vscode-scss-formatter",
 				"mrmlnc.vscode-scss",
-				"ms-azuretools.vscode-containers"
+				"ms-azuretools.vscode-containers",
+				"oven.bun-vscode"
 			],
 			"settings": {
 				"files.associations": {

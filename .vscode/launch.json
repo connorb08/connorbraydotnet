@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "bun",
+			"request": "launch",
+			"name": "Debug Queens",
+			"cwd": "${workspaceFolder}/apps/queens",
+			"program": "dev.ts",
+			"args": [],
+			"env": {
+				"CLOG_LEVEL": "all"
+			},
+			"watchMode": false
+		}
+	]
+}

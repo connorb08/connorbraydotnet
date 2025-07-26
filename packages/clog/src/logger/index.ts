@@ -1,15 +1,16 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: singleton pattern - #instance is guaranteed to be assigned */
 import type { ILogger, LogLevel } from "#types";
 import { ClogEnv, EnvironmentVars } from "../environment/variables";
+import { logError } from "./methods";
 
-export enum LogLevels {
-	Fatal = 1 << 1,
-	Error = 1 << 2,
-	Warn = 1 << 3,
-	Info = 1 << 4,
-	Debug = 1 << 5,
-	Trace = 1 << 6,
-}
+export const LogLevels = {
+	Fatal: 0b1,
+	Error: 0b10,
+	Warn: 0b100,
+	Info: 0b1000,
+	Debug: 0b10000,
+	Trace: 0b100000,
+} as const;
 
 const defaultLogLevel: LogLevel =
 	(EnvironmentVars[ClogEnv.LogLevel] as LogLevel) ?? "info";
@@ -115,6 +116,16 @@ class Logger implements ILogger {
 					trace: true,
 				};
 				return;
+			case "all":
+				this.#loggerConfig = {
+					fatal: true,
+					error: true,
+					warn: true,
+					info: true,
+					debug: true,
+					trace: true,
+				};
+				return;
 			case "custom":
 				return;
 			default:
@@ -143,7 +154,7 @@ class Logger implements ILogger {
 		this.#logLevel = level;
 	}
 
-	public set customLogLevel(bitmask: LogLevels) {
+	public set customLogLevel(bitmask: number) {
 		this.#loggerConfig = {
 			fatal: Boolean(bitmask & LogLevels.Fatal),
 			error: Boolean(bitmask & LogLevels.Error),
@@ -161,43 +172,43 @@ class Logger implements ILogger {
 
 	public fatal(...args: unknown[]): void {
 		if (this.#loggerConfig.fatal) {
-			console.error(...args);
+			console.error("FATAL:", ...args);
 		}
 	}
 
-	public error(...args: unknown[]): void {
+	public error(errorMessage: string, ...args: unknown[]): void {
 		if (this.#loggerConfig.error) {
-			console.error(...args);
+			logError(this.error, errorMessage, ...args);
 		}
 	}
 
 	public warn(...args: unknown[]): void {
 		if (this.#loggerConfig.warn) {
-			console.warn(...args);
+			console.warn("WARN:", ...args);
 		}
 	}
 
 	public info(...args: unknown[]): void {
 		if (this.#loggerConfig.info) {
-			console.info(...args);
+			console.info("INFO:", ...args);
 		}
 	}
 
 	public log(...args: unknown[]): void {
 		if (this.#loggerConfig.info) {
-			console.log(...args);
+			console.log("INFO:", ...args);
 		}
 	}
 
 	public debug(...args: unknown[]): void {
 		if (this.#loggerConfig.debug) {
-			console.debug(...args);
+			console.debug("DEBUG:", ...args);
 		}
 	}
 
 	public trace(...args: unknown[]): void {
 		if (this.#loggerConfig.trace) {
-			console.trace(...args);
+			console.trace("TRACE:", ...args);
 		}
 	}
 
@@ -209,7 +220,7 @@ export default Logger.instance as ILogger;
 // #region Types
 
 type InternalLogLevelConfig = {
-	[key in Exclude<LogLevel, "none" | "custom">]: boolean;
+	[key in Exclude<LogLevel, "none" | "custom" | "all">]: boolean;
 };
 
 // #endregion Types

@@ -6,11 +6,12 @@ type LogLevel =
 	| "warn"
 	| "info"
 	| "debug"
-	| "trace";
+	| "trace"
+	| "all";
 
 type ILogger = {
 	// Properties
-	readonly logLevel: LogLevel;
+	logLevel: LogLevel;
 
 	// Methods
 	/**
@@ -19,7 +20,12 @@ type ILogger = {
 	 * @param args Arguments to log at the fatal level.
 	 */
 	fatal(...args: unknown[]): void;
-	error(...args: unknown[]): void;
+	/**
+	 * Logs an error message.
+	 * @param errorMessage Error message to log
+	 * @param args
+	 */
+	error(errorMessage: string, ...args: unknown[]): void;
 	warn(...args: unknown[]): void;
 	log(...args: unknown[]): void;
 	info(...args: unknown[]): void;
