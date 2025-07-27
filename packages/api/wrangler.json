@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "../../node_modules/wrangler/config-schema.json",
-	"name": "api",
+	"name": "next-api",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-07-09",
 	"workers_dev": false,
@@ -13,12 +13,13 @@
 	},
 	"services": [
 		{
-			"service": "linkedin-games",
-			"binding": "LINKEDIN_GAMES"
+			"service": "queens",
+			"binding": "QUEENS",
+			"entrypoint": "default"
 		}
 	],
 	"route": {
 		"custom_domain": true,
-		"pattern": "next.api.connorbray.net"
+		"pattern": "next-api.connorbray.net"
 	}
 }

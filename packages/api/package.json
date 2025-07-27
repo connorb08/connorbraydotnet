@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"typegen": "wrangler types"
+		"typegen": "wrangler types -c wrangler.json -c ../../apps/queens/wrangler.json"
 	},
 	"dependencies": {
 		"shared": "workspace:*"

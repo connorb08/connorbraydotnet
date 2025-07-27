@@ -3,16 +3,21 @@
  */
 {
 	"$schema": "../../node_modules/wrangler/config-schema.json",
-	"name": "linkedin-games",
+	"name": "queens",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
 	"compatibility_flags": ["nodejs_compat_v2"],
 	"workers_dev": false,
+	"route": {
+		"custom_domain": true,
+		"pattern": "queens.connorbray.net"
+	},
 	"triggers": {
 		"crons": ["0 14 * * *"]
 	},
 	"browser": {
-		"binding": "BROWSER"
+		"binding": "BROWSER",
+		"experimental_remote": true
 	},
 	"durable_objects": {
 		"bindings": [

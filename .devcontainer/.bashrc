@@ -10,3 +10,5 @@ alias nx="bun nx"
 
 alias ll="ls -lah"
 alias la="ls -A"
+
+alias wrangler="bun run wrangler"

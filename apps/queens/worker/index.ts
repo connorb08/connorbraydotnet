@@ -41,7 +41,7 @@ export class Storage extends DurableObject<Env> {
 export default class Entrypoint extends WorkerEntrypoint<Env> {
 	public override async fetch(_request: Request): Promise<Response> {
 		try {
-			const solution = await this.getSolution();
+			const solution = await this.getResult();
 			return new Response(JSON.stringify(solution), { status: 200 });
 		} catch (error) {
 			logger.error("Error in fetch handler:", error);
@@ -59,27 +59,21 @@ export default class Entrypoint extends WorkerEntrypoint<Env> {
 		return storage.getCurrentAnswer();
 	}
 
-	async getSolution(): Promise<GameData> {
+	public async solve(): Promise<GameData> {
 		return await SolutionFactory({
 			pageController: await PageController(this.env.BROWSER),
 		});
 	}
 
-	async solveGame(): Promise<boolean> {
+	override async scheduled(_: ScheduledController): Promise<void> {
 		try {
-			const gameData = await this.getSolution();
+			const gameData = await this.solve();
 			await this.env.STORAGE.get(
 				this.env.STORAGE.idFromName("default"),
 			).storeResult(gameData);
 			logger.debug("Game solved and result stored successfully.");
-			return true;
 		} catch (error) {
 			logger.error("Error solving game:", error);
-			return false;
 		}
-	}
-
-	override async scheduled(_: ScheduledController): Promise<void> {
-		await this.solveGame();
 	}
 }
