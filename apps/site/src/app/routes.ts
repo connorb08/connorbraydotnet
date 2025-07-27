@@ -9,12 +9,8 @@ import {
 const routeConfig = [
 	layout("../layouts/main-layout/index.tsx", [
 		index("routes/index.tsx"),
-		{
-			path: "/about",
-			file: "routes/about.tsx",
-			id: "about",
-		},
-		...prefix("projects", [
+		route("about", "routes/about.tsx"),
+		...prefix("/projects", [
 			index("routes/projects/index.tsx"),
 			route("queens", "routes/projects/queens/index.tsx"),
 		]),
