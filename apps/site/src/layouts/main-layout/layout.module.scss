@@ -84,16 +84,15 @@
     flex: 1;
     background-color: $surfaceContainer;
     color: $onSurface;
-    padding: 1.5rem 0rem;
     border-radius: 2rem;
-    overflow: hidden;
     margin-bottom: 0.5rem;
+    overflow: hidden;
 
     &__main {
         @include sans-serif;
         height: 100%;
         overflow-y: auto;
-        padding: 0rem 1.5rem;
+        padding: 1.5rem;
         scrollbar-color: $tertiary $surfaceContainer;
         view-transition-name: mainContent;
     }
