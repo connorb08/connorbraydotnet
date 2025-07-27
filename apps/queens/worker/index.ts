@@ -1,8 +1,8 @@
 import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
 import logger from "clog";
 import type { GameData } from "shared";
-import { SolutionFactory } from "../src/factory";
-import { PageController } from "../src/page-controller/cloudflare";
+import { SolutionFactory } from "#src/factory";
+import { PageController } from "#src/page-controller/cloudflare";
 
 const defaultGameData: GameData = {
 	sideLength: 0,
@@ -39,6 +39,16 @@ export class Storage extends DurableObject<Env> {
 }
 
 export default class Entrypoint extends WorkerEntrypoint<Env> {
+	public override async fetch(_request: Request): Promise<Response> {
+		try {
+			const solution = await this.getSolution();
+			return new Response(JSON.stringify(solution), { status: 200 });
+		} catch (error) {
+			logger.error("Error in fetch handler:", error);
+			return new Response("Internal Server Error", { status: 500 });
+		}
+	}
+
 	public async getResult(date?: string | undefined): Promise<GameData> {
 		const storage = this.env.STORAGE.get(
 			this.env.STORAGE.idFromName("default"),
@@ -49,12 +59,15 @@ export default class Entrypoint extends WorkerEntrypoint<Env> {
 		return storage.getCurrentAnswer();
 	}
 
-	async #solveGame(): Promise<boolean> {
+	async getSolution(): Promise<GameData> {
+		return await SolutionFactory({
+			pageController: await PageController(this.env.BROWSER),
+		});
+	}
+
+	async solveGame(): Promise<boolean> {
 		try {
-			logger.logLevel = this.env.LOG_LEVEL;
-			const gameData = await SolutionFactory({
-				pageController: await PageController(this.env.BROWSER),
-			});
+			const gameData = await this.getSolution();
 			await this.env.STORAGE.get(
 				this.env.STORAGE.idFromName("default"),
 			).storeResult(gameData);
@@ -67,6 +80,6 @@ export default class Entrypoint extends WorkerEntrypoint<Env> {
 	}
 
 	override async scheduled(_: ScheduledController): Promise<void> {
-		await this.#solveGame();
+		await this.solveGame();
 	}
 }

@@ -150,6 +150,9 @@ class Logger implements ILogger {
 	// #region Public Setters
 
 	public set logLevel(level: Exclude<LogLevel, "custom">) {
+		if (level === undefined) {
+			return;
+		}
 		this.#setBaseLogLevel(level);
 		this.#logLevel = level;
 	}

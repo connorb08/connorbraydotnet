@@ -7,6 +7,7 @@
 	"name": "api",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-07-09",
+	"workers_dev": false,
 	"observability": {
 		"enabled": true
 	},
@@ -15,5 +16,9 @@
 			"service": "linkedin-games",
 			"binding": "LINKEDIN_GAMES"
 		}
-	]
+	],
+	"route": {
+		"custom_domain": true,
+		"pattern": "next.api.connorbray.net"
+	}
 }

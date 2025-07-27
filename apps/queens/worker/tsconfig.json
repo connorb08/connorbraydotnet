@@ -1,8 +1,16 @@
 {
 	"extends": "../tsconfig.json",
-	"include": [".", "../src"],
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.worker.json"
+		},
+		{
+			"path": "./tsconfig.test.json"
+		}
+	],
 	"compilerOptions": {
 		"composite": true,
-		"types": ["../worker-configuration.d.ts"]
+		"rootDir": ".."
 	}
 }

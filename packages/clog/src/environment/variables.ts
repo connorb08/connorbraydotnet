@@ -19,15 +19,15 @@ const EnvironmentVars: EnvironmentVariables = {
 EnvironmentVars[ClogEnv.LogLevel] ??= process.env[ClogEnv.LogLevel];
 EnvironmentVars[ClogEnv.Runtime] ??= process.env[ClogEnv.Runtime];
 
-EnvironmentVars[ClogEnv.LogLevel] ??= import.meta.env[ClogEnv.LogLevel];
-EnvironmentVars[ClogEnv.Runtime] ??= import.meta.env[ClogEnv.Runtime];
+// EnvironmentVars[ClogEnv.LogLevel] ??= import.meta.env[ClogEnv.LogLevel];
+// EnvironmentVars[ClogEnv.Runtime] ??= import.meta.env[ClogEnv.Runtime];
 
-if (Runtime === RuntimeEnvironment.Deno) {
-	// @ts-expect-error Deno global is not defined in all environments
-	EnvironmentVars[ClogEnv.LogLevel] ??= Deno.env.get(ClogEnv.LogLevel);
-	// @ts-expect-error Deno global is not defined in all environments
-	EnvironmentVars[ClogEnv.Runtime] ??= Deno.env.get(ClogEnv.Runtime);
-}
+// if (Runtime === RuntimeEnvironment.Deno) {
+// 	// @ts-expect-error Deno global is not defined in all environments
+// 	EnvironmentVars[ClogEnv.LogLevel] ??= Deno.env.get(ClogEnv.LogLevel);
+// 	// @ts-expect-error Deno global is not defined in all environments
+// 	EnvironmentVars[ClogEnv.Runtime] ??= Deno.env.get(ClogEnv.Runtime);
+// }
 
 if (Runtime === RuntimeEnvironment.CloudflareWorkers) {
 	// @ts-expect-error globalThis does not have CLOG_LOG_LEVEL in all environments

@@ -9,7 +9,7 @@
 			"path": "./worker/tsconfig.json"
 		},
 		{
-			"path": "./tests/tsconfig.json"
+			"path": "./tsconfig.test.json"
 		}
 	],
 	"compilerOptions": {

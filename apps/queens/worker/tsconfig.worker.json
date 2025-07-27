@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["../src", "."],
+	"exclude": ["**/*.spec.ts", "../src/**/*.spec.ts"],
+	"compilerOptions": {
+		"composite": true,
+		"types": ["./worker-configuration.d.ts"]
+	}
+}

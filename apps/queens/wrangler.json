@@ -32,6 +32,9 @@
 		"enabled": true
 	},
 	"vars": {
-		"LOG_LEVEL": "error"
+		"CLOG_LEVEL": "debug"
+	},
+	"dev": {
+		"ip": "127.0.0.1"
 	}
 }

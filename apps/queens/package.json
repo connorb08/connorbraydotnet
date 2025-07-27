@@ -7,13 +7,13 @@
 	"license": "MIT",
 	"main": "dev.ts",
 	"imports": {
-		"#/*": "./src/*.ts",
+		"#src/*": "./src/*.ts",
 		"#config": "./src/config.ts"
 	},
 	"scripts": {
 		"dev": "bun run dev.ts",
 		"debug": "CLOG_LEVEL=all bun run dev.ts",
-		"cf": "wrangler dev",
+		"cf": "wrangler dev --remote",
 		"cf:debug": "CLOG_LEVEL=all wrangler dev --remote",
 		"cron": "curl localhost:8787/cron",
 		"typegen": "wrangler types worker/worker-configuration.d.ts",
@@ -30,6 +30,8 @@
 	"peerDependencies": {
 		"typescript": "*",
 		"wrangler": "*",
-		"playwright": "*"
+		"playwright": "*",
+		"vitest": "*",
+		"@cloudflare/vitest-pool-workers": "*"
 	}
 }
