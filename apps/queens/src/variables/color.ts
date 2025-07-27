@@ -7,24 +7,24 @@ class Color extends VariableSet {
 	public constructor({
 		id,
 		name,
-		hex,
-	}: { id: number; name: string; hex: string }) {
+		value,
+	}: { id: number; name: string; value: string }) {
 		super(id, "color");
 		this._name = name;
-		this._hex = hex;
+		this._value = value;
 	}
 
 	// #region Properties
 	private readonly _name: string;
-	private readonly _hex: string;
+	private readonly _value: string;
 	// #endregion Properties
 
 	public get name(): string {
 		return this._name;
 	}
 
-	public get hex(): string {
-		return this._hex;
+	public get value(): string {
+		return this._value;
 	}
 
 	public get rows(): ReadonlySet<Row> {

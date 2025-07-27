@@ -1,1 +1,0 @@
-export { QueensResult } from "./queens";

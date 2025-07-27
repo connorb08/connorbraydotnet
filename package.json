@@ -6,6 +6,7 @@
 	"packageManager": "bun@10.8.0",
 	"workspaces": [
 		"apps/*",
+		"services/*",
 		"packages/*",
 		"projects/*",
 		"inf/"

@@ -1,16 +1,9 @@
 import { QueensResult } from "components";
 import type { GameData } from "shared";
-import type { Route } from "./+types/queens";
-
-export function meta() {
-	return [
-		{ title: "Connor Bray" },
-		{ name: "description", content: "connorbray.net" },
-	];
-}
+import type { Route } from "./+types";
 
 export async function loader({ context }: Route.LoaderArgs) {
-	const gameData: GameData = await context.cloudflare.env.API.linkedinGames();
+	const gameData: GameData = await context.cloudflare.env.API.queensResult();
 	console.log("Queens game data:", gameData);
 	return { data: gameData };
 }

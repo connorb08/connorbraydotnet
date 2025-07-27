@@ -6,7 +6,7 @@
 			"path": "./packages/shared"
 		},
 		{
-			"path": "./packages/resume"
+			"path": "./apps/resume"
 		},
 		{
 			"path": "./packages/content-manager"
@@ -21,7 +21,7 @@
 			"path": "./apps/site"
 		},
 		{
-			"path": "./projects/linkedin-games"
+			"path": "./apps/queens"
 		}
 	],
 	"compilerOptions": {

@@ -1,6 +1,6 @@
 type GameData = {
 	sideLength: number;
-	colorNames: string[];
+	colors: string[];
 	cellColors: number[];
 	cellsRemoved: number[];
 	queenPositions: number[];

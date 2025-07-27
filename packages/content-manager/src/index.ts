@@ -8,7 +8,7 @@ import {
 	Quality,
 } from "./utils";
 
-export default class MainEntrypoint extends WorkerEntrypoint<Env> {
+export class MainEntrypoint extends WorkerEntrypoint<Env> {
 	/**
 	 * Default HTTP Handler
 	 */
@@ -65,3 +65,5 @@ export default class MainEntrypoint extends WorkerEntrypoint<Env> {
 		}
 	}
 }
+
+export default MainEntrypoint;

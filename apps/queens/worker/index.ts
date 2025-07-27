@@ -6,7 +6,7 @@ import { PageController } from "#src/page-controller/cloudflare";
 
 const defaultGameData: GameData = {
 	sideLength: 0,
-	colorNames: [],
+	colors: [],
 	cellColors: [],
 	cellsRemoved: [],
 	queenPositions: [],
@@ -38,7 +38,7 @@ export class Storage extends DurableObject<Env> {
 	}
 }
 
-export default class Entrypoint extends WorkerEntrypoint<Env> {
+export class Entrypoint extends WorkerEntrypoint<Env> {
 	public override async fetch(_request: Request): Promise<Response> {
 		try {
 			const solution = await this.getResult();
@@ -77,3 +77,5 @@ export default class Entrypoint extends WorkerEntrypoint<Env> {
 		}
 	}
 }
+
+export default Entrypoint;

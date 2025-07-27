@@ -19,7 +19,7 @@ export default defineConfig({
 					configPath: "../../packages/api/wrangler.json",
 				},
 				{
-					configPath: "../linkedin-games/wrangler.json",
+					configPath: "../queens/wrangler.json",
 				},
 			],
 		}),

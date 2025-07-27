@@ -19,7 +19,7 @@ class Graph {
 	// Game Data
 	#sideLength = -1;
 	readonly #queenPositions: number[] = [];
-	readonly #colorNames: string[] = [];
+	readonly #colors: string[] = [];
 	readonly #cellColors: number[] = [];
 	readonly #cellsRemoved: number[] = [];
 
@@ -30,7 +30,7 @@ class Graph {
 	public get solution(): GameData {
 		return {
 			sideLength: this.#sideLength,
-			colorNames: this.#colorNames,
+			colors: this.#colors,
 			cellColors: this.#cellColors,
 			cellsRemoved: this.#cellsRemoved,
 			queenPositions: this.#queenPositions,
@@ -106,16 +106,16 @@ class Graph {
 		return column;
 	}
 
-	private _getColor(colorId: number, colorName: string, hex: string): Color {
+	private _getColor(colorId: number, colorName: string, value: string): Color {
 		for (const color of this._colors) {
 			if (color.id === colorId) {
 				return color;
 			}
 		}
-		logger.debug("Creating new color", { colorId, colorName, hex });
-		const color = new Color({ id: colorId, name: colorName, hex });
+		logger.debug("Creating new color", { colorId, colorName, value });
+		const color = new Color({ id: colorId, name: colorName, value });
 		this._colors.add(color);
-		this.#colorNames[color.id] = colorName;
+		this.#colors[color.id] = color.value;
 		return color;
 	}
 
@@ -148,12 +148,12 @@ class Graph {
 		id: number;
 		rowId: number;
 		columnId: number;
-		colorInfo: { id: number; name: string; hex: string };
+		colorInfo: { id: number; name: string; value: string };
 	}): void {
 		logger.debug(`Adding cell ${id}`);
 		const row = this._getRow(rowId);
 		const column = this._getColumn(columnId);
-		const color = this._getColor(colorInfo.id, colorInfo.name, colorInfo.hex);
+		const color = this._getColor(colorInfo.id, colorInfo.name, colorInfo.value);
 		const cell = new Cell({
 			id,
 			row,

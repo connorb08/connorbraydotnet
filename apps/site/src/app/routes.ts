@@ -1,6 +1,7 @@
 import {
 	index,
 	layout,
+	prefix,
 	type RouteConfig,
 	route,
 } from "@react-router/dev/routes";
@@ -13,11 +14,10 @@ const routeConfig = [
 			file: "routes/about.tsx",
 			id: "about",
 		},
-		{
-			path: "/projects",
-			file: "routes/projects.tsx",
-			id: "projects",
-		},
+		...prefix("projects", [
+			index("routes/projects/index.tsx"),
+			route("queens", "routes/projects/queens/index.tsx"),
+		]),
 		{
 			path: "*",
 			file: "routes/404.tsx",
@@ -25,7 +25,6 @@ const routeConfig = [
 		},
 	]),
 	route("/content/*", "routes/content.ts"),
-	route("/queens", "routes/queens.tsx"),
 	route("/api", "routes/api.ts"),
 ] satisfies RouteConfig;
 

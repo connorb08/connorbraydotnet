@@ -56,6 +56,10 @@ async function PageController(): Promise<IPageController> {
 				const colorId = +(cellColor?.split("-").slice(-1)[0]?.trim() ?? -1);
 
 				const [, colorName = ""] = ariaLabel?.match(ariaLabelRegex) ?? [];
+				const colorValue = await cell.evaluate((element) => {
+					// @ts-expect-error window is not defined in this context
+					return window.getComputedStyle(element).backgroundColor;
+				});
 
 				if (cellId === -1) {
 					console.error("Invalid cell index found:", cellIdx);
@@ -74,7 +78,7 @@ async function PageController(): Promise<IPageController> {
 					colorInfo: {
 						id: colorId,
 						name: colorName.trim(),
-						hex: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random hex color for demonstration
+						value: colorValue,
 					},
 				});
 			}),

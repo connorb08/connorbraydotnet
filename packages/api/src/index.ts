@@ -1,7 +1,7 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
 import type { GameData } from "shared";
 
-export default class APIWorker extends WorkerEntrypoint<Env> {
+export class MainEntrypoint extends WorkerEntrypoint<Env> {
 	public override async fetch(_request: Request): Promise<Response> {
 		try {
 			await using solution = await this.env.QUEENS.getResult();
@@ -15,3 +15,5 @@ export default class APIWorker extends WorkerEntrypoint<Env> {
 		return await this.env.QUEENS.getResult(date);
 	}
 }
+
+export default MainEntrypoint;

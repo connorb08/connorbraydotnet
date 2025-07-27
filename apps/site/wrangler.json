@@ -19,11 +19,13 @@
 	"services": [
 		{
 			"binding": "CONTENT_MANAGER",
-			"service": "content-manager"
+			"service": "content-manager",
+			"entrypoint": "MainEntrypoint"
 		},
 		{
 			"binding": "API",
-			"service": "api"
+			"service": "next-api",
+			"entrypoint": "MainEntrypoint"
 		}
 	]
 }

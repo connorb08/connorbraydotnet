@@ -1,1 +1,1 @@
-export { QueensResult } from "./linkedin-games";
+export { QueensResult } from "./queens";
