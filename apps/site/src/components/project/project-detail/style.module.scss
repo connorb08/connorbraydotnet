@@ -1,0 +1,258 @@
+@use "~/styles" as *;
+
+.projectDetail {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: $surface;
+    border-radius: 24px;
+    overflow: hidden;
+    @include shadow;
+
+    &__hero {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(1.5rem, 3vw, 2rem);
+        padding: clamp(2rem, 4vw, 3rem);
+        background: linear-gradient(135deg, $primaryContainer 0%, $secondaryContainer 100%);
+
+        @media (min-width: breakpoint("md")) {
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+        }
+    }
+
+    &__heroContent {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    &__title {
+        @include sans-serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: $onPrimaryContainer;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    &__description {
+        @include sans-serif;
+        font-size: clamp(1rem, 2vw, 1.125rem);
+        font-weight: 400;
+        line-height: 1.5;
+        color: $onPrimaryContainer;
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(0.5rem, 1vw, 0.75rem);
+        align-items: center;
+    }
+
+    &__status {
+        @include sans-serif;
+        font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+        font-weight: 500;
+        padding: clamp(0.25rem, 0.5vw, 0.375rem) clamp(0.5rem, 1vw, 0.75rem);
+        border-radius: 20px;
+        text-transform: capitalize;
+
+        &--completed {
+            background: $tertiaryContainer;
+            color: $onTertiaryContainer;
+        }
+
+        &--in-progress {
+            background: $secondaryContainer;
+            color: $onSecondaryContainer;
+        }
+
+        &--maintained {
+            background: $primaryContainer;
+            color: $onPrimaryContainer;
+        }
+
+        &--deprecated {
+            background: $errorContainer;
+            color: $onErrorContainer;
+        }
+    }
+
+    &__timeline,
+    &__role,
+    &__teamSize {
+        @include sans-serif;
+        font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+        font-weight: 500;
+        color: $onPrimaryContainer;
+        opacity: 0.8;
+    }
+
+    &__actions {
+        display: flex;
+        gap: clamp(0.75rem, 1.5vw, 1rem);
+        flex-wrap: wrap;
+        margin-top: clamp(0.5rem, 1vw, 0.75rem);
+    }
+
+    &__button {
+        @include sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: clamp(0.375rem, 0.75vw, 0.5rem);
+        padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.5rem);
+        border-radius: 16px;
+        text-decoration: none;
+        font-size: clamp(0.875rem, 1.5vw, 1rem);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &--primary {
+            background: $primary;
+            color: $onPrimary;
+
+            &:hover {
+                background: $primary;
+                @include shadow;
+                filter: brightness(1.1);
+            }
+        }
+
+        &--secondary {
+            background: $surfaceVariant;
+            color: $onSurfaceVariant;
+            border: 1px solid $outlineVariant;
+
+            &:hover {
+                background: $surfaceContainerHigh;
+                @include shadow;
+            }
+        }
+    }
+
+    &__heroImage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        overflow: hidden;
+        background: $surfaceContainer;
+    }
+
+    &__image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    &__content {
+        padding: clamp(2rem, 4vw, 3rem);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(2rem, 4vw, 3rem);
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    &__sectionTitle {
+        @include sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 600;
+        color: $onSurface;
+        margin: 0;
+        padding-bottom: clamp(0.5rem, 1vw, 0.75rem);
+        border-bottom: 2px solid $primary;
+    }
+
+    &__subsectionTitle {
+        @include sans-serif;
+        font-size: clamp(1.125rem, 2vw, 1.25rem);
+        font-weight: 500;
+        color: $onSurfaceVariant;
+        margin: 0;
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.5rem, 1vw, 0.75rem);
+    }
+
+    &__listItem {
+        @include sans-serif;
+        font-size: clamp(0.875rem, 1.5vw, 1rem);
+        font-weight: 400;
+        line-height: 1.5;
+        color: $onSurface;
+        position: relative;
+        padding-left: clamp(1rem, 2vw, 1.5rem);
+
+        &::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: $primary;
+            font-weight: bold;
+        }
+    }
+
+    &__technologies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(0.5rem, 1vw, 0.75rem);
+    }
+
+    &__technology {
+        @include sans-serif;
+        font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+        font-weight: 500;
+        background: $secondaryContainer;
+        color: $onSecondaryContainer;
+        padding: clamp(0.25rem, 0.5vw, 0.375rem) clamp(0.75rem, 1.5vw, 1rem);
+        border-radius: 20px;
+    }
+
+    &__challengesSolutions {
+        display: grid;
+        gap: clamp(1.5rem, 3vw, 2rem);
+
+        @media (min-width: breakpoint("md")) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &__challenges,
+    &__solutions {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    &__gallery {
+        display: grid;
+        gap: clamp(1rem, 2vw, 1.5rem);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    &__galleryImage {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        background: $surfaceContainer;
+    }
+}

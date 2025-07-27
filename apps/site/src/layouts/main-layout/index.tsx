@@ -12,7 +12,7 @@ import Sidebar from "./sidebar";
 
 export function MainLayout() {
 	const { rootRef } = useContext(ProjectContext);
-	const [showTerminal, _setShowTerminall] = useState<boolean>(true);
+	const [showTerminal, _setShowTerminall] = useState<boolean>(false);
 	const [navbarOpen, setNavbarOpen] = useState(false);
 	const toggleNavbar = () => {
 		setNavbarOpen((prev) => !prev);

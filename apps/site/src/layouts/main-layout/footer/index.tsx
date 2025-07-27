@@ -10,13 +10,13 @@ export default function Footer({ showTerminal }: Props) {
 		<footer className={style.footer}>
 			{showTerminal ? (
 				<Terminal />
-			) : (
-				<div className={style.footer__content}>
-					<p className={style.footer__content__text}>
-						© 2023 Connor Bray. All rights reserved.
-					</p>
-				</div>
-			)}
+			) : null
+			// <div className={style.footer__content}>
+			// 	<p className={style.footer__content__text}>
+			// 		© {new Date().getFullYear()} Connor Bray. All rights reserved.
+			// 	</p>
+			// </div>
+			}
 		</footer>
 	);
 }

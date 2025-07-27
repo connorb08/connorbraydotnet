@@ -12,6 +12,7 @@ const routeConfig = [
 		route("about", "routes/about.tsx"),
 		...prefix("/projects", [
 			index("routes/projects/index.tsx"),
+			route(":projectId", "routes/projects/project.tsx"),
 			route("queens", "routes/projects/queens/index.tsx"),
 		]),
 		{

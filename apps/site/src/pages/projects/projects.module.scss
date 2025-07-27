@@ -1,5 +1,105 @@
-@use "~/styles" as *;
+@use "../../styles" as *;
 
 .projects {
-    color: $primary;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3rem);
+
+    /* Sizing */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.projects__header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+    text-align: center;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.projects__title {
+    /* Typography */
+    @include sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+
+    /* Color */
+    color: $onSurface;
+
+    /* Spacing */
+    margin: 0;
+}
+
+.projects__description {
+    /* Typography */
+    @include sans-serif;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.5;
+
+    /* Color */
+    color: $onSurfaceVariant;
+
+    /* Spacing */
+    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.projects__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.projects__sectionTitle {
+    /* Typography */
+    @include sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    line-height: 1.2;
+
+    /* Color */
+    color: $onSurface;
+
+    /* Spacing */
+    margin: 0;
+    padding-bottom: clamp(0.5rem, 1vw, 0.75rem);
+    border-bottom: 2px solid $primary;
+}
+
+/* Responsive design */
+@media (max-width: breakpoint("sm")) {
+    .projects {
+        padding: 1.5rem 1rem;
+        gap: 2rem;
+    }
+
+    .projects__title {
+        font-size: 2.5rem;
+    }
+
+    .projects__description {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: breakpoint("lg")) {
+    .projects {
+        padding: 2rem;
+        gap: 3rem;
+    }
+
+    .projects__title {
+        font-size: 3.5rem;
+    }
+
+    .projects__description {
+        font-size: 1.125rem;
+    }
 }

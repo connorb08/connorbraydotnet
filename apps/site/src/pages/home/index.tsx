@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import Projects from "#pages/projects";
 import style from "./home.module.scss";
 
 type Section = {
@@ -72,6 +73,7 @@ function Home() {
 					</NavLink>
 				))}
 			</div>
+			<Projects />
 			<div className={style.projects}>
 				<h2 className={style.projects__header}>Projects & Skills</h2>
 				<p>List highlighted projects and best skills</p>
