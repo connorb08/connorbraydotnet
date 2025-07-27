@@ -35,16 +35,26 @@ function Home() {
 	return (
 		<div className={style.home}>
 			<div className={style.hero}>
-				<h2 className={style.hero__title}>Connor Bray</h2>
-				<p className={style.hero__subtitle}>Software Engineer</p>
-				<p className={style.hero__content}>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-					aliquip ex ea commodo consequat. Duis aute irure dolor in
-					reprehenderit in voluptate velit esse <span>...learn more</span>
-				</p>
-				<button type="button">Professional Summary</button>
+				<div className={style.hero__container}>
+					<picture className={style.hero__image}>
+						<img src="/headshot.jpeg" alt="Connor Bray - Software Engineer" />
+					</picture>
+
+					<div className={style.hero__main}>
+						<h1 className={style.hero__main__title}>Connor Bray</h1>
+						<p className={style.hero__main__subtitle}>
+							Full-Stack Software Engineer
+						</p>
+						<p className={style.hero__main__content}>
+							Passionate software engineer with expertise in modern web
+							technologies, cloud architecture, and scalable solutions. I
+							specialize in building robust applications that deliver
+							exceptional user experiences while maintaining clean, maintainable
+							code.
+						</p>
+						{/* <button type="button">View Professional Summary</button> */}
+					</div>
+				</div>
 			</div>
 			<div className={style.content}>
 				{sections.map((section, index) => (

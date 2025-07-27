@@ -36,6 +36,7 @@ const result = await Promise.allSettled(
 		const contentType = fileObject.type;
 		try {
 			const command = `wrangler r2 object put ${destinationPath} -f ${sourcePath} --content-type ${contentType} --persist-to ${persistDirectory} ${IS_PROD ? "--remote" : "--local"}`;
+			console.log(command);
 			await $`${command}`.quiet();
 			return file;
 		} catch (_error) {

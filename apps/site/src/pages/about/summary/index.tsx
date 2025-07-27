@@ -35,6 +35,7 @@ export const UserBlock = () => {
 				className={style.userBlock__backgroundImage}
 				style={{
 					backgroundImage: "url('/content/images/umaine-mall.jpeg?size=xs')",
+					backgroundPosition: "50% 30%",
 				}}
 			/>
 			<div className={style.userBlock__content}>
