@@ -10,19 +10,12 @@ export interface ExtendedProject extends ResumeProject {
 	challenges: string[];
 	solutions: string[];
 	features: string[];
-	timeline: {
-		start: string;
-		end?: string;
-	};
-	teamSize?: number;
-	role?: string;
-	status: "completed" | "in-progress" | "maintained" | "deprecated";
 }
 
 export const projectsData: ExtendedProject[] = [
 	{
-		slug: "personal-portfolio-website",
-		name: "Personal Portfolio Website",
+		slug: "portfolio",
+		name: "connorbray.net",
 		description:
 			"A modern, responsive portfolio built with React and TypeScript",
 		about: [
@@ -43,12 +36,7 @@ export const projectsData: ExtendedProject[] = [
 		],
 		repositoryUrl: "https://github.com/connorb08/connorbraydotnet",
 		liveUrl: "https://connorbray.net",
-		images: [
-			"/projects/portfolio/hero.jpg",
-			"/projects/portfolio/about.jpg",
-			"/projects/portfolio/projects.jpg",
-			"/projects/portfolio/contact.jpg",
-		],
+		images: [],
 		challenges: [
 			"Creating a responsive design that works across all devices",
 			"Implementing smooth animations without impacting performance",
@@ -69,76 +57,13 @@ export const projectsData: ExtendedProject[] = [
 			"Fast loading with code splitting and lazy loading",
 			"Accessible design following WCAG 2.1 guidelines",
 		],
-		timeline: {
-			start: "2024-01",
-			end: "2024-03",
-		},
-		teamSize: 1,
-		role: "Full-Stack Developer & Designer",
-		status: "maintained",
 	},
 	{
-		slug: "task-management-api",
-		name: "Task Management API",
-		description: "RESTful API for managing tasks and projects",
-		about: [
-			"Developed using Node.js and Express with TypeScript",
-			"PostgreSQL database with Kysely query builder",
-			"JWT authentication and role-based authorization",
-			"Comprehensive test suite with 95% code coverage",
-		],
-		technologies: [
-			"Node.js",
-			"Express",
-			"TypeScript",
-			"PostgreSQL",
-			"Kysely",
-			"JWT",
-			"Vitest",
-			"Docker",
-			"Railway",
-		],
-		repositoryUrl: "https://github.com/example/task-api",
-		liveUrl: "https://api.taskmanager.example.com",
-		images: [
-			"/projects/task-api/architecture.jpg",
-			"/projects/task-api/endpoints.jpg",
-			"/projects/task-api/testing.jpg",
-		],
-		challenges: [
-			"Designing a scalable database schema for complex relationships",
-			"Implementing secure authentication and authorization",
-			"Creating comprehensive API documentation",
-			"Setting up robust error handling and logging",
-		],
-		solutions: [
-			"Used PostgreSQL with proper indexing and foreign key constraints",
-			"Implemented JWT tokens with refresh token rotation",
-			"Generated OpenAPI documentation with automated examples",
-			"Built centralized error handling middleware with structured logging",
-		],
-		features: [
-			"RESTful API design following OpenAPI 3.0 specification",
-			"Role-based access control with granular permissions",
-			"Real-time notifications using WebSocket connections",
-			"Comprehensive test suite with unit and integration tests",
-			"Docker containerization for easy deployment",
-			"Automated database migrations and seeding",
-		],
-		timeline: {
-			start: "2023-09",
-			end: "2023-12",
-		},
-		teamSize: 2,
-		role: "Backend Developer",
-		status: "completed",
-	},
-	{
-		slug: "linkedin-game-solver",
-		name: "LinkedIn Game Solver",
+		slug: "linkedin-queens",
+		name: "LinkedIn N-Queens Solver",
 		description: "Automated solver for LinkedIn's Queens puzzle game",
 		about: [
-			"Implemented backtracking algorithm in TypeScript",
+			"Implemented constraint propagation algorithm in TypeScript",
 			"Cloudflare Workers for serverless execution",
 			"Automated browser interaction using Playwright",
 			"Achieves 100% success rate on all puzzle sizes",
@@ -153,7 +78,7 @@ export const projectsData: ExtendedProject[] = [
 			"Automation",
 		],
 		repositoryUrl: "https://github.com/connorb08/queens",
-		liveUrl: "https://queens.connorbray.net",
+		liveUrl: "https://connorbray.net/queens",
 		images: [
 			"/projects/queens/demo.jpg",
 			"/projects/queens/algorithm.jpg",
@@ -179,13 +104,6 @@ export const projectsData: ExtendedProject[] = [
 			"Performance metrics and solution analytics",
 			"Serverless deployment on Cloudflare Workers",
 		],
-		timeline: {
-			start: "2024-04",
-			end: "2024-05",
-		},
-		teamSize: 1,
-		role: "Algorithm Developer",
-		status: "completed",
 	},
 ];
 

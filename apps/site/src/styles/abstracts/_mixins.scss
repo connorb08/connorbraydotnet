@@ -1,6 +1,20 @@
 @use "sass:map";
 @use "colors";
 
+/* Layout Mixins */
+
+@mixin row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style Mixins */
+
 @mixin border($width: 1px) {
     border: $width solid colors.$outline;
 }
@@ -11,23 +25,6 @@
 
 @mixin shadow {
     box-shadow: 1px 1px 4px colors.$shadow;
-}
-
-$_breakpoints: (
-    /* 0px */ xs: 0rem,
-    /* 640px */ sm: 40rem,
-    /* 768px */ md: 48rem,
-    /* 1024px */ lg: 64rem,
-    /* 1280px */ xl: 80rem,
-    /* 1536px */ 2xl: 96rem
-);
-
-@function breakpoint($key) {
-    @if not map.has-key($_breakpoints, $key) {
-        @warn "Breakpoint `#{$key}` not found.";
-    }
-
-    @return map.get($_breakpoints, $key);
 }
 
 $_border-radii: (
@@ -44,6 +41,8 @@ $_border-radii: (
     }
     border-radius: map.get($_border-radii, $size);
 }
+
+/* Color Mixins */
 
 @mixin surfaceContainer {
     background-color: colors.$surfaceContainer;
@@ -68,6 +67,11 @@ $_border-radii: (
 @mixin primary {
     background-color: colors.$primary;
     color: colors.$onPrimary;
+}
+
+@mixin primaryContainer {
+    background-color: colors.$primaryContainer;
+    color: colors.$onPrimaryContainer;
 }
 
 @mixin tertiary {

@@ -10,11 +10,11 @@
     @include shadow;
 
     &__hero {
+        @include primaryContainer;
         display: grid;
         grid-template-columns: 1fr;
         gap: clamp(1.5rem, 3vw, 2rem);
         padding: clamp(2rem, 4vw, 3rem);
-        background: linear-gradient(135deg, $primaryContainer 0%, $secondaryContainer 100%);
 
         @media (min-width: breakpoint("md")) {
             grid-template-columns: 2fr 1fr;
@@ -45,52 +45,6 @@
         color: $onPrimaryContainer;
         margin: 0;
         opacity: 0.9;
-    }
-
-    &__meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: clamp(0.5rem, 1vw, 0.75rem);
-        align-items: center;
-    }
-
-    &__status {
-        @include sans-serif;
-        font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-        font-weight: 500;
-        padding: clamp(0.25rem, 0.5vw, 0.375rem) clamp(0.5rem, 1vw, 0.75rem);
-        border-radius: 20px;
-        text-transform: capitalize;
-
-        &--completed {
-            background: $tertiaryContainer;
-            color: $onTertiaryContainer;
-        }
-
-        &--in-progress {
-            background: $secondaryContainer;
-            color: $onSecondaryContainer;
-        }
-
-        &--maintained {
-            background: $primaryContainer;
-            color: $onPrimaryContainer;
-        }
-
-        &--deprecated {
-            background: $errorContainer;
-            color: $onErrorContainer;
-        }
-    }
-
-    &__timeline,
-    &__role,
-    &__teamSize {
-        @include sans-serif;
-        font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-        font-weight: 500;
-        color: $onPrimaryContainer;
-        opacity: 0.8;
     }
 
     &__actions {

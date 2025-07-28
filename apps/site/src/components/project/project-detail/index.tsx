@@ -11,13 +11,6 @@ interface ProjectDetailProps {
 	challenges?: string[];
 	solutions?: string[];
 	features?: string[];
-	timeline?: {
-		start: string;
-		end?: string;
-	};
-	teamSize?: number;
-	role?: string;
-	status?: "completed" | "in-progress" | "maintained" | "deprecated";
 }
 
 export default function ProjectDetail({
@@ -29,10 +22,6 @@ export default function ProjectDetail({
 	challenges = [],
 	solutions = [],
 	features = [],
-	timeline,
-	teamSize,
-	role,
-	status = "completed",
 }: ProjectDetailProps) {
 	return (
 		<article className={style.projectDetail}>
@@ -45,28 +34,6 @@ export default function ProjectDetail({
 							{project.description}
 						</p>
 					)}
-
-					<div className={style.projectDetail__meta}>
-						{status && (
-							<span
-								className={`${style.projectDetail__status} ${style[`projectDetail__status--${status}`]}`}
-							>
-								{status.replace("-", " ")}
-							</span>
-						)}
-						{timeline && (
-							<span className={style.projectDetail__timeline}>
-								{timeline.start}
-								{timeline.end ? ` - ${timeline.end}` : " - Present"}
-							</span>
-						)}
-						{role && <span className={style.projectDetail__role}>{role}</span>}
-						{teamSize && (
-							<span className={style.projectDetail__teamSize}>
-								Team of {teamSize}
-							</span>
-						)}
-					</div>
 
 					{/* Action buttons */}
 					<div className={style.projectDetail__actions}>

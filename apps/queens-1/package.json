@@ -1,0 +1,26 @@
+{
+	"name": "queens",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "react-router build",
+		"typegen": "wrangler types && react-router typegen",
+		"deploy": "bun run build && wrangler deploy",
+		"dev": "react-router dev",
+		"typecheck": "bun run typegen && tsc -b"
+	},
+	"peerDependencies": {
+		"vite": "*",
+		"wrangler": "*",
+		"react-router": "*",
+		"react": "*",
+		"react-dom": "*",
+		"isbot": "*",
+		"typescript": "*",
+		"@types/node": "*",
+		"@types/react": "*",
+		"@types/react-dom": "*",
+		"@cloudflare/vite-plugin": "*",
+		"@react-router/dev": "*"
+	}
+}

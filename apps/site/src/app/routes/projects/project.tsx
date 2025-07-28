@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { redirect } from "react-router";
+import { NavLink, redirect } from "react-router";
 import { ProjectDetail } from "../../../components/project";
 import { getProjectBySlug } from "../../../data/projects";
 import type { Route } from "./+types/project";
@@ -27,16 +27,14 @@ export default function ProjectDetailPage({
 	const { project } = loaderData;
 	return (
 		<div>
-			{/* Back navigation */}
 			<div
 				style={{
 					padding: "1rem 2rem",
-					borderBottom:
-						"1px solid var(--md-sys-color-outline-variant, #cac4d0)",
 				}}
 			>
-				<a
-					href="/projects"
+				<NavLink
+					to="/projects"
+					viewTransition
 					style={{
 						color: "var(--md-sys-color-primary, #6750a4)",
 						textDecoration: "none",
@@ -45,7 +43,7 @@ export default function ProjectDetailPage({
 					}}
 				>
 					← Back to Projects
-				</a>
+				</NavLink>
 			</div>
 
 			<ProjectDetail
@@ -57,10 +55,6 @@ export default function ProjectDetailPage({
 				challenges={project.challenges}
 				solutions={project.solutions}
 				features={project.features}
-				timeline={project.timeline}
-				teamSize={project.teamSize}
-				role={project.role}
-				status={project.status}
 			/>
 		</div>
 	);
