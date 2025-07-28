@@ -1,8 +1,25 @@
 import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
 import logger from "clog";
+import { createRequestHandler } from "react-router";
 import type { GameData } from "shared";
 import { SolutionFactory } from "#src/factory";
 import { PageController } from "#src/page-controller/cloudflare";
+
+declare module "react-router" {
+	export interface AppLoadContext {
+		cloudflare: {
+			env: Env;
+			ctx: ExecutionContext;
+		};
+	}
+}
+
+const requestHandler = createRequestHandler(
+	// @ts-expect-error virtual module for react-router server build
+	() => import("virtual:react-router/server-build"),
+	// @ts-expect-error vite environment variable
+	import.meta.env.MODE,
+);
 
 const defaultGameData: GameData = {
 	sideLength: 0,
@@ -13,50 +30,39 @@ const defaultGameData: GameData = {
 };
 
 export class Storage extends DurableObject<Env> {
-	private _currentAnswer!: GameData;
+	#queenSolution!: GameData;
 	public constructor(ctx: DurableObjectState, env: Env) {
 		super(ctx, env);
 		ctx.blockConcurrencyWhile(async () => {
-			this._currentAnswer =
+			this.#queenSolution =
 				(await ctx.storage.get<GameData>("today")) || defaultGameData;
 		});
 	}
 
-	public async getCurrentAnswer() {
-		return this._currentAnswer;
-	}
-
-	public async getAnswerByDate(date: string): Promise<GameData> {
-		return (await this.ctx.storage.get<GameData>(date)) || defaultGameData;
+	public async getQueenSolution() {
+		return this.#queenSolution;
 	}
 
 	public async storeResult(result: GameData): Promise<void> {
 		const date = new Date().toLocaleDateString();
 		this.ctx.storage.put("today", result);
 		this.ctx.storage.put(date, result);
-		this._currentAnswer = result;
+		this.#queenSolution = result;
 	}
 }
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
-	public override async fetch(_request: Request): Promise<Response> {
-		try {
-			const solution = await this.getResult();
-			return new Response(JSON.stringify(solution), { status: 200 });
-		} catch (error) {
-			logger.error("Error in fetch handler:", error);
-			return new Response("Internal Server Error", { status: 500 });
-		}
+	public override async fetch(request: Request): Promise<Response> {
+		return requestHandler(request, {
+			cloudflare: { env: this.env, ctx: this.ctx },
+		});
 	}
 
-	public async getResult(date?: string | undefined): Promise<GameData> {
+	public async getResult(): Promise<GameData> {
 		const storage = this.env.STORAGE.get(
 			this.env.STORAGE.idFromName("default"),
 		);
-		if (date) {
-			return storage.getAnswerByDate(date);
-		}
-		return storage.getCurrentAnswer();
+		return storage.getQueenSolution();
 	}
 
 	public async solve(): Promise<GameData> {

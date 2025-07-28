@@ -35,7 +35,13 @@ const gameData: GameData = {
 
 const QueenSvg = () => (
 	<svg
-		style={{ height: "100%", width: "100%", padding: "33%" }}
+		style={{
+			height: "50%",
+			width: "50%",
+			maxHeight: "100%",
+			maxWidth: "100%",
+			padding: "10%",
+		}}
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
@@ -57,7 +63,13 @@ const QueenSvg = () => (
 
 const CrossSvg = () => (
 	<svg
-		style={{ height: "100%", width: "100%", padding: "40%" }}
+		style={{
+			height: "40%",
+			width: "40%",
+			maxHeight: "100%",
+			maxWidth: "100%",
+			padding: "10%",
+		}}
 		width="16"
 		height="16"
 		viewBox="0 0 16 16"

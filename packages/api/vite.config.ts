@@ -10,7 +10,7 @@ export default defineConfig({
 			},
 			auxiliaryWorkers: [
 				{
-					configPath: "../../apps/queens/wrangler.json",
+					configPath: "../../apps/linkedin-games/wrangler.json",
 				},
 			],
 		}),

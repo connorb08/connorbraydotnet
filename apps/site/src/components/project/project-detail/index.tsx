@@ -11,6 +11,7 @@ interface ProjectDetailProps {
 	challenges?: string[];
 	solutions?: string[];
 	features?: string[];
+	heroElement?: React.ReactNode;
 }
 
 export default function ProjectDetail({
@@ -22,6 +23,7 @@ export default function ProjectDetail({
 	challenges = [],
 	solutions = [],
 	features = [],
+	heroElement = undefined,
 }: ProjectDetailProps) {
 	return (
 		<article className={style.projectDetail}>
@@ -60,8 +62,13 @@ export default function ProjectDetail({
 					</div>
 				</div>
 
-				{/* Hero image */}
-				{images.length > 0 && (
+				{/* Hero element / image */}
+				{heroElement && (
+					<div className={style.projectDetail__heroElement}>{heroElement}</div>
+				)}
+
+				{/* Fallback image if no hero element */}
+				{!heroElement && images.length > 0 && (
 					<div className={style.projectDetail__heroImage}>
 						<img
 							src={images[0]}

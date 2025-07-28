@@ -13,8 +13,8 @@
 	},
 	"services": [
 		{
-			"service": "queens",
-			"binding": "QUEENS",
+			"service": "linkedin-games",
+			"binding": "LINKEDIN_GAMES",
 			"entrypoint": "Entrypoint"
 		}
 	],

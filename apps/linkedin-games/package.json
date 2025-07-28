@@ -1,0 +1,50 @@
+{
+	"name": "linkedin-games",
+	"type": "module",
+	"version": "1.0.0",
+	"author": "Connor Bray",
+	"description": "Solvers for daily linkedin games.",
+	"license": "MIT",
+	"imports": {
+		"#src/*": "./src/*.ts",
+		"#config": "./src/config.ts"
+	},
+	"scripts": {
+		"dev": "react-router dev",
+		"queens:dev": "bun run dev.ts",
+		"debug": "CLOG_LEVEL=all bun run dev.ts",
+		"cf": "wrangler dev --remote",
+		"cf:debug": "CLOG_LEVEL=all wrangler dev --remote",
+		"cron": "curl localhost:8787/cron",
+		"pretypecheck": "bun run typegen",
+		"build": "react-router build",
+		"typegen": "wrangler types && react-router typegen",
+		"deploy": "bun run build && wrangler deploy",
+		"typecheck": "bun run typegen && tsc -b"
+	},
+	"dependencies": {
+		"components": "workspace:*",
+		"shared": "workspace:*",
+		"clog": "workspace:*"
+	},
+	"devDependencies": {
+		"@cloudflare/playwright": "^0.0.10"
+	},
+	"peerDependencies": {
+		"wrangler": "*",
+		"playwright": "*",
+		"vitest": "*",
+		"@cloudflare/vitest-pool-workers": "*",
+		"vite": "*",
+		"react-router": "*",
+		"react": "*",
+		"react-dom": "*",
+		"isbot": "*",
+		"typescript": "*",
+		"@types/node": "*",
+		"@types/react": "*",
+		"@types/react-dom": "*",
+		"@cloudflare/vite-plugin": "*",
+		"@react-router/dev": "*"
+	}
+}

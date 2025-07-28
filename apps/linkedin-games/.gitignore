@@ -2,6 +2,11 @@
 node_modules/
 .env
 dist/
+.DS_Store
+*.tsbuildinfo
+
+/.react-router/
+# build/
 
 # Playwright
 /test-results/
@@ -11,5 +16,6 @@ dist/
 
 # Cloudflare Workers
 .wrangler/
-
 .pnpm-store
+.mf
+.dev.vars*

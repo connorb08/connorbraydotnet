@@ -10,6 +10,12 @@
 		},
 		{
 			"path": "./tsconfig.test.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		},
+		{
+			"path": "./tsconfig.node.json"
 		}
 	],
 	"compilerOptions": {
