@@ -25,5 +25,5 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export default function ({ loaderData }: Route.ComponentProps) {
 	const { data } = loaderData;
-	return data ? <QueensResult gameData={data} /> : <div>No data available</div>;
+	return data ? <QueensResult {...data} /> : <div>No data available</div>;
 }
