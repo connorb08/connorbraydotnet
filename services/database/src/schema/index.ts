@@ -14,6 +14,6 @@ export default async function SetupDatabaseSchema(
 			.execute();
 	} catch (error) {
 		console.error("Error setting up database schema:", error);
-		throw error;
+		throw new Error("Error setting up database schema", { cause: error });
 	}
 }

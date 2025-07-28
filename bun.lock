@@ -131,6 +131,7 @@
       "dependencies": {
         "kysely": "^0.28.2",
         "kysely-do": "^0.0.1-rc.1",
+        "types": "workspace:*",
         "uuid": "^11.1.0",
       },
       "peerDependencies": {
@@ -147,7 +148,10 @@
         "types": "workspace:*",
       },
       "peerDependencies": {
+        "@cloudflare/vitest-pool-workers": "*",
+        "playwright": "*",
         "typescript": "*",
+        "vitest": "*",
         "wrangler": "*",
       },
     },

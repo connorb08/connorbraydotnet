@@ -1,6 +1,6 @@
 type ErrorResult = {
 	error: string;
-	data?: unknown | undefined;
+	data?: undefined;
 };
 
 type SuccessResult<T> = {
@@ -8,10 +8,11 @@ type SuccessResult<T> = {
 	error?: undefined;
 };
 
-export type Result<T> = ErrorResult | SuccessResult<T>;
-export function ErrorResult<T>(error: string): Result<T> {
+export type Result<T> = SuccessResult<T> | ErrorResult;
+
+export function Err<T>(error: string): Result<T> {
 	return { error };
 }
-export function SuccessResult<T>(data: T): Result<T> {
+export function Ok<T>(data: T): Result<T> {
 	return { data };
 }

@@ -1,16 +1,24 @@
-import type { Generated, Insertable, Selectable, Updateable } from "kysely";
+import type { Insertable, Selectable, Updateable } from "kysely";
+import type { Prettify, QueensSolution } from "types";
 
-export interface Database {
+export type Database = {
 	project: ProjectTable;
-}
+	queens: QueensTable;
+};
 
-interface ProjectTable {
-	id: Generated<string>;
+type ProjectTable = {
+	id: string;
 	name: string;
 	description: string;
-}
+};
+
+type QueensTable = Prettify<
+	{
+		id: string;
+	} & QueensSolution
+>;
 
 export type Project = Omit<Selectable<ProjectTable>, "id">;
 export type ProjectWithId = Selectable<ProjectTable>;
-export type NewProject = Insertable<ProjectTable>;
+export type NewProject = Omit<Insertable<ProjectTable>, "id">;
 export type ProjectUpdate = Updateable<ProjectTable>;

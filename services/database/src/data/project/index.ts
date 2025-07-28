@@ -31,7 +31,7 @@ export async function GetAllProjects(
 	try {
 		const projects = await db
 			.selectFrom("project")
-			.select(["name", "description"])
+			.select(["id", "name", "description"])
 			.execute();
 		return SuccessResult(projects);
 	} catch (error) {
