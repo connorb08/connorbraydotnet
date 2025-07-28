@@ -6,7 +6,7 @@ dist/
 *.tsbuildinfo
 
 /.react-router/
-# build/
+build/
 
 # Playwright
 /test-results/
