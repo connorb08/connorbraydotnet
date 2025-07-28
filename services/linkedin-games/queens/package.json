@@ -1,0 +1,29 @@
+{
+	"name": "queens",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"typegen": "wrangler types",
+		"typecheck": "bun run typegen && tsc -b",
+		"test": "vitest --run"
+	},
+	"imports": {
+		"#src/*": "./src/*.ts",
+		"#worker": "./worker/index.ts"
+	},
+	"dependencies": {
+		"@cloudflare/playwright": "^0.0.10",
+		"clog": "workspace:*",
+		"types": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*",
+		"playwright": "*",
+		"vitest": "*",
+		"@cloudflare/vitest-pool-workers": "*"
+	}
+}

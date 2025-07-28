@@ -7,7 +7,7 @@
 	"workspaces": [
 		"apps/*",
 		"sites/*",
-		"services/*",
+		"services/**/*",
 		"packages/*",
 		"projects/*",
 		"inf/"

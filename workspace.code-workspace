@@ -5,12 +5,20 @@
 			"name": "root"
 		},
 		{
-			"path": "./apps",
-			"name": "apps"
+			"path": "./sites",
+			"name": "sites"
+		},
+		{
+			"path": "./services",
+			"name": "services"
 		},
 		{
 			"path": "./packages",
 			"name": "packages"
+		},
+		{
+			"path": "./projects",
+			"name": "projects"
 		}
 	],
 	"settings": {
@@ -32,9 +40,10 @@
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
 			"**/build": true,
-			"apps": true,
+			"sites": true,
 			"packages": true,
 			"projects": true,
+			"services": true,
 			"bun.lock": true
 		},
 		"editor.formatOnSave": true,

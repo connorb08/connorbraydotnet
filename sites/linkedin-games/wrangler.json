@@ -21,10 +21,14 @@
 	"triggers": {
 		"crons": ["0 14 * * *"]
 	},
-	"browser": {
-		"binding": "BROWSER",
-		"experimental_remote": true
-	},
+	"services": [
+		{
+			"service": "queens",
+			"entrypoint": "Entrypoint",
+			"binding": "QUEENS",
+			"experimental_remote": true
+		}
+	],
 	"durable_objects": {
 		"bindings": [
 			{
