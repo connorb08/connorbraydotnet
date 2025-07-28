@@ -83,7 +83,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
 				repositoryUrl={projectData.repositoryUrl}
 				liveUrl={projectData.liveUrl}
 				images={projectData.images}
-				heroElement={<QueensResult gameData={data} />}
+				heroElement={<QueensResult {...data} />}
 				challenges={projectData.challenges}
 				solutions={projectData.solutions}
 				features={projectData.features}

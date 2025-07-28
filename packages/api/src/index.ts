@@ -11,6 +11,10 @@ export class MainEntrypoint extends WorkerEntrypoint<Env> {
 			return new Response("Internal Server Error", { status: 500 });
 		}
 	}
+	async updateQueens(): Promise<GameData> {
+		await this.env.LINKEDIN_GAMES.scheduled({} as ScheduledController);
+		return await this.env.LINKEDIN_GAMES.getResult();
+	}
 	async queensResult(): Promise<GameData> {
 		return await this.env.LINKEDIN_GAMES.getResult();
 	}

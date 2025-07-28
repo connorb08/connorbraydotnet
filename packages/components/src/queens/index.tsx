@@ -1,11 +1,7 @@
 import type { GameData } from "shared";
 import style from "./style.module.css";
 
-interface Props {
-	gameData: GameData;
-}
-
-const gameData: GameData = {
+const _gameData: GameData = {
 	sideLength: 9,
 	colors: [
 		"rgb(187, 163, 226)",
@@ -85,7 +81,8 @@ const CrossSvg = () => (
 	</svg>
 );
 
-export function QueensResult(_: Props) {
+export function QueensResult(props: GameData) {
+	const gameData: GameData = props || _gameData;
 	return (
 		<div
 			className={style.container}
