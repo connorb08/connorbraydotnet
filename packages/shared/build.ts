@@ -9,7 +9,7 @@ import {
 	ScriptTarget,
 	transpileDeclaration,
 } from "typescript";
-import { ResumeSchema } from "#schemas";
+import { ResumeSchema } from "./src/schemas";
 
 const ajv = new Ajv({
 	strict: true,

@@ -11,7 +11,6 @@
 		"paths": {
 			"~/styles": ["src/styles/_index.scss"]
 		},
-		"composite": true,
 		"strict": true,
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
 		"types": ["vite/client"],

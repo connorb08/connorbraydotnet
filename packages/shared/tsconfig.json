@@ -3,18 +3,19 @@
 	"files": [],
 	"references": [
 		{
-			"path": "./tsconfig.src.json"
+			"path": "./tsconfig.lib.json"
 		},
 		{
-			"path": "./tsconfig.test.json"
+			"path": "./tsconfig.spec.json"
 		},
 		{
 			"path": "./tsconfig.build.json"
 		}
 	],
 	"compilerOptions": {
-		"composite": true,
-		"rootDir": ".",
-		"outDir": ".tsbuildinfo"
+		"outDir": ".tsbuildinfo",
+		"paths": {
+			"~/types": ["./src/types/index.ts"]
+		}
 	}
 }

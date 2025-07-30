@@ -1,8 +1,15 @@
 {
 	"extends": "../../tsconfig.base.json",
-	"include": ["src/**/*.ts"],
+	"files": [],
 	"compilerOptions": {
-		"composite": true,
-		"types": ["./worker-configuration.d.ts"]
-	}
+		"composite": true
+	},
+	"references": [
+		{
+			"path": "../../packages/types"
+		},
+		{
+			"path": "./tsconfig.app.json"
+		}
+	]
 }

@@ -1,5 +1,5 @@
-import type { Resume } from "#types";
-import { DeepCopy } from "#utils";
+import type { Resume } from "~/types";
+import { DeepCopy } from "../../utils";
 
 const ResumeData: Resume = {
 	name: "Ronald McDonald",

@@ -3,6 +3,15 @@
 	"files": [],
 	"references": [
 		{
+			"path": "../../services/api"
+		},
+		{
+			"path": "../../services/content-manager"
+		},
+		{
+			"path": "../../packages/components"
+		},
+		{
 			"path": "../../packages/shared"
 		},
 		{
@@ -13,14 +22,6 @@
 		}
 	],
 	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"verbatimModuleSyntax": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"noEmit": true,
-		"composite": true,
-		"rootDir": ".",
 		"outDir": ".tsbuildinfo"
 	}
 }

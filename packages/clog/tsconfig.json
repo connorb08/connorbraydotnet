@@ -1,7 +1,12 @@
 {
 	"extends": "../../tsconfig.base.json",
-	"include": ["**/*.ts"],
+	"files": [],
 	"compilerOptions": {
-		"composite": true
-	}
+		"outDir": ".tsbuildinfo"
+	},
+	"references": [
+		{
+			"path": "./tsconfig.lib.json"
+		}
+	]
 }

@@ -10,7 +10,8 @@
 		".": "./src/index.ts"
 	},
 	"scripts": {
-		"dev": "bun run index.ts"
+		"dev": "bun run index.ts",
+		"typecheck": "tsc -b"
 	},
 	"peerDependencies": {
 		"vitest": "*"

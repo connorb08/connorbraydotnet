@@ -1,22 +1,25 @@
 {
-	"extends": "../tsconfig.json",
-	"include": ["src", "worker"],
+	"extends": "../../../tsconfig.base.json",
+	"files": [],
 	"compilerOptions": {
 		"composite": true,
-		"types": ["./worker-configuration.d.ts", "vitest/globals"],
-		"target": "esnext",
-		"lib": ["ESNext"],
-		"module": "esnext",
-		"moduleResolution": "bundler",
-		"resolveJsonModule": true,
-		"allowJs": true,
-		"checkJs": false,
-		"noEmit": true,
-		"isolatedModules": true,
-		"allowSyntheticDefaultImports": true,
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"tsBuildInfoFile": ".queens.tsbuildinfo"
-	}
+		"tsBuildInfoFile": "queens.tsconfig.tsbuildinfo"
+	},
+	"references": [
+		{
+			"path": "../../database"
+		},
+		{
+			"path": "../../../packages/types"
+		},
+		{
+			"path": "../../../packages/clog"
+		},
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		}
+	]
 }

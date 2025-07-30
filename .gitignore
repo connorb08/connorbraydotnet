@@ -4,6 +4,7 @@
 dist
 tmp
 out-tsc
+**/out-tsc
 
 # dependencies
 node_modules
@@ -48,5 +49,6 @@ Thumbs.db
 **/.tsbuildinfo
 
 .env
+**/.env
 
 .wrangler

@@ -1,6 +1,12 @@
 {
 	"files": [],
 	"compilerOptions": {
+		/* nx required options */
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+
 		/* Base Options */
 		"allowJs": false,
 		"isolatedModules": true,
@@ -40,7 +46,7 @@
 		/* If NOT transpiling with TypeScript: */
 		"module": "preserve",
 		"moduleResolution": "bundler",
-		"noEmit": true,
+		// "noEmit": true,
 
 		/* Library */
 		"lib": ["ESNext"],

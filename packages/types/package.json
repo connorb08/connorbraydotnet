@@ -1,6 +1,9 @@
 {
 	"name": "types",
 	"type": "module",
+	"scripts": {
+		"typecheck": "tsc -b"
+	},
 	"exports": {
 		".": "./src/index.ts"
 	},

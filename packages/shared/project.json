@@ -12,8 +12,7 @@
 				"{projectRoot}/src",
 				"{projectRoot}/validator",
 				"{projectRoot}/test"
-			],
-			"outputs": ["{projectRoot}/coverage"]
+			]
 		}
 	}
 }

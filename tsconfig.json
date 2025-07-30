@@ -3,10 +3,31 @@
 	"files": [],
 	"references": [
 		{
+			"path": "./packages/types"
+		},
+		{
+			"path": "./packages/components"
+		},
+		{
 			"path": "./packages/shared"
 		},
 		{
+			"path": "./packages/clog"
+		},
+		{
+			"path": "./sites/admin"
+		},
+		{
 			"path": "./sites/resume"
+		},
+		{
+			"path": "./sites/main"
+		},
+		{
+			"path": "./sites/linkedin-games"
+		},
+		{
+			"path": "./services/api"
 		},
 		{
 			"path": "./services/content-manager"
@@ -15,13 +36,10 @@
 			"path": "./services/database"
 		},
 		{
-			"path": "./packages/components"
+			"path": "./services/linkedin-games/queens"
 		},
 		{
-			"path": "./sites/main"
-		},
-		{
-			"path": "./sites/linkedin-games"
+			"path": "./projects/pretty-tsdoc"
 		}
 	],
 	"compilerOptions": {

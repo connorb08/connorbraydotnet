@@ -5,16 +5,20 @@
 
 A monorepo for the connorbray.net personal website, resume, and content management system. Built for performance, scalability, and developer experience using modern TypeScript, React, Cloudflare Workers, and infrastructure-as-code.
 
-## Packages
+## Websites
 
-- **site/**  
+- **main/**  
   The main website frontend, built with React, TypeScript, and React Router 7. Features a portfolio, blog, and photography gallery.
 
 - **resume/**  
   Resume service and API. Generates resume in HTML/CSS. Can be exported to PDF. Validates resume data using JSON schema and provides server-rendered HTML/CSS output. Includes integration and unit tests.
 
+## Services
+
 - **content-manager/**  
   Content management backend for handling static assets and other content. Uses Cloudflare R2 for storage.
+
+## Packages
 
 badges:
 
@@ -52,7 +56,6 @@ ci/cd:
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 
 
-
 technologies:
 
 ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
@@ -69,25 +72,19 @@ other:
 
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-
-
-
 links:
 
 ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)
-
 
 testing:
 
 ![Vitest](https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B)
 ![Playwright](https://img.shields.io/badge/-playwright-%232EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 
-
 version control:
 
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-
 
 secret management:
 

@@ -1,18 +1,9 @@
-import { defineConfig } from "vitest/config";
+import { defineProject } from "vitest/config";
 
-export default defineConfig({
+export default defineProject({
 	test: {
 		name: "Unit",
+		globals: true,
 		include: ["test/**/*.spec.ts"],
-		pool: "threads",
-		coverage: {
-			provider: "v8",
-			reporter: ["text", "json", "html"],
-			include: ["src"],
-			reportsDirectory: "./test/coverage",
-		},
-		// alias: {
-		// 	"#validator": resolve("test/__mocks__/validator.ts"),
-		// },
 	},
 });

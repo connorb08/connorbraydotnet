@@ -1,0 +1,24 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["**/*.ts"],
+	"exclude": ["**/*.spec.ts"],
+	"compilerOptions": {
+		"composite": true,
+		"types": ["./worker-configuration.d.ts"],
+		"module": "ESNext",
+		"target": "esnext",
+		"lib": ["ESNext"],
+		"tsBuildInfoFile": "queens.tsconfig.app.tsbuildinfo"
+	},
+	"references": [
+		{
+			"path": "../../database/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/types/tsconfig.lib.json"
+		},
+		{
+			"path": "../../../packages/clog/tsconfig.lib.json"
+		}
+	]
+}
