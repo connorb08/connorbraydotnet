@@ -6,22 +6,22 @@
 			"path": "./packages/shared"
 		},
 		{
-			"path": "./apps/resume"
+			"path": "./sites/resume"
 		},
 		{
-			"path": "./packages/content-manager"
+			"path": "./services/content-manager"
 		},
 		{
-			"path": "./packages/database"
+			"path": "./services/database"
 		},
 		{
 			"path": "./packages/components"
 		},
 		{
-			"path": "./apps/site"
+			"path": "./sites/main"
 		},
 		{
-			"path": "./apps/linkedin-games"
+			"path": "./sites/linkedin-games"
 		}
 	],
 	"compilerOptions": {
