@@ -5,8 +5,20 @@
 			"type": "bun",
 			"request": "launch",
 			"name": "Debug Queens",
-			"cwd": "${workspaceFolder}/apps/queens",
+			"cwd": "${workspaceFolder}/services/linkedin-games/queens",
 			"program": "dev.ts",
+			"args": [],
+			"env": {
+				"CLOG_LEVEL": "all"
+			},
+			"watchMode": false
+		},
+		{
+			"type": "bun",
+			"request": "launch",
+			"name": "Debug Queens (Local Puppeteer)",
+			"cwd": "${workspaceFolder}/services/linkedin-games/queens",
+			"program": "puppeteer.ts",
 			"args": [],
 			"env": {
 				"CLOG_LEVEL": "all"

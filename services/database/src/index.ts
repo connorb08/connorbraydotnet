@@ -1,11 +1,15 @@
 import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely } from "kysely";
 import { DODialect } from "kysely-do";
-import type { Database } from "./models";
+import type { QueensSolution } from "types";
+import { PutQueens } from "./data/queens";
+import type { Database, Queens } from "./models";
 import SetupDatabaseSchema from "./schema";
+import type { Result } from "./utils";
 
 export class DatabaseObject extends DurableObject<Env> {
 	private db: Kysely<Database>;
+
 	constructor(ctx: DurableObjectState, env: Env) {
 		super(ctx, env);
 		this.db = new Kysely<Database>({
@@ -21,23 +25,9 @@ export class DatabaseObject extends DurableObject<Env> {
 		});
 	}
 
-	// async createProject(
-	// 	name: string,
-	// 	description: string,
-	// ): Promise<Result<Project>> {
-	// 	return CreateNewProject(this.db, { name, description });
-	// }
-
-	// async getAll<T extends keyof Database>(
-	// 	table: T,
-	// ): Promise<Result<Database[T][]>> {
-	// 	try {
-	// 		return Ok(await this.db.selectFrom(table).selectAll().execute());
-	// 	} catch (error) {
-	// 		console.error(`Error fetching data from ${table}:`, error);
-	// 		return Err(`Error fetching data from ${table}`);
-	// 	}
-	// }
+	public async putQueens(solution: QueensSolution): Promise<Result<Queens>> {
+		return await PutQueens(this.db, solution);
+	}
 
 	async deleteData(): Promise<void> {
 		try {
@@ -49,11 +39,12 @@ export class DatabaseObject extends DurableObject<Env> {
 	}
 }
 
-export default class Entrypoint extends WorkerEntrypoint<Env> {
-	public override async fetch(_request: Request) {
-		await this.env.DATABASE.get(
+export class Entrypoint extends WorkerEntrypoint<Env> {
+	public async putQueens(solution: QueensSolution): Promise<Result<Queens>> {
+		return await this.env.DATABASE.get(
 			this.env.DATABASE.idFromName("default"),
-		).deleteData();
-		return new Response("Hello World");
+		).putQueens(solution);
 	}
 }
+
+export default Entrypoint;

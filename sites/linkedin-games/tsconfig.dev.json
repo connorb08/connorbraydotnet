@@ -1,9 +1,0 @@
-{
-	"extends": "./tsconfig.json",
-	"include": ["dev.ts", "src"],
-	"exclude": ["**/*.spec.ts"],
-	"compilerOptions": {
-		"types": ["bun"],
-		"composite": true
-	}
-}

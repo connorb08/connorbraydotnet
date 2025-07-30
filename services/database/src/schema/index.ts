@@ -12,6 +12,13 @@ export default async function SetupDatabaseSchema(
 			.addColumn("name", "text", (col) => col.notNull().unique())
 			.addColumn("description", "text", (col) => col.notNull())
 			.execute();
+		await db.schema
+			.createTable("queens")
+			.ifNotExists()
+			.addColumn("id", "text", (col) => col.notNull().primaryKey())
+			.addColumn("date", "text", (col) => col.notNull())
+			.addColumn("solution", "jsonb", (col) => col.notNull())
+			.execute();
 	} catch (error) {
 		console.error("Error setting up database schema:", error);
 		throw new Error("Error setting up database schema", { cause: error });

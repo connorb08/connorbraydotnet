@@ -12,6 +12,14 @@
 		"binding": "BROWSER",
 		"experimental_remote": true
 	},
+	"services": [
+		{
+			"service": "database",
+			"binding": "DATABASE",
+			"entrypoint": "Entrypoint",
+			"experimental_remote": true
+		}
+	],
 	"observability": {
 		"enabled": true
 	},

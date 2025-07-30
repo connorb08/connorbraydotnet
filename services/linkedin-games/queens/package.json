@@ -1,19 +1,6 @@
 {
 	"name": "queens",
 	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
-		"typegen": "wrangler types",
-		"typecheck": "bun run typegen && tsc -b",
-		"test": "vitest --run"
-	},
-	"imports": {
-		"#src/*": "./src/*.ts",
-		"#worker": "./worker/index.ts"
-	},
 	"dependencies": {
 		"@cloudflare/playwright": "^0.0.10",
 		"clog": "workspace:*",
@@ -25,5 +12,20 @@
 		"playwright": "*",
 		"vitest": "*",
 		"@cloudflare/vitest-pool-workers": "*"
+	},
+	"imports": {
+		"#src/*": "./src/*.ts",
+		"#worker": "./worker/index.ts"
+	},
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"play": "bun run dev.ts",
+		"pup": "bun run puppeteer.ts",
+		"start": "wrangler dev",
+		"typegen": "wrangler types -c wrangler.json -c ../../database/wrangler.json",
+		"typecheck": "bun run typegen && tsc -b",
+		"test": "vitest --run"
 	}
 }

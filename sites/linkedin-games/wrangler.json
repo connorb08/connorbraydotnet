@@ -6,7 +6,6 @@
 	"name": "linkedin-games",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-05-06",
-	"compatibility_flags": ["nodejs_compat_v2"],
 	"workers_dev": false,
 	"routes": [
 		{
@@ -18,29 +17,12 @@
 			"pattern": "linkedin-games.win"
 		}
 	],
-	"triggers": {
-		"crons": ["0 14 * * *"]
-	},
 	"services": [
 		{
-			"service": "queens",
+			"service": "database",
+			"binding": "DATABASE",
 			"entrypoint": "Entrypoint",
-			"binding": "QUEENS",
 			"experimental_remote": true
-		}
-	],
-	"durable_objects": {
-		"bindings": [
-			{
-				"class_name": "Storage",
-				"name": "STORAGE"
-			}
-		]
-	},
-	"migrations": [
-		{
-			"tag": "v1",
-			"new_sqlite_classes": ["Storage"]
 		}
 	],
 	"observability": {

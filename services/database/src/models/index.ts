@@ -1,5 +1,5 @@
 import type { Insertable, Selectable, Updateable } from "kysely";
-import type { Prettify, QueensSolution } from "types";
+import type { QueensTable } from "./queens";
 
 export type Database = {
 	project: ProjectTable;
@@ -12,13 +12,9 @@ type ProjectTable = {
 	description: string;
 };
 
-type QueensTable = Prettify<
-	{
-		id: string;
-	} & QueensSolution
->;
-
 export type Project = Omit<Selectable<ProjectTable>, "id">;
 export type ProjectWithId = Selectable<ProjectTable>;
 export type NewProject = Omit<Insertable<ProjectTable>, "id">;
 export type ProjectUpdate = Updateable<ProjectTable>;
+
+export type * from "./queens";

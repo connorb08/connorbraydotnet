@@ -189,6 +189,7 @@ class Graph {
 
 	// #region Methods
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is a complex algorithm that needs to be implemented as is.
 	public findSolution(): QueensSolution {
 		let constraintUpdated = true;
 		search: while (constraintUpdated) {
@@ -205,10 +206,6 @@ class Graph {
 				while (row.localSearch()) {
 					constraintUpdated = true;
 				}
-				// if (row.localSearch()) {
-				// 	constraintUpdated = true;
-				// 	continue search;
-				// }
 			}
 
 			for (const column of this._columns) {
@@ -218,10 +215,6 @@ class Graph {
 					constraintUpdated = true;
 					// continue;
 				}
-				// if (column.localSearch()) {
-				// 	constraintUpdated = true;
-				// 	continue search;
-				// }
 			}
 
 			for (const color of this._colors) {
@@ -229,25 +222,12 @@ class Graph {
 				// continue local search until no more constraints are updated
 				while (color.localSearch()) {
 					constraintUpdated = true;
-					// continue search;
 				}
-				// if (color.localSearch()) {
-				// 	constraintUpdated = true;
-				// 	continue search;
-				// }
 			}
 
 			if (constraintUpdated) {
 				continue;
 			}
-
-			// for (const cell of this._cells) {
-			// 	logger.debug(`Searching cell ${cell.id}`);
-			// 	if (cell.localSearch()) {
-			// 		constraintUpdated = true;
-			// 		continue search;
-			// 	}
-			// }
 
 			// Find  combination of all color sets. we only have to look at 2 or more colors, local search for 1 color is alrady done
 			// For a group of x colors, if each color has x columns or x rows,

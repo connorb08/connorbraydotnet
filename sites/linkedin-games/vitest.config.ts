@@ -1,5 +1,4 @@
 import { defineWorkersProject } from "@cloudflare/vitest-pool-workers/config";
-import { defineConfig } from "vite";
 import { defineProject } from "vitest/config";
 
 const worker = defineWorkersProject({
@@ -17,16 +16,8 @@ const worker = defineWorkersProject({
 	},
 });
 
-const unit = defineProject({
+export default defineProject({
 	test: {
-		name: "Queens Unit",
-		include: ["src/**/*.spec.ts"],
-		globals: true,
-	},
-});
-
-export default defineConfig({
-	test: {
-		projects: [unit, worker],
+		projects: [worker],
 	},
 });

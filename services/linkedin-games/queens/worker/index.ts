@@ -1,8 +1,8 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
 import logger from "clog";
 import type { QueensSolution } from "types";
-import { SolutionFactory } from "#src/index";
 import { PageController } from "#src/page-controller/cloudflare";
+import { SolutionFactory } from "../src";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public async solve(): Promise<QueensSolution> {
@@ -14,7 +14,7 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 	public override async scheduled(_: ScheduledController): Promise<void> {
 		try {
 			const solution = await this.solve();
-			console.log(solution);
+			await this.env.DATABASE.putQueens(solution);
 			logger.debug("Game solved and result stored successfully.");
 		} catch (error) {
 			logger.error("Error solving game:", error);

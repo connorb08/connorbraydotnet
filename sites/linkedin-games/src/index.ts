@@ -1,1 +1,0 @@
-export { SolutionFactory } from "./factory";

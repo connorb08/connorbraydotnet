@@ -9,5 +9,5 @@ const solution = await SolutionFactory({
 });
 const end = performance.now();
 logger.debug("Stop");
-logger.debug(`Execution time: ${end - start} milliseconds`);
+logger.info(`Execution time: ${end - start} milliseconds`);
 console.log("Result:", solution);

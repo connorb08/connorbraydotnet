@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { v7 } from "uuid";
 import type { Database, NewProject, Project } from "../../models";
-import { ErrorResult, type Result, SuccessResult } from "../../utils";
+import { Err, Ok, type Result } from "../../utils";
 
 export async function CreateNewProject(
 	db: Kysely<Database>,
@@ -14,14 +14,12 @@ export async function CreateNewProject(
 			.returning(["name", "description"])
 			.execute();
 		if (!project) {
-			return ErrorResult("Failed to create project");
+			return Err("Failed to create project");
 		}
-		return SuccessResult(project);
+		return Ok(project);
 	} catch (error) {
 		console.error("Error creating project:", error);
-		return ErrorResult(
-			error instanceof Error ? error.message : "Unknown error",
-		);
+		return Err(error instanceof Error ? error.message : "Unknown error");
 	}
 }
 
@@ -33,11 +31,9 @@ export async function GetAllProjects(
 			.selectFrom("project")
 			.select(["id", "name", "description"])
 			.execute();
-		return SuccessResult(projects);
+		return Ok(projects);
 	} catch (error) {
 		console.error("Error fetching projects:", error);
-		return ErrorResult(
-			error instanceof Error ? error.message : "Unknown error",
-		);
+		return Err(error instanceof Error ? error.message : "Unknown error");
 	}
 }
