@@ -1,4 +1,17 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["src", "esbuild.ts"]
+	"include": ["src", "esbuild.ts"],
+	"compilerOptions": {
+		"outDir": ".tsbuildinfo",
+		"module": "Node16",
+		"target": "ES2022",
+		"lib": ["ES2022"],
+		"rootDir": ".",
+		// "noEmit": true,
+		"moduleResolution": "Node16",
+		/* Additional Checks */
+		"noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+		"noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+		"noUnusedParameters": true /* Report errors on unused parameters. */
+	}
 }

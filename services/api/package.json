@@ -5,10 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"typegen": "wrangler types -c wrangler.json -c ../../apps/linkedin-games/wrangler.json"
-	},
-	"dependencies": {
-		"shared": "workspace:*"
+		"typegen": "wrangler types",
+		"typecheck": "tsc -b"
 	},
 	"peerDependencies": {
 		"typescript": "*",

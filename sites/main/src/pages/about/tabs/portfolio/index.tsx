@@ -1,17 +1,17 @@
-import type { ResumeProject } from "shared";
+import type { Resume, ResumeProject } from "shared";
 
-const Portfolio = ({
-	projects,
-}: {
-	projects?: ResumeProject[] | undefined;
-}) => {
+type Props = {
+	resume: Resume;
+};
+
+const Portfolio = (props: Props) => {
 	const bottomBorder = <div className="mbo5der-gray-8 bordborder-b" />;
 
 	return (
 		<div className="block-section p-7">
 			<h2 className="block-title">Projects</h2>
 
-			{projects?.map((project, index, arr) => {
+			{props.resume.projects?.map((project, index, arr) => {
 				return (
 					<div key={index}>
 						<Project {...project} />

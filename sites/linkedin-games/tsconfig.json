@@ -2,28 +2,26 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"references": [
-    {
-      "path": "../../packages/shared"
-    },
-    {
-      "path": "../../packages/components"
-    },
-    {
-      "path": "../../packages/clog"
-    },
-    {
-      "path": "./tsconfig.test.json"
-    },
-    {
-      "path": "./tsconfig.cloudflare.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
+		{
+			"path": "../../packages/shared"
+		},
+		{
+			"path": "../../packages/components"
+		},
+		{
+			"path": "../../packages/clog"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		}
+	],
 	"compilerOptions": {
-		"composite": true,
-		"rootDir": ".",
 		"outDir": ".tsbuildinfo"
 	}
 }

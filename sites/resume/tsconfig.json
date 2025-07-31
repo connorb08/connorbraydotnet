@@ -3,20 +3,16 @@
 	"files": [],
 	"references": [
 		{
-			"path": "../../packages/shared"
-		},
-		{
 			"path": "./tsconfig.node.json"
 		},
 		{
 			"path": "./tsconfig.cloudflare.json"
 		},
 		{
-			"path": "./tsconfig.test.json"
+			"path": "./tsconfig.spec.json"
 		}
 	],
 	"compilerOptions": {
-		"composite": true,
 		"rootDir": ".",
 		"outDir": ".tsbuildinfo"
 	}

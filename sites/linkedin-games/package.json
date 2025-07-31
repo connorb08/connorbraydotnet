@@ -16,6 +16,7 @@
 	"dependencies": {
 		"components": "workspace:*",
 		"shared": "workspace:*",
+		"types": "workspace:*",
 		"clog": "workspace:*"
 	},
 	"peerDependencies": {

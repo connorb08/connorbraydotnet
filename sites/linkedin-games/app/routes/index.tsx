@@ -1,6 +1,5 @@
 import { logger } from "clog";
 import { QueensResult } from "components";
-import type { GameData } from "shared";
 import type { Route } from "./+types/index";
 
 export function meta(_: Route.MetaArgs) {
@@ -12,11 +11,12 @@ export function meta(_: Route.MetaArgs) {
 
 export async function loader({ context }: Route.LoaderArgs) {
 	try {
-		const storage = context.cloudflare.env.STORAGE.get(
-			context.cloudflare.env.STORAGE.idFromName("default"),
-		);
-		const data: GameData = await storage.getQueenSolution();
-		return { data };
+		const { error, data } = await context.cloudflare.env.DATABASE.getQueens();
+		if (error) {
+			logger.error("Error fetching game data:", error);
+			return { data: null };
+		}
+		return { data: data?.solution };
 	} catch (error) {
 		logger.error("Error fetching game data:", error);
 		return { data: null };

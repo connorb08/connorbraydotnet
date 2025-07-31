@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["app/**/*.spec.ts", "worker/**/*.spec.ts"],
+	"compilerOptions": {
+		"types": ["vitest/globals"]
+	}
+}

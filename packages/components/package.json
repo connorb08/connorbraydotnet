@@ -15,6 +15,7 @@
 	},
 	"peerDependencies": {
 		"typescript": "*",
-		"depcheck": "*"
+		"depcheck": "*",
+		"@types/css-modules": "*"
 	}
 }

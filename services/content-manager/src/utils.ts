@@ -1,10 +1,10 @@
-export enum Quality {
-	Low = 50,
-	MediumLow = 60,
-	Medium = 70,
-	MediumHigh = 80,
-	High = 90,
-}
+export const Quality = {
+	Low: 50,
+	MediumLow: 60,
+	Medium: 70,
+	MediumHigh: 80,
+	High: 90,
+};
 
 export function calculateWidth(size: string | null): number {
 	switch (size) {

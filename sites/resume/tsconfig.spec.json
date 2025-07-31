@@ -1,0 +1,10 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["**.*.spec.ts"],
+	"exclude": ["test/e2e"],
+	"references": [
+		{
+			"path": "./tsconfig.cloudflare.json"
+		}
+	]
+}

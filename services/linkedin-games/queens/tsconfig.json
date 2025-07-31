@@ -2,8 +2,7 @@
 	"extends": "../../../tsconfig.base.json",
 	"files": [],
 	"compilerOptions": {
-		"composite": true,
-		"tsBuildInfoFile": "queens.tsconfig.tsbuildinfo"
+		"outDir": ".tsbuildinfo"
 	},
 	"references": [
 		{

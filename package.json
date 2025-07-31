@@ -43,6 +43,7 @@
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "^14.6.1",
 		"@types/bun": "^1.2.13",
+		"@types/css-modules": "^1.0.5",
 		"@types/node": "^22.15.3",
 		"@vitejs/plugin-react": "^4.4.1",
 		"@vitest/coverage-istanbul": "^3.1.3",

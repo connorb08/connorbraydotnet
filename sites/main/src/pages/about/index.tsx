@@ -1,4 +1,4 @@
-import { memo, use, useState } from "react";
+import { memo, useState } from "react";
 import { FaLinkedin as LinkedinIcon } from "react-icons/fa";
 import { VscGithub as GithubIcon } from "react-icons/vsc";
 import { Link } from "react-router";
@@ -9,14 +9,19 @@ import Leadership from "./tabs/leadership";
 import Portfolio from "./tabs/portfolio";
 import ResumeTab from "./tabs/resume";
 
-interface Props {
-	data: Resume | Promise<Resume> | undefined;
-	loading?: boolean;
-	error?: Error | null;
-}
+type Props =
+	| {
+			data: Resume;
+			loading: false;
+			error: Error | null;
+	  }
+	| {
+			data: Promise<Resume> | undefined;
+			loading: true;
+			error: Error | null;
+	  };
 
 const About = memo((props: Props) => {
-	const resume = props.data;
 	// TODO: get rid of this mess
 	// const resume = use(
 	// 	props.data
@@ -126,13 +131,9 @@ const About = memo((props: Props) => {
 						</ul>
 					</div>
 					{tab === 0 ? (
-						<ResumeTab
-							career={resume.career}
-							education={resume.education}
-							loading={props.loading}
-						/>
+						<ResumeTab resume={props.data} loading={props.loading} />
 					) : tab === 1 ? (
-						<Portfolio projects={resume.projects} />
+						<Portfolio resume={props.data} />
 					) : tab === 2 ? (
 						<Leadership roles={[]} />
 					) : null}

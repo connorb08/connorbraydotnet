@@ -8,6 +8,7 @@
 		"worker/**/*",
 		"worker-configuration.d.ts"
 	],
+	"exclude": ["**.*.spec.ts"],
 	"compilerOptions": {
 		"composite": true,
 		"strict": true,
@@ -24,5 +25,10 @@
 		},
 		"esModuleInterop": true,
 		"resolveJsonModule": true
-	}
+	},
+	"references": [
+		{
+			"path": "../../services/database/tsconfig.app.json"
+		}
+	]
 }

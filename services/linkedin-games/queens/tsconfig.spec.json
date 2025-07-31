@@ -2,11 +2,14 @@
 	"extends": "./tsconfig.json",
 	"include": ["**/*.spec.ts"],
 	"compilerOptions": {
-		"composite": true,
 		"types": ["vitest/globals"],
 		"module": "ESNext",
 		"target": "esnext",
-		"lib": ["ESNext"],
-		"tsBuildInfoFile": "queens.tsconfig.spec.tsbuildinfo"
-	}
+		"lib": ["ESNext"]
+	},
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		}
+	]
 }

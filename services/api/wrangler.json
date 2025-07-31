@@ -11,13 +11,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"services": [
-		{
-			"service": "linkedin-games",
-			"binding": "LINKEDIN_GAMES",
-			"entrypoint": "Entrypoint"
-		}
-	],
 	"route": {
 		"custom_domain": true,
 		"pattern": "next-api.connorbray.net"

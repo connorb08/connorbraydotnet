@@ -53,6 +53,7 @@
 		"customConditions": ["development"],
 
 		/* Output */
-		"outDir": ".tsbuildinfo"
+		"outDir": ".tsbuildinfo",
+		"rootDir": "."
 	}
 }

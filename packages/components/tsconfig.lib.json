@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["src"],
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"types": ["@types/css-modules"]
+	},
+	"references": [
+		{
+			"path": "../shared/tsconfig.lib.json"
+		}
+	]
+}

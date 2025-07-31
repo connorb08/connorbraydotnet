@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["**/*.ts"],
+	"compilerOptions": {
+		"types": ["./worker-configuration.d.ts"],
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"erasableSyntaxOnly": false
+	}
+}

@@ -1,12 +1,12 @@
 {
 	"extends": "../../tsconfig.base.json",
-	"include": ["src/**/*.ts", "seed.ts"],
+	"files": [],
 	"compilerOptions": {
-		"composite": true,
-		"types": ["./worker-configuration.d.ts"],
-		"resolveJsonModule": true,
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
-		"erasableSyntaxOnly": false
-	}
+		"outDir": ".tsbuildinfo"
+	},
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		}
+	]
 }

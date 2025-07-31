@@ -1,16 +1,20 @@
 import { Fragment } from "react";
-import type { ResumeCareer, ResumeEducation } from "shared";
+import type { Resume } from "shared";
 import Career from "./career";
 import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
 
-interface ExperienceProps {
-	career: ResumeCareer[];
-	education: ResumeEducation[];
-	loading?: boolean;
-}
+type Props =
+	| {
+			resume: Resume;
+			loading: false;
+	  }
+	| {
+			resume: Promise<Resume> | undefined;
+			loading: true;
+	  };
 
-const Experience = (props: ExperienceProps) => {
+const Experience = (props: Props) => {
 	const bottomBorder = <div className={style.bottomBorder} />;
 
 	return (
@@ -20,7 +24,7 @@ const Experience = (props: ExperienceProps) => {
 				{props.loading ? (
 					<EducationSkeleton />
 				) : (
-					props.education.map((data, index) => {
+					props.resume.education.map((data, index) => {
 						return <Education data={data} key={index} />;
 					})
 				)}
@@ -31,14 +35,14 @@ const Experience = (props: ExperienceProps) => {
 					? Array.from({ length: 3 }, (_, index) => (
 							<Fragment key={index}>
 								<EducationSkeleton />
-								{index !== props.career.length - 1 ? bottomBorder : ""}
+								{index !== 3 - 1 ? bottomBorder : ""}
 							</Fragment>
 						))
-					: props.career.map((job, index) => {
+					: props.resume.career.map((job, index) => {
 							return (
 								<Fragment key={index}>
 									<Career data={job} />
-									{index !== props.career.length - 1 ? bottomBorder : ""}
+									{index !== props.resume.career.length - 1 ? bottomBorder : ""}
 								</Fragment>
 							);
 						})}

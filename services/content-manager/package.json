@@ -9,7 +9,7 @@
 		"seed": "bun run seed.ts",
 		"format": "biome format",
 		"lint": "biome lint",
-		"typecheck": "tsc -b && tsc -p backend/tsconfig.json",
+		"typecheck": "tsc -b",
 		"depcheck": "bunx depcheck"
 	},
 	"peerDependencies": {
