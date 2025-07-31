@@ -11,7 +11,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"shared": "workspace:*"
+		"shared": "workspace:*",
+		"types": "workspace:*"
 	},
 	"peerDependencies": {
 		"typescript": "*",

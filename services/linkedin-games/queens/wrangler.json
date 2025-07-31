@@ -16,8 +16,7 @@
 		{
 			"service": "database",
 			"binding": "DATABASE",
-			"entrypoint": "Entrypoint",
-			"experimental_remote": true
+			"entrypoint": "Entrypoint"
 		}
 	],
 	"observability": {

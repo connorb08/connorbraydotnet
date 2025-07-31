@@ -27,6 +27,9 @@
 	"references": [
 		{
 			"path": "../../services/content-manager/tsconfig.app.json"
+		},
+		{
+			"path": "../../services/database/tsconfig.app.json"
 		}
 	]
 }

@@ -1,13 +1,17 @@
 import { QueensResult } from "components";
+import type { Queens } from "database/src/models";
+import type { Result } from "database/src/utils";
 import { NavLink } from "react-router";
-import type { GameData } from "shared";
 import { ProjectDetail } from "../../../../components/project";
 import type { Route } from "./+types";
 
 export async function loader({ context }: Route.LoaderArgs) {
-	const gameData: GameData = await context.cloudflare.env.API.queensResult();
-	console.log("Queens game data:", gameData);
-	return { data: gameData };
+	const { data, error }: Result<Queens> =
+		await context.cloudflare.env.DATABASE.getQueens();
+	if (error) {
+		console.error("Error fetching queens:", error);
+	}
+	return { data };
 }
 
 const projectData = {
@@ -83,7 +87,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
 				repositoryUrl={projectData.repositoryUrl}
 				liveUrl={projectData.liveUrl}
 				images={projectData.images}
-				heroElement={<QueensResult {...data} />}
+				heroElement={data ? <QueensResult {...data.solution} /> : null}
 				challenges={projectData.challenges}
 				solutions={projectData.solutions}
 				features={projectData.features}

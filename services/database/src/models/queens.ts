@@ -1,10 +1,15 @@
-import type { Insertable, Selectable, Updateable } from "kysely";
+import type {
+	Insertable,
+	JSONColumnType,
+	Selectable,
+	Updateable,
+} from "kysely";
 import type { QueensSolution } from "types";
 
 export type QueensTable = {
 	id: string;
 	date: string;
-	solution: QueensSolution;
+	solution: JSONColumnType<QueensSolution>;
 };
 
 export type Queens = Omit<Selectable<QueensTable>, "id">;

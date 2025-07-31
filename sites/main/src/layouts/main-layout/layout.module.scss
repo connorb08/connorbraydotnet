@@ -88,6 +88,11 @@
     margin-bottom: 0.5rem;
     overflow: hidden;
 
+    &[data-fullscreen="true"] {
+        margin: 0;
+        border-radius: 0;
+    }
+
     &__main {
         @include sans-serif;
         height: 100%;

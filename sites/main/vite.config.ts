@@ -13,13 +13,16 @@ export default defineConfig({
 			},
 			auxiliaryWorkers: [
 				{
-					configPath: "../../packages/content-manager/wrangler.json",
+					configPath: "../../services/content-manager/wrangler.json",
 				},
 				{
-					configPath: "../../packages/api/wrangler.json",
+					configPath: "../../services/database/wrangler.json",
 				},
 				{
-					configPath: "../linkedin-games/wrangler.json",
+					configPath: "../../services/api/wrangler.json",
+				},
+				{
+					configPath: "../../services/linkedin-games/queens/wrangler.json",
 				},
 			],
 		}),

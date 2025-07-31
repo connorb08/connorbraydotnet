@@ -35,13 +35,18 @@ const routes = [
 
 interface NavbarProps {
 	open?: boolean;
+	fullscreen?: boolean;
 }
 
 const Navbar = memo((props: NavbarProps) => {
 	const location = useLocation();
 
 	return (
-		<div className={`${style.navbar} ${props.open ? style["--open"] : ""}`}>
+		<div
+			className={style.navbar}
+			data-fullscreen={props.fullscreen}
+			data-open={props.open}
+		>
 			<nav className={style.navbar__content}>
 				<nav className={style.navbar__content__navigation}>
 					{routes.map((route) => (

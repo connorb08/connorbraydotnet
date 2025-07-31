@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
-		"typegen": "wrangler types -c wrangler.json -c ../../services/api/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
+		"typegen": "wrangler types -c wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",
@@ -25,7 +25,10 @@
 	"dependencies": {
 		"react-aria-components": "^1.10.1",
 		"shared": "workspace:*",
-		"components": "workspace:*"
+		"components": "workspace:*",
+		"clog": "workspace:*",
+		"database": "workspace:*",
+		"types": "workspace:*"
 	},
 	"devDependencies": {
 		"@material/material-color-utilities": "^0.3.0",

@@ -7,6 +7,10 @@
     width: fit-content;
     margin: 0.75rem;
 
+    &[data-fullscreen="true"] {
+        display: none;
+    }
+
     &__content {
         width: clamp(40px, 2rem, 64px);
         padding: clamp(2px, 0.25rem, 6px);

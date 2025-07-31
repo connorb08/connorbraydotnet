@@ -73,7 +73,11 @@
         }
     }
 
-    &.--open {
+    &[data-open="true"] {
         min-width: 10rem;
+    }
+
+    &[data-fullscreen="true"] {
+        display: none;
     }
 }

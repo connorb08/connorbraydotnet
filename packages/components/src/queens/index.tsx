@@ -1,4 +1,5 @@
 import type { GameData } from "shared";
+import type { QueensSolution } from "types";
 import style from "./style.module.css";
 
 const _gameData: GameData = {
@@ -81,25 +82,25 @@ const CrossSvg = () => (
 	</svg>
 );
 
-export function QueensResult(props: GameData) {
-	const gameData: GameData = props || _gameData;
+export function QueensResult(props: QueensSolution) {
+	const solution: QueensSolution = props || _gameData;
 	return (
 		<div
 			className={style.container}
 			style={{
-				gridTemplateColumns: `repeat(${gameData.sideLength}, 1fr)`,
+				gridTemplateColumns: `repeat(${solution.sideLength}, 1fr)`,
 			}}
 		>
-			{gameData.cellColors.map((color, index) => (
+			{solution.cellColors.map((color, index) => (
 				<div
 					key={index}
 					className={style.node}
 					style={{
-						backgroundColor: gameData.colors[color],
+						backgroundColor: solution.colors[color],
 					}}
-					data-queen={gameData.queenPositions.includes(index)}
+					data-queen={solution.queenPositions.includes(index)}
 				>
-					{gameData.queenPositions.includes(index) ? (
+					{solution.queenPositions.includes(index) ? (
 						<QueenSvg />
 					) : (
 						<CrossSvg />

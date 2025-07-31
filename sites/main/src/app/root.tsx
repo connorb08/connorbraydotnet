@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
 	isRouteErrorResponse,
 	Links,
@@ -7,7 +7,11 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "react-router";
-import { ProjectContext } from "#utils/context";
+import {
+	GlobalContext,
+	SettingsContext,
+	type SiteSettings,
+} from "#utils/context";
 import type { Route } from "./+types/root";
 
 /**
@@ -28,6 +32,18 @@ export const meta: Route.MetaFunction = () => {
 export function Layout({ children }: { children: React.ReactNode }) {
 	const rootRef = useRef<HTMLHtmlElement>(null);
 
+	const [settings, setSettings] = useState<SiteSettings>({
+		fullscreen: false,
+		showTerminal: true,
+	});
+
+	const toggleFullscreen = () => {
+		setSettings((prev) => ({
+			...prev,
+			fullscreen: !prev.fullscreen,
+		}));
+	};
+
 	return (
 		<html lang="en" ref={rootRef}>
 			<head>
@@ -38,9 +54,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<script src="/theme.js" />
 			</head>
 			<body>
-				<ProjectContext.Provider value={{ rootRef }}>
-					{children}
-				</ProjectContext.Provider>
+				<GlobalContext.Provider value={{ rootRef }}>
+					<SettingsContext.Provider
+						value={{ settings, setSettings, toggleFullscreen }}
+					>
+						{children}
+					</SettingsContext.Provider>
+				</GlobalContext.Provider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

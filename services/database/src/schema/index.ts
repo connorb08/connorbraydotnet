@@ -17,7 +17,7 @@ export default async function SetupDatabaseSchema(
 			.ifNotExists()
 			.addColumn("id", "text", (col) => col.notNull().primaryKey())
 			.addColumn("date", "text", (col) => col.notNull())
-			.addColumn("solution", "jsonb", (col) => col.notNull())
+			.addColumn("solution", "text", (col) => col.notNull())
 			.execute();
 	} catch (error) {
 		console.error("Error setting up database schema:", error);

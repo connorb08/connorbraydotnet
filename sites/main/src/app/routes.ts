@@ -22,7 +22,6 @@ const routeConfig = [
 		},
 	]),
 	route("/content/*", "routes/content.ts"),
-	route("/api", "routes/api.ts"),
 ] satisfies RouteConfig;
 
 export default routeConfig;

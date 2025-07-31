@@ -9,10 +9,11 @@ export async function PutQueens(
 	solution: QueensSolution,
 ): Promise<Result<Queens>> {
 	try {
+		const solutionString = JSON.stringify(solution);
 		const date = new Date().toISOString().split("T")[0] || "unknown-date";
 		const [queens] = await db
 			.insertInto("queens")
-			.values({ id: v7(), date, solution })
+			.values({ id: v7(), date, solution: solutionString })
 			.returning(["date", "solution"])
 			.execute();
 		if (!queens) {
@@ -29,13 +30,13 @@ export async function GetCurrentQueens(
 	db: Kysely<Database>,
 ): Promise<Result<Queens>> {
 	try {
-		const date = new Date().toISOString().split("T")[0] || "unknown-date";
-		const queens = await db
+		const selectDate = new Date().toISOString().split("T")[0] || "unknown-date";
+		const { date, solution } = await db
 			.selectFrom("queens")
-			.select(["id", "date", "solution"])
-			.where("date", "=", date)
+			.select(["date", "solution"])
+			.where("date", "=", selectDate)
 			.executeTakeFirstOrThrow();
-		return Ok(queens);
+		return Ok({ date, solution: JSON.parse(solution as unknown as string) });
 	} catch (error) {
 		console.error("Error fetching queens:", error);
 		return Err(error instanceof Error ? error.message : "Unknown error");
