@@ -44,10 +44,15 @@ export async function clientLoader({
 }
 
 export default function ({ loaderData }: Route.ComponentProps) {
-	const { data, error, loading } = usePromise<Resume>(
-		loaderData.resumeData,
-		EmptyResume,
-	);
+	const {
+		data,
+		error,
+		loading: _,
+	} = usePromise<Resume>(loaderData.resumeData, EmptyResume);
 
-	return <About data={data} loading={loading} error={error} />;
+	if (error) {
+		console.error("Error loading resume data:", error);
+	}
+
+	return <About resume={data} />;
 }

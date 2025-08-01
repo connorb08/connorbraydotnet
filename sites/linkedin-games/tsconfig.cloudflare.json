@@ -8,7 +8,7 @@
 		"worker/**/*",
 		"worker-configuration.d.ts"
 	],
-	"exclude": ["**.*.spec.ts"],
+	"exclude": ["**/*.spec.ts"],
 	"compilerOptions": {
 		"composite": true,
 		"strict": true,
@@ -29,6 +29,9 @@
 	"references": [
 		{
 			"path": "../../services/database/tsconfig.app.json"
+		},
+		{
+			"path": "../../packages/clog/tsconfig.lib.json"
 		}
 	]
 }

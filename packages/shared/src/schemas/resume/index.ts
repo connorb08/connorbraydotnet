@@ -1,5 +1,5 @@
 import type { JSONSchemaType } from "ajv";
-import type { Resume } from "~/types";
+import type { Resume } from "#types";
 import { ResumeAboutSchema } from "./about";
 import { ResumeCareerSchema } from "./career";
 import { ResumeEducationSchema } from "./education";

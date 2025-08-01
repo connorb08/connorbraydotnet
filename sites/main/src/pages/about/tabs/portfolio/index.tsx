@@ -1,7 +1,7 @@
 import type { Resume, ResumeProject } from "shared";
 
 type Props = {
-	resume: Resume;
+	resume: Resume | Promise<Resume>;
 };
 
 const Portfolio = (props: Props) => {
@@ -11,14 +11,16 @@ const Portfolio = (props: Props) => {
 		<div className="block-section p-7">
 			<h2 className="block-title">Projects</h2>
 
-			{props.resume.projects?.map((project, index, arr) => {
-				return (
-					<div key={index}>
-						<Project {...project} />
-						{index !== arr.length - 1 ? bottomBorder : ""}
-					</div>
-				);
-			})}
+			{!(props.resume instanceof Promise)
+				? props.resume?.projects?.map((project, index, arr) => {
+						return (
+							<div key={index}>
+								<Project {...project} />
+								{index !== arr.length - 1 ? bottomBorder : ""}
+							</div>
+						);
+					})
+				: null}
 		</div>
 	);
 };

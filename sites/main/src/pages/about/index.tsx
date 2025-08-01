@@ -9,28 +9,11 @@ import Leadership from "./tabs/leadership";
 import Portfolio from "./tabs/portfolio";
 import ResumeTab from "./tabs/resume";
 
-type Props =
-	| {
-			data: Resume;
-			loading: false;
-			error: Error | null;
-	  }
-	| {
-			data: Promise<Resume> | undefined;
-			loading: true;
-			error: Error | null;
-	  };
+type Props = {
+	resume: Resume | Promise<Resume>;
+};
 
 const About = memo((props: Props) => {
-	// TODO: get rid of this mess
-	// const resume = use(
-	// 	props.data
-	// 		? props.data instanceof Promise
-	// 			? props.data
-	// 			: Promise.resolve(props.data)
-	// 		: Promise.resolve({} as Resume),
-	// );
-
 	const [tab, setTab] = useState<number>(0);
 	const tab0 = () => setTab(0);
 	const tab1 = () => setTab(1);
@@ -131,9 +114,9 @@ const About = memo((props: Props) => {
 						</ul>
 					</div>
 					{tab === 0 ? (
-						<ResumeTab resume={props.data} loading={props.loading} />
+						<ResumeTab resume={props.resume} />
 					) : tab === 1 ? (
-						<Portfolio resume={props.data} />
+						<Portfolio resume={props.resume} />
 					) : tab === 2 ? (
 						<Leadership roles={[]} />
 					) : null}

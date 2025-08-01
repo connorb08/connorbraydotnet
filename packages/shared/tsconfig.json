@@ -13,9 +13,6 @@
 		}
 	],
 	"compilerOptions": {
-		"outDir": ".tsbuildinfo",
-		"paths": {
-			"~/types": ["./src/types/index.ts"]
-		}
+		"outDir": ".tsbuildinfo"
 	}
 }

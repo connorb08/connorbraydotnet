@@ -1,4 +1,67 @@
 /* $seed: #409ab9; */
+.light {
+	--md-sys-color-primary: #006781;
+	--md-sys-color-onPrimary: #ffffff;
+	--md-sys-color-primaryContainer: #b9eaff;
+	--md-sys-color-onPrimaryContainer: #001f29;
+	--md-sys-color-secondary: #4c626b;
+	--md-sys-color-onSecondary: #ffffff;
+	--md-sys-color-secondaryContainer: #cfe6f1;
+	--md-sys-color-onSecondaryContainer: #071e26;
+	--md-sys-color-tertiary: #5b5b7e;
+	--md-sys-color-onTertiary: #ffffff;
+	--md-sys-color-tertiaryContainer: #e1dfff;
+	--md-sys-color-onTertiaryContainer: #181837;
+	--md-sys-color-error: #ba1a1a;
+	--md-sys-color-onError: #ffffff;
+	--md-sys-color-errorContainer: #ffdad6;
+	--md-sys-color-onErrorContainer: #410002;
+	--md-sys-color-background: #fbfcfe;
+	--md-sys-color-onBackground: #191c1d;
+	--md-sys-color-surface: #fbfcfe;
+	--md-sys-color-onSurface: #191c1d;
+	--md-sys-color-surfaceVariant: #dce4e8;
+	--md-sys-color-onSurfaceVariant: #40484c;
+	--md-sys-color-outline: #70787c;
+	--md-sys-color-outlineVariant: #c0c8cc;
+	--md-sys-color-shadow: #000000;
+	--md-sys-color-scrim: #000000;
+	--md-sys-color-inverseSurface: #2e3132;
+	--md-sys-color-inverseOnSurface: #eff1f3;
+	--md-sys-color-inversePrimary: #5fd4fd;
+}
+
+.dark {
+	--md-sys-color-primary: #5fd4fd;
+	--md-sys-color-onPrimary: #003544;
+	--md-sys-color-primaryContainer: #004d62;
+	--md-sys-color-onPrimaryContainer: #b9eaff;
+	--md-sys-color-secondary: #b3cad5;
+	--md-sys-color-onSecondary: #1e333c;
+	--md-sys-color-secondaryContainer: #354a53;
+	--md-sys-color-onSecondaryContainer: #cfe6f1;
+	--md-sys-color-tertiary: #c4c3eb;
+	--md-sys-color-onTertiary: #2d2d4d;
+	--md-sys-color-tertiaryContainer: #434465;
+	--md-sys-color-onTertiaryContainer: #e1dfff;
+	--md-sys-color-error: #ffb4ab;
+	--md-sys-color-onError: #690005;
+	--md-sys-color-errorContainer: #93000a;
+	--md-sys-color-onErrorContainer: #ffb4ab;
+	--md-sys-color-background: #191c1d;
+	--md-sys-color-onBackground: #e1e3e4;
+	--md-sys-color-surface: #191c1d;
+	--md-sys-color-onSurface: #e1e3e4;
+	--md-sys-color-surfaceVariant: #40484c;
+	--md-sys-color-onSurfaceVariant: #c0c8cc;
+	--md-sys-color-outline: #8a9296;
+	--md-sys-color-outlineVariant: #40484c;
+	--md-sys-color-shadow: #000000;
+	--md-sys-color-scrim: #000000;
+	--md-sys-color-inverseSurface: #e1e3e4;
+	--md-sys-color-inverseOnSurface: #2e3132;
+	--md-sys-color-inversePrimary: #006781;
+}
 
 .light {
 	--md-sys-color-primary: rgb(11 103 128);

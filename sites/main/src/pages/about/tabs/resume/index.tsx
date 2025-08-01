@@ -4,15 +4,9 @@ import Career from "./career";
 import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
 
-type Props =
-	| {
-			resume: Resume;
-			loading: false;
-	  }
-	| {
-			resume: Promise<Resume> | undefined;
-			loading: true;
-	  };
+type Props = {
+	resume: Resume | Promise<Resume>;
+};
 
 const Experience = (props: Props) => {
 	const bottomBorder = <div className={style.bottomBorder} />;
@@ -21,7 +15,7 @@ const Experience = (props: Props) => {
 		<Fragment>
 			<div className={style.section}>
 				<h2 className={style.section__title}>Education</h2>
-				{props.loading ? (
+				{props.resume instanceof Promise ? (
 					<EducationSkeleton />
 				) : (
 					props.resume.education.map((data, index) => {
@@ -31,18 +25,18 @@ const Experience = (props: Props) => {
 			</div>
 			<div className={style.section}>
 				<h2 className={style.section__title}>Experience</h2>
-				{props.loading
+				{props.resume instanceof Promise
 					? Array.from({ length: 3 }, (_, index) => (
 							<Fragment key={index}>
 								<EducationSkeleton />
 								{index !== 3 - 1 ? bottomBorder : ""}
 							</Fragment>
 						))
-					: props.resume.career.map((job, index) => {
+					: props.resume.career.map((job, index, jobs) => {
 							return (
 								<Fragment key={index}>
 									<Career data={job} />
-									{index !== props.resume.career.length - 1 ? bottomBorder : ""}
+									{index !== jobs.length - 1 ? bottomBorder : ""}
 								</Fragment>
 							);
 						})}

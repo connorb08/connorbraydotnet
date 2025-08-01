@@ -7,7 +7,7 @@ type SuccessState<T> = {
 	loading: false;
 };
 type FailureState<T> = {
-	data: T | undefined;
+	data: T;
 	error: Error;
 	loading: false;
 };
@@ -44,12 +44,12 @@ export function usePromise<T>(
 					setState({ data: result, error: undefined, loading: false });
 				})
 				.catch((err) => {
-					setState({ data: undefined, error: err, loading: false });
+					setState({ data: defaultValue, error: err, loading: false });
 				});
 		} else {
 			setState({ data: promise, error: undefined, loading: false });
 		}
-	}, [promise]);
+	}, [promise, defaultValue]);
 
 	return state;
 }

@@ -1,5 +1,5 @@
 import type { JSONSchemaType } from "ajv";
-import type { ResumeAbout } from "~/types";
+import type { ResumeAbout } from "#types";
 
 export const ResumeAboutSchema: JSONSchemaType<ResumeAbout> = {
 	type: "object",

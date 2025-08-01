@@ -28,7 +28,8 @@
 				"sibiraj-s.vscode-scss-formatter",
 				"mrmlnc.vscode-scss",
 				"ms-azuretools.vscode-containers",
-				"oven.bun-vscode"
+				"oven.bun-vscode",
+				"yoavbls.pretty-ts-errors"
 			],
 			"settings": {
 				"files.associations": {

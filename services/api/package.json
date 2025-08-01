@@ -9,7 +9,8 @@
 		"typecheck": "tsc -b"
 	},
 	"dependencies": {
-		"types": "workspace:*"
+		"types": "workspace:*",
+		"queens": "workspace:*"
 	},
 	"peerDependencies": {
 		"typescript": "*",

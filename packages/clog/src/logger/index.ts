@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/style/noNonNullAssertion: singleton pattern - #instance is guaranteed to be assigned */
 import type { ILogger, LogLevel } from "#types";
-import { ClogEnv, EnvironmentVars } from "../environment/variables";
+// import { ClogEnv, EnvironmentVars } from "../environment/variables";
 import { logError } from "./methods";
 
 export const LogLevels = {
@@ -12,8 +12,8 @@ export const LogLevels = {
 	Trace: 0b100000,
 } as const;
 
-const defaultLogLevel: LogLevel =
-	(EnvironmentVars[ClogEnv.LogLevel] as LogLevel) ?? "info";
+const defaultLogLevel: LogLevel = "info";
+// (EnvironmentVars[ClogEnv.LogLevel] as LogLevel) ?? "info";
 
 const noLoggingConfig: InternalLogLevelConfig = {
 	fatal: false,

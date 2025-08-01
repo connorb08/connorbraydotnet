@@ -15,6 +15,9 @@
 		"depcheck": "depcheck",
 		"typecheck": "tsc -b"
 	},
+	"imports": {
+		"#types": "./src/types/index.ts"
+	},
 	"exports": {
 		".": "./src/index.ts",
 		"./test-data": "./src/test-data.ts"
