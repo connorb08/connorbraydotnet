@@ -78,3 +78,13 @@ $_border-radii: (
     background-color: colors.$tertiary;
     color: colors.$onTertiary;
 }
+
+@mixin onTertiary {
+    background-color: colors.$tertiary;
+    color: colors.$onTertiary;
+}
+
+@mixin onSecondary {
+    background-color: colors.$secondary;
+    color: colors.$onSecondary;
+}

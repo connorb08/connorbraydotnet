@@ -4,7 +4,7 @@ import type { IconType } from "react-icons/lib";
 import { LuHouse } from "react-icons/lu";
 import { VscAccount } from "react-icons/vsc";
 import { useLocation } from "react-router";
-import IconButton from "../../../components/ui/icon-button/index.js";
+import IconButton from "../../../components/ui/icon-button";
 import style from "./navbar.module.scss";
 
 const routes = [

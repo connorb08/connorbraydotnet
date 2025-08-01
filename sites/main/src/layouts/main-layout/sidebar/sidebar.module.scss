@@ -1,5 +1,11 @@
 @use "~/styles" as *;
 
+html[data-fullscreen] {
+    & .sidebar {
+        display: none;
+    }
+}
+
 .sidebar {
     @include surfaceDim;
     display: flex;

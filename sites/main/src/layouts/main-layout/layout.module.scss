@@ -1,5 +1,16 @@
 @use "~/styles" as *;
 
+html[data-fullscreen] {
+    & .header {
+        display: none;
+    }
+    & .content {
+        border-radius: 0;
+        margin-bottom: 0;
+        border: none;
+    }
+}
+
 .layout {
     width: 100%;
     height: 100%;
@@ -87,11 +98,6 @@
     border-radius: 2rem;
     margin-bottom: 0.5rem;
     overflow: hidden;
-
-    &[data-fullscreen="true"] {
-        margin: 0;
-        border-radius: 0;
-    }
 
     &__main {
         @include sans-serif;

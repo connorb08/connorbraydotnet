@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from "react";
 import {
 	type ButtonProps as AriaButtonProps,
 	Button,
@@ -8,7 +7,7 @@ import type { ButtonStyle } from "./types";
 
 type Props = AriaButtonProps & ButtonStyle;
 
-function UIButton(props: PropsWithChildren<Props>) {
+function UIButton(props: Props) {
 	return (
 		<Button
 			{...props}

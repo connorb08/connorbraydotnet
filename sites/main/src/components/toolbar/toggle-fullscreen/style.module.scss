@@ -1,0 +1,28 @@
+@use "~/styles" as *;
+
+.exit,
+.enter {
+    padding: 0;
+    background-color: transparent;
+
+    &:hover {
+        @include onTertiary;
+    }
+
+    svg {
+        margin: 0;
+    }
+}
+
+.exit {
+    display: none;
+}
+
+html[data-fullscreen] {
+    & .enter {
+        display: none;
+    }
+    & .exit {
+        display: flex;
+    }
+}

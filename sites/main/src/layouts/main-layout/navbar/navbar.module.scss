@@ -1,5 +1,11 @@
 @use "~/styles" as *;
 
+html[data-fullscreen] {
+    & .navbar {
+        display: none;
+    }
+}
+
 .navbar {
     /* Includes */
     @include surfaceDim;
@@ -75,9 +81,5 @@
 
     &[data-open="true"] {
         min-width: 10rem;
-    }
-
-    &[data-fullscreen="true"] {
-        display: none;
     }
 }
