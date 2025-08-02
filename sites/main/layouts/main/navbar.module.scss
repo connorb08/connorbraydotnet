@@ -1,0 +1,35 @@
+@use "~/styles" as *;
+
+html[data-fullscreen] {
+    & .navbar {
+        display: none;
+    }
+}
+
+.navbar {
+    /* Includes */
+    @include surfaceDim;
+
+    /* Position and Layout */
+    display: flex;
+    flex-direction: column;
+
+    /* Box Model */
+    margin: 0.75rem;
+    width: fit-content;
+    min-width: 0;
+
+    /* Breakpoint */
+    @media (max-width: breakpoint(md)) {
+        display: none;
+    }
+
+    &__navigation {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+}

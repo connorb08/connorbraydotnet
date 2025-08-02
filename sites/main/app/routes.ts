@@ -7,7 +7,7 @@ import {
 } from "@react-router/dev/routes";
 
 const routeConfig = [
-	layout("../layouts/main-layout/layout.tsx", [
+	layout("../layouts/main/layout.tsx", [
 		index("routes/index.tsx"),
 		route("about", "routes/about.tsx"),
 		...prefix("/projects", [

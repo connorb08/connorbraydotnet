@@ -107,12 +107,10 @@ export const projectsData: ExtendedProject[] = [
 	},
 ];
 
-// Helper function to get project by slug
 export function getProjectBySlug(slug: string): ExtendedProject | undefined {
 	return projectsData.find((project) => project.slug === slug);
 }
 
-// Helper function to get all project slugs
 export function getAllProjectSlugs(): string[] {
 	return projectsData.map((project) => project.slug);
 }
