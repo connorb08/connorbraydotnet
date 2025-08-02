@@ -1,9 +1,9 @@
 {
 	"extends": "./tsconfig.json",
 	"include": [
+		"**/*.ts",
+		"**/*.tsx",
 		".react-router/types/**/*",
-		"src/**/*",
-		"workers/**/*",
 		"worker-configuration.d.ts"
 	],
 	"compilerOptions": {

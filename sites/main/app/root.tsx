@@ -15,7 +15,7 @@ import type { Route } from "./+types/root";
  * App.scss - Global styles
  */
 import "#styles/App.scss";
-import { toggleFullscreen } from "#utils/controller";
+import { toggleFullscreen } from "../utils/controller";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
-				<script src="head.js" />
+				<script src="/head.js" />
 			</head>
 			<body>
 				<GlobalContext.Provider

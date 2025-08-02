@@ -1,0 +1,168 @@
+@use "../../../styles" as *;
+
+@mixin base-button {
+    /* Positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Sizing */
+    padding: clamp(2px, 0.25rem, 6px) clamp(1px, 0.25rem, 3px);
+
+    /* Style */
+    @include rounded;
+
+    &:hover {
+        @include border;
+        @include shadow;
+    }
+}
+
+.button {
+    /* Positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Sizing */
+    height: clamp(40px, 2rem, 64px);
+    width: clamp(40px, 2rem, 64px);
+    padding: clamp(2px, 0.25rem, 6px);
+    box-sizing: border-box;
+
+    /* Style */
+    @include rounded;
+
+    color: $onSurface;
+    background-color: $surfaceDim;
+
+    &:focus {
+        outline-color: $primary;
+    }
+
+    &__icon {
+        height: clamp(40px, 2rem, 64px);
+        width: clamp(40px, 2rem, 64px);
+        margin: 5%;
+
+        & path {
+            vertical-align: text-bottom;
+        }
+    }
+}
+
+.button {
+    &:hover {
+        @include shadow;
+    }
+
+    &.color {
+        &--primary {
+            @include primary;
+
+            &.variant {
+                &--outline {
+                    color: $primary;
+                    background-color: transparent;
+                    @include border(1px, $primary);
+
+                    &:hover {
+                        background-color: $primaryContainer;
+                        color: $onPrimaryContainer;
+                    }
+                }
+
+                &--ghost {
+                    color: $primary;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $primaryContainer;
+                        color: $onPrimaryContainer;
+                    }
+                }
+            }
+        }
+
+        &--secondary {
+            @include secondary;
+
+            &.variant {
+                &--outline {
+                    color: $secondary;
+                    background-color: transparent;
+                    @include border(1px, $secondary);
+
+                    &:hover {
+                        background-color: $secondaryContainer;
+                        color: $onSecondaryContainer;
+                    }
+                }
+
+                &--ghost {
+                    color: $secondary;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $secondaryContainer;
+                        color: $onSecondaryContainer;
+                    }
+                }
+            }
+        }
+
+        &--tertiary {
+            @include tertiary;
+
+            &.variant {
+                &--outline {
+                    color: $tertiary;
+                    background-color: transparent;
+                    @include border(1px, $tertiary);
+
+                    &:hover {
+                        background-color: $tertiaryContainer;
+                        color: $onTertiaryContainer;
+                    }
+                }
+
+                &--ghost {
+                    color: $tertiary;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $tertiaryContainer;
+                        color: $onTertiaryContainer;
+                    }
+                }
+            }
+        }
+
+        &--error {
+            @include error;
+
+            &.variant {
+                &--outline {
+                    color: $error;
+                    background-color: transparent;
+                    @include border(1px, $error);
+
+                    &:hover {
+                        background-color: $errorContainer;
+                        color: $onErrorContainer;
+                    }
+                }
+
+                &--ghost {
+                    color: $error;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $errorContainer;
+                        color: $onErrorContainer;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -14,13 +14,14 @@
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {
-		"#app/*": "./src/app/*.ts",
-		"#components/*": "./src/components/*/index.tsx",
-		"#pages/*": "./src/pages/*/index.tsx",
-		"#utils": "./src/utils/index.ts",
-		"#utils/*": "./src/utils/*.ts",
-		"#config": "./src/config.ts",
-		"#styles/": "./src/styles/*"
+		"#app/*": "./app/*.ts",
+		"#components/*": "./components/*/index.tsx",
+		"#pages/*": "./pages/*/index.tsx",
+		"#utils": "./utils/index.ts",
+		"#utils/*": "./utils/*.ts",
+		"#config": "./config.ts",
+		"#styles/": "./styles/*",
+		"#data/*": "./data/*.tsx"
 	},
 	"dependencies": {
 		"react-aria-components": "^1.10.1",

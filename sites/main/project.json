@@ -4,18 +4,28 @@
 		"build": {
 			"cache": true,
 			"inputs": [
-				"{projectRoot}/app",
-				"{projectRoot}/workers",
-				"{projectRoot}/wrangler.json"
+				"{projectRoot}/**/*",
+				"!{projectRoot}/package.json",
+				"!{projectRoot}/project.json",
+				"!{projectRoot}/.env",
+				"!{projectRoot}/tsconfig.json",
+				"!{projectRoot}/tsconfig.*.json",
+				"!{projectRoot}/README.md",
+				"!{projectRoot}/.gitignore"
 			],
 			"outputs": ["{projectRoot}/build"]
 		},
 		"typegen": {
 			"cache": true,
 			"inputs": [
-				"{projectRoot}/src",
-				"{projectRoot}/workers",
-				"{projectRoot}/wrangler.json"
+				"{projectRoot}/**/*",
+				"!{projectRoot}/package.json",
+				"!{projectRoot}/project.json",
+				"!{projectRoot}/.env",
+				"!{projectRoot}/tsconfig.json",
+				"!{projectRoot}/tsconfig.*.json",
+				"!{projectRoot}/README.md",
+				"!{projectRoot}/.gitignore"
 			],
 			"outputs": [
 				"{projectRoot}/worker-configuration.d.ts",

@@ -15,8 +15,8 @@
 
 /* Style Mixins */
 
-@mixin border($width: 1px) {
-    border: $width solid colors.$outline;
+@mixin border($width: 1px, $color: colors.$outline) {
+    border: $width solid $color;
 }
 
 @mixin border-top($width: 1px) {
@@ -64,14 +64,19 @@ $_border-radii: (
     color: colors.$onSurface;
 }
 
+@mixin primaryContainer {
+    background-color: colors.$primaryContainer;
+    color: colors.$onPrimaryContainer;
+}
+
 @mixin primary {
     background-color: colors.$primary;
     color: colors.$onPrimary;
 }
 
-@mixin primaryContainer {
-    background-color: colors.$primaryContainer;
-    color: colors.$onPrimaryContainer;
+@mixin secondary {
+    background-color: colors.$secondary;
+    color: colors.$onSecondary;
 }
 
 @mixin tertiary {
@@ -79,12 +84,7 @@ $_border-radii: (
     color: colors.$onTertiary;
 }
 
-@mixin onTertiary {
-    background-color: colors.$tertiary;
-    color: colors.$onTertiary;
-}
-
-@mixin onSecondary {
-    background-color: colors.$secondary;
-    color: colors.$onSecondary;
+@mixin error {
+    background-color: colors.$error;
+    color: colors.$onError;
 }

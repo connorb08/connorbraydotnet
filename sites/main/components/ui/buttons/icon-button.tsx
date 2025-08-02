@@ -3,7 +3,7 @@ import {
 	Button,
 } from "react-aria-components";
 import { type IconName, icons } from "../icons";
-import style from "./button.module.scss";
+import style from "./buttons.module.scss";
 import type { ButtonStyle } from "./types";
 
 type IconButtonProps = AriaButtonProps &
@@ -15,9 +15,9 @@ function IconButton(props: IconButtonProps) {
 	return (
 		<Button
 			{...props}
-			className={`${style.iconButton}${props.className ? ` ${props.className}` : ""}`}
+			className={`${style.button} ${props.color ? style[`color--${props.color}`] : ""} ${props.variant ? style[`variant--${props.variant}`] : ""} ${props.className}`}
 		>
-			{props.icon && icons(props.icon, style.iconButton__icon)}
+			{props.icon && icons(props.icon, style.button__icon)}
 		</Button>
 	);
 }

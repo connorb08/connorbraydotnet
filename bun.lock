@@ -62,8 +62,10 @@
       "version": "0.0.0",
       "dependencies": {
         "shared": "workspace:*",
+        "types": "workspace:*",
       },
       "peerDependencies": {
+        "@types/css-modules": "*",
         "depcheck": "*",
         "typescript": "*",
       },
@@ -110,6 +112,10 @@
     "services/api": {
       "name": "api",
       "version": "0.0.0",
+      "dependencies": {
+        "queens": "workspace:*",
+        "types": "workspace:*",
+      },
       "peerDependencies": {
         "@cloudflare/vite-plugin": "*",
         "typescript": "*",
@@ -181,6 +187,7 @@
         "clog": "workspace:*",
         "components": "workspace:*",
         "shared": "workspace:*",
+        "types": "workspace:*",
       },
       "peerDependencies": {
         "@cloudflare/vite-plugin": "*",
@@ -201,9 +208,12 @@
     "sites/main": {
       "name": "site",
       "dependencies": {
+        "clog": "workspace:*",
         "components": "workspace:*",
+        "database": "workspace:*",
         "react-aria-components": "^1.10.1",
         "shared": "workspace:*",
+        "types": "workspace:*",
       },
       "devDependencies": {
         "@material/material-color-utilities": "^0.3.0",

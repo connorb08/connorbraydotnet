@@ -30,11 +30,12 @@ export async function GetCurrentQueens(
 	db: Kysely<Database>,
 ): Promise<Result<Queens>> {
 	try {
-		const selectDate = new Date().toISOString().split("T")[0] || "unknown-date";
+		// const selectDate = new Date().toISOString().split("T")[0] || "unknown-date";
 		const { date, solution } = await db
 			.selectFrom("queens")
 			.select(["date", "solution"])
-			.where("date", "=", selectDate)
+			// .where("date", "=", selectDate)
+			.orderBy("id", "desc")
 			.executeTakeFirstOrThrow();
 		return Ok({ date, solution: JSON.parse(solution as unknown as string) });
 	} catch (error) {
