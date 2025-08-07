@@ -11,6 +11,17 @@ html[data-fullscreen] {
     }
 }
 
+html[data-fullscreen] {
+    & .layout {
+        @include surfaceContainer;
+    }
+
+    & .content__main {
+        max-width: width(xl);
+        margin: 0 auto;
+    }
+}
+
 .layout {
     width: 100%;
     height: 100%;
@@ -86,6 +97,7 @@ html[data-fullscreen] {
 }
 
 .content {
+    @include surfaceContainer;
     @include border(2px);
     width: 100%;
     display: flex;
@@ -93,18 +105,17 @@ html[data-fullscreen] {
     flex: 1;
     box-sizing: border-box;
     flex: 1;
-    background-color: $surfaceContainer;
-    color: $onSurface;
     border-radius: 2rem;
     margin-bottom: 0.5rem;
     overflow: hidden;
 
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-color: $tertiary $surfaceContainer;
+
     &__main {
         @include sans-serif;
-        height: 100%;
-        overflow-y: auto;
         padding: 1.5rem;
-        scrollbar-color: $tertiary $surfaceContainer;
         view-transition-name: mainContent;
     }
 }

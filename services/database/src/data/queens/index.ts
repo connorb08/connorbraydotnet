@@ -1,13 +1,12 @@
 import type { Kysely } from "kysely";
-import type { QueensSolution } from "types";
+import { type QueensSolution, RPCErr, RPCOk, type RPCResult } from "types";
 import { v7 } from "uuid";
 import type { Database, Queens } from "../../models";
-import { Err, Ok, type Result } from "../../utils";
 
 export async function PutQueens(
 	db: Kysely<Database>,
 	solution: QueensSolution,
-): Promise<Result<Queens>> {
+): Promise<RPCResult<Queens>> {
 	try {
 		const solutionString = JSON.stringify(solution);
 		const date = new Date().toISOString().split("T")[0] || "unknown-date";
@@ -17,18 +16,20 @@ export async function PutQueens(
 			.returning(["date", "solution"])
 			.execute();
 		if (!queens) {
-			return Err("Failed to create queens");
+			return RPCErr("Failed to create queens");
 		}
-		return Ok(queens);
+		return RPCOk(queens);
 	} catch (error) {
 		console.error("Error putting queens:", error);
-		return Err(error instanceof Error ? error.message : "Unknown error");
+		return RPCErr(
+			error instanceof Error ? error.message : "Unknown error inserting queens",
+		);
 	}
 }
 
 export async function GetCurrentQueens(
 	db: Kysely<Database>,
-): Promise<Result<Queens>> {
+): Promise<RPCResult<Queens>> {
 	try {
 		// const selectDate = new Date().toISOString().split("T")[0] || "unknown-date";
 		const { date, solution } = await db
@@ -37,9 +38,11 @@ export async function GetCurrentQueens(
 			// .where("date", "=", selectDate)
 			.orderBy("id", "desc")
 			.executeTakeFirstOrThrow();
-		return Ok({ date, solution: JSON.parse(solution as unknown as string) });
+		return RPCOk({ date, solution: JSON.parse(solution as unknown as string) });
 	} catch (error) {
 		console.error("Error fetching queens:", error);
-		return Err(error instanceof Error ? error.message : "Unknown error");
+		return RPCErr(
+			error instanceof Error ? error.message : "Unknown error getting queens",
+		);
 	}
 }

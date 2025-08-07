@@ -1,5 +1,3 @@
 export type { QueensSolution } from "./linkedin-games";
-
-export type Prettify<T> = {
-	[K in keyof T]: T[K];
-} & {};
+export type { RPCResult, RPCResultErr, RPCResultOk } from "./rpc";
+export { RPCErr, RPCOk } from "./rpc";

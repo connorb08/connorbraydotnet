@@ -22,8 +22,6 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"play": "bun run dev.ts",
-		"pup": "bun run puppeteer.ts",
-		"start": "wrangler dev",
 		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json",
 		"pretypecheck": "bun run typegen",
 		"typecheck": "tsc -b",

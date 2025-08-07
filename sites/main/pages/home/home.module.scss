@@ -7,11 +7,16 @@
     padding: 20px;
 }
 
+html[data-fullscreen] {
+    & .hero {
+        @include shadow;
+    }
+}
+
 .hero {
     display: flex;
     justify-content: center;
     background-color: $primaryContainer;
-    // background: linear-gradient(135deg, $primaryContainer, $secondaryContainer);
     color: $onSecondaryContainer;
     border-radius: clamp(1rem, 2vw, 1.5rem);
     width: 100%;

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import Projects from "#pages/projects";
 import style from "./home.module.scss";
 
 type Section = {
@@ -15,22 +14,31 @@ const sections: Section[] = [
 		href: "/about",
 	},
 	{
+		title: "Projects",
+		content: "",
+		href: "/projects",
+	},
+	{
 		title: "Site Architecture",
 		content: "",
-		href: "",
+		href: "/architecture",
 	},
 	{
 		title: "Photography",
 		content: "",
 		href: "",
 	},
-	{
-		title: "Contact Me",
-		content: "",
-		href: "",
-	},
+	// {
+	// 	title: "Contact Me",
+	// 	content: "",
+	// 	href: "",
+	// },
+	// {
+	// 	title: "???",
+	// 	content: "",
+	// 	href: "",
+	// },
 ];
-const projects = [{}, {}, {}, {}];
 
 function Home() {
 	return (
@@ -73,36 +81,10 @@ function Home() {
 					</NavLink>
 				))}
 			</div>
-			<Projects />
 			<div className={style.projects}>
-				<h2 className={style.projects__header}>Projects & Skills</h2>
-				<p>List highlighted projects and best skills</p>
-				<p>Button to view more / all</p>
-			</div>
-			<div className={style.projects}>
-				<h2 className={style.projects__header}>Links</h2>
-				<p>LinkedIn</p>
-				<p>GitHub</p>
-			</div>
-			<div className={style.projects}>
-				<h2 className={style.projects__header}>Projects</h2>
-				<div className={style.projects__content}>
-					{projects.map((_, index) => (
-						<div key={index} className={style.projects__content__projectItem}>
-							Project {index + 1}
-						</div>
-					))}
-				</div>
-			</div>
-			<div className={style.projects}>
-				<h2 className={style.projects__header}>Skills</h2>
-				<div className={style.projects__content}>
-					{projects.map((_, index) => (
-						<div key={index} className={style.projects__content__projectItem}>
-							Project {index + 1}
-						</div>
-					))}
-				</div>
+				<h2 className={style.projects__header}>Contact Me</h2>
+				<p>Social Links and whatnot</p>
+				<p>Contact Form</p>
 			</div>
 		</div>
 	);

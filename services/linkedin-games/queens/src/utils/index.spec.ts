@@ -9,6 +9,14 @@ function hasValue(set1: Set<Set<number>>, set2: Set<number>) {
 	});
 }
 
+function factorial(n: number): number {
+	let result = 1;
+	for (let i = 1; i <= n; i++) {
+		result *= i;
+	}
+	return result;
+}
+
 describe("Combinations", () => {
 	it("4 pick 2", () => {
 		let nCombinations = 0;
@@ -62,5 +70,24 @@ describe("Combinations", () => {
 
 		expect(generator.next().done).toBe(true);
 		expect(nCombinations).toBe(expectedCombinations.size);
+	});
+
+	it("x pick 2-x-1", () => {
+		const set = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+		for (let i = 2; i <= set.size - 1; i++) {
+			const generator = combinations(set, i);
+
+			let nCombinations = 0;
+
+			for (const _combo of generator) {
+				nCombinations++;
+			}
+
+			expect(
+				nCombinations,
+				`Value should be factorial value of ${set.size} pick ${i}`,
+			).toBe(factorial(set.size) / (factorial(i) * factorial(set.size - i)));
+		}
 	});
 });

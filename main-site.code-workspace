@@ -13,11 +13,16 @@
 			"path": "./services/api"
 		},
 		{
+			"name": "types",
+			"path": "./packages/types"
+		},
+		{
 			"name": "root",
 			"path": "."
 		}
 	],
 	"settings": {
+		"typescript.experimental.expandableHover": true,
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
 			"*.tsx": "${capture}.module.scss, ${capture}.spec.tsx",
@@ -39,6 +44,7 @@
 		"editor.codeActionsOnSave": {
 			// "source.organizeImports.biome": "explicit",
 			"source.fixAll.biome": "explicit"
-		}
+		},
+		"nxConsole.generateAiAgentRules": true
 	}
 }

@@ -6,13 +6,6 @@ export default async function SetupDatabaseSchema(
 ): Promise<void> {
 	try {
 		await db.schema
-			.createTable("project")
-			.ifNotExists()
-			.addColumn("id", "text", (col) => col.notNull().primaryKey())
-			.addColumn("name", "text", (col) => col.notNull().unique())
-			.addColumn("description", "text", (col) => col.notNull())
-			.execute();
-		await db.schema
 			.createTable("queens")
 			.ifNotExists()
 			.addColumn("id", "text", (col) => col.notNull().primaryKey())
@@ -21,6 +14,6 @@ export default async function SetupDatabaseSchema(
 			.execute();
 	} catch (error) {
 		console.error("Error setting up database schema:", error);
-		throw new Error("Error setting up database schema", { cause: error });
+		throw error;
 	}
 }

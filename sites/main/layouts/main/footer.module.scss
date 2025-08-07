@@ -1,8 +1,22 @@
 @use "~/styles" as *;
 
+.footer__default {
+    display: block;
+}
+
+.footer__fullscreen {
+    display: none;
+}
+
 html[data-fullscreen] {
     & .footer {
+        @include surfaceContainer;
+    }
+    & .footer__default {
         display: none;
+    }
+    & .footer__fullscreen {
+        display: flex;
     }
 }
 
@@ -12,5 +26,12 @@ html[data-fullscreen] {
 
     @media (max-width: breakpoint(md)) {
         display: none;
+    }
+
+    &__default {
+    }
+
+    &__fullscreen {
+        @include sans-serif;
     }
 }

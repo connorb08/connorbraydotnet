@@ -1,6 +1,6 @@
 @use "sass:map";
 
-$_breakpoints: (
+$_widths: (
     /* 0px */ xs: 0rem,
     /* 640px */ sm: 40rem,
     /* 768px */ md: 48rem,
@@ -10,9 +10,17 @@ $_breakpoints: (
 );
 
 @function breakpoint($key) {
-    @if not map.has-key($_breakpoints, $key) {
+    @if not map.has-key($_widths, $key) {
         @warn "Breakpoint `#{$key}` not found.";
     }
 
-    @return map.get($_breakpoints, $key);
+    @return map.get($_widths, $key);
+}
+
+@function width($key) {
+    @if not map.has-key($_widths, $key) {
+        @warn "Width `#{$key}` not found.";
+    }
+
+    @return map.get($_widths, $key);
 }

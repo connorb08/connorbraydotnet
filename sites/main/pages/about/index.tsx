@@ -18,7 +18,6 @@ const About = memo((props: Props) => {
 	const tab0 = () => setTab(0);
 	const tab1 = () => setTab(1);
 	const tab2 = () => setTab(2);
-	const tab3 = () => setTab(3);
 
 	return (
 		<div className={style.container}>
@@ -100,15 +99,6 @@ const About = memo((props: Props) => {
 									type="button"
 								>
 									Leadership
-								</button>
-							</li>
-							<li>
-								<button
-									onClick={tab3}
-									className={`${style.aboutBlock__menu__tab} ${tab === 3 ? style["--active"] : ""}`}
-									type="button"
-								>
-									Contact
 								</button>
 							</li>
 						</ul>
