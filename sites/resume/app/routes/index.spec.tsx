@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import type { LoaderFunctionArgs } from "react-router";
 import { type Resume, ValidateResume, ValidResume } from "shared";
+import { describe, expect } from "vitest";
 import type { Route } from "./+types/index";
 import Index, { loader } from "./index";
 
@@ -34,7 +35,7 @@ describe("Index route", () => {
 	it("should return loader data", async () => {
 		// Act
 		const data = loader({} as LoaderFunctionArgs);
-		const { ok } = await ValidateResume(data);
+		const { ok } = ValidateResume(data);
 
 		// Assert
 		expect(ok).toBe(true);
@@ -81,9 +82,7 @@ describe("Resume page", () => {
 		// Assert
 		resume.career.forEach((careerItem, index) => {
 			// Check if the company name is displayed correctly
-			const companyElement = screen.getByTestId(
-				`resume.career[${index}].company`,
-			);
+			const companyElement = screen.getByTestId(`resume.career[${index}].company`);
 			const titleElement = screen.getByTestId(`resume.career[${index}].title`);
 			expect(companyElement).toBeInTheDocument();
 			expect(companyElement.textContent).toBe(careerItem.company);
@@ -91,9 +90,7 @@ describe("Resume page", () => {
 			expect(titleElement.textContent).toBe(careerItem.title);
 
 			careerItem.about.forEach((bullet, bulletIndex) => {
-				const bulletElement = screen.getByTestId(
-					`resume.career[${index}].about[${bulletIndex}]`,
-				);
+				const bulletElement = screen.getByTestId(`resume.career[${index}].about[${bulletIndex}]`);
 				expect(bulletElement).toBeInTheDocument();
 				expect(bulletElement.textContent).toBe(bullet);
 			});
@@ -112,12 +109,8 @@ describe("Resume page", () => {
 
 		// Assert
 		resume.education.forEach((educationItem, index) => {
-			const schoolElement = screen.getByTestId(
-				`resume.education[${index}].school`,
-			);
-			const degreeElement = screen.getByTestId(
-				`resume.education[${index}].degree`,
-			);
+			const schoolElement = screen.getByTestId(`resume.education[${index}].school`);
+			const degreeElement = screen.getByTestId(`resume.education[${index}].degree`);
 			expect(schoolElement).toBeInTheDocument();
 			expect(degreeElement).toBeInTheDocument();
 			expect(schoolElement.textContent).toBe(educationItem.school);
@@ -145,22 +138,16 @@ describe("Resume page", () => {
 
 		// Assert
 		resume.projects.forEach((projectItem, index) => {
-			const projectElement = screen.getByTestId(
-				`resume.projects[${index}].name`,
-			);
+			const projectElement = screen.getByTestId(`resume.projects[${index}].name`);
 			expect(projectElement).toBeInTheDocument();
 			expect(projectElement.textContent).toBe(projectItem.name);
 
-			const descriptionElement = screen.getByTestId(
-				`resume.projects[${index}].description`,
-			);
+			const descriptionElement = screen.getByTestId(`resume.projects[${index}].description`);
 			expect(descriptionElement).toBeInTheDocument();
 			expect(descriptionElement.textContent).toBe(projectItem.description);
 
 			projectItem.about.forEach((bullet, bulletIndex) => {
-				const bulletElement = screen.getByTestId(
-					`resume.projects[${index}].about[${bulletIndex}]`,
-				);
+				const bulletElement = screen.getByTestId(`resume.projects[${index}].about[${bulletIndex}]`);
 				expect(bulletElement).toBeInTheDocument();
 				expect(bulletElement.textContent).toBe(bullet);
 			});
@@ -185,14 +172,8 @@ describe("Resume page", () => {
 		expect(languagesElement).toBeInTheDocument();
 		expect(technologiesElement).toBeInTheDocument();
 		expect(interestsElement).toBeInTheDocument();
-		expect(languagesElement.textContent).toContain(
-			resume.about.languages.join(", "),
-		);
-		expect(technologiesElement.textContent).toContain(
-			resume.about.technologies.join(", "),
-		);
-		expect(interestsElement.textContent).toContain(
-			resume.about.interests?.join(", "),
-		);
+		expect(languagesElement.textContent).toContain(resume.about.languages.join(", "));
+		expect(technologiesElement.textContent).toContain(resume.about.technologies.join(", "));
+		expect(interestsElement.textContent).toContain(resume.about.interests?.join(", "));
 	});
 });

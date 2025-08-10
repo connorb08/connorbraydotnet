@@ -1,6 +1,6 @@
-import { defineConfig, type PlaywrightTestConfig } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
 
-const config = {
+export default defineConfig({
 	testDir: "./test/e2e",
 	fullyParallel: true,
 	reporter: [
@@ -24,6 +24,4 @@ const config = {
 		baseURL: "http://localhost:3000/",
 		viewport: { width: 1920, height: 1080 },
 	},
-} satisfies PlaywrightTestConfig;
-
-export default defineConfig(config);
+});

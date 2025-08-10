@@ -25,8 +25,8 @@ const workerProject = defineWorkersProject(workerProjectConfig);
 const vitestConfig = {
 	test: {
 		name: "Resume",
-		exclude: ["test/e2e"],
 		globals: true,
+		exclude: ["test/e2e"],
 		reporters: ["default", "json"],
 		outputFile: {
 			json: "./test/reports/results.json",

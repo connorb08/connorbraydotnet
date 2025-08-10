@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { isRouteErrorResponse } from "react-router";
-import { vi } from "vitest";
+import { describe, expect, vi } from "vitest";
 import { default as App, ErrorBoundary, Layout } from "./root";
 
 // Mock React Router components

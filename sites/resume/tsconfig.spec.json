@@ -1,7 +1,11 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["**.*.spec.ts"],
+	"include": ["**/*.spec.ts", "**/*.spec.tsx", "test/setup.ts"],
 	"exclude": ["test/e2e"],
+	"compilerOptions": {
+		"lib": ["DOM"],
+		"jsx": "react-jsx"
+	},
 	"references": [
 		{
 			"path": "./tsconfig.cloudflare.json"
