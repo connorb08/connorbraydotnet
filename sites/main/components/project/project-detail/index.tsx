@@ -7,7 +7,6 @@ interface ProjectDetailProps {
 	technologies?: string[];
 	repositoryUrl?: string;
 	liveUrl?: string;
-	images?: string[];
 	challenges?: string[];
 	solutions?: string[];
 	features?: string[];
@@ -19,7 +18,6 @@ export default function ProjectDetail({
 	technologies = [],
 	repositoryUrl,
 	liveUrl,
-	images = [],
 	challenges = [],
 	solutions = [],
 	features = [],
@@ -32,9 +30,7 @@ export default function ProjectDetail({
 				<div className={style.projectDetail__heroContent}>
 					<h1 className={style.projectDetail__title}>{project.name}</h1>
 					{project.description && (
-						<p className={style.projectDetail__description}>
-							{project.description}
-						</p>
+						<p className={style.projectDetail__description}>{project.description}</p>
 					)}
 
 					{/* Action buttons */}
@@ -63,20 +59,7 @@ export default function ProjectDetail({
 				</div>
 
 				{/* Hero element / image */}
-				{heroElement && (
-					<div className={style.projectDetail__heroElement}>{heroElement}</div>
-				)}
-
-				{/* Fallback image if no hero element */}
-				{!heroElement && images.length > 0 && (
-					<div className={style.projectDetail__heroImage}>
-						<img
-							src={images[0]}
-							alt={`${project.name} preview`}
-							className={style.projectDetail__image}
-						/>
-					</div>
-				)}
+				{heroElement && <div className={style.projectDetail__heroElement}>{heroElement}</div>}
 			</header>
 
 			{/* Main content */}
@@ -84,9 +67,7 @@ export default function ProjectDetail({
 				{/* About section */}
 				{project.about && project.about.length > 0 && (
 					<section className={style.projectDetail__section}>
-						<h2 className={style.projectDetail__sectionTitle}>
-							About This Project
-						</h2>
+						<h2 className={style.projectDetail__sectionTitle}>About This Project</h2>
 						<ul className={style.projectDetail__list}>
 							{project.about.map((detail, index) => (
 								<li key={index} className={style.projectDetail__listItem}>
@@ -100,9 +81,7 @@ export default function ProjectDetail({
 				{/* Technologies */}
 				{technologies.length > 0 && (
 					<section className={style.projectDetail__section}>
-						<h2 className={style.projectDetail__sectionTitle}>
-							Technologies Used
-						</h2>
+						<h2 className={style.projectDetail__sectionTitle}>Technologies Used</h2>
 						<div className={style.projectDetail__technologies}>
 							{technologies.map((tech, index) => (
 								<span key={index} className={style.projectDetail__technology}>
@@ -130,15 +109,11 @@ export default function ProjectDetail({
 				{/* Challenges and Solutions */}
 				{(challenges.length > 0 || solutions.length > 0) && (
 					<section className={style.projectDetail__section}>
-						<h2 className={style.projectDetail__sectionTitle}>
-							Challenges & Solutions
-						</h2>
+						<h2 className={style.projectDetail__sectionTitle}>Challenges & Solutions</h2>
 						<div className={style.projectDetail__challengesSolutions}>
 							{challenges.length > 0 && (
 								<div className={style.projectDetail__challenges}>
-									<h3 className={style.projectDetail__subsectionTitle}>
-										Challenges
-									</h3>
+									<h3 className={style.projectDetail__subsectionTitle}>Challenges</h3>
 									<ul className={style.projectDetail__list}>
 										{challenges.map((challenge, index) => (
 											<li key={index} className={style.projectDetail__listItem}>
@@ -150,9 +125,7 @@ export default function ProjectDetail({
 							)}
 							{solutions.length > 0 && (
 								<div className={style.projectDetail__solutions}>
-									<h3 className={style.projectDetail__subsectionTitle}>
-										Solutions
-									</h3>
+									<h3 className={style.projectDetail__subsectionTitle}>Solutions</h3>
 									<ul className={style.projectDetail__list}>
 										{solutions.map((solution, index) => (
 											<li key={index} className={style.projectDetail__listItem}>
@@ -162,25 +135,6 @@ export default function ProjectDetail({
 									</ul>
 								</div>
 							)}
-						</div>
-					</section>
-				)}
-
-				{/* Additional images */}
-				{images.length > 1 && (
-					<section className={style.projectDetail__section}>
-						<h2 className={style.projectDetail__sectionTitle}>
-							Project Gallery
-						</h2>
-						<div className={style.projectDetail__gallery}>
-							{images.slice(1).map((image, index) => (
-								<img
-									key={index}
-									src={image}
-									alt={`${project.name} screenshot ${index + 2}`}
-									className={style.projectDetail__galleryImage}
-								/>
-							))}
 						</div>
 					</section>
 				)}

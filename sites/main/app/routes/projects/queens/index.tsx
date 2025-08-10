@@ -1,21 +1,9 @@
 import { QueensResult } from "components";
-import type { Queens } from "database/src/models";
-import type { Result } from "database/src/utils";
-import { NavLink } from "react-router";
 import { ProjectDetail } from "../../../../components/project";
 import type { Route } from "./+types";
 
-export async function loader({ context }: Route.LoaderArgs) {
-	const { data, error }: Result<Queens> =
-		await context.cloudflare.env.DATABASE.getQueens();
-	if (error) {
-		console.error("Error fetching queens:", error);
-	}
-	return { data };
-}
-
 const projectData = {
-	slug: "linkedin-queens",
+	slug: "queens",
 	name: "LinkedIn N-Queens Solver",
 	description: "Automated solver for LinkedIn's Queens puzzle game",
 	about: [
@@ -58,35 +46,23 @@ const projectData = {
 	],
 };
 
+export async function loader({ context }: Route.LoaderArgs) {
+	using result = await context.cloudflare.env.DATABASE.getQueens();
+	if (result.error) {
+		console.error("Error fetching queens:", result.error);
+	}
+	return { data: result.data };
+}
+
 export default function ({ loaderData }: Route.ComponentProps) {
 	const { data } = loaderData;
 	return (
 		<div>
-			<div
-				style={{
-					padding: "1rem 2rem",
-				}}
-			>
-				<NavLink
-					to="/projects"
-					viewTransition
-					style={{
-						color: "var(--md-sys-color-primary, #6750a4)",
-						textDecoration: "none",
-						fontSize: "0.875rem",
-						fontWeight: "500",
-					}}
-				>
-					← Back to Projects
-				</NavLink>
-			</div>
-
 			<ProjectDetail
 				project={projectData}
 				technologies={projectData.technologies}
 				repositoryUrl={projectData.repositoryUrl}
 				liveUrl={projectData.liveUrl}
-				images={projectData.images}
 				heroElement={data ? <QueensResult {...data.solution} /> : null}
 				challenges={projectData.challenges}
 				solutions={projectData.solutions}

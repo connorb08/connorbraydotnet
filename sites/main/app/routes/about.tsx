@@ -22,7 +22,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 export async function clientLoader({
 	request,
 	serverLoader,
-}: Route.ClientLoaderArgs): Promise<{ resumeData: Promise<Resume> | Resume }> {
+}: Route.ClientLoaderArgs): Promise<{ resumeData: Promise<Resume> }> {
 	// Check if the data is already cached in sessionStorage
 	const cacheKey = request.url;
 	const cachedData = sessionStorage.getItem(cacheKey);
@@ -44,15 +44,11 @@ export async function clientLoader({
 }
 
 export default function ({ loaderData }: Route.ComponentProps) {
-	const {
-		data,
-		error,
-		loading: _,
-	} = usePromise<Resume>(loaderData.resumeData, EmptyResume);
+	const { data, error, loading } = usePromise<Resume>(loaderData.resumeData, EmptyResume);
 
 	if (error) {
 		console.error("Error loading resume data:", error);
 	}
 
-	return <About resume={data} />;
+	return <About resume={data} loading={loading} />;
 }

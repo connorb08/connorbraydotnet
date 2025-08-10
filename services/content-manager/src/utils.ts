@@ -24,10 +24,7 @@ export function calculateWidth(size: string | null): number {
 const allowedReferers = ["https://connorbray.net", "127.0.0.1"];
 export function forbiddenReferer(request: Request): boolean {
 	const referer = request.headers.get("Referer");
-	if (
-		referer &&
-		!allowedReferers.some((allowed) => referer.includes(allowed))
-	) {
+	if (referer && !allowedReferers.some((allowed) => referer.includes(allowed))) {
 		return true;
 	}
 	return false;

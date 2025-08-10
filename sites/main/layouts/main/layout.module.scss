@@ -12,6 +12,10 @@ html[data-fullscreen] {
 }
 
 html[data-fullscreen] {
+    & .container {
+        overflow: visible;
+    }
+
     & .layout {
         @include surfaceContainer;
     }
@@ -99,6 +103,7 @@ html[data-fullscreen] {
 .content {
     @include surfaceContainer;
     @include border(2px);
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -109,12 +114,12 @@ html[data-fullscreen] {
     margin-bottom: 0.5rem;
     overflow: hidden;
 
-    height: 100%;
     overflow-y: auto;
     scrollbar-color: $tertiary $surfaceContainer;
 
     &__main {
         @include sans-serif;
+        flex: 1;
         padding: 1.5rem;
         view-transition-name: mainContent;
     }

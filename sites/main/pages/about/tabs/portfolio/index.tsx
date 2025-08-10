@@ -1,7 +1,8 @@
 import type { Resume, ResumeProject } from "shared";
 
 type Props = {
-	resume: Resume | Promise<Resume>;
+	resume: Resume;
+	loading: boolean;
 };
 
 const Portfolio = (props: Props) => {

@@ -14,7 +14,7 @@ html,
 body {
     height: 100dvh;
     width: 100vw;
-    overscroll-behavior: none;
+    overscroll-behavior-y: none;
 }
 
 :root * {

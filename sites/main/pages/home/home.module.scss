@@ -11,6 +11,10 @@ html[data-fullscreen] {
     & .hero {
         @include shadow;
     }
+
+    & .home {
+        margin-top: 5rem;
+    }
 }
 
 .hero {
@@ -161,21 +165,24 @@ html[data-fullscreen] {
 }
 
 .content {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(clamp(30rem, 45%, 100%), 1fr));
     gap: 20px;
+    align-items: stretch; // Ensures all grid items have equal height
 }
 
 .section {
     position: relative;
     top: 0;
     right: 0;
+    height: 100%; // Ensures section fills the full height of its grid cell
+    display: flex; // Use flexbox for internal layout
+    flex-direction: column; // Stack title and content vertically
 
     background-color: $tertiaryContainer;
     color: $onTertiaryContainer;
-
     border: 1px solid transparent;
-    // box-shadow: 1px 1px 4px $shadow;
 
     padding: 20px;
     border-radius: 8px;
@@ -199,48 +206,7 @@ html[data-fullscreen] {
 
     &__content {
         margin-top: 10px;
-    }
-}
-
-.projects {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    border-radius: 1rem;
-    height: 200px;
-    width: 100%;
-    background-color: $surfaceContainerHighest;
-    color: $onPrimaryContainer;
-
-    &__header {
-        width: 100%;
-        font-size: 1.5rem;
-        font-weight: bold;
-        padding: 10px;
-        // margin: 1rem;
-        color: $onPrimaryContainer;
-    }
-
-    &__content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(clamp(30rem, 45%, 100%), 1fr));
-        gap: 20px;
-
-        &__projectItem {
-            position: relative;
-            padding: 1rem;
-            @include border;
-            @include rounded;
-            cursor: pointer;
-            transition:
-                top 0.3s ease,
-                right 0.3s ease,
-                box-shadow 0.2s ease;
-
-            &:hover {
-                @include shadow;
-                top: -3px;
-                right: -3px;
-            }
-        }
+        display: flex;
+        flex: 1; // Takes up remaining space, pushing content to fill height evenly
     }
 }

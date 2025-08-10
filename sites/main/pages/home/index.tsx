@@ -10,34 +10,40 @@ type Section = {
 const sections: Section[] = [
 	{
 		title: "Professional Summary",
-		content: "",
+		content:
+			"Learn more about my background, experience, and technical skills. Discover my journey as a software engineer and the technologies I work with daily.",
 		href: "/about",
 	},
 	{
 		title: "Projects",
-		content: "",
+		content:
+			"Explore a collection of my recent work, including web applications, open-source contributions, and personal projects that showcase my development skills.",
 		href: "/projects",
 	},
 	{
 		title: "Site Architecture",
-		content: "",
+		content:
+			"Dive into the technical details of how this website is built. Learn about the modern technologies, deployment strategies, and architectural decisions behind this platform.",
 		href: "/architecture",
 	},
 	{
 		title: "Photography",
-		content: "",
-		href: "",
+		content:
+			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+		href: "/photos",
 	},
-	// {
-	// 	title: "Contact Me",
-	// 	content: "",
-	// 	href: "",
-	// },
-	// {
-	// 	title: "???",
-	// 	content: "",
-	// 	href: "",
-	// },
+	{
+		title: "Contact",
+		content:
+			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+		href: "/contact",
+	},
+	{
+		title: "Contact?",
+		content:
+			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+		href: "/contact",
+	},
 ];
 
 function Home() {
@@ -51,17 +57,12 @@ function Home() {
 
 					<div className={style.hero__main}>
 						<h1 className={style.hero__main__title}>Connor Bray</h1>
-						<p className={style.hero__main__subtitle}>
-							Full-Stack Software Engineer
-						</p>
+						<p className={style.hero__main__subtitle}>Full-Stack Software Engineer</p>
 						<p className={style.hero__main__content}>
-							Passionate software engineer with expertise in modern web
-							technologies, cloud architecture, and scalable solutions. I
-							specialize in building robust applications that deliver
-							exceptional user experiences while maintaining clean, maintainable
-							code.
+							Passionate software engineer with expertise in modern web technologies, cloud
+							architecture, and scalable solutions. I specialize in building robust applications
+							that deliver exceptional user experiences while maintaining clean, maintainable code.
 						</p>
-						{/* <button type="button">View Professional Summary</button> */}
 					</div>
 				</div>
 			</div>
@@ -70,21 +71,10 @@ function Home() {
 					<NavLink to={section.href} key={index} viewTransition>
 						<section className={style.section}>
 							<h2 className={style.section__title}>{section.title}</h2>
-							<p className={style.section__content}>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam, quis nostrud exercitation ullamco laboris
-								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-								in reprehenderit in voluptate velit esse
-							</p>
+							<p className={style.section__content}>{section.content}</p>
 						</section>
 					</NavLink>
 				))}
-			</div>
-			<div className={style.projects}>
-				<h2 className={style.projects__header}>Contact Me</h2>
-				<p>Social Links and whatnot</p>
-				<p>Contact Form</p>
 			</div>
 		</div>
 	);

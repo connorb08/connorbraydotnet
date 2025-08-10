@@ -1,6 +1,5 @@
 import type { ResumeProject } from "shared";
 
-// Extended project interface for detailed pages
 export interface ExtendedProject extends ResumeProject {
 	slug: string;
 	technologies: string[];
@@ -16,8 +15,7 @@ export const projectsData: ExtendedProject[] = [
 	{
 		slug: "portfolio",
 		name: "connorbray.net",
-		description:
-			"A modern, responsive portfolio built with React and TypeScript",
+		description: "A modern, responsive portfolio built with React and TypeScript",
 		about: [
 			"Built with React Router and TypeScript for type safety",
 			"Implemented Material Design system with SCSS modules",
@@ -59,7 +57,7 @@ export const projectsData: ExtendedProject[] = [
 		],
 	},
 	{
-		slug: "linkedin-queens",
+		slug: "queens",
 		name: "LinkedIn N-Queens Solver",
 		description: "Automated solver for LinkedIn's Queens puzzle game",
 		about: [
@@ -103,6 +101,75 @@ export const projectsData: ExtendedProject[] = [
 			"Automated LinkedIn game interaction",
 			"Performance metrics and solution analytics",
 			"Serverless deployment on Cloudflare Workers",
+		],
+	},
+	{
+		slug: "fstop",
+		name: "cumberland-foodstop.com",
+		description: "Website for a local business",
+		about: [
+			"Built with React Router and TypeScript for type safety",
+			"Implemented Material Design system with SCSS modules",
+			"Deployed on Cloudflare Pages with automated CI/CD",
+			"Optimized for performance and accessibility",
+		],
+		technologies: [
+			"React",
+			"TypeScript",
+			"Vite",
+			"SCSS",
+			"Next.js",
+			"Cloudflare Workers",
+			"GitHub Actions",
+		],
+		repositoryUrl: "https://github.com/connorb08/fstop",
+		liveUrl: "https://cumberland-foodstop.com",
+		images: [],
+		challenges: ["Allow updating of weekly specials"],
+		solutions: ["Admin page for uploading weekly specials"],
+		features: [
+			"Fully responsive design optimized for all screen sizes",
+			"Dark and light theme support with system preference detection",
+			"Smooth scroll animations and micro-interactions",
+			"SEO optimized with proper meta tags and structured data",
+			"Fast loading with code splitting and lazy loading",
+			"Accessible design following WCAG 2.1 guidelines",
+		],
+	},
+	{
+		slug: "resume",
+		name: "HTML Resume",
+		description: "Resume built in HTML/CSS",
+		about: [
+			"Built with React Router and TypeScript for type safety",
+			"Implemented Material Design system with SCSS modules",
+			"Deployed on Cloudflare Pages with automated CI/CD",
+			"Optimized for performance and accessibility",
+		],
+		technologies: [
+			"React",
+			"HTML",
+			"CSS",
+			"JSON",
+			"TypeScript",
+			"Vite",
+			"SCSS",
+			"Next.js",
+			"Cloudflare Workers",
+			"GitHub Actions",
+		],
+		repositoryUrl: "https://github.com/connorb08/connorbraydotnet/sites/resume",
+		liveUrl: "https://resume.connorbray.net",
+		images: [],
+		challenges: ["Allow updating of weekly specials"],
+		solutions: ["Admin page for uploading weekly specials"],
+		features: [
+			"Fully responsive design optimized for all screen sizes",
+			"Dark and light theme support with system preference detection",
+			"Smooth scroll animations and micro-interactions",
+			"SEO optimized with proper meta tags and structured data",
+			"Fast loading with code splitting and lazy loading",
+			"Accessible design following WCAG 2.1 guidelines",
 		],
 	},
 ];

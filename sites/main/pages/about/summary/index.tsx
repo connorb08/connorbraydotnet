@@ -34,7 +34,7 @@ export const UserBlock = () => {
 			<div
 				className={style.userBlock__backgroundImage}
 				style={{
-					backgroundImage: "url('/content/images/umaine-mall.jpeg?size=xs')",
+					backgroundImage: "url('/cdn/content/images/umaine-mall.jpeg?size=xs')",
 					backgroundPosition: "50% 30%",
 				}}
 			/>
@@ -67,9 +67,7 @@ export const UserBlock = () => {
 					className={style.userBlock__content__downloadButton}
 					reloadDocument
 				>
-					<span className={style.userBlock__content__downloadButton__text}>
-						Download CV
-					</span>
+					<span className={style.userBlock__content__downloadButton__text}>Download CV</span>
 					<span className={style.userBlock__content__downloadButton__icon}>
 						<svg
 							className={style.userBlock__content__downloadButton__icon__svg}
@@ -102,17 +100,11 @@ export const InformationBlock = () => {
 			<div className={style.information__content}>
 				<div className={style.information__content__item}>
 					<div className={style.information__content__item__key}>Location</div>
-					<div className={style.information__content__item__value}>
-						Portland, ME
-					</div>
+					<div className={style.information__content__item__value}>Portland, ME</div>
 				</div>
 				<div className={style.information__content__item}>
-					<div className={style.information__content__item__key}>
-						Experience
-					</div>
-					<div className={style.information__content__item__value}>
-						4+ years
-					</div>
+					<div className={style.information__content__item__key}>Experience</div>
+					<div className={style.information__content__item__value}>4+ years</div>
 				</div>
 			</div>
 		</div>

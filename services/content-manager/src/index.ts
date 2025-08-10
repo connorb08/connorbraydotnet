@@ -1,12 +1,5 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
-import {
-	calculateWidth,
-	forbiddenReferer,
-	getImages,
-	getOutputType,
-	isImage,
-	Quality,
-} from "./utils";
+import { calculateWidth, getImages, getOutputType, isImage, Quality } from "./utils";
 
 export class MainEntrypoint extends WorkerEntrypoint<Env> {
 	/**
@@ -14,9 +7,10 @@ export class MainEntrypoint extends WorkerEntrypoint<Env> {
 	 */
 	override async fetch(request: Request): Promise<Response> {
 		try {
-			if (forbiddenReferer(request)) {
-				return new Response("Forbidden", { status: 403 });
-			}
+			// console.log(request);
+			// if (forbiddenReferer(request)) {
+			// 	return new Response("Forbidden", { status: 403 });
+			// }
 
 			/* Get path key from URL */
 			const key = new URL(request.url).pathname.replace("/", "");
@@ -37,8 +31,7 @@ export class MainEntrypoint extends WorkerEntrypoint<Env> {
 			}
 
 			// Get content type of the object
-			const contentType =
-				object.httpMetadata?.contentType || "application/octet-stream";
+			const contentType = object.httpMetadata?.contentType || "application/octet-stream";
 
 			if (isImage(contentType)) {
 				const transformer = this.env.IMAGES.input(object.body);

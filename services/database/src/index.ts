@@ -49,16 +49,14 @@ export class DatabaseObject extends DurableObject<Env> {
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public async getQueens(): Promise<RPCResult<Queens>> {
-		const result = this.env.DATABASE.get(
-			this.env.DATABASE.idFromName("default"),
-		).getQueens();
+		const result = this.env.DATABASE.get(this.env.DATABASE.idFromName("default")).getQueens();
 		this.ctx.waitUntil(result);
 		return result;
 	}
 	public async putQueens(solution: QueensSolution): Promise<RPCResult<Queens>> {
-		const result = this.env.DATABASE.get(
-			this.env.DATABASE.idFromName("default"),
-		).putQueens(solution);
+		const result = this.env.DATABASE.get(this.env.DATABASE.idFromName("default")).putQueens(
+			solution,
+		);
 		this.ctx.waitUntil(result);
 		return result;
 	}

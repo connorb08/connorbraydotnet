@@ -1,15 +1,11 @@
-import {
-	index,
-	layout,
-	prefix,
-	type RouteConfig,
-	route,
-} from "@react-router/dev/routes";
+import { index, layout, prefix, type RouteConfig, route } from "@react-router/dev/routes";
 
 const routeConfig = [
 	layout("../layouts/main/layout.tsx", [
 		index("routes/index.tsx"),
 		route("about", "routes/about.tsx"),
+		route("photos", "routes/photos.tsx"),
+		route("contact", "routes/contact/contact.tsx"),
 		...prefix("/projects", [
 			index("routes/projects/index.tsx"),
 			route(":projectId", "routes/projects/project.tsx"),
@@ -21,7 +17,7 @@ const routeConfig = [
 			id: "404",
 		},
 	]),
-	route("/content/*", "routes/content.ts"),
+	route("/cdn/*", "routes/cdn.ts"),
 ] satisfies RouteConfig;
 
 export default routeConfig;

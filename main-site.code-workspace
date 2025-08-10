@@ -5,6 +5,10 @@
 			"path": "./sites/main"
 		},
 		{
+			"name": "content",
+			"path": "./services/content-manager"
+		},
+		{
 			"name": "database",
 			"path": "./services/database"
 		},
@@ -22,7 +26,6 @@
 		}
 	],
 	"settings": {
-		"typescript.experimental.expandableHover": true,
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
 			"*.tsx": "${capture}.module.scss, ${capture}.spec.tsx",

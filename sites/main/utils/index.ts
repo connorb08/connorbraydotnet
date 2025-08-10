@@ -12,7 +12,7 @@ type FailureState<T> = {
 	loading: false;
 };
 type LoadingState<T> = {
-	data: Promise<T> | T;
+	data: T;
 	error: undefined;
 	loading: true;
 };
@@ -27,10 +27,7 @@ type StateData<T> = SuccessState<T> | FailureState<T> | LoadingState<T>;
  * @param defaultValue - The default value to use while loading.
  * @returns An object containing the data, error, and loading state.
  */
-export function usePromise<T>(
-	promise: Promise<T> | T,
-	defaultValue: T,
-): StateData<T> {
+export function usePromise<T>(promise: Promise<T>, defaultValue: T): StateData<T> {
 	const [state, setState] = useState<StateData<T>>({
 		data: defaultValue,
 		error: undefined,
@@ -72,10 +69,7 @@ export async function toggleTheme(rootRef: RefObject<HTMLHtmlElement | null>) {
 	root.classList.toggle("light");
 
 	// Store the theme in localStorage
-	window.localStorage.setItem(
-		"theme",
-		root.classList.contains("dark") ? "dark" : "light",
-	);
+	window.localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
 }
 
 export const CONTENT_PATH = (path: string) => `${config.contentUrl}${path}`;

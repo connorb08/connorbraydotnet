@@ -5,7 +5,8 @@ import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
 
 type Props = {
-	resume: Resume | Promise<Resume>;
+	resume: Resume;
+	loading: boolean;
 };
 
 const Experience = (props: Props) => {
@@ -15,7 +16,7 @@ const Experience = (props: Props) => {
 		<Fragment>
 			<div className={style.section}>
 				<h2 className={style.section__title}>Education</h2>
-				{props.resume instanceof Promise ? (
+				{props.loading ? (
 					<EducationSkeleton />
 				) : (
 					props.resume.education.map((data, index) => {
@@ -25,7 +26,7 @@ const Experience = (props: Props) => {
 			</div>
 			<div className={style.section}>
 				<h2 className={style.section__title}>Experience</h2>
-				{props.resume instanceof Promise
+				{props.loading
 					? Array.from({ length: 3 }, (_, index) => (
 							<Fragment key={index}>
 								<EducationSkeleton />

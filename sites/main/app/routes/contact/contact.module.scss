@@ -1,0 +1,176 @@
+@use "~/styles" as *;
+
+.contact {
+    @include column;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    gap: 3rem;
+}
+
+.header {
+    text-align: center;
+
+    h1 {
+        @include sans-serif;
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        color: $primary;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        @include monospace;
+        font-size: clamp(1rem, 2.5vw, 1.125rem);
+        color: $onSurfaceVariant;
+        line-height: 1.6;
+        margin: 0 auto;
+        max-width: min(600px, 100%);
+        flex-shrink: 0;
+    }
+}
+
+.infoItem {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    h3 {
+        @include monospace;
+        font-weight: 600;
+        color: $onSurface;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        @include monospace;
+        color: $onSurfaceVariant;
+        line-height: 1.5;
+
+        a {
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.form {
+    @include surfaceContainer;
+    @include rounded("lg");
+    padding: 2rem;
+    @include border;
+    @include column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.field {
+    @include column;
+    gap: 0.5rem;
+
+    label {
+        @include monospace;
+        font-weight: 600;
+        color: $onSurface;
+    }
+
+    input,
+    textarea {
+        @include monospace;
+        padding: 0.75rem 1rem;
+        @include border(2px, $outline);
+        @include rounded("md");
+        background-color: $surface;
+        color: $onSurface;
+        transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease;
+
+        &::placeholder {
+            color: $onSurfaceVariant;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $primary;
+            background-color: $surfaceContainerHighest;
+        }
+
+        &:hover:not(:focus) {
+            border-color: $onSurface;
+        }
+
+        &[aria-invalid="true"] {
+            border-color: $error;
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+
+    [data-react-aria-errormessage] {
+        @include monospace;
+        font-size: 0.875rem;
+        color: $error;
+        margin-top: 0.25rem;
+    }
+}
+
+.submitSection {
+    @include row;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    button {
+        width: fit-content;
+        padding: 0 1rem;
+    }
+
+    @media (max-width: 480px) {
+        justify-content: stretch;
+
+        button {
+            width: 100%;
+        }
+    }
+}
+
+// Success/error message styling (if you want to add flash messages later)
+.message {
+    padding: 1rem 1.5rem;
+    @include rounded("md");
+    margin-bottom: 1rem;
+    @include monospace;
+
+    &.success {
+        background-color: rgba($tertiary, 0.1);
+        color: $tertiary;
+        @include border(1px, rgba($tertiary, 0.3));
+    }
+
+    &.error {
+        background-color: rgba($error, 0.1);
+        color: $error;
+        @include border(1px, rgba($error, 0.3));
+    }
+}
