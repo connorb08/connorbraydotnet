@@ -2,7 +2,7 @@ import type { Resume } from "shared";
 import type { Route } from "./+types/index";
 import "./index.scss";
 
-export function loader({ context: _context }: Route.LoaderArgs): Resume {
+export function loader({ context: _context }: Route.LoaderArgs) {
 	return {
 		name: "Connor Bray",
 		about: {

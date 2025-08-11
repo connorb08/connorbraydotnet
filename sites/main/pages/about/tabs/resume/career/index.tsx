@@ -41,7 +41,11 @@ export function Career({ data }: Props) {
 					) : null}
 				</div>
 				<div className={style.listItem__content__description}>
-					{data.about?.join(", ")}
+					<ul>
+						{data.about?.map((item, index) => (
+							<li key={index}>{item}</li>
+						))}
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -21,6 +21,8 @@
 }
 
 .container {
+    @include column;
+    height: 100%;
     width: clamp(0rem, 100%, 80rem);
     padding: clamp(1rem, 3vw, 2rem);
     margin: 0 auto;

@@ -27,10 +27,10 @@ const Experience = (props: Props) => {
 			<div className={style.section}>
 				<h2 className={style.section__title}>Experience</h2>
 				{props.loading
-					? Array.from({ length: 3 }, (_, index) => (
+					? Array.from({ length: 1 }, (_, index) => (
 							<Fragment key={index}>
 								<EducationSkeleton />
-								{index !== 3 - 1 ? bottomBorder : ""}
+								{index !== 1 - 1 ? bottomBorder : ""}
 							</Fragment>
 						))
 					: props.resume.career.map((job, index, jobs) => {

@@ -114,6 +114,17 @@
 
         &__description {
             margin-top: 1.25rem;
+
+            ul {
+                li {
+                    list-style-type: disc;
+                    margin-bottom: 0.25rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -175,6 +186,17 @@
 
         &__description {
             margin-top: 1.25rem;
+
+            ul {
+                li {
+                    list-style-type: disc;
+                    margin-bottom: 0.25rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
