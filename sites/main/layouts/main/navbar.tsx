@@ -1,31 +1,26 @@
+import { About, Home } from "components/icons";
+import { LinkButton } from "components/ui/new-button";
+import type { ReactNode } from "react";
 import { useLocation } from "react-router";
-import { IconLinkButton } from "#components/ui/buttons";
-import type { IconName } from "#components/ui/icons";
 import style from "./navbar.module.scss";
 
 export const routes = [
 	{
 		id: "home",
 		title: "Home",
-		icon: "home",
+		icon: <Home />,
 		href: "/",
 	},
 	{
 		id: "about",
 		title: "About",
-		icon: "about",
+		icon: <About />,
 		href: "/about",
-	},
-	{
-		id: "photos",
-		title: "Photos",
-		icon: "home",
-		href: "/photos",
 	},
 ] satisfies {
 	id: string;
 	title: string;
-	icon: IconName;
+	icon: ReactNode;
 	href: string;
 }[];
 
@@ -36,7 +31,7 @@ export default function Navbar() {
 		<div className={style.navbar}>
 			<nav className={style.navbar__navigation}>
 				{routes.map((route) => (
-					<IconLinkButton
+					<LinkButton
 						key={route.id}
 						to={route.href}
 						icon={route.icon}

@@ -26,24 +26,24 @@ const sections: Section[] = [
 			"Dive into the technical details of how this website is built. Learn about the modern technologies, deployment strategies, and architectural decisions behind this platform.",
 		href: "/architecture",
 	},
-	{
-		title: "Photography",
-		content:
-			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
-		href: "/photos",
-	},
+	// {
+	// 	title: "Photography",
+	// 	content:
+	// 		"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+	// 	href: "/photos",
+	// },
 	{
 		title: "Contact",
 		content:
 			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
 		href: "/contact",
 	},
-	{
-		title: "Contact?",
-		content:
-			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
-		href: "/contact",
-	},
+	// {
+	// 	title: "Contact?",
+	// 	content:
+	// 		"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+	// 	href: "/contact",
+	// },
 ];
 
 function Home() {

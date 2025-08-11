@@ -2,46 +2,17 @@ import { Link } from "react-router";
 import { CONTENT_PATH } from "#utils";
 import style from "../style.module.scss";
 
-// const EmploymentStatus = ({
-// 	employmentStatus,
-// }: {
-// 	employmentStatus: AboutProps["employmentStatus"];
-// }) => {
-// 	let textColor: string;
-// 	let bgColor: string;
-// 	let text: string;
-
-// 	if (employmentStatus === 1) {
-// 		text = "Employed";
-// 		bgColor = "bg-green-100";
-// 		textColor = "text-green-600";
-// 	} else if (employmentStatus === 0) {
-// 		text = "Freelance";
-// 		bgColor = "bg-gray-100";
-// 		textColor = "text-neutral-600";
-// 	} else {
-// 		text = "Unemployed 😞";
-// 		bgColor = "bg-red-100";
-// 		textColor = "text-red-600";
-// 	}
-
-// 	return <span className={`status-badge ${textColor} ${bgColor}`}>{text}</span>;
-// };
-
 export const UserBlock = () => {
 	return (
 		<div className={style.userBlock}>
 			<div
 				className={style.userBlock__backgroundImage}
 				style={{
-					backgroundImage: "url('/cdn/content/images/umaine-mall.jpeg?size=xs')",
+					backgroundImage: "url('/cdn/images/umaine-mall.jpeg?size=xs')",
 					backgroundPosition: "50% 30%",
 				}}
 			/>
 			<div className={style.userBlock__content}>
-				{/* <EmploymentStatus
-                                    employmentStatus={props.employmentStatus}
-                                /> */}
 				<span>
 					<picture>
 						<img
@@ -51,7 +22,6 @@ export const UserBlock = () => {
 								width: "90px",
 								height: "90px",
 							}}
-							// className="user-photo"
 							className={style.userBlock__content__headshot}
 							decoding="sync"
 							loading="eager"

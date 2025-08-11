@@ -4,14 +4,40 @@ html[data-fullscreen] {
     & .navbar {
         position: fixed;
         left: 0;
-        margin: auto 0;
         top: 50%;
         bottom: 50%;
-        height: fit-content;
+        transform: translateY(-50%);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0.25rem;
+        background-color: transparent;
+        color: $primary;
+
+        @include rounded;
+        @include shadow;
+
+        z-index: 100;
+        width: 48px;
+
         margin-left: 0.5rem;
 
+        min-height: fit-content;
+
         &__navigation {
+            @include column;
             margin: 0;
+            gap: 1rem;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $background; /* Or background-image */
+            opacity: 0.3;
+            z-index: -1; /* Place it behind the content */
         }
     }
 }

@@ -3,9 +3,7 @@ import { type IconName, icons } from "../icons";
 import style from "./buttons.module.scss";
 import type { ButtonStyle } from "./types";
 
-export function LinkButton(
-	props: NavLinkProps & React.RefAttributes<HTMLAnchorElement>,
-) {
+export function LinkButton(props: NavLinkProps & React.RefAttributes<HTMLAnchorElement>) {
 	return (
 		<NavLink {...props} className={`${style.button} ${props.className}`}>
 			{props.children}

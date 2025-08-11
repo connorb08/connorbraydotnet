@@ -2,18 +2,16 @@
 
 .home {
     display: flex;
+    height: 100%;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    justify-content: center;
 }
 
 html[data-fullscreen] {
     & .hero {
         @include shadow;
-    }
-
-    & .home {
-        margin-top: 5rem;
     }
 }
 
