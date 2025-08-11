@@ -10,12 +10,8 @@ export function loader({ context: _context }: Route.LoaderArgs): Resume {
 			emailAddress: "connor@connorbray.net",
 			location: "Boston, MA",
 			languages: ["C#", "JavaScript/TypeScript", "Python", "SQL", "C"],
-			technologies: ["Git", "React", "Terraform", "AWS", "Containerization"],
-			interests: [
-				"Distributed Computing",
-				"Containerization",
-				"Software Infrastructure",
-			],
+			technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
+			interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
 		},
 		career: [
 			{
@@ -25,23 +21,10 @@ export function loader({ context: _context }: Route.LoaderArgs): Resume {
 				startDate: "May 2021",
 				endDate: "Present",
 				about: [
-					"Worked on team tasked with migrating a legacy codebase to a C# .NET stack",
-					"Owned the modernization effort of a product team, responsible for the translation of 3 million lines of code",
+					"Improved end-to-end test performance by 95% through the implementation of parallelization and test optimization techniques. Total test suite execution time reduced from 72 hours to X hours",
+					"Owned the modernization effort of a product team, responsible for the porting of 3 million lines of legacy code to a C# .NET stack",
 					"Engineered a robust testing framework with comprehensive unit, regression, and end-to-end (E2E) tests to ensure functional parity and prevent regressions",
-					"Improved CI/CD pipeline performance by enhancing test and deployment components",
 					"Mentored and led a team of 3 engineers, establishing best practices for code review, agile methodologies, and system architecture to improve team performance and code quality",
-					"Improved end-to-end test performance by X% through the implementation of parallelization and test optimization techniques. Total test suite execution time reduced from 72 hours 3 hours",
-				],
-			},
-			{
-				company: "UMaine Student Government",
-				title: "President",
-				location: "Orono, ME",
-				startDate: "May 2022",
-				endDate: "May 2023",
-				about: [
-					"Served as the chief executive of a 501(c)(3) non-profit managing an annual budget exceeding $1,000,000",
-					"Supervised 20+ employees, including 10+ direct reports, and led a governance board of 40+ total members",
 				],
 			},
 		],
@@ -51,46 +34,28 @@ export function loader({ context: _context }: Route.LoaderArgs): Resume {
 				location: "Orono, ME",
 				degree: "B.S. Computer Science",
 				startDate: "",
-				endDate: "May 2023",
-				about: [],
+				endDate: "",
+				about: ["Student Body President"],
 			},
 		],
 		projects: [
 			{
-				name: "connorbray.net",
-				description:
-					"Personal website showcasing resume, portfolio, and photography, built for performance and scalability.",
+				name: "Linkedin Queens",
+				description: "Solver for daily linkedin n-queens puzzle",
 				about: [
-					"Emphasized accessibility and speed with fully tested architecture (unit, integration, e2e)",
-					"Resume generated using HTML/CSS and validated with JSON schema validation",
-					"Technologies: TypeScript, Remix, React, Cloudflare Workers, Terraform, GitHub Actions, Playwright",
+					"Creates an undirected graph representation of the n-queens puzzle and uses constraint propagation to reduce the search space until the solution is found",
+					"Scheduled to execute daily and post results to linkedin-games.win",
+					"Technologies: TypeScript, Playwright, Cloudflare Workers",
 				],
 			},
 			{
-				name: "cumberland-foodstop.com",
+				name: "HTML Resume",
 				description:
-					"Website for a local convenience store, featuring online ordering, product catalog, and store information.",
+					"Generates a resume from a JSON file using HTML/CSS and validate it with JSON schema validation.",
 				about: [
-					"Includes admin dashboard allowing for easy updates to product catalog and store information",
-					"Technologies: TypeScript, Next.js, React, Cloudflare Workers, AWS S3, Terraform",
-				],
-			},
-			{
-				name: "resume-generator",
-				description:
-					"Generate a resume from a JSON file using HTML/CSS and validate it with JSON schema validation.",
-				about: [
-					"This resume was generated using this project",
-					"Generates a resume from a JSON file using HTML/CSS and validates it with JSON schema validation",
-					"Technologies: TypeScript, Remix, React, Cloudflare Workers, Terraform, GitHub Actions, Playwright",
-					"You are likely viewing this resume as a PDF, but it was created using HTML/CSS and is available at resume.connorbray.net.",
-				],
-			},
-			{
-				name: "queens",
-				description: "Solver for daily linkedin queens puzzle",
-				about: [
-					"Creates an indirected graph of the queens puzzle and solves it using constraint propagation",
+					"Allows for pixel-perfect formatting and easy updating / maintainability",
+					"You are likely viewing this resume as a PDF, but it was created using this project",
+					"Technologies: HTML, CSS, TypeScript, React",
 				],
 			},
 		],
@@ -121,9 +86,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								>
 									{careerItem.company}
 								</h3>
-								<p className="section__item__heading__location">
-									{careerItem.location}
-								</p>
+								<p className="section__item__heading__location">{careerItem.location}</p>
 							</div>
 							<div className="section__item__subheading">
 								<p
@@ -166,9 +129,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								>
 									{educationItem.school}
 								</h3>
-								<p className="section__item__heading__location">
-									{educationItem.location}
-								</p>
+								<p className="section__item__heading__location">{educationItem.location}</p>
 							</div>
 							<div className="section__item__subheading">
 								<p
@@ -180,10 +141,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 								<p className="section__item__date">{educationItem.endDate}</p>
 							</div>
 							{educationItem.about.length > 0 ? (
-								<div
-									data-testid="education-about"
-									className="section__item__content"
-								>
+								<div data-testid="education-about" className="section__item__content">
 									<ul>
 										{educationItem.about.map((bullet, bulletIndex) => {
 											return (
@@ -271,10 +229,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 						<li>
 							<p>
 								<b className="footer__content--bold">{"Website: "}</b>
-								<a
-									className="footer__content__link"
-									href="https://connorbray.net"
-								>
+								<a className="footer__content__link" href="https://connorbray.net">
 									connorbray.net
 								</a>
 							</p>
@@ -282,10 +237,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 						<li>
 							<p>
 								<b className="footer__content--bold">{"GitHub: "}</b>
-								<a
-									className="footer__content__link"
-									href="https://github.com/connorb08"
-								>
+								<a className="footer__content__link" href="https://github.com/connorb08">
 									github.com/connorb08
 								</a>
 							</p>
@@ -293,10 +245,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 						<li>
 							<p>
 								<b className="footer__content--bold">{"LinkedIn: "}</b>
-								<a
-									className="footer__content__link"
-									href="https://linkedin.com/in/connor-bray"
-								>
+								<a className="footer__content__link" href="https://linkedin.com/in/connor-bray">
 									linkedin.com/in/connor-bray
 								</a>
 							</p>
