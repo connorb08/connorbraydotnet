@@ -1,0 +1,38 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "admin",
+	"compatibility_date": "2025-04-04",
+	"workers_dev": false,
+	"main": "./workers/app.ts",
+	"routes": [
+		{
+			"pattern": "next-admin.connorbray.net",
+			"custom_domain": true
+		}
+	],
+	"services": [
+		{
+			"binding": "CONTENT_MANAGER",
+			"service": "content-manager",
+			"entrypoint": "MainEntrypoint"
+		},
+		{
+			"binding": "QUEENS",
+			"service": "queens",
+			"entrypoint": "Entrypoint"
+		},
+		{
+			"binding": "API",
+			"service": "next-api",
+			"entrypoint": "MainEntrypoint"
+		},
+		{
+			"binding": "DATABASE",
+			"service": "database",
+			"entrypoint": "Entrypoint"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}

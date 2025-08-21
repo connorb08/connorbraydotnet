@@ -5,20 +5,26 @@ import { SolutionFactory } from "../src";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public async solve(): Promise<QueensSolution> {
-		const res = SolutionFactory({
+		const res = await SolutionFactory({
 			pageController: await PageController(this.env.BROWSER),
 		});
-		this.ctx.waitUntil(res);
 		return res;
 	}
 
-	public async scheduledHandler(): Promise<void> {
+	public async scheduledHandler(): Promise<QueensSolution> {
 		const solution = await this.solve();
-		this.ctx.waitUntil(this.env.DATABASE.putQueens(solution));
+		await this.env.DATABASE.putQueens(solution);
+		return solution;
 	}
 
 	public override async scheduled(_: ScheduledController): Promise<void> {
-		this.ctx.waitUntil(this.scheduledHandler());
+		try {
+			await this.scheduledHandler();
+		} catch (error) {
+			if (Error.isError(error)) {
+				console.error(`Caught error in scheduled handler: ${error.message}. Stack: ${error.stack}`);
+			}
+		}
 	}
 }
 

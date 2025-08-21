@@ -20,8 +20,8 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"play": "bun run dev.ts",
+		"start": "wrangler dev",
+		"dev": "bun run dev.ts",
 		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json",
 		"pretypecheck": "bun run typegen",
 		"typecheck": "tsc -b",
