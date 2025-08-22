@@ -2,6 +2,7 @@ import logger from "clog";
 import { SolutionFactory } from "./src";
 import { PageController } from "./src/page-controller/playwright";
 
+logger.logLevel = "trace";
 logger.debug("Start");
 const start = performance.now();
 const solution = await SolutionFactory({

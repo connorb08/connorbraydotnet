@@ -259,6 +259,7 @@ class Graph {
 						for (const row of sharedRows) {
 							if (row.filter((c) => colorSet.has(c.color))) {
 								constraintUpdated = true;
+								break;
 							}
 						}
 						if (constraintUpdated) {
@@ -272,6 +273,7 @@ class Graph {
 						for (const column of sharedColumns) {
 							if (column.filter((c) => colorSet.has(c.color))) {
 								constraintUpdated = true;
+								break;
 							}
 						}
 						if (constraintUpdated) {
