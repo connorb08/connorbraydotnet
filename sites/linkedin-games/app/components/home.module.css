@@ -1,0 +1,426 @@
+.root {
+	box-sizing: border-box;
+}
+
+/* ensure all elements use border-box so padding doesn't create unexpected overflow */
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+:root {
+	--bg: #f7fafc;
+	--card: #ffffff;
+	--muted: #546e7a;
+	--accent: #2563eb;
+	--glass: rgba(15, 23, 42, 0.02);
+	--glass-2: rgba(15, 23, 42, 0.04);
+	--radius: 14px;
+	--max-width: 1100px;
+}
+
+.page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	padding: 2rem 1rem;
+	background: linear-gradient(180deg, var(--bg) 0%, #eef2f7 100%);
+	color: #0b1722;
+	align-items: stretch;
+	overflow-x: hidden;
+}
+
+/* prevent scrolling on desktop while allowing mobile scroll */
+@media (min-width: 980px) {
+	html,
+	body,
+	.page {
+		overflow: hidden;
+		height: 100vh;
+	}
+}
+
+.header {
+	width: 100%;
+	max-width: var(--max-width);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	/* center header within the page and match center column padding */
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.titleGroup {
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	margin: 0;
+	font-size: 1.9rem;
+	letter-spacing: -0.01em;
+	font-weight: 700;
+	color: var(--accent);
+}
+
+.tagline {
+	margin: 0.25rem 0 0 0;
+	color: var(--muted);
+	font-size: 0.98rem;
+}
+
+.dateBlock {
+	text-align: right;
+}
+
+.date {
+	font-weight: 600;
+}
+
+.badge {
+	margin-top: 0.35rem;
+	display: inline-block;
+	font-size: 0.8rem;
+	color: var(--accent);
+	background: rgba(37, 99, 235, 0.08);
+	padding: 0.25rem 0.5rem;
+	border-radius: 999px;
+}
+
+.centerColumn {
+	width: 100%;
+	max-width: var(--max-width);
+	display: grid;
+	/* allow the sidebar to shrink below 320px when space is tight */
+	grid-template-columns: 1fr minmax(220px, 320px);
+	gap: 1.5rem;
+	align-items: start;
+	box-sizing: border-box;
+	padding: 0 1rem; /* match .page horizontal padding */
+	margin: 0 auto;
+}
+
+.boardCard {
+	background: var(--card);
+	border-radius: var(--radius);
+	padding: 1rem;
+	box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
+	border: 1px solid rgba(7, 22, 33, 0.04);
+	/* allow this grid item to shrink below its content width when needed */
+	min-width: 0;
+}
+
+.boardHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.boardTitle {
+	font-weight: 600;
+}
+
+.boardActions {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.control {
+	background: transparent;
+	color: var(--accent);
+	border: 1px solid rgba(37, 99, 235, 0.12);
+	padding: 0.45rem 0.85rem;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.link {
+	color: var(--accent);
+	text-decoration: none;
+	font-size: 0.95rem;
+	padding: 0.45rem 0.75rem;
+	border-radius: 8px;
+	border: 1px solid rgba(37, 99, 235, 0.08);
+	background: transparent;
+	transition:
+		background 160ms ease,
+		transform 120ms ease;
+}
+
+.link:hover,
+.link:focus {
+	background: rgba(37, 99, 235, 0.06);
+	transform: translateY(-2px);
+}
+
+.linkButton {
+	display: inline-block;
+	color: var(--accent);
+	text-decoration: none;
+	padding: 0.45rem 0.85rem;
+	border-radius: 8px;
+	border: 1px solid rgba(7, 22, 33, 0.06);
+	background: rgba(37, 99, 235, 0.06);
+	font-weight: 600;
+	margin-left: 0.5rem;
+}
+
+.boardWrapper {
+	display: flex;
+	justify-content: center;
+	padding: 1rem 0.5rem 0.5rem 0.5rem;
+}
+
+.boardFrame {
+	background: linear-gradient(180deg, rgba(243, 246, 255, 0.95), rgba(255, 255, 255, 0.95));
+	padding: 1rem;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 12px 30px rgba(16, 24, 40, 0.06);
+	border: 1px solid rgba(16, 24, 40, 0.04);
+	transform: translateZ(0);
+	/* make board responsive without overflowing the container */
+	width: min(640px, 100%);
+	max-width: 100%;
+	aspect-ratio: 1 / 1;
+	box-sizing: border-box;
+}
+
+.hiddenPlaceholder {
+	color: var(--muted);
+	padding: 2.5rem 3rem;
+	font-weight: 600;
+}
+
+.metricsRow {
+	margin-top: 0.8rem;
+	display: flex;
+	gap: 1rem;
+	color: var(--muted);
+	font-size: 0.9rem;
+}
+
+.metric {
+	background: var(--glass-2);
+	padding: 0.35rem 0.6rem;
+	border-radius: 8px;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.card {
+	background: var(--card);
+	border-radius: 12px;
+	padding: 0.9rem;
+	border: 1px solid rgba(7, 22, 33, 0.04);
+	color: var(--muted);
+	max-width: 100%;
+	box-sizing: border-box;
+	/* allow card contents to wrap and the card to shrink inside grid/column */
+	min-width: 0;
+}
+
+.sidebar {
+	min-width: 0;
+}
+
+.footer {
+	width: 100%;
+	max-width: var(--max-width);
+	display: flex;
+	justify-content: center;
+	/* center footer within the page and match center column padding */
+	margin: 0 auto;
+	padding: 1rem 1rem 2rem 1rem;
+}
+
+.footerInner {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	color: var(--muted);
+	flex-wrap: wrap;
+}
+
+.footerLinks {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.copyright {
+	font-size: 0.95rem;
+}
+
+.iconButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	background: transparent;
+	border: 1px solid rgba(7, 22, 33, 0.06);
+	color: var(--accent);
+	text-decoration: none;
+}
+
+.iconButton:hover {
+	background: rgba(37, 99, 235, 0.06);
+	transform: translateY(-2px);
+}
+
+.srOnly {
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+	border: 0;
+	padding: 0;
+	margin: -1px;
+}
+
+.stackList {
+	margin: 0.5rem 0 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.linksRow {
+	display: flex;
+	gap: 0.6rem;
+	margin-top: 0.6rem;
+}
+
+.small {
+	font-size: 0.9rem;
+}
+
+@media (max-width: 980px) {
+	.centerColumn {
+		grid-template-columns: 1fr;
+	}
+	.sidebar {
+		order: 2;
+	}
+	.boardCard {
+		order: 1;
+	}
+}
+
+@media (max-width: 420px) {
+	.page {
+		padding: 2rem 0.75rem;
+	}
+	.title {
+		font-size: 1.45rem;
+	}
+}
+
+/* Additional responsive tweaks */
+@media (max-width: 980px) {
+	.boardFrame {
+		width: min(560px, 86vw);
+		height: min(560px, 86vw);
+		border-radius: 12px;
+	}
+	.boardCard {
+		padding: 0.8rem;
+	}
+	.card {
+		padding: 0.75rem;
+	}
+	.linkButton,
+	.iconButton {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+@media (max-width: 640px) {
+	.page {
+		padding: 1.25rem 0.75rem;
+		gap: 0.9rem;
+	}
+	.title {
+		font-size: 1.4rem;
+	}
+	.tagline {
+		font-size: 0.92rem;
+	}
+	.boardFrame {
+		width: 92vw;
+		height: 92vw;
+		padding: 0.75rem;
+		border-radius: 10px;
+	}
+	.boardWrapper {
+		padding: 0.5rem 0.25rem;
+	}
+	.boardCard {
+		padding: 0.6rem;
+	}
+	.sidebar {
+		padding: 0 0.25rem;
+	}
+	.card {
+		padding: 0.7rem;
+	}
+	.footerInner {
+		flex-direction: column;
+		gap: 0.5rem;
+		align-items: center;
+	}
+	.footerLinks {
+		order: 2;
+	}
+	.iconButton {
+		width: 36px;
+		height: 36px;
+	}
+	.link {
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 0.6rem;
+		border-radius: 8px;
+	}
+	.linkButton {
+		display: inline-flex;
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 420px) {
+	.page {
+		padding: 1rem 0.5rem;
+	}
+	.title {
+		font-size: 1.25rem;
+	}
+	.tagline {
+		font-size: 0.88rem;
+	}
+	.boardFrame {
+		width: 94vw;
+		height: 94vw;
+	}
+}

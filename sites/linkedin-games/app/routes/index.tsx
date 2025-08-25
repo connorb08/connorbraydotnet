@@ -1,5 +1,5 @@
 import { logger } from "clog";
-import { QueensResult } from "components";
+import Home from "../components/home";
 import type { Route } from "./+types/index";
 
 export function meta(_: Route.MetaArgs) {
@@ -16,7 +16,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 			logger.error("Error fetching game data:", error);
 			return { data: null };
 		}
-		return { data: data?.solution };
+		return {
+			data,
+		};
 	} catch (error) {
 		logger.error("Error fetching game data:", error);
 		return { data: null };
@@ -25,5 +27,5 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export default function ({ loaderData }: Route.ComponentProps) {
 	const { data } = loaderData;
-	return data ? <QueensResult {...data} /> : <div>No data available</div>;
+	return data ? <Home solution={data.solution} /> : <div>No data available</div>;
 }
