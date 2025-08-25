@@ -17,11 +17,6 @@
 			"entrypoint": "MainEntrypoint"
 		},
 		{
-			"binding": "QUEENS",
-			"service": "queens",
-			"entrypoint": "Entrypoint"
-		},
-		{
 			"binding": "API",
 			"service": "next-api",
 			"entrypoint": "MainEntrypoint"
