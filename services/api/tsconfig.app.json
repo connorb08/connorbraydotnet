@@ -12,10 +12,5 @@
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
 		"types": ["./worker-configuration.d.ts"]
-	},
-	"references": [
-		{
-			"path": "../linkedin-games/queens/tsconfig.app.json"
-		}
-	]
+	}
 }

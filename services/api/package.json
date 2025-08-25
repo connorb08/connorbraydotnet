@@ -1,21 +1,21 @@
 {
 	"name": "api",
 	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vite dev",
-		"typegen": "wrangler types -c wrangler.json -c ../linkedin-games/queens/wrangler.json",
-		"typecheck": "tsc -b"
-	},
 	"dependencies": {
-		"types": "workspace:*",
-		"queens": "workspace:*"
+		"hono": "^4.9.4",
+		"types": "workspace:*"
 	},
 	"peerDependencies": {
 		"typescript": "*",
 		"wrangler": "*",
 		"vite": "*",
 		"@cloudflare/vite-plugin": "*"
-	}
+	},
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"typegen": "wrangler types -c wrangler.json",
+		"typecheck": "tsc -b"
+	},
+	"type": "module"
 }

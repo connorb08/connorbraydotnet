@@ -11,13 +11,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"services": [
-		{
-			"binding": "QUEENS",
-			"service": "queens",
-			"entrypoint": "Entrypoint"
-		}
-	],
 	"route": {
 		"custom_domain": true,
 		"pattern": "next-api.connorbray.net"

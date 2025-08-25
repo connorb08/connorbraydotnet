@@ -11,6 +11,6 @@ export function loader({ context: _ }: Route.LoaderArgs) {
 	return {};
 }
 
-export default function Home({}: Route.ComponentProps) {
+export default function Home(_: Route.ComponentProps) {
 	return <div>hello</div>;
 }
