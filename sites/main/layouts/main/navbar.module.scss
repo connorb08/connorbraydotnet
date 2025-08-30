@@ -31,10 +31,6 @@
     }
 }
 
-/* Active state: slide in left -> right when html[data-fullscreen] is present */
-/* When fullscreen is toggled we first move the navbar quickly offscreen left, then slide
-   it back in from left->right. Using a short keyframe avoids clashing with the base transform
-   and prevents visual jitter. */
 html[data-fullscreen] {
     & .navbar {
         /* Fullscreen appearance (different from normal state) */
@@ -57,6 +53,10 @@ html[data-fullscreen] {
 
         min-height: fit-content;
 
+        /* Start offscreen on fullscreen toggle, then slide in left->right */
+        transform: translate(-110%, -50%);
+        animation: navbar-fullscreen-entrance 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
         /* Navigation layout used in fullscreen */
         &__navigation {
             @include column;
@@ -75,10 +75,6 @@ html[data-fullscreen] {
             opacity: 0.3;
             z-index: -1; /* Place it behind the content */
         }
-
-        /* Start offscreen on fullscreen toggle, then slide in left->right */
-        transform: translate(-110%, -50%);
-        animation: navbar-fullscreen-entrance 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 }
 

@@ -1,9 +1,9 @@
 @use "~/styles" as *;
 
 .container {
-    @include rounded("lg");
+    @include rounded;
     background-color: $surfaceContainerHighest;
-    height: 8rem;
+    height: 12rem;
     border: 1px solid transparent;
 
     &:focus-within {
