@@ -1,50 +1,11 @@
 @use "~/styles" as *;
 
-html[data-fullscreen] {
-    & .navbar {
-        position: fixed;
-        left: 0;
-        top: 50%;
-        bottom: 50%;
-        transform: translateY(-50%);
-        backdrop-filter: blur(10px);
-        padding: 1rem 0.25rem;
-        background-color: transparent;
-        color: $primary;
-
-        @include rounded;
-        @include shadow;
-
-        z-index: 100;
-        width: 48px;
-
-        margin-left: 0.5rem;
-
-        min-height: fit-content;
-
-        &__navigation {
-            @include column;
-            margin: 0;
-            gap: 1rem;
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: $background; /* Or background-image */
-            opacity: 0.3;
-            z-index: -1; /* Place it behind the content */
-        }
-    }
-}
-
+/* The navbar is visible and styled for the normal (non-fullscreen) state. */
 .navbar {
     /* Includes */
     @include surfaceDim;
+
+    /* Normal layout (non-fullscreen) */
 
     /* Position and Layout */
     display: flex;
@@ -67,5 +28,65 @@ html[data-fullscreen] {
         justify-content: start;
         gap: 2rem;
         margin-top: 2rem;
+    }
+}
+
+/* Active state: slide in left -> right when html[data-fullscreen] is present */
+/* When fullscreen is toggled we first move the navbar quickly offscreen left, then slide
+   it back in from left->right. Using a short keyframe avoids clashing with the base transform
+   and prevents visual jitter. */
+html[data-fullscreen] {
+    & .navbar {
+        /* Fullscreen appearance (different from normal state) */
+        position: fixed;
+        left: 0;
+        top: 50%;
+        bottom: 50%;
+        backdrop-filter: blur(10px);
+        padding: 1rem 0.25rem;
+        background-color: transparent;
+        color: $primary;
+
+        @include rounded;
+        @include shadow;
+
+        z-index: 100;
+        width: 48px;
+
+        margin-left: 0.5rem;
+
+        min-height: fit-content;
+
+        /* Navigation layout used in fullscreen */
+        &__navigation {
+            @include column;
+            margin: 0;
+            gap: 1rem;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $background; /* Or background-image */
+            opacity: 0.3;
+            z-index: -1; /* Place it behind the content */
+        }
+
+        /* Start offscreen on fullscreen toggle, then slide in left->right */
+        transform: translate(-110%, -50%);
+        animation: navbar-fullscreen-entrance 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+}
+
+@keyframes navbar-fullscreen-entrance {
+    from {
+        transform: translate(-110%, -50%);
+    }
+    to {
+        transform: translate(0, -50%);
     }
 }

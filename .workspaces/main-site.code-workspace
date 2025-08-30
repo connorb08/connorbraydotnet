@@ -2,27 +2,27 @@
 	"folders": [
 		{
 			"name": "site",
-			"path": "./sites/main"
+			"path": "../sites/main"
 		},
 		{
 			"name": "content",
-			"path": "./services/content-manager"
+			"path": "../services/content-manager"
 		},
 		{
 			"name": "database",
-			"path": "./services/database"
+			"path": "../services/database"
 		},
 		{
 			"name": "api",
-			"path": "./services/api"
+			"path": "../services/api"
 		},
 		{
 			"name": "types",
-			"path": "./packages/types"
+			"path": "../packages/types"
 		},
 		{
 			"name": "root",
-			"path": "."
+			"path": ".."
 		}
 	],
 	"settings": {

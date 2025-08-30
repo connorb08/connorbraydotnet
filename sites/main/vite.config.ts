@@ -21,9 +21,6 @@ export default defineConfig({
 				{
 					configPath: "../../services/api/wrangler.json",
 				},
-				{
-					configPath: "../../services/linkedin-games/queens/wrangler.json",
-				},
 			],
 		}),
 		reactRouter(),

@@ -34,9 +34,6 @@
 		},
 		{
 			"path": "./services/database"
-		},
-		{
-			"path": "./services/linkedin-games/queens"
 		}
 	],
 	"compilerOptions": {

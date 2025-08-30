@@ -13,5 +13,5 @@ alias la="ls -A"
 
 alias wrangler="bun run wrangler"
 
-export WORKSPACE=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
-export DATABASE_DIR=$WORKSPACE/services/database
+export ROOT=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
+export DATABASE_DIR=$ROOT/services/database
