@@ -1,19 +1,19 @@
 {
 	"folders": [
 		{
-			"path": ".",
+			"path": "..",
 			"name": "root"
 		},
 		{
-			"path": "./sites",
+			"path": "../sites",
 			"name": "sites"
 		},
 		{
-			"path": "./services",
+			"path": "../services",
 			"name": "services"
 		},
 		{
-			"path": "./packages",
+			"path": "../packages",
 			"name": "packages"
 		}
 	],

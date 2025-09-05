@@ -12,17 +12,18 @@ function formatDate(d: Date) {
 }
 
 function getPuzzleDate(now = new Date()): Date {
-	// Determine today's 10:00 UTC
-	const year = now.getUTCFullYear();
-	const month = now.getUTCMonth();
-	const day = now.getUTCDate();
-	const switchTs = Date.UTC(year, month, day, 10, 0, 0);
+	const year = now.getFullYear(); // local
+	const month = now.getMonth();
+	const day = now.getDate();
 
-	// If current time (in UTC) is before today's 10:00 UTC, show previous date
+	const switchTs = Date.UTC(year, month, day, 10, 0, 0); // 10:00 UTC for this local day
+
 	if (now.getTime() < switchTs) {
-		return new Date(now.getTime() - 24 * 60 * 60 * 1000);
+		// Before 10:00 UTC -> use previous local calendar day (handles month/year rollover)
+		return new Date(year, month, day - 1);
 	}
-	return new Date(now.getTime());
+	// On/after 10:00 UTC -> use current local calendar day
+	return new Date(year, month, day);
 }
 
 export default function Home({ solution }: Props) {
@@ -66,7 +67,7 @@ export default function Home({ solution }: Props) {
 							</button>
 							<a
 								className={styles.link}
-								href="https://github.com/connorb08/connorbraydotnet/tree/main/sites/linkedin-games"
+								href="https://github.com/connorb08/queens"
 								target="_blank"
 								rel="noreferrer"
 							>
