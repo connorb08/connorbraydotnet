@@ -122,6 +122,8 @@ html[data-fullscreen] {
         flex: 1;
         padding: 1.5rem;
         view-transition-name: mainContent;
+        max-width: width(xl);
+        margin: 0 auto;
     }
 }
 

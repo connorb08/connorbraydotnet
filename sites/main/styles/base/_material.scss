@@ -1,5 +1,5 @@
 /* $seed: #409ab9; */
-.light {
+html[data-theme="light"] {
 	--md-sys-color-primary: #006781;
 	--md-sys-color-onPrimary: #ffffff;
 	--md-sys-color-primaryContainer: #b9eaff;
@@ -31,7 +31,7 @@
 	--md-sys-color-inversePrimary: #5fd4fd;
 }
 
-.dark {
+html[data-theme="dark"] {
 	--md-sys-color-primary: #5fd4fd;
 	--md-sys-color-onPrimary: #003544;
 	--md-sys-color-primaryContainer: #004d62;
@@ -63,7 +63,7 @@
 	--md-sys-color-inversePrimary: #006781;
 }
 
-.light {
+html[data-theme="light"] {
 	--md-sys-color-primary: rgb(11 103 128);
 	--md-sys-color-surface-tint: rgb(11 103 128);
 	--md-sys-color-on-primary: rgb(255 255 255);
@@ -219,7 +219,7 @@
 	--md-sys-color-surface-container-highest: rgb(194 199 202);
 }
 
-.dark {
+html[data-theme="dark"] {
 	--md-sys-color-primary: rgb(137 208 237);
 	--md-sys-color-surface-tint: rgb(137 208 237);
 	--md-sys-color-on-primary: rgb(0 53 68);

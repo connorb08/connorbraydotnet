@@ -28,11 +28,11 @@
 }
 
 $_border-radii: (
-    sm: 0.25rem,
-    md: 0.5rem,
-    lg: 1rem,
-    xl: 2rem,
-    2xl: 3rem
+    sm: 4px,
+    md: 8px,
+    lg: 16px,
+    xl: 32px,
+    2xl: 48px
 );
 
 @mixin rounded($size: "md") {

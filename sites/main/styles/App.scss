@@ -21,8 +21,8 @@ body {
     box-sizing: border-box;
 }
 
-:root.color-transition,
-:root.color-transition * {
+:root[data-theme-transition],
+:root[data-theme-transition] * {
     transition-property: color, background-color, border-color, box-shadow;
     transition-duration: 0.25s;
     transition-timing-function: ease-in-out;

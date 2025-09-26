@@ -9,8 +9,8 @@ const theme = (() => {
 	}
 	return "light";
 })();
-document.documentElement.classList.toggle("light", theme === "light");
-document.documentElement.classList.toggle("dark", theme === "dark");
+document.documentElement.setAttribute("data-theme", theme);
+// document.documentElement.classList.toggle("dark", theme === "dark");
 
 // Set fullscreen
 const fullScreen = localStorage?.getItem("fullscreen") === "true";

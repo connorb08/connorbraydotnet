@@ -7,7 +7,6 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from "react-router";
-import { GlobalContext } from "#utils/context";
 import type { Route } from "./+types/root";
 
 /**
@@ -15,15 +14,14 @@ import type { Route } from "./+types/root";
  * App.scss - Global styles
  */
 import "#styles/App.scss";
-import { toggleFullscreen } from "../utils/controller";
+import { ContextProvider } from "utils/context/provider";
+// import { toggleTheme } from "#utils";
+// import { toggleFullscreen } from "../utils/controller";
 
 export const links: Route.LinksFunction = () => [];
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "Connor Bray" },
-		{ name: "description", content: "connorbray.net" },
-	];
+	return [{ title: "Connor Bray" }, { name: "description", content: "connorbray.net" }];
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -39,14 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<script src="/head.js" />
 			</head>
 			<body>
-				<GlobalContext.Provider
-					value={{
-						rootRef,
-						toggleFullscreen,
-					}}
-				>
-					{children}
-				</GlobalContext.Provider>
+				<ContextProvider rootRef={rootRef}>{children}</ContextProvider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>
@@ -66,9 +57,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	if (isRouteErrorResponse(error)) {
 		message = error.status === 404 ? "404" : "Error";
 		details =
-			error.status === 404
-				? "The requested page could not be found."
-				: error.statusText || details;
+			error.status === 404 ? "The requested page could not be found." : error.statusText || details;
 	} else if (import.meta.env.DEV && error && error instanceof Error) {
 		details = error.message;
 		stack = error.stack;

@@ -1,19 +1,33 @@
 import { useContext } from "react";
-import { toggleTheme } from "#utils";
-import { GlobalContext } from "#utils/context";
-import { ExitFullscreen, Fullscreen, Gear } from "./icons";
+import { GlobalContext } from "#utils/context/index";
+import { ExitFullscreen, Fullscreen, Moon, Sun } from "./icons";
 import style from "./toolbar.module.scss";
 import { Button } from "./ui/new-button";
 
 function ThemeToggle() {
-	const { rootRef } = useContext(GlobalContext);
+	const { toggleTheme } = useContext(GlobalContext);
 	return (
-		<Button color="primary" variant="ghost" icon={<Gear />} onClick={() => toggleTheme(rootRef)} />
+		<>
+			<Button
+				color="primary"
+				variant="ghost"
+				icon={<Sun />}
+				className={style.dark}
+				onClick={() => toggleTheme()}
+			/>
+			<Button
+				color="primary"
+				variant="ghost"
+				icon={<Moon />}
+				className={style.light}
+				onClick={() => toggleTheme()}
+			/>
+		</>
 	);
 }
 
 function FullscreenToggle() {
-	const { rootRef, toggleFullscreen } = useContext(GlobalContext);
+	const { toggleFullscreen } = useContext(GlobalContext);
 
 	return (
 		<>
@@ -22,14 +36,14 @@ function FullscreenToggle() {
 				variant="ghost"
 				className={style.exit}
 				icon={<ExitFullscreen />}
-				onClick={() => toggleFullscreen(rootRef)}
+				onClick={() => toggleFullscreen()}
 			/>
 			<Button
 				color="primary"
 				variant="ghost"
 				className={style.enter}
 				icon={<Fullscreen />}
-				onClick={() => toggleFullscreen(rootRef)}
+				onClick={() => toggleFullscreen()}
 			/>
 		</>
 	);

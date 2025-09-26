@@ -1,0 +1,16 @@
+$_points: (
+    none: 0px,
+    fourth: 3px,
+    third: 4px,
+    half: 6px,
+    default: 12px,
+    double: 24px
+);
+
+@function pt($key: default) {
+    @if not map.has-key($_widths, $key) {
+        @warn "Width `#{$key}` not found.";
+    }
+
+    @return map.get($_widths, $key);
+}

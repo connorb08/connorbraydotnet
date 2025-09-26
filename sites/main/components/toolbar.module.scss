@@ -34,3 +34,19 @@ html[data-fullscreen] {
         display: flex !important;
     }
 }
+
+.light {
+    display: flex !important;
+}
+.dark {
+    display: none !important;
+}
+
+html[data-theme="dark"] {
+    & .light {
+        display: none !important;
+    }
+    & .dark {
+        display: flex !important;
+    }
+}
