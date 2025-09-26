@@ -1,5 +1,5 @@
-import { type ChangeEventHandler, useRef } from "react";
-import { type NavigateFunction, useLocation, useNavigate } from "react-router";
+import { useRef } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useTerminalController } from "./controller";
 import style from "./style.module.scss";
 
@@ -32,9 +32,9 @@ export default function Terminal() {
 						id="terminal-input"
 						className={style.container__terminal__entry__input}
 						type="text"
-						// onChange={handleType}
-						// onBlur={removeCursor}
-						// onFocus={handleFocus}
+						onChange={terminal.handleType}
+						onBlur={terminal.removeCursor}
+						onFocus={terminal.handleFocus}
 						autoComplete="off"
 						onKeyDown={terminal.handleKeyDown}
 					/>

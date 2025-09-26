@@ -1,7 +1,7 @@
 @use "~/styles" as *;
 
 .container {
-    @include rounded;
+    @include rounded("xl");
     background-color: $surfaceContainerHighest;
     height: 12rem;
     border: 1px solid transparent;
@@ -16,16 +16,15 @@
     &__terminal {
         height: 100%;
         margin: 0 auto;
-        padding: 1rem 2rem;
+        padding: pt(1) pt(2);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        // gap: 1rem;
         margin: 0;
 
         &__result {
             flex: 1;
-            margin-bottom: 0.5rem;
+            margin-bottom: pt(0.5);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -45,18 +44,15 @@
             line-height: normal;
 
             &__prompt {
-                padding-right: 0.5rem;
+                padding-right: pt(0.5);
 
                 &::after {
-                    // \00a0
                     content: attr(data-after);
                     position: absolute;
-                    // color: inherit;
                     color: $primary;
-                    // color: $onSurface;
                     animation: blink 1s infinite;
-                    margin-left: 0.6rem;
-                    margin-top: 0.2rem;
+                    margin-left: pt(0.5);
+                    margin-top: pt(0.25);
                 }
 
                 @keyframes blink {
@@ -71,7 +67,6 @@
                 font-size: inherit;
                 width: 100%;
                 background-color: inherit;
-                // color: inherit;
                 color: $primary;
                 border: none;
                 position: relative;

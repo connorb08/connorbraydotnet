@@ -35,10 +35,10 @@ html[data-fullscreen] {
 
 .header {
     @include surfaceDim;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
+    padding-top: pt(1.5);
+    padding-bottom: pt(1.5);
+    margin-left: pt(0.5);
+    margin-right: pt(0.5);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -52,9 +52,9 @@ html[data-fullscreen] {
         &__link {
             display: flex;
 
-            gap: 0.5rem;
+            gap: pt(1);
             text-decoration: none;
-            font-size: 1.5rem;
+            font-size: pt(2);
 
             &__icon {
                 color: $tertiary;
@@ -103,6 +103,7 @@ html[data-fullscreen] {
 .content {
     @include surfaceContainer;
     @include border(2px);
+    @include rounded("xl");
     height: 100%;
     width: 100%;
     display: flex;
@@ -110,51 +111,131 @@ html[data-fullscreen] {
     flex: 1;
     box-sizing: border-box;
     flex: 1;
-    border-radius: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: pt(1);
     overflow: hidden;
+    contain: layout style paint;
+    position: relative;
 
     overflow-y: auto;
     scrollbar-color: $tertiary $surfaceContainer;
 
-    &__main {
-        @include sans-serif;
-        flex: 1;
-        padding: 1.5rem;
+    &__spacer {
         view-transition-name: mainContent;
         max-width: width(xl);
         margin: 0 auto;
+        max-height: 100%;
+        &__main {
+            // view-transition-name: mainContent;
+            @include sans-serif;
+            flex: 1;
+            padding: pt(0.5);
+            // margin: 0 auto;
+            // max-width: width(xl);
+            width: 100%;
+            transform-origin: center top;
+            overflow: hidden;
+            // overflow-y: auto;
+        }
     }
 }
 
 ::view-transition-old(mainContent) {
-    animation: shrink-out 0.3s ease-out forwards;
+    animation: crt-off 0.4s ease-in forwards;
+    transform-origin: center center;
+    overflow: hidden;
+    clip-path: inset(0);
 }
 
 ::view-transition-new(mainContent) {
-    animation: grow-in 0.3s ease-out forwards;
+    animation: crt-on 0.4s ease-out forwards;
+    transform-origin: center center;
+    overflow: hidden;
+    clip-path: inset(0);
 }
 
-@keyframes shrink-out {
-    from {
-        transform: scale(1);
+::view-transition-group(mainContent) {
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        animation: scanlines 0.4s ease-out;
+    }
+}
+
+@keyframes crt-off {
+    0% {
+        transform: scaleX(1) scaleY(1);
         opacity: 1;
+        filter: brightness(1) contrast(1);
     }
 
-    to {
-        transform: scale(0.8);
+    50% {
+        transform: scaleX(1) scaleY(0.1);
+        opacity: 0.8;
+        filter: brightness(1.2) contrast(1.5);
+    }
+
+    70% {
+        transform: scaleX(0.1) scaleY(0.1);
+        opacity: 0.3;
+        filter: brightness(1.5) contrast(2);
+    }
+
+    100% {
+        transform: scaleX(0) scaleY(0);
         opacity: 0;
+        filter: brightness(2) contrast(0);
     }
 }
 
-@keyframes grow-in {
-    from {
-        transform: scale(0.8);
+@keyframes crt-on {
+    0% {
+        transform: scaleX(0) scaleY(0);
+        opacity: 0;
+        filter: brightness(2) contrast(0);
+    }
+
+    30% {
+        transform: scaleX(0.1) scaleY(0.1);
+        opacity: 0.3;
+        filter: brightness(1.5) contrast(2);
+    }
+
+    50% {
+        transform: scaleX(1) scaleY(0.1);
+        opacity: 0.8;
+        filter: brightness(1.2) contrast(1.5);
+    }
+
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 1;
+        filter: brightness(1) contrast(1);
+    }
+}
+
+@keyframes scanlines {
+    0%,
+    100% {
         opacity: 0;
     }
 
-    to {
-        transform: scale(1);
+    50% {
         opacity: 1;
     }
 }

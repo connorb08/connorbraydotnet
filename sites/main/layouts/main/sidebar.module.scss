@@ -11,15 +11,15 @@ html[data-fullscreen] {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    margin: 0.75rem;
+    margin: pt(0.5);
 
     &[data-fullscreen="true"] {
         display: none;
     }
 
     &__content {
-        width: clamp(40px, 2rem, 64px);
-        padding: clamp(2px, 0.25rem, 6px);
+        width: clamp(40px, pt(3), 64px);
+        padding: clamp(2px, pt(0.5), 6px);
         box-sizing: border-box;
     }
 

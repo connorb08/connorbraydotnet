@@ -1,16 +1,21 @@
+@use "sass:map";
+
 $_points: (
-    none: 0px,
-    fourth: 3px,
-    third: 4px,
-    half: 6px,
-    default: 12px,
-    double: 24px
+    0: 0px,
+    0.25: 3px,
+    0.33: 4px,
+    0.5: 6px,
+    1: 12px,
+    1.5: 18px,
+    2: 24px,
+    3: 36px,
+    4: 48px
 );
 
 @function pt($key: default) {
-    @if not map.has-key($_widths, $key) {
+    @if not map.has-key($_points, $key) {
         @warn "Width `#{$key}` not found.";
     }
 
-    @return map.get($_widths, $key);
+    @return map.get($_points, $key);
 }

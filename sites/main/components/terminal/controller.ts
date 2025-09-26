@@ -66,7 +66,7 @@ export function useTerminalController(ref: RefObject<HTMLElement | null>, nav: N
 		}
 	}, [ref, nav]);
 
-	return { write, handleKeyDown };
+	return { write, handleKeyDown, handleType, handleFocus, clearTerminal, resetCursorPosition, removeCursor };
 }
 // const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 // 	if (event.key !== "Enter") {
@@ -139,9 +139,9 @@ const handleFocus: ChangeEventHandler<HTMLInputElement> = (event) => {
 	document.getElementById("terminal-prompt")?.setAttribute("data-after", dataAfterValue);
 };
 
-const focusInput = () => {
-	document.getElementById("terminal-input")?.focus();
-};
+// const focusInput = () => {
+// 	document.getElementById("terminal-input")?.focus();
+// };
 
 const handleType: ChangeEventHandler<HTMLInputElement> = (event) => {
 	document

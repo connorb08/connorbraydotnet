@@ -25,9 +25,11 @@ export function MainLayout() {
 			<div className={style.container}>
 				<Navbar />
 				<div className={style.content}>
-					<main className={style.content__main}>
-						<Outlet />
-					</main>
+					<div className={style.content__spacer}>
+						<main className={style.content__spacer__main}>
+							<Outlet />
+						</main>
+					</div>
 				</div>
 				<Sidebar />
 			</div>
