@@ -116,7 +116,7 @@ export default function Home({ solution }: Props) {
 
 			<footer className={styles.footer}>
 				<div className={styles.footerInner}>
-					<div className={styles.copyright}>© {new Date().getFullYear()} Connor Bray</div>
+					<div className={styles.copyright}>© {new Date().getFullYear()} Connor Bray </div>
 					<div className={styles.footerLinks}>
 						<a
 							className={styles.iconButton}
@@ -161,6 +161,12 @@ export default function Home({ solution }: Props) {
 						</a>
 					</div>
 				</div>
+				<i className={styles.footerDisclaimer}>
+					* This is a personal, non-commercial portfolio project. This site is not affiliated,
+					associated, authorized, endorsed by, or in any way officially connected with LinkedIn, or
+					any of its subsidiaries or affiliates. All trademarks are property of their respective
+					owners.
+				</i>
 			</footer>
 		</main>
 	);

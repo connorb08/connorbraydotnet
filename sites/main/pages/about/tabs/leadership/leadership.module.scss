@@ -1,0 +1,95 @@
+@use "../../style.module.scss" as base;
+@use "~/styles" as *;
+
+.section {
+    @include base.block-section;
+    padding: 2rem;
+
+    &__title {
+        @include base.block-title;
+    }
+}
+
+.bottomBorder {
+    border-bottom: 1px solid $outline;
+    margin: 1rem 0;
+}
+
+.listItem {
+    display: flex;
+
+    &__logo {
+        flex-shrink: 0;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        background-color: #3b82f6; // blue-500 equivalent
+    }
+
+    &__content {
+        width: 100%;
+        margin-left: 1rem;
+
+        &__heading {
+            font-size: 1.125rem;
+            line-height: 1.2;
+        }
+
+        &__subheading {
+            display: flex;
+            gap: 1rem;
+            line-height: 1.2;
+
+            @media (max-width: breakpoint(sm)) {
+                flex-direction: column;
+                gap: 0.1rem;
+            }
+
+            &__company {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            &__location {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            &__date {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                justify-content: end;
+                @media (max-width: breakpoint(sm)) {
+                    justify-content: start;
+                }
+            }
+        }
+
+        &__description {
+            margin-top: 1.25rem;
+
+            ul {
+                li {
+                    list-style-type: disc;
+                    margin-bottom: 0.25rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -8,7 +8,7 @@ export const UserBlock = () => {
 			<div
 				className={style.userBlock__backgroundImage}
 				style={{
-					backgroundImage: "url('/cdn/images/umaine-mall.jpeg?size=xs')",
+					backgroundImage: "url('/um_mall.jpeg')",
 					backgroundPosition: "50% 30%",
 				}}
 			/>
@@ -34,8 +34,9 @@ export const UserBlock = () => {
 				<div className={style.userBlock__content__title}>Software Engineer</div>
 				<Link
 					to="https://content.connorbray.net/resume.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
 					className={style.userBlock__content__downloadButton}
-					reloadDocument
 				>
 					<span className={style.userBlock__content__downloadButton__text}>Download CV</span>
 					<span className={style.userBlock__content__downloadButton__icon}>

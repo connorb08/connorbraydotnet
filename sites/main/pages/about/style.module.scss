@@ -22,7 +22,8 @@
 
 .container {
     @include column;
-    height: 100%;
+    justify-content: center;
+    margin: pt(4) 0;
 
     &__grid {
         display: grid;
@@ -131,7 +132,7 @@
     overflow: hidden;
 
     &__backgroundImage {
-        height: 8rem;
+        height: 10rem;
         background-position: center;
         background-size: cover;
     }

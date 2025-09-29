@@ -1,4 +1,4 @@
-import { About, Home } from "components/icons";
+import { About, Camera, Folder, Home, Mail } from "components/icons";
 import { LinkButton } from "components/ui/new-button";
 import type { ReactNode } from "react";
 import { useLocation } from "react-router";
@@ -16,6 +16,24 @@ export const routes = [
 		title: "About",
 		icon: <About />,
 		href: "/about",
+	},
+	{
+		id: "projects",
+		title: "Projects",
+		icon: <Folder />,
+		href: "/projects",
+	},
+	{
+		id: "gallery",
+		title: "Gallery",
+		icon: <Camera />,
+		href: "/gallery",
+	},
+	{
+		id: "contact",
+		title: "Contact",
+		icon: <Mail />,
+		href: "/contact",
 	},
 ] satisfies {
 	id: string;

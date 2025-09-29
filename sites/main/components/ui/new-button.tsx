@@ -97,7 +97,7 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
 		iconOnly,
 		children,
 		className,
-		viewTransition,
+		viewTransition = true,
 		...restProps
 	} = props;
 

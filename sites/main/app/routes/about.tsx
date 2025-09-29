@@ -1,6 +1,7 @@
 import type { Resume } from "shared";
 import { EmptyResume } from "shared";
 import { About } from "#pages/about";
+import type { LeadershipRole } from "#pages/about/tabs/leadership";
 import { usePromise } from "#utils";
 import type { Route } from "./+types/about";
 
@@ -69,7 +70,16 @@ export async function loader({ context }: Route.LoaderArgs) {
 			1000,
 		);
 	});
-	return { resumeData };
+
+	const leadershipRoles: LeadershipRole[] = [
+		{
+			id: 0,
+			name: "University of Maine Alumni Association",
+			position: "Board of Directors",
+		},
+	];
+
+	return { resumeData, leadershipRoles };
 }
 
 /**
@@ -79,28 +89,25 @@ export async function loader({ context }: Route.LoaderArgs) {
  *
  * This function is used to improve performance by reducing the number of requests made to the server.
  */
-export async function clientLoader({
-	request,
-	serverLoader,
-}: Route.ClientLoaderArgs): Promise<{ resumeData: Promise<Resume> }> {
+export async function clientLoader({ request, serverLoader }: Route.ClientLoaderArgs) {
 	// Check if the data is already cached in sessionStorage
 	const cacheKey = request.url;
 	const cachedData = sessionStorage.getItem(cacheKey);
 
 	// If the data is cached, return it
 	if (cachedData) {
-		return { resumeData: JSON.parse(cachedData) };
+		return JSON.parse(cachedData);
 	}
 
 	// If the data is not cached, fetch it from the server
-	const { resumeData } = await serverLoader();
+	const { resumeData, leadershipRoles } = await serverLoader();
 
 	// Cache the data in sessionStorage for future use
 	resumeData.then((data) => {
-		sessionStorage.setItem(cacheKey, JSON.stringify(data));
+		sessionStorage.setItem(cacheKey, JSON.stringify({ resumeData: data, leadershipRoles }));
 	});
 
-	return { resumeData };
+	return { resumeData, leadershipRoles };
 }
 
 export default function ({ loaderData }: Route.ComponentProps) {
@@ -110,5 +117,5 @@ export default function ({ loaderData }: Route.ComponentProps) {
 		console.error("Error loading resume data:", error);
 	}
 
-	return <About resume={data} loading={loading} />;
+	return <About resume={data} leadershipRoles={loaderData.leadershipRoles} loading={loading} />;
 }

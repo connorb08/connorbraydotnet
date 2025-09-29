@@ -5,11 +5,12 @@ import { Link } from "react-router";
 import type { Resume } from "shared";
 import style from "./style.module.scss";
 import { InformationBlock, SkillsBlock, UserBlock } from "./summary";
-import Leadership from "./tabs/leadership";
+import Leadership, { type LeadershipRole } from "./tabs/leadership";
 import ResumeTab from "./tabs/resume";
 
 type Props = {
 	resume: Resume;
+	leadershipRoles: LeadershipRole[];
 	loading: boolean;
 };
 
@@ -87,7 +88,7 @@ const About = memo((props: Props) => {
 					{tab === 0 ? (
 						<ResumeTab resume={props.resume} loading={props.loading} />
 					) : tab === 1 ? (
-						<Leadership roles={[]} />
+						<Leadership roles={props.leadershipRoles} />
 					) : null}
 				</div>
 			</div>

@@ -21,29 +21,17 @@ const sections: Section[] = [
 		href: "/projects",
 	},
 	{
-		title: "Site Architecture",
+		title: "Photography",
 		content:
-			"Dive into the technical details of how this website is built. Learn about the modern technologies, deployment strategies, and architectural decisions behind this platform.",
-		href: "/architecture",
+			"Dive into the visual journey through my photography. Explore landscapes, cityscapes, and candid moments captured through my lens.",
+		href: "/gallery",
 	},
-	// {
-	// 	title: "Photography",
-	// 	content:
-	// 		"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
-	// 	href: "/photos",
-	// },
 	{
 		title: "Contact",
 		content:
-			"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
+			"Get in touch with me for collaborations, inquiries, or just to say hello. I'm always open to connecting with fellow professionals and enthusiasts.",
 		href: "/contact",
 	},
-	// {
-	// 	title: "Contact?",
-	// 	content:
-	// 		"View my photography portfolio featuring landscapes, cityscapes, and moments captured through my lens. A creative outlet that complements my technical work.",
-	// 	href: "/contact",
-	// },
 ];
 
 function Home() {

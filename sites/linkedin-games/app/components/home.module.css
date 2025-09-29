@@ -242,10 +242,20 @@
 	width: 100%;
 	max-width: var(--max-width);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	/* center footer within the page and match center column padding */
 	margin: 0 auto;
 	padding: 1rem 1rem 2rem 1rem;
+}
+
+.footerDisclaimer {
+	width: 100%;
+	font-size: 0.85rem;
+	color: var(--muted);
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .footerInner {

@@ -1,21 +1,11 @@
-@use "sass:map";
+@use "sass:meta";
 
-$_points: (
-    0: 0px,
-    0.25: 3px,
-    0.33: 4px,
-    0.5: 6px,
-    1: 12px,
-    1.5: 18px,
-    2: 24px,
-    3: 36px,
-    4: 48px
-);
+$_base: 12px;
 
-@function pt($key: default) {
-    @if not map.has-key($_points, $key) {
-        @warn "Width `#{$key}` not found.";
+@function pt($key: 1) {
+    @if not meta.type-of($key) == number {
+        @warn "`#{$key}` is not a number.";
     }
 
-    @return map.get($_points, $key);
+    @return $key * $_base;
 }

@@ -48,7 +48,7 @@
     }
 
     p {
-        @include monospace;
+        @include sans-serif;
         color: $onSurfaceVariant;
         line-height: 1.5;
 
@@ -127,7 +127,6 @@
     textarea {
         resize: vertical;
         min-height: 120px;
-        font-family: inherit;
     }
 
     [data-react-aria-errormessage] {

@@ -4,7 +4,7 @@ const routeConfig = [
 	layout("../layouts/main/layout.tsx", [
 		index("routes/index.tsx"),
 		route("about", "routes/about.tsx"),
-		route("photos", "routes/photos.tsx"),
+		route("gallery", "routes/gallery/index.tsx"),
 		route("contact", "routes/contact/contact.tsx"),
 		...prefix("/projects", [
 			index("routes/projects/index.tsx"),

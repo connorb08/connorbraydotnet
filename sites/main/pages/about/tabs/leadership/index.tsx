@@ -1,111 +1,49 @@
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: temporary disable */
-interface LeadershipRoleProps {
+import { FaBriefcase } from "react-icons/fa";
+import style from "./leadership.module.scss";
+
+export interface LeadershipRole {
 	id: number;
 	name: string;
 	position: string;
 }
 
-const Leadership = ({ roles }: { roles: LeadershipRoleProps[] }) => {
-	const bottomBorder = <div className="border-b border-gray-8 mb-5" />;
+const Leadership = ({ roles }: { roles: LeadershipRole[] }) => {
+	const bottomBorder = <div className={style.bottomBorder} />;
 	const len = roles.length;
 
 	return (
-		<>
-			<div className="p-7 block-section">
-				<h2 className="block-title">Leadership Positions</h2>
+		<div className={style.section}>
+			<h2 className={style.section__title}>Leadership Positions</h2>
 
-				{roles.map((role, index) => {
-					return (
-						<div key={role.id}>
-							<Role {...role} />
-							{index !== len - 1 ? bottomBorder : null}
-						</div>
-					);
-				})}
-			</div>
-			{/* <div className="p-7 block-section">
-				<h2 className="block-title">Awards</h2>
-
-				{roles.map((role, index) => {
-					return (
-						<div key={index * 10}>
-							<Award />
-							{index !== len - 1 ? bottomBorder : null}
-						</div>
-					);
-				})}
-			</div> */}
-		</>
-	);
-};
-
-const Role = (props: LeadershipRoleProps) => {
-	return (
-		<div className="mb-5 item-section">
-			<div className="company-logo bg-blue-500">
-				<span className="text-2xl">S</span>
-			</div>
-
-			<div className="w-full space-y-5">
-				<div className="item-header">
-					<div className="space-y-1.5">
-						<div className="font-medium">{props.name}</div>
-						<div className="flex space-x-5">
-							<div className="item-header-info">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-									/>
-								</svg>
-								<span>{props.position}</span>
-							</div>
-						</div>
+			{roles.map((role, index) => {
+				return (
+					<div key={role.id}>
+						<Role {...role} />
+						{index !== len - 1 ? bottomBorder : null}
 					</div>
-				</div>
-				<div style={{ marginBottom: "0.875rem" }}>
-					<p className="text-gray-600">{""}</p>
-				</div>
-			</div>
+				);
+			})}
 		</div>
 	);
 };
 
-const _Award = () => {
+const Role = (role: LeadershipRole) => {
 	return (
-		<div className="mb-5 item-section">
-			<div className="w-full space-y-5">
-				<div className="item-header">
-					<div className="space-y-1.5">
-						<div className="font-medium">Award Name</div>
-						<div className="flex space-x-5">
-							<div className="item-header-info">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-									/>
-								</svg>
-								<span>{"award info"}</span>
-							</div>
-						</div>
+		<div className={style.listItem}>
+			<div className={style.listItem__logo}>
+				<span>S</span>
+			</div>
+
+			<div className={style.listItem__content}>
+				<h3 className={style.listItem__content__heading}>{role.name}</h3>
+				<div className={style.listItem__content__subheading}>
+					<div className={style.listItem__content__subheading__company}>
+						<FaBriefcase />
+						<span>{role.position}</span>
 					</div>
+				</div>
+				<div className={style.listItem__content__description}>
+					{/* Description content can be added here if needed */}
 				</div>
 			</div>
 		</div>
