@@ -12,6 +12,125 @@ html[data-fullscreen] {
     }
 }
 
+// CRT Effects Keyframes
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(2px);
+    }
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.97;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.98;
+    }
+}
+
+@keyframes crt-off {
+    0% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1) contrast(1);
+        opacity: 1;
+    }
+    25% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1.5) contrast(1.5);
+    }
+    40% {
+        transform: scaleY(0.01) scaleX(0.8);
+        filter: brightness(2) contrast(2);
+        opacity: 0.8;
+    }
+    60% {
+        transform: scaleY(0.005) scaleX(0.75);
+        filter: brightness(2.5) contrast(2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scaleY(0) scaleX(0.01);
+        filter: brightness(3) contrast(0);
+        opacity: 0;
+    }
+}
+
+@keyframes crt-on {
+    0% {
+        transform: scaleY(0) scaleX(0.01);
+        filter: brightness(3) contrast(3);
+        opacity: 0;
+    }
+    25% {
+        transform: scaleY(0) scaleX(0.01);
+        filter: brightness(3) contrast(3);
+        opacity: 0;
+    }
+    45% {
+        transform: scaleY(0.01) scaleX(0.8);
+        filter: brightness(2) contrast(2);
+        opacity: 0.5;
+    }
+    70% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1.5) contrast(1.5);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1) contrast(1);
+        opacity: 1;
+    }
+}
+
+@keyframes static-noise {
+    0%,
+    100% {
+        opacity: 0.1;
+        filter: contrast(2);
+    }
+    50% {
+        opacity: 0.15;
+        filter: contrast(3);
+    }
+}
+
+// CRT View Transition Styles
+::view-transition-old(mainContent) {
+    animation: crt-off 0.9s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    transform-origin: center center;
+    overflow: hidden;
+    clip-path: inset(0);
+}
+
+::view-transition-new(mainContent) {
+    animation: crt-on 0.9s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    transform-origin: center center;
+    overflow: hidden;
+    clip-path: inset(0);
+}
+
+// Static effect during transition
+::view-transition-old(mainContent)::after,
+::view-transition-new(mainContent)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(0deg, transparent 0, rgba(255, 255, 255, 0.03) 1px, transparent 2px),
+        repeating-linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.03) 1px, transparent 2px);
+    background-size: 4px 4px;
+    animation: static-noise 0.1s infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
 html[data-fullscreen] {
     & .container {
         overflow: visible;
@@ -19,6 +138,11 @@ html[data-fullscreen] {
 
     & .layout {
         @include surfaceContainer;
+        // Add CRT container styling for fullscreen
+        background: #1a1a1a;
+        box-shadow:
+            0 0 80px rgba(0, 255, 100, 0.2),
+            inset 0 0 60px rgba(0, 0, 0, 0.6);
     }
 
     & .content__main {
@@ -43,12 +167,25 @@ html[data-fullscreen] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
+
+    // Subtle CRT glow for the header
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //     background: radial-gradient(ellipse at center, rgba(0, 255, 100, 0.02) 0%, transparent 70%);
+    //     pointer-events: none;
+    //     border-radius: inherit;
+    // }
 
     &__main {
         display: flex;
         flex: 1;
         align-items: center;
         justify-content: center;
+        position: relative;
+        z-index: 1;
 
         &__link {
             display: flex;
@@ -60,15 +197,18 @@ html[data-fullscreen] {
             &__icon {
                 color: $tertiary;
                 font-weight: bold;
+                text-shadow: 0 0 2px currentColor;
             }
 
             &__text {
                 color: $primary;
                 font-weight: 600;
+                text-shadow: 0 0 2px currentColor;
             }
 
             &__cursor {
                 color: $primary;
+                text-shadow: 0 0 2px currentColor;
                 animation: blink 1s step-end infinite;
 
                 @keyframes blink {
@@ -99,6 +239,18 @@ html[data-fullscreen] {
     display: flex;
     flex: 1;
     overflow: hidden;
+    position: relative;
+
+    // CRT container effect
+    // &::before {
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+    //     pointer-events: none;
+    //     z-index: 1;
+    //     border-radius: inherit;
+    // }
 }
 
 .content {
@@ -110,15 +262,57 @@ html[data-fullscreen] {
     overflow: hidden;
     contain: layout style paint;
     position: relative;
+    z-index: 2;
 
     overflow-y: auto;
     scrollbar-color: $tertiary $surfaceContainer;
+
+    // CRT effects
+    // animation: flicker 0.15s infinite;
+
+    // Scanline overlay
+    // &::before {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background: repeating-linear-gradient(
+    //         0deg,
+    //         rgba(0, 0, 0, 0.08) 0px,
+    //         rgba(0, 0, 0, 0.08) 1px,
+    //         transparent 1px,
+    //         transparent 2px
+    //     );
+    //     pointer-events: none;
+    //     z-index: 1;
+    //     animation: scanlines 8s linear infinite;
+    //     border-radius: inherit;
+    // }
+
+    // CRT screen curve effect
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 100%);
+    //     pointer-events: none;
+    //     z-index: 2;
+    //     border-radius: inherit;
+    // }
 
     &__spacer {
         view-transition-name: mainContent;
         max-width: width(xl);
         margin: 0 auto;
         max-height: 100%;
+        position: relative;
+        z-index: 3;
+
         &__main {
             @include sans-serif;
             @include column;
@@ -128,6 +322,9 @@ html[data-fullscreen] {
             width: 100%;
             transform-origin: center top;
             overflow: hidden;
+
+            // Add subtle glow to text for CRT effect
+            text-shadow: 0 0 1px currentColor;
         }
     }
 }

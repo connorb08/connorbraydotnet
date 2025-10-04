@@ -1,218 +1,218 @@
+// // ::view-transition-old(mainContent) {
+// //     animation: crt-off 0.4s ease-in forwards;
+// //     transform-origin: center center;
+// //     overflow: hidden;
+// //     clip-path: inset(0);
+// // }
+
+// // ::view-transition-new(mainContent) {
+// //     animation: crt-on 0.4s ease-out forwards;
+// //     transform-origin: center center;
+// //     overflow: hidden;
+// //     clip-path: inset(0);
+// // }
+
+// // ::view-transition-group(mainContent) {
+// //     overflow: hidden;
+
+// //     &::before {
+// //         content: "";
+// //         position: absolute;
+// //         top: 0;
+// //         left: 0;
+// //         right: 0;
+// //         bottom: 0;
+// //         background: repeating-linear-gradient(
+// //             0deg,
+// //             transparent,
+// //             transparent 2px,
+// //             rgba(0, 255, 0, 0.03) 2px,
+// //             rgba(0, 255, 0, 0.03) 4px
+// //         );
+// //         pointer-events: none;
+// //         z-index: 1;
+// //         opacity: 0;
+// //         animation: scanlines 0.4s ease-out;
+// //     }
+// // }
+
+// // @keyframes crt-off {
+// //     0% {
+// //         transform: scaleX(1) scaleY(1);
+// //         opacity: 1;
+// //         filter: brightness(1) contrast(1);
+// //     }
+
+// //     50% {
+// //         transform: scaleX(1) scaleY(0.1);
+// //         opacity: 0.8;
+// //         filter: brightness(1.2) contrast(1.5);
+// //     }
+
+// //     70% {
+// //         transform: scaleX(0.1) scaleY(0.1);
+// //         opacity: 0.3;
+// //         filter: brightness(1.5) contrast(2);
+// //     }
+
+// //     100% {
+// //         transform: scaleX(0) scaleY(0);
+// //         opacity: 0;
+// //         filter: brightness(2) contrast(0);
+// //     }
+// // }
+
+// // @keyframes crt-on {
+// //     0% {
+// //         transform: scaleX(0) scaleY(0);
+// //         opacity: 0;
+// //         filter: brightness(2) contrast(0);
+// //     }
+
+// //     30% {
+// //         transform: scaleX(0.1) scaleY(0.1);
+// //         opacity: 0.3;
+// //         filter: brightness(1.5) contrast(2);
+// //     }
+
+// //     50% {
+// //         transform: scaleX(1) scaleY(0.1);
+// //         opacity: 0.8;
+// //         filter: brightness(1.2) contrast(1.5);
+// //     }
+
+// //     100% {
+// //         transform: scaleX(1) scaleY(1);
+// //         opacity: 1;
+// //         filter: brightness(1) contrast(1);
+// //     }
+// // }
+
+// // @keyframes scanlines {
+// //     0%,
+// //     100% {
+// //         opacity: 0;
+// //     }
+
+// //     50% {
+// //         opacity: 1;
+// //     }
+// // }
+// @keyframes flicker {
+//     0% {
+//         opacity: 0.97;
+//     }
+//     50% {
+//         opacity: 1;
+//     }
+//     100% {
+//         opacity: 0.98;
+//     }
+// }
+
+// @keyframes scanlines {
+//     0% {
+//         transform: translateY(0);
+//     }
+//     100% {
+//         transform: translateY(2px);
+//     }
+// }
+
+// /* View Transition API Animations */
+// @keyframes crt-off {
+//     0% {
+//         transform: scaleY(1) scaleX(1);
+//         filter: brightness(1) contrast(1);
+//         opacity: 1;
+//     }
+//     25% {
+//         transform: scaleY(1) scaleX(1);
+//         filter: brightness(1.5) contrast(1.5);
+//     }
+//     40% {
+//         transform: scaleY(0.01) scaleX(0.8);
+//         filter: brightness(2) contrast(2);
+//         opacity: 0.8;
+//     }
+//     60% {
+//         transform: scaleY(0.005) scaleX(0.75);
+//         filter: brightness(2.5) contrast(2);
+//         opacity: 0.7;
+//     }
+//     100% {
+//         transform: scaleY(0) scaleX(0.01);
+//         filter: brightness(3) contrast(0);
+//         opacity: 0;
+//     }
+// }
+
+// @keyframes crt-on {
+//     0% {
+//         transform: scaleY(0) scaleX(0.01);
+//         filter: brightness(3) contrast(3);
+//         opacity: 0;
+//     }
+//     25% {
+//         transform: scaleY(0) scaleX(0.01);
+//         filter: brightness(3) contrast(3);
+//         opacity: 0;
+//     }
+//     45% {
+//         transform: scaleY(0.01) scaleX(0.8);
+//         filter: brightness(2) contrast(2);
+//         opacity: 0.5;
+//     }
+//     70% {
+//         transform: scaleY(1) scaleX(1);
+//         filter: brightness(1.5) contrast(1.5);
+//         opacity: 0.9;
+//     }
+//     100% {
+//         transform: scaleY(1) scaleX(1);
+//         filter: brightness(1) contrast(1);
+//         opacity: 1;
+//     }
+// }
+
+// @keyframes static-noise {
+//     0%,
+//     100% {
+//         opacity: 0.2;
+//         filter: contrast(2);
+//     }
+//     50% {
+//         opacity: 0.3;
+//         filter: contrast(3);
+//     }
+// }
+
+// /* View Transition Styles */
 // ::view-transition-old(mainContent) {
-//     animation: crt-off 0.4s ease-in forwards;
+//     animation: crt-off 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 //     transform-origin: center center;
 //     overflow: hidden;
 //     clip-path: inset(0);
 // }
 
 // ::view-transition-new(mainContent) {
-//     animation: crt-on 0.4s ease-out forwards;
+//     animation: crt-on 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 //     transform-origin: center center;
 //     overflow: hidden;
 //     clip-path: inset(0);
 // }
 
-// ::view-transition-group(mainContent) {
-//     overflow: hidden;
-
-//     &::before {
-//         content: "";
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         background: repeating-linear-gradient(
-//             0deg,
-//             transparent,
-//             transparent 2px,
-//             rgba(0, 255, 0, 0.03) 2px,
-//             rgba(0, 255, 0, 0.03) 4px
-//         );
-//         pointer-events: none;
-//         z-index: 1;
-//         opacity: 0;
-//         animation: scanlines 0.4s ease-out;
-//     }
+// /* Static effect during transition */
+// ::view-transition-old(mainContent)::after,
+// ::view-transition-new(mainContent)::before {
+//     content: "";
+//     position: absolute;
+//     inset: 0;
+//     background-image:
+//         repeating-linear-gradient(0deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px),
+//         repeating-linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
+//     background-size: 4px 4px;
+//     animation: static-noise 0.1s infinite;
+//     pointer-events: none;
+//     z-index: 10;
 // }
-
-// @keyframes crt-off {
-//     0% {
-//         transform: scaleX(1) scaleY(1);
-//         opacity: 1;
-//         filter: brightness(1) contrast(1);
-//     }
-
-//     50% {
-//         transform: scaleX(1) scaleY(0.1);
-//         opacity: 0.8;
-//         filter: brightness(1.2) contrast(1.5);
-//     }
-
-//     70% {
-//         transform: scaleX(0.1) scaleY(0.1);
-//         opacity: 0.3;
-//         filter: brightness(1.5) contrast(2);
-//     }
-
-//     100% {
-//         transform: scaleX(0) scaleY(0);
-//         opacity: 0;
-//         filter: brightness(2) contrast(0);
-//     }
-// }
-
-// @keyframes crt-on {
-//     0% {
-//         transform: scaleX(0) scaleY(0);
-//         opacity: 0;
-//         filter: brightness(2) contrast(0);
-//     }
-
-//     30% {
-//         transform: scaleX(0.1) scaleY(0.1);
-//         opacity: 0.3;
-//         filter: brightness(1.5) contrast(2);
-//     }
-
-//     50% {
-//         transform: scaleX(1) scaleY(0.1);
-//         opacity: 0.8;
-//         filter: brightness(1.2) contrast(1.5);
-//     }
-
-//     100% {
-//         transform: scaleX(1) scaleY(1);
-//         opacity: 1;
-//         filter: brightness(1) contrast(1);
-//     }
-// }
-
-// @keyframes scanlines {
-//     0%,
-//     100% {
-//         opacity: 0;
-//     }
-
-//     50% {
-//         opacity: 1;
-//     }
-// }
-@keyframes flicker {
-    0% {
-        opacity: 0.97;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.98;
-    }
-}
-
-@keyframes scanlines {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(2px);
-    }
-}
-
-/* View Transition API Animations */
-@keyframes crt-off {
-    0% {
-        transform: scaleY(1) scaleX(1);
-        filter: brightness(1) contrast(1);
-        opacity: 1;
-    }
-    25% {
-        transform: scaleY(1) scaleX(1);
-        filter: brightness(1.5) contrast(1.5);
-    }
-    40% {
-        transform: scaleY(0.01) scaleX(0.8);
-        filter: brightness(2) contrast(2);
-        opacity: 0.8;
-    }
-    60% {
-        transform: scaleY(0.005) scaleX(0.75);
-        filter: brightness(2.5) contrast(2);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scaleY(0) scaleX(0.01);
-        filter: brightness(3) contrast(0);
-        opacity: 0;
-    }
-}
-
-@keyframes crt-on {
-    0% {
-        transform: scaleY(0) scaleX(0.01);
-        filter: brightness(3) contrast(3);
-        opacity: 0;
-    }
-    25% {
-        transform: scaleY(0) scaleX(0.01);
-        filter: brightness(3) contrast(3);
-        opacity: 0;
-    }
-    45% {
-        transform: scaleY(0.01) scaleX(0.8);
-        filter: brightness(2) contrast(2);
-        opacity: 0.5;
-    }
-    70% {
-        transform: scaleY(1) scaleX(1);
-        filter: brightness(1.5) contrast(1.5);
-        opacity: 0.9;
-    }
-    100% {
-        transform: scaleY(1) scaleX(1);
-        filter: brightness(1) contrast(1);
-        opacity: 1;
-    }
-}
-
-@keyframes static-noise {
-    0%,
-    100% {
-        opacity: 0.2;
-        filter: contrast(2);
-    }
-    50% {
-        opacity: 0.3;
-        filter: contrast(3);
-    }
-}
-
-/* View Transition Styles */
-::view-transition-old(mainContent) {
-    animation: crt-off 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    transform-origin: center center;
-    overflow: hidden;
-    clip-path: inset(0);
-}
-
-::view-transition-new(mainContent) {
-    animation: crt-on 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    transform-origin: center center;
-    overflow: hidden;
-    clip-path: inset(0);
-}
-
-/* Static effect during transition */
-::view-transition-old(mainContent)::after,
-::view-transition-new(mainContent)::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-        repeating-linear-gradient(0deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px),
-        repeating-linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
-    background-size: 4px 4px;
-    animation: static-noise 0.1s infinite;
-    pointer-events: none;
-    z-index: 10;
-}
