@@ -20,7 +20,7 @@
 	"settings": {
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
-			"*.tsx": "${capture}.scss, ${capture}.spec.tsx",
+			"*.tsx": "${capture}.scss, ${capture}.module.scss, ${capture}.spec.tsx",
 			"wrangler.json": "worker-configuration.d.ts",
 			"wrangler.jsonc": "worker-configuration.d.ts",
 			"vite.config.ts": "vite-env.d.ts",

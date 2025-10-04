@@ -8,15 +8,8 @@ import {
 	ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-
-/**
- * Import stylesheets.
- * App.scss - Global styles
- */
 import "#styles/App.scss";
-import { ContextProvider } from "utils/context/provider";
-// import { toggleTheme } from "#utils";
-// import { toggleFullscreen } from "../utils/controller";
+import { ContextProvider } from "../utils/context/provider";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -24,6 +17,7 @@ export const meta: Route.MetaFunction = () => {
 	return [{ title: "Connor Bray" }, { name: "description", content: "connorbray.net" }];
 };
 
+// TODO: Add page loading element that mimicks turning on a CRT monitor. This will also read from local storage and whatnot during first load to set theme and other preferences without flashing.
 export function Layout({ children }: { children: React.ReactNode }) {
 	const rootRef = useRef<HTMLHtmlElement>(null);
 
