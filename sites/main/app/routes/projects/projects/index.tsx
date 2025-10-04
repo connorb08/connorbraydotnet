@@ -1,5 +1,5 @@
-import { ProjectGrid } from "../../components/project";
-import { projectsData } from "../../data/projects";
+import { ProjectGrid } from "../../../../components/project";
+import { projectsData } from "../../../../data/projects";
 import style from "./projects.module.scss";
 
 export default function Projects() {

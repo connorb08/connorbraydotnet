@@ -7,6 +7,7 @@ import Sidebar from "./sidebar";
 
 export function MainLayout() {
 	const location = useLocation();
+
 	return (
 		<div className={style.layout}>
 			<header className={style.header}>

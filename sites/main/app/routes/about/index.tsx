@@ -1,12 +1,11 @@
 import type { Resume } from "shared";
 import { EmptyResume } from "shared";
-import { About } from "#pages/about";
-import type { LeadershipRole } from "#pages/about/tabs/leadership";
 import { usePromise } from "#utils";
-import type { Route } from "./+types/about";
+import type { Route } from "./+types";
+import { About } from "./about";
+import type { LeadershipRole } from "./about/tabs/leadership";
 
-export async function loader({ context }: Route.LoaderArgs) {
-	const _context = context;
+export async function loader() {
 	const resumeData: Promise<Resume> = new Promise((resolve) => {
 		setTimeout(
 			() =>
@@ -16,7 +15,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 						phoneNumber: "(207) 272-6463",
 						emailAddress: "connor@connorbray.net",
 						location: "Boston, MA",
-						languages: ["C#", "JavaScript/TypeScript", "Python", "SQL", "C"],
+						languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
 						technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
 						interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
 					},
@@ -28,10 +27,12 @@ export async function loader({ context }: Route.LoaderArgs) {
 							startDate: "May 2021",
 							endDate: "Present",
 							about: [
-								"Improved end-to-end test performance by 95% through the implementation of parallelization and test optimization techniques. Total test suite execution time reduced from 72 hours to X hours",
-								"Owned the modernization effort of a product team, responsible for the porting of 3 million lines of legacy code to a C# .NET stack",
-								"Engineered a robust testing framework with comprehensive unit, regression, and end-to-end (E2E) tests to ensure functional parity and prevent regressions",
-								"Mentored and led a team of 3 engineers, establishing best practices for code review, agile methodologies, and system architecture to improve team performance and code quality",
+								"Implemented multi-tenant architecture and concurrency optimizations in the E2E test runner, cutting execution time from 3 days to under 1 day (5x faster) and enabling scalable performance.",
+								"Partnered with cross-functional teams to improve project organization and developer workflows in large-scale greenfield projects, increasing developer velocity and reducing onboarding friction.",
+								"Led modernization of 3M+ lines of legacy code to a modern .NET stack, ensuring maintainability, performance, and functional parity.",
+								"Built unit, regression, and E2E tests that reduced defects and safeguarded product stability.",
+								"Mentored a team of 3+ engineers, introducing coding standards and best practices that improved code quality and team efficiency.",
+								"Automated deployment pipelines, reducing manual steps and minimizing release errors.",
 							],
 						},
 					],
@@ -50,9 +51,9 @@ export async function loader({ context }: Route.LoaderArgs) {
 							name: "Linkedin Queens",
 							description: "Solver for daily linkedin n-queens puzzle",
 							about: [
-								"Creates an undirected graph representation of the n-queens puzzle and uses constraint propagation to reduce the search space until the solution is found",
-								"Scheduled to execute daily and post results to linkedin-games.win",
-								"Technologies: TypeScript, Playwright, Cloudflare Workers",
+								"Built an undirected graph-based and used constraint propagation to efficiently reduce search space.",
+								"Deployed to AWS Lambda and Cloudflare Workers to run daily and publish results.",
+								"Technologies: TypeScript, Playwright, AWS S3/Lambda, Cloudflare Workers.",
 							],
 						},
 						{

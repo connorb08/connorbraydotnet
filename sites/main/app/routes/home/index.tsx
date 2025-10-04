@@ -1,13 +1,16 @@
 import { NavLink } from "react-router";
+import type { Route } from "./+types/index";
 import style from "./home.module.scss";
 
-type Section = {
+export function meta() {
+	return [{ title: "Connor Bray" }, { name: "description", content: "connorbray.net" }];
+}
+
+const sections: {
 	title: string;
 	content: string;
 	href: string;
-};
-
-const sections: Section[] = [
+}[] = [
 	{
 		title: "Professional Summary",
 		content:
@@ -34,7 +37,7 @@ const sections: Section[] = [
 	},
 ];
 
-function Home() {
+export default function (_: Route.ComponentProps) {
 	return (
 		<div className={style.home}>
 			<div className={style.hero}>
@@ -67,5 +70,3 @@ function Home() {
 		</div>
 	);
 }
-
-export default Home;

@@ -2,8 +2,8 @@ import { index, layout, prefix, type RouteConfig, route } from "@react-router/de
 
 const routeConfig = [
 	layout("../layouts/main/layout.tsx", [
-		index("routes/index.tsx"),
-		route("about", "routes/about.tsx"),
+		index("routes/home/index.tsx"),
+		route("about", "routes/about/index.tsx"),
 		route("gallery", "routes/gallery/index.tsx"),
 		route("contact", "routes/contact/contact.tsx"),
 		...prefix("/projects", [
@@ -13,7 +13,7 @@ const routeConfig = [
 		]),
 		{
 			path: "*",
-			file: "routes/404.tsx",
+			file: "routes/404/index.tsx",
 			id: "404",
 		},
 	]),
