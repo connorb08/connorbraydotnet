@@ -4,49 +4,7 @@
     @include row;
 
     gap: 0.5rem;
-
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-}
-
-.exit,
-.enter {
-    padding: 0 !important;
-
-    svg {
-        margin: 0 !important;
-    }
-}
-
-.enter {
-    display: flex !important;
-}
-.exit {
-    display: none !important;
-}
-
-html[data-fullscreen] {
-    & .enter {
-        display: none !important;
-    }
-    & .exit {
-        display: flex !important;
-    }
-}
-
-.light {
-    display: flex !important;
-}
-.dark {
-    display: none !important;
-}
-
-html[data-theme="dark"] {
-    & .light {
-        display: none !important;
-    }
-    & .dark {
-        display: flex !important;
-    }
 }

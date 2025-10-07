@@ -4,12 +4,14 @@ export type IGlobalContext = {
 	rootRef: React.RefObject<HTMLHtmlElement | null>;
 	toggleFullscreen: () => void;
 	toggleTheme: () => void;
-	theme: "light" | "dark" | undefined;
+	theme: "light" | "dark";
+	fullscreen: boolean;
 };
 
 export const GlobalContext = createContext<IGlobalContext>({
 	rootRef: { current: null },
 	toggleFullscreen: () => undefined,
 	toggleTheme: () => undefined,
-	theme: undefined,
+	theme: "light",
+	fullscreen: false,
 });

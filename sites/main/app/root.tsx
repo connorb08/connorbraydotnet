@@ -6,10 +6,12 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
 import "#styles/App.scss";
 import { ContextProvider } from "../utils/context/provider";
+import { getSession } from "./sessions.server";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -17,12 +19,28 @@ export const meta: Route.MetaFunction = () => {
 	return [{ title: "Connor Bray" }, { name: "description", content: "connorbray.net" }];
 };
 
-// TODO: Add page loading element that mimicks turning on a CRT monitor. This will also read from local storage and whatnot during first load to set theme and other preferences without flashing.
+export async function loader({ request }: Route.LoaderArgs) {
+	const session = await getSession(request.headers.get("Cookie"));
+	const theme = session.get("theme");
+	const fullscreen = session.get("fullscreen");
+
+	return {
+		theme: theme ?? "light",
+		fullscreen: fullscreen ?? false,
+	};
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
 	const rootRef = useRef<HTMLHtmlElement>(null);
+	const data = useLoaderData<typeof loader>();
 
 	return (
-		<html lang="en" ref={rootRef}>
+		<html
+			lang="en"
+			ref={rootRef}
+			data-theme={data.theme ?? "light"}
+			data-fullscreen={data.fullscreen ? true : null}
+		>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,7 +49,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<script src="/head.js" />
 			</head>
 			<body>
-				<ContextProvider rootRef={rootRef}>{children}</ContextProvider>
+				<ContextProvider
+					rootRef={rootRef}
+					fullscreen={data.fullscreen ?? false}
+					theme={data.theme ?? "light"}
+				>
+					{children}
+				</ContextProvider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

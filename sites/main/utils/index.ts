@@ -71,7 +71,7 @@ export async function toggleTheme(rootRef: RefObject<HTMLHtmlElement | null>, se
 
 	// Store the theme in localStorage
 	const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-	window.localStorage.setItem("theme", theme);
+	// window.localStorage.setItem("theme", theme);
 	setTheme(theme);
 }
 

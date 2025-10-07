@@ -1,30 +1,43 @@
-import { type PropsWithChildren, useEffect, useState } from "react";
+import { type PropsWithChildren, useState } from "react";
+import { useFetcher } from "react-router";
+import type { SessionData } from "#app/sessions.server";
 import { toggleTheme as themeToggle } from "#utils";
-import { toggleFullscreen as fullscreenToggle } from "#utils/controller";
 import { GlobalContext, type IGlobalContext } from "./index";
 
 interface Props {
 	rootRef: React.RefObject<HTMLHtmlElement | null>;
+	fullscreen: SessionData["fullscreen"];
+	theme: SessionData["theme"];
 }
 
-export const ContextProvider = ({ children, rootRef }: PropsWithChildren<Props>) => {
-	const [theme, setTheme] = useState<"light" | "dark">("light");
+export const ContextProvider = ({
+	children,
+	rootRef,
+	fullscreen,
+	theme,
+}: PropsWithChildren<Props>) => {
+	const fetcher = useFetcher();
+	const [themeState, setThemeState] = useState<"light" | "dark">(theme);
+	const [fullscreenState, setFullscreenState] = useState<boolean>(fullscreen);
 
-	const toggleFullscreen = () => fullscreenToggle(rootRef);
-	const toggleTheme = () => themeToggle(rootRef, setTheme);
+	const toggleFullscreen = () => {
+		const newFullscreen = !fullscreenState;
+		setFullscreenState(newFullscreen);
+		fetcher.submit({ fullscreen: newFullscreen }, { method: "post", action: "/_session" });
+	};
 
-	useEffect(() => {
-		const storedTheme = window.localStorage.getItem("theme");
-		if (storedTheme === "dark" || storedTheme === "light") {
-			setTheme(storedTheme);
-		}
-	}, []);
+	const toggleTheme = () => {
+		const newTheme = themeState === "light" ? "dark" : "light";
+		themeToggle(rootRef, setThemeState);
+		fetcher.submit({ theme: newTheme }, { method: "post", action: "/_session" });
+	};
 
 	const contextValue = {
 		rootRef,
 		toggleFullscreen,
 		toggleTheme,
-		theme,
+		theme: themeState,
+		fullscreen: fullscreenState,
 	} satisfies IGlobalContext;
 
 	return <GlobalContext.Provider value={contextValue}>{children}</GlobalContext.Provider>;
