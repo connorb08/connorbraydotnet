@@ -3,6 +3,12 @@
 	"name": "resume",
 	"compatibility_date": "2025-04-04",
 	"main": "./workers/app.ts",
+	"routes": [
+		{
+			"custom_domain": true,
+			"pattern": "resume.connorbray.net"
+		}
+	],
 	"vars": {
 		"HELLO_WORLD": null
 	},

@@ -1,21 +1,22 @@
-import { type PropsWithChildren, useState } from "react";
+import { createContext, type PropsWithChildren, useState } from "react";
 import { useFetcher } from "react-router";
-import type { SessionData } from "#app/sessions.server";
-import { toggleTheme as themeToggle } from "#utils";
-import { GlobalContext, type IGlobalContext } from "./index";
+import { toggleTheme as themeToggle } from "#utils/state/controllers";
+import type { ContextProviderProps, IGlobalContext } from "./types";
 
-interface Props {
-	rootRef: React.RefObject<HTMLHtmlElement | null>;
-	fullscreen: SessionData["fullscreen"];
-	theme: SessionData["theme"];
-}
+export const GlobalContext = createContext<IGlobalContext>({
+	rootRef: { current: null },
+	toggleFullscreen: () => undefined,
+	toggleTheme: () => undefined,
+	theme: "light",
+	fullscreen: false,
+});
 
 export const ContextProvider = ({
 	children,
 	rootRef,
 	fullscreen,
 	theme,
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<ContextProviderProps>) => {
 	const fetcher = useFetcher();
 	const [themeState, setThemeState] = useState<"light" | "dark">(theme);
 	const [fullscreenState, setFullscreenState] = useState<boolean>(fullscreen);

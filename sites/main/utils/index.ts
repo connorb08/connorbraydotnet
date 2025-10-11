@@ -1,4 +1,4 @@
-import { type Dispatch, type RefObject, type SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import config from "#config";
 
 type SuccessState<T> = {
@@ -49,30 +49,6 @@ export function usePromise<T>(promise: Promise<T>, defaultValue: T): StateData<T
 	}, [promise, defaultValue]);
 
 	return state;
-}
-
-export async function toggleTheme(rootRef: RefObject<HTMLHtmlElement | null>, setTheme: Dispatch<SetStateAction<"light" | "dark">>) {
-	const root = rootRef.current;
-	if (!root) {
-		console.warn("Root element not found for theme toggle.");
-		return;
-	}
-
-	// Add a class to trigger the transition
-	root.toggleAttribute("data-theme-transition", true);
-	setTimeout(() => {
-		root.toggleAttribute("data-theme-transition", false);
-	}, 250);
-
-	// Toggle the theme classes
-	root.setAttribute("data-theme", root.getAttribute("data-theme") === "dark" ? "light" : "dark");
-	// root.classList.toggle("dark");
-	// root.classList.toggle("light");
-
-	// Store the theme in localStorage
-	const theme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-	// window.localStorage.setItem("theme", theme);
-	setTheme(theme);
 }
 
 export const CONTENT_PATH = (path: string) => `${config.contentUrl}${path}`;

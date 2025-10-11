@@ -10,7 +10,7 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import "#styles/App.scss";
-import { ContextProvider } from "../utils/context/provider";
+import { ContextProvider } from "../utils/state/context";
 import { getSession } from "./sessions.server";
 
 export const links: Route.LinksFunction = () => [];

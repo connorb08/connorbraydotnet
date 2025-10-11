@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { GlobalContext } from "#utils/context/index";
+import { GlobalContext } from "#utils/state/index";
 import { ExitFullscreen, Fullscreen, Moon, Sun } from "./icons";
 import style from "./toolbar.module.scss";
 import { Button } from "./ui/new-button";
