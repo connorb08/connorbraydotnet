@@ -2,23 +2,19 @@
 
 .projects {
     /* Layout */
-    display: flex;
-    flex-direction: column;
+    @include column;
     gap: clamp(2rem, 4vw, 3rem);
 
     /* Sizing */
     width: 100%;
-    // max-width: 1200px;
     margin: 0 auto;
     padding: clamp(1.5rem, 3vw, 2rem);
 }
 
 .projects__header {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(0.75rem, 1.5vw, 1rem);
+    @include column;
+    gap: clamp(0.75rem, 1vw, 1rem);
     text-align: center;
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
 .projects__title {

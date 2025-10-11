@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import { CONTENT_PATH } from "#utils";
 import style from "../style.module.scss";
 
 export const UserBlock = () => {
@@ -25,7 +24,7 @@ export const UserBlock = () => {
 							className={style.userBlock__content__headshot}
 							decoding="sync"
 							loading="eager"
-							src={CONTENT_PATH("images/headshot.jpeg?size=sm")}
+							src={"headshot2.jpeg"}
 							alt="Headshot of Connor Bray"
 						/>
 					</picture>
@@ -33,7 +32,7 @@ export const UserBlock = () => {
 				<div className={style.userBlock__content__name}>Connor Bray</div>
 				<div className={style.userBlock__content__title}>Software Engineer</div>
 				<Link
-					to="https://content.connorbray.net/resume.pdf"
+					to="https://resume.connorbray.net"
 					target="_blank"
 					rel="noopener noreferrer"
 					className={style.userBlock__content__downloadButton}
