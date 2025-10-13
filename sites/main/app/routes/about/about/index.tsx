@@ -40,7 +40,7 @@ const About = memo((props: Props) => {
 									<Link
 										to={props.aboutMe.github}
 										className={style.aboutBlock__content__iconList__link}
-										aria-label="GitHub"
+										aria-label="GitHub Profile"
 									>
 										<GithubIcon className={style.aboutBlock__content__iconList__link__icon} />
 									</Link>
