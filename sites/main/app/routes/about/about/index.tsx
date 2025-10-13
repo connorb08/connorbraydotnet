@@ -3,6 +3,7 @@ import { FaLinkedin as LinkedinIcon } from "react-icons/fa";
 import { VscGithub as GithubIcon } from "react-icons/vsc";
 import { Link } from "react-router";
 import type { Resume } from "shared";
+import type { AboutMeData } from "../../../../data/about-me";
 import style from "./style.module.scss";
 import { InformationBlock, SkillsBlock, UserBlock } from "./summary";
 import Leadership, { type LeadershipRole } from "./tabs/leadership";
@@ -12,6 +13,7 @@ type Props = {
 	resume: Resume;
 	leadershipRoles: LeadershipRole[];
 	loading: boolean;
+	aboutMe: AboutMeData;
 };
 
 const About = memo((props: Props) => {
@@ -23,27 +25,20 @@ const About = memo((props: Props) => {
 		<div className={style.container}>
 			<div className={style.container__grid}>
 				<div className={style.container__grid__left}>
-					<UserBlock />
-					<InformationBlock />
-					<SkillsBlock />
+					<UserBlock aboutMe={props.aboutMe} />
+					<InformationBlock aboutMe={props.aboutMe} />
+					<SkillsBlock aboutMe={props.aboutMe} />
 				</div>
 				<div className={style.container__grid__main}>
 					<div className={style.aboutBlock}>
 						<h2 className={style.aboutBlock__title}>About me</h2>
-						<p className={style.aboutBlock__description}>
-							I am a Software Engineer who has worked on a variety of projects. From small personal
-							ones to large enterprise applications, I have over 8 years of total programming
-							experience. I'm proficient in a variety of programming languages, including
-							JavaScript, Python, and C. I'm always looking for new ways to improve the way things
-							work, and I'm not afraid to take risks. I enjoy working with others to achieve common
-							goals.
-						</p>
+						<p className={style.aboutBlock__description}>{props.aboutMe.summary}</p>
 
 						<div className={style.aboutBlock__content}>
 							<ul className={style.aboutBlock__content__iconList}>
 								<li>
 									<Link
-										to="https://github.com/connorb08"
+										to={props.aboutMe.github}
 										className={style.aboutBlock__content__iconList__link}
 										aria-label="GitHub"
 									>
@@ -52,7 +47,7 @@ const About = memo((props: Props) => {
 								</li>
 								<li>
 									<Link
-										to="https://www.linkedin.com/in/connor-bray/"
+										to={props.aboutMe.linkedin}
 										className={style.aboutBlock__content__iconList__link}
 										aria-label="LinkedIn"
 									>

@@ -119,6 +119,14 @@ html[data-fullscreen] {
             line-height: 1.6;
             margin: 0.5rem 0 0.5rem 0;
 
+            &__paragraph {
+                margin-bottom: 1rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
             span {
                 color: $primary;
                 font-weight: 500;

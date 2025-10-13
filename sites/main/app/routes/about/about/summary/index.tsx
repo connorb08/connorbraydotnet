@@ -1,7 +1,8 @@
 import { Link } from "react-router";
+import type { AboutMeData } from "../../../../../data/about-me";
 import style from "../style.module.scss";
 
-export const UserBlock = () => {
+export const UserBlock = ({ aboutMe }: { aboutMe: AboutMeData }) => {
 	return (
 		<div className={style.userBlock}>
 			<div
@@ -29,8 +30,8 @@ export const UserBlock = () => {
 						/>
 					</picture>
 				</span>
-				<div className={style.userBlock__content__name}>Connor Bray</div>
-				<div className={style.userBlock__content__title}>Software Engineer</div>
+				<div className={style.userBlock__content__name}>{aboutMe.name}</div>
+				<div className={style.userBlock__content__title}>{aboutMe.title}</div>
 				<Link
 					to="https://resume.connorbray.net"
 					target="_blank"
@@ -63,17 +64,17 @@ export const UserBlock = () => {
 	);
 };
 
-export const InformationBlock = () => {
+export const InformationBlock = ({ aboutMe }: { aboutMe: AboutMeData }) => {
 	return (
 		<div className={style.information}>
 			<h2 className={style.information__title}>Information</h2>
 			<div className={style.information__content}>
 				<div className={style.information__content__item}>
 					<div className={style.information__content__item__key}>Location</div>
-					<div className={style.information__content__item__value}>Portland, ME</div>
+					<div className={style.information__content__item__value}>{aboutMe.location}</div>
 				</div>
 				<div className={style.information__content__item}>
-					<div className={style.information__content__item__key}>Experience</div>
+					<div className={style.information__content__item__key}>Professional Experience</div>
 					<div className={style.information__content__item__value}>4+ years</div>
 				</div>
 			</div>
@@ -81,7 +82,7 @@ export const InformationBlock = () => {
 	);
 };
 
-export const SkillsBlock = () => {
+export const SkillsBlock = ({ aboutMe: _ }: { aboutMe: AboutMeData }) => {
 	return (
 		<div className={style.skills}>
 			<h2 className={style.skills__title}>Skills</h2>

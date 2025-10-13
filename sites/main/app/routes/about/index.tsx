@@ -1,6 +1,7 @@
 import type { Resume } from "shared";
 import { EmptyResume } from "shared";
 import { usePromise } from "#utils";
+import aboutMe from "../../../data/about-me";
 import type { Route } from "./+types";
 import { About } from "./about";
 import type { LeadershipRole } from "./about/tabs/leadership";
@@ -68,7 +69,7 @@ export async function loader() {
 						},
 					],
 				}),
-			1000,
+			1,
 		);
 	});
 
@@ -80,7 +81,7 @@ export async function loader() {
 		},
 	];
 
-	return { resumeData, leadershipRoles };
+	return { resumeData, leadershipRoles, aboutMe };
 }
 
 /**
@@ -101,14 +102,17 @@ export async function clientLoader({ request, serverLoader }: Route.ClientLoader
 	}
 
 	// If the data is not cached, fetch it from the server
-	const { resumeData, leadershipRoles } = await serverLoader();
+	const { resumeData, leadershipRoles, aboutMe } = await serverLoader();
 
 	// Cache the data in sessionStorage for future use
 	resumeData.then((data) => {
-		sessionStorage.setItem(cacheKey, JSON.stringify({ resumeData: data, leadershipRoles }));
+		sessionStorage.setItem(
+			cacheKey,
+			JSON.stringify({ resumeData: data, leadershipRoles, aboutMe }),
+		);
 	});
 
-	return { resumeData, leadershipRoles };
+	return { resumeData, leadershipRoles, aboutMe };
 }
 
 export default function ({ loaderData }: Route.ComponentProps) {
@@ -118,5 +122,12 @@ export default function ({ loaderData }: Route.ComponentProps) {
 		console.error("Error loading resume data:", error);
 	}
 
-	return <About resume={data} leadershipRoles={loaderData.leadershipRoles} loading={loading} />;
+	return (
+		<About
+			resume={data}
+			leadershipRoles={loaderData.leadershipRoles}
+			aboutMe={loaderData.aboutMe}
+			loading={loading}
+		/>
+	);
 }
