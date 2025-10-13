@@ -8,6 +8,7 @@
     @include typography.monospace;
     color: colors.$primary;
     background-color: colors.$surfaceDim;
+    font-display: swap;
 }
 
 html,
