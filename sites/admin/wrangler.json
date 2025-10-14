@@ -17,11 +17,6 @@
 			"entrypoint": "MainEntrypoint"
 		},
 		{
-			"binding": "API",
-			"service": "next-api",
-			"entrypoint": "MainEntrypoint"
-		},
-		{
 			"binding": "DATABASE",
 			"service": "database",
 			"entrypoint": "Entrypoint"

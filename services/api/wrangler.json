@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "../../node_modules/wrangler/config-schema.json",
-	"name": "next-api",
+	"name": "api",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-07-09",
 	"workers_dev": false,
@@ -13,6 +13,6 @@
 	},
 	"route": {
 		"custom_domain": true,
-		"pattern": "next-api.connorbray.net"
+		"pattern": "api.connorbray.net"
 	}
 }
