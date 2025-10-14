@@ -17,8 +17,6 @@ export async function action({ request }: Route.ActionArgs) {
         session.set("fullscreen", fullscreen === "true");
     }
 
-    console.log(session.get("theme"));
-
     return data(
         { error: session.get("error") },
         {

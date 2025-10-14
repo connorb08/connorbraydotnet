@@ -4,18 +4,19 @@
  */
 {
 	"$schema": "../../node_modules/wrangler/config-schema.json",
-	"name": "site",
-	"compatibility_date": "2025-04-04",
+	"name": "connorbray-net",
+	"compatibility_date": "2025-07-26",
 	"main": "./workers/app.ts",
 	"observability": {
 		"enabled": true
 	},
 	"routes": [
 		{
-			"pattern": "next.connorbray.net",
+			"pattern": "connorbray.net",
 			"custom_domain": true
 		}
 	],
+	"preview_urls": false,
 	"services": [
 		{
 			"binding": "CONTENT_MANAGER",
