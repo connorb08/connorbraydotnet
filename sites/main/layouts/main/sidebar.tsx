@@ -1,12 +1,11 @@
+// import { useContext } from "react";
+// import { GlobalContext } from "#utils/state/index";
 import style from "./sidebar.module.scss";
 
-interface Props {
-	fullscreen?: boolean;
-}
-
-export default function Sidebar(props: Props) {
+export default function Sidebar() {
+	// const { fullscreen } = useContext(GlobalContext);
 	return (
-		<div className={style.sidebar} data-fullscreen={props.fullscreen}>
+		<div className={style.sidebar}>
 			<div className={style.sidebar__content} />
 		</div>
 	);

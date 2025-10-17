@@ -28,7 +28,6 @@ html[data-fullscreen] {
     align-items: center;
     position: relative;
     overflow: hidden;
-    // @include shadow;
 
     &__container {
         display: grid;
@@ -173,18 +172,14 @@ html[data-fullscreen] {
 .content {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(30rem, 45%, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 45%, 100%), 1fr));
     gap: 20px;
-    align-items: stretch; // Ensures all grid items have equal height
+    align-items: stretch;
 }
 
 .section {
-    position: relative;
-    top: 0;
-    right: 0;
-    height: 100%; // Ensures section fills the full height of its grid cell
-    display: flex; // Use flexbox for internal layout
-    flex-direction: column; // Stack title and content vertically
+    @include column;
+    height: 100%;
 
     background-color: $tertiaryContainer;
     color: $onTertiaryContainer;

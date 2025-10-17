@@ -21,10 +21,10 @@ export const ContextProvider = ({
 	const [themeState, setThemeState] = useState<"light" | "dark">(theme);
 	const [fullscreenState, setFullscreenState] = useState<boolean>(fullscreen);
 
-	const toggleFullscreen = () => {
+	const toggleFullscreen = async () => {
 		const newFullscreen = !fullscreenState;
+		await fetcher.submit({ fullscreen: newFullscreen }, { method: "post", action: "/_session" });
 		setFullscreenState(newFullscreen);
-		fetcher.submit({ fullscreen: newFullscreen }, { method: "post", action: "/_session" });
 	};
 
 	const toggleTheme = () => {

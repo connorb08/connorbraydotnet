@@ -1,26 +1,23 @@
 @use "~/styles" as *;
 
 html[data-fullscreen] {
-    & .header {
+    .header {
         display: none;
     }
-    & .content {
+    .content {
         border-radius: 0;
         margin-bottom: 0;
         border: none;
     }
-}
-
-html[data-fullscreen] {
-    & .container {
+    .container {
         overflow: visible;
     }
 
-    & .layout {
+    .layout {
         @include surfaceContainer;
     }
 
-    & .content__main {
+    .content__main {
         max-width: width(xl);
         margin: 0 auto;
     }
@@ -42,6 +39,10 @@ html[data-fullscreen] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    @media screen and (max-width: breakpoint(md)) {
+        display: none;
+    }
 
     &__main {
         display: flex;
@@ -83,15 +84,6 @@ html[data-fullscreen] {
             }
         }
     }
-
-    &__navbarButton {
-        @media (max-width: breakpoint(md)) {
-            display: none;
-        }
-        &.--navbarOpen svg {
-            transform: scale(-1, 1);
-        }
-    }
 }
 
 .container {
@@ -129,6 +121,11 @@ html[data-fullscreen] {
             transform-origin: center top;
             overflow: hidden;
         }
+    }
+
+    @media screen and (max-width: breakpoint(md)) {
+        border: none;
+        border-radius: 0;
     }
 }
 

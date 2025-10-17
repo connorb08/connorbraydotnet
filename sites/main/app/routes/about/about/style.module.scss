@@ -25,6 +25,10 @@
     justify-content: center;
     margin: pt(4) 0;
 
+    @media screen and (max-width: breakpoint(md)) {
+        margin: pt(1);
+    }
+
     &__grid {
         display: grid;
         gap: 1.25rem;

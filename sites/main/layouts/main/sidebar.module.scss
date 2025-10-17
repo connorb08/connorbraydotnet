@@ -13,10 +13,6 @@ html[data-fullscreen] {
     width: fit-content;
     margin: pt(0.5);
 
-    &[data-fullscreen="true"] {
-        display: none;
-    }
-
     &__content {
         width: clamp(40px, pt(3), 64px);
         padding: clamp(2px, pt(0.5), 6px);
