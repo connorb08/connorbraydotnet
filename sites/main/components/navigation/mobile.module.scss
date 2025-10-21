@@ -1,0 +1,15 @@
+@use "~/styles" as *;
+
+.MobileNavigation {
+    display: none;
+
+    @media (max-width: breakpoint(md)) {
+        display: block;
+    }
+
+    .Button {
+        position: fixed;
+        bottom: pt(1);
+        right: pt(1);
+    }
+}

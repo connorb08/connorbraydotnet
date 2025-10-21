@@ -10,6 +10,7 @@
     /* Sizing */
     padding: clamp(2px, 0.25rem, 6px) clamp(1px, 0.25rem, 3px);
     min-height: 2.5rem;
+    min-width: 2.5rem;
 
     /* Typography */
     font-weight: 500;
@@ -49,7 +50,6 @@
         gap: 0;
         aspect-ratio: 1;
         min-width: 2.5rem;
-        // padding: 0.5rem;
 
         svg,
         img,

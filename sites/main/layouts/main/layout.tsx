@@ -1,8 +1,9 @@
 import Toolbar from "components/toolbar";
 import { NavLink, Outlet, useLocation } from "react-router";
+import Navigation, { MobileNavigation } from "#components/navigation";
 import Footer from "./footer";
 import style from "./layout.module.scss";
-import Navbar from "./navbar";
+// import Navbar from "./navbar";
 import Sidebar from "./sidebar";
 
 export function MainLayout() {
@@ -24,7 +25,8 @@ export function MainLayout() {
 				</span>
 			</header>
 			<div className={style.container}>
-				<Navbar />
+				{/* <Navbar /> */}
+				<Navigation />
 				<div className={style.content}>
 					<div className={style.content__spacer}>
 						<main className={style.content__spacer__main}>
@@ -36,6 +38,7 @@ export function MainLayout() {
 			</div>
 			<Footer />
 			<Toolbar />
+			<MobileNavigation />
 		</div>
 	);
 }

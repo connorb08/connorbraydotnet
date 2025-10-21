@@ -161,12 +161,10 @@ export default function Home({ solution }: Props) {
 						</a>
 					</div>
 				</div>
-				{/* <i className={styles.footerDisclaimer}>
-					* This is a personal, non-commercial portfolio project. This site is not affiliated,
-					associated, authorized, endorsed by, or in any way officially connected with LinkedIn, or
-					any of its subsidiaries or affiliates. All trademarks are property of their respective
-					owners.
-				</i> */}
+				{/* <small className={styles.footerDisclaimer}>
+					* This is a personal, non-commercial project and is not affiliated with, endorsed by, or
+					connected to LinkedIn Corporation or its affiliates.
+				</small> */}
 			</footer>
 		</main>
 	);
