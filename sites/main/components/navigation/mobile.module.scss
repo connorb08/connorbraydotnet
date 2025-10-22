@@ -7,9 +7,29 @@
         display: block;
     }
 
-    .Button {
+    .Trigger {
         position: fixed;
         bottom: pt(1);
         right: pt(1);
+    }
+}
+
+.Popover {
+    background-color: $surfaceContainer;
+    color: $onSurface;
+    @include rounded;
+    @include border($outline, 1px);
+    margin-bottom: 6px;
+    bottom: pt(1);
+    right: pt(1);
+    left: auto;
+    max-width: fit-content;
+
+    &__Arrow {
+        display: block;
+        fill: $surfaceContainer;
+        stroke: $outline;
+        stroke-width: 1px;
+        margin-top: -2px;
     }
 }

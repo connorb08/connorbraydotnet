@@ -1,47 +1,49 @@
 import { Button, LinkButton } from "components/ui/new-button";
-import { Menu, MenuItem, MenuTrigger, Popover } from "react-aria-components";
+import { useState } from "react";
+import { Dialog, DialogTrigger, OverlayArrow, Popover } from "react-aria-components";
 import { useLocation } from "react-router";
 import { Menu as MenuIcon } from "../icons";
 import style from "./mobile.module.scss";
 import { routes } from "./pages";
 
 export default function MobileNavigation() {
+	const [navigationOpen, setNavigationOpen] = useState(false);
 	const location = useLocation();
 
 	return (
 		<div className={style.MobileNavigation}>
-			<MenuTrigger>
+			<DialogTrigger>
 				<Button
 					aria-label="Menu"
-					className={style.Button}
+					className={style.Trigger}
 					variant="normal"
 					color="primary"
 					icon={<MenuIcon />}
 					size="medium"
+					onClick={() => setNavigationOpen(true)}
 				/>
-				<Popover>
-					<Menu>
+				<Popover className={style.Popover} isOpen={navigationOpen} onOpenChange={setNavigationOpen}>
+					<OverlayArrow className={style.Popover__Arrow} data-placement="top">
+						<svg width={12} height={12} viewBox="0 0 12 12" aria-hidden="true">
+							<path d="M0 0 L6 6 L12 0" />
+						</svg>
+					</OverlayArrow>
+					<Dialog>
 						{routes.map((route) => (
-							<MenuItem key={route.id}>
-								<LinkButton
-									// key={route.id}
-									to={route.href}
-									icon={route.icon}
-									viewTransition={location.pathname !== route.href}
-									prefetch="viewport"
-									variant="ghost"
-									color="primary"
-								/>
-							</MenuItem>
+							<LinkButton
+								key={route.id}
+								to={route.href}
+								icon={route.icon}
+								viewTransition={location.pathname !== route.href}
+								prefetch="viewport"
+								variant="ghost"
+								color="primary"
+								onClick={() => setNavigationOpen(false)}
+							/>
 						))}
-						{/* <MenuItem onAction={() => alert("open")}>Open</MenuItem>
-					<MenuItem onAction={() => alert("rename")}>Rename…</MenuItem>
-					<MenuItem onAction={() => alert("duplicate")}>Duplicate</MenuItem>
-					<MenuItem onAction={() => alert("share")}>Share…</MenuItem>
-					<MenuItem onAction={() => alert("delete")}>Delete…</MenuItem> */}
-					</Menu>
+					</Dialog>
 				</Popover>
-			</MenuTrigger>
+			</DialogTrigger>
 		</div>
 	);
 }
