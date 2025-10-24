@@ -7,13 +7,13 @@ import { Button } from "./ui/new-button";
 export default function Toolbar() {
 	return (
 		<div className={style.toolbar}>
-			<ThemeToggle />
+			<ToggleThemeButton />
 			<FullscreenToggle />
 		</div>
 	);
 }
 
-function ThemeToggle() {
+export function ToggleThemeButton() {
 	const { theme, toggleTheme } = useContext(GlobalContext);
 	return (
 		<Button

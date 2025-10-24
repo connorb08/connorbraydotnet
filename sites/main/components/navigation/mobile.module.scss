@@ -33,3 +33,16 @@
         margin-top: -2px;
     }
 }
+
+.Separator {
+    border: none;
+    border-top: 1px solid $outline;
+    margin: pt(0.25) 0;
+    width: 100%;
+    background: none;
+    height: 0;
+}
+
+.Dialog {
+    padding: pt(0.25) 0;
+}
