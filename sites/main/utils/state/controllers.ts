@@ -1,6 +1,7 @@
 import type { Dispatch, RefObject, SetStateAction } from "react";
+import type { StateData } from "./types";
 
-export async function toggleTheme(rootRef: RefObject<HTMLHtmlElement | null>, setTheme: Dispatch<SetStateAction<"light" | "dark">>) {
+export async function toggleTheme(rootRef: RefObject<HTMLHtmlElement | null>, setTheme: Dispatch<SetStateAction<StateData["theme"]>>) {
     const root = rootRef.current;
     if (!root) {
         console.warn("Root element not found for theme toggle.");

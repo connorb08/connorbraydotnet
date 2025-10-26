@@ -40,7 +40,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 	const fullscreen = session.get("fullscreen");
 
 	return {
-		theme: theme ?? "light",
+		theme: theme ?? null,
 		fullscreen: fullscreen ?? false,
 	};
 }
@@ -53,7 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 		<html
 			lang="en"
 			ref={rootRef}
-			data-theme={data.theme ?? "light"}
+			data-theme={data.theme ?? null}
 			data-fullscreen={data.fullscreen ? true : null}
 		>
 			<head>
@@ -67,7 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<ContextProvider
 					rootRef={rootRef}
 					fullscreen={data.fullscreen ?? false}
-					theme={data.theme ?? "light"}
+					theme={data.theme ?? null}
 				>
 					{children}
 				</ContextProvider>

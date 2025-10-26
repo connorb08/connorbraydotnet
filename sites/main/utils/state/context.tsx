@@ -7,7 +7,7 @@ export const GlobalContext = createContext<IGlobalContext>({
 	rootRef: { current: null },
 	toggleFullscreen: () => undefined,
 	toggleTheme: () => undefined,
-	theme: "light",
+	theme: null,
 	fullscreen: false,
 });
 
@@ -18,7 +18,7 @@ export const ContextProvider = ({
 	theme,
 }: PropsWithChildren<ContextProviderProps>) => {
 	const fetcher = useFetcher();
-	const [themeState, setThemeState] = useState<"light" | "dark">(theme);
+	const [themeState, setThemeState] = useState<"light" | "dark" | null>(theme);
 	const [fullscreenState, setFullscreenState] = useState<boolean>(fullscreen);
 
 	const toggleFullscreen = async () => {
