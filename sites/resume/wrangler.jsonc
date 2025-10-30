@@ -3,6 +3,7 @@
 	"name": "resume",
 	"compatibility_date": "2025-04-04",
 	"main": "./workers/app.ts",
+	"preview_urls": false,
 	"routes": [
 		{
 			"custom_domain": true,
