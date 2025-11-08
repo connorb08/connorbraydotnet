@@ -48,21 +48,15 @@ main * {
 @page {
     size: 8.5in 11in;
     margin: 0;
-    padding: 0;
-    padding-top: util.in(0.5);
+    padding: util.in(0.5) 0;
 }
 
-@page :first {
-    padding-top: 0;
-}
-
-/* Set sizing for print */
 @media print {
     body {
         margin: 0;
 
         main {
-            padding: util.in(0.5);
+            padding: 0 util.in(0.5);
         }
     }
 }

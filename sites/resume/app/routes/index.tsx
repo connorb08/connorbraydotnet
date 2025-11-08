@@ -12,6 +12,8 @@ export function loader({ context: _context }: Route.LoaderArgs) {
 			languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
 			technologies: ["Git", "Docker", "Terraform", "AWS", "CI/CD"],
 			interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
+			summary:
+				"Software engineer with 3+ years of experience building scalable, high-performance applications and improving developer workflows. Passionate about modernizing legacy systems and optimizing processes to enhance efficiency and reliability.",
 		},
 		career: [
 			{
@@ -26,6 +28,7 @@ export function loader({ context: _context }: Route.LoaderArgs) {
 					"Led modernization of 3M+ lines of legacy code to a modern .NET stack, ensuring maintainability, performance, and functional parity.",
 					"Built unit, regression, and E2E tests that reduced defects and safeguarded product stability.",
 					"Mentored a team of 3+ engineers, introducing coding standards and best practices that improved code quality and team efficiency.",
+					"Automated deployment pipelines, reducing manual steps and minimizing release errors.",
 					"Automated deployment pipelines, reducing manual steps and minimizing release errors.",
 				],
 			},
@@ -74,7 +77,13 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					data-testid="resume.contact"
 				>{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
 			</header>
-			<div className="section" id="career">
+			<div className="section" id="summary">
+				<h2 className="section__heading">Summary</h2>
+				<p className="section__content" data-testid="resume.about.summary">
+					{resume.about.summary}
+				</p>
+			</div>
+			<div className="section" id="experience">
 				<h2 className="section__heading">Experience</h2>
 				{resume.career.map((careerItem, index) => {
 					return (

@@ -12,6 +12,7 @@ export interface ResumeAbout {
 	location: string;
 	languages: string[];
 	technologies: string[];
+	summary?: string | null | undefined;
 	interests?: string[];
 }
 
