@@ -173,12 +173,9 @@
     "sites/main": {
       "name": "site",
       "dependencies": {
-        "clog": "workspace:*",
         "components": "workspace:*",
-        "database": "workspace:*",
         "react-aria-components": "^1.10.1",
         "shared": "workspace:*",
-        "types": "workspace:*",
       },
       "devDependencies": {
         "@material/material-color-utilities": "^0.3.0",
@@ -192,6 +189,7 @@
       },
       "peerDependencies": {
         "@cloudflare/vite-plugin": "*",
+        "@types/node": "*",
         "isbot": "*",
         "react": "*",
         "react-dom": "*",
