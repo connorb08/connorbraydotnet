@@ -3,6 +3,9 @@
 	"files": [],
 	"references": [
 		{
+			"path": "../../packages/shared"
+		},
+		{
 			"path": "./tsconfig.node.json"
 		},
 		{

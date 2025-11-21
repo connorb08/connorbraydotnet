@@ -3,7 +3,7 @@
 	"files": [],
 	"references": [
 		{
-			"path": "../../services/api"
+			"path": "../../services/database"
 		},
 		{
 			"path": "../../services/content-manager"

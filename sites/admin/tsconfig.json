@@ -1,7 +1,17 @@
 {
 	"extends": "../../tsconfig.base.json",
 	"files": [],
-	"references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.cloudflare.json" }],
+	"references": [
+		{
+			"path": "../../services/database"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.cloudflare.json"
+		}
+	],
 	"compilerOptions": {
 		"outDir": ".tsbuildinfo"
 	}

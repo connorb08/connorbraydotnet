@@ -3,13 +3,19 @@
 	"files": [],
 	"references": [
 		{
+			"path": "../../services/database"
+		},
+		{
 			"path": "../../packages/shared"
 		},
 		{
-			"path": "../../packages/components"
+			"path": "../../packages/clog"
 		},
 		{
-			"path": "../../packages/clog"
+			"path": "../../packages/types"
+		},
+		{
+			"path": "../../packages/components"
 		},
 		{
 			"path": "./tsconfig.spec.json"

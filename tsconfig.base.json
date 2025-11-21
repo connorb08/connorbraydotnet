@@ -1,23 +1,17 @@
 {
 	"files": [],
 	"compilerOptions": {
-		/* nx required options */
 		"composite": true,
 		"declaration": true,
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
-
-		/* Base Options */
 		"allowJs": false,
 		"isolatedModules": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"target": "ESNext",
 		"verbatimModuleSyntax": true,
-
-		/* Strictness */
 		"strict": true,
-		/* Default `"strict": true` values */
 		"alwaysStrict": true,
 		"strictNullChecks": true,
 		"strictBindCallApply": true,
@@ -27,32 +21,21 @@
 		"noImplicitAny": true,
 		"noImplicitThis": true,
 		"useUnknownInCatchVariables": true,
-		/* Additional strict options */
-		// "noPropertyAccessFromIndexSignature": true,
 		"noUncheckedIndexedAccess": true,
-		// "exactOptionalPropertyTypes": true,
 		"noImplicitOverride": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
-		// "noUnusedLocals": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
 		"suppressExcessPropertyErrors": false,
 		"suppressImplicitAnyIndexErrors": false,
 		"noStrictGenericChecks": false,
 		"erasableSyntaxOnly": true,
-
-		/* If NOT transpiling with TypeScript: */
 		"module": "preserve",
 		"moduleResolution": "bundler",
-		// "noEmit": true,
-
-		/* Library */
 		"lib": ["ESNext"],
-		"customConditions": ["development"],
-
-		/* Output */
+		"customConditions": ["@connorbraydotnet/source"],
 		"outDir": ".tsbuildinfo",
 		"rootDir": "."
 	}
