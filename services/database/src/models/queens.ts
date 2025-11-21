@@ -1,9 +1,4 @@
-import type {
-	Insertable,
-	JSONColumnType,
-	Selectable,
-	Updateable,
-} from "kysely";
+import type { Insertable, JSONColumnType, Selectable, Updateable } from "kysely";
 import type { QueensSolution } from "types";
 
 export type QueensTable = {

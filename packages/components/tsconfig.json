@@ -5,11 +5,11 @@
 		"outDir": ".tsbuildinfo"
 	},
 	"references": [
-    {
-      "path": "../shared"
-    },
-    {
-      "path": "./tsconfig.lib.json"
-    }
-  ]
+		{
+			"path": "../shared"
+		},
+		{
+			"path": "./tsconfig.lib.json"
+		}
+	]
 }

@@ -14,24 +14,34 @@ export function useTerminalController(ref: RefObject<HTMLElement | null>, nav: N
 		[ref],
 	);
 
-	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key !== "Enter") {
-			return;
-		}
-		const input = event.currentTarget.value.trim();
+	const handleKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLInputElement>) => {
+			if (event.key !== "Enter") {
+				return;
+			}
+			const input = event.currentTarget.value.trim();
 
-		if (input === "") {
-			return;
-		}
+			if (input === "") {
+				return;
+			}
 
-		event.currentTarget.value = "";
-		resetCursorPosition();
+			event.currentTarget.value = "";
+			resetCursorPosition();
 
-		handleInput(input, ref, nav);
+			handleInput(input, ref, nav);
+		},
+		[ref, nav],
+	);
 
-	}, [ref, nav]);
-
-	return { write, handleKeyDown, handleType, handleFocus, clearTerminal, resetCursorPosition, removeCursor };
+	return {
+		write,
+		handleKeyDown,
+		handleType,
+		handleFocus,
+		clearTerminal,
+		resetCursorPosition,
+		removeCursor,
+	};
 }
 
 const writeTerminalResult = (ref: RefObject<HTMLElement | null>, result: string, error = false) => {
@@ -107,9 +117,10 @@ const handleInput = (input: string, ref: RefObject<HTMLElement | null>, nav: Nav
 			clearTerminal();
 			break;
 		default:
-			writeTerminalResult(ref,
+			writeTerminalResult(
+				ref,
 				`Command not found: ${command}. Type 'help' for a list of available commands.`,
 				true,
 			);
 	}
-}
+};

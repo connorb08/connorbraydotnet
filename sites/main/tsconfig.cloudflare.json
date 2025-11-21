@@ -1,11 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"include": [
-		"**/*.ts",
-		"**/*.tsx",
-		".react-router/types/**/*",
-		"worker-configuration.d.ts"
-	],
+	"include": ["**/*.ts", "**/*.tsx", ".react-router/types/**/*", "worker-configuration.d.ts"],
 	"compilerOptions": {
 		"plugins": [{ "name": "typescript-plugin-css-modules" }],
 		"paths": {

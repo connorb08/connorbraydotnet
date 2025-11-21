@@ -1,8 +1,4 @@
-import {
-	argbFromHex,
-	hexFromArgb,
-	themeFromSourceColor,
-} from "@material/material-color-utilities";
+import { argbFromHex, hexFromArgb, themeFromSourceColor } from "@material/material-color-utilities";
 
 const seed = "#409ab9";
 

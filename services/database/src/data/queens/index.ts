@@ -21,15 +21,11 @@ export async function PutQueens(
 		return RPCOk(queens);
 	} catch (error) {
 		console.error("Error putting queens:", error);
-		return RPCErr(
-			error instanceof Error ? error.message : "Unknown error inserting queens",
-		);
+		return RPCErr(error instanceof Error ? error.message : "Unknown error inserting queens");
 	}
 }
 
-export async function GetCurrentQueens(
-	db: Kysely<Database>,
-): Promise<RPCResult<Queens>> {
+export async function GetCurrentQueens(db: Kysely<Database>): Promise<RPCResult<Queens>> {
 	try {
 		// const selectDate = new Date().toISOString().split("T")[0] || "unknown-date";
 		const { date, solution } = await db
@@ -41,8 +37,6 @@ export async function GetCurrentQueens(
 		return RPCOk({ date, solution: JSON.parse(solution as unknown as string) });
 	} catch (error) {
 		console.error("Error fetching queens:", error);
-		return RPCErr(
-			error instanceof Error ? error.message : "Unknown error getting queens",
-		);
+		return RPCErr(error instanceof Error ? error.message : "Unknown error getting queens");
 	}
 }

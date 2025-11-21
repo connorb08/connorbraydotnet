@@ -1,8 +1,4 @@
-import {
-	createExecutionContext,
-	SELF,
-	waitOnExecutionContext,
-} from "cloudflare:test";
+import { createExecutionContext, SELF, waitOnExecutionContext } from "cloudflare:test";
 import { assert, describe, expect, it, vi } from "vitest";
 
 vi.mock("react-router", async (importOriginal) => {

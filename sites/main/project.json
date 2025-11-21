@@ -27,10 +27,7 @@
 				"!{projectRoot}/README.md",
 				"!{projectRoot}/.gitignore"
 			],
-			"outputs": [
-				"{projectRoot}/worker-configuration.d.ts",
-				"{projectRoot}/.react-router/types"
-			]
+			"outputs": ["{projectRoot}/worker-configuration.d.ts", "{projectRoot}/.react-router/types"]
 		}
 	}
 }

@@ -13,9 +13,9 @@ const ValidateResume: ValidationHandler = <T>(data: T) => {
 	}
 	return {
 		ok: false,
-		errors: ValidateResumeFunction.errors?.map(
-			(val) => val.message || "Unknown Error",
-		) ?? ["Unknown Error Validating"],
+		errors: ValidateResumeFunction.errors?.map((val) => val.message || "Unknown Error") ?? [
+			"Unknown Error Validating",
+		],
 	};
 };
 

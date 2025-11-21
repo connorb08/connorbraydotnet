@@ -1,8 +1,4 @@
-import {
-	createExecutionContext,
-	env,
-	waitOnExecutionContext,
-} from "cloudflare:test";
+import { createExecutionContext, env, waitOnExecutionContext } from "cloudflare:test";
 import { assert, describe, expect, it } from "vitest";
 import WorkerMainEntrypoint from "../../build/server";
 

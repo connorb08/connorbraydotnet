@@ -4,11 +4,7 @@ import { Biome, Distribution } from "@biomejs/js-api";
 import Ajv, { _ } from "ajv";
 import standaloneCode from "ajv/dist/standalone";
 import addFormats from "ajv-formats";
-import {
-	type CompilerOptions,
-	ScriptTarget,
-	transpileDeclaration,
-} from "typescript";
+import { type CompilerOptions, ScriptTarget, transpileDeclaration } from "typescript";
 import { ResumeSchema } from "./src/schemas";
 
 const ajv = new Ajv({
@@ -23,8 +19,7 @@ addFormats(ajv);
 ajv.addKeyword({
 	keyword: "isNotEmpty",
 	type: "string",
-	validate: (_schema: unknown, data: unknown) =>
-		typeof data === "string" && data.trim() !== "",
+	validate: (_schema: unknown, data: unknown) => typeof data === "string" && data.trim() !== "",
 	code: (cxt) => {
 		const { data } = cxt;
 		cxt.fail(_`typeof ${data} === "string" && ${data}.trim() === ""`);

@@ -39,36 +39,24 @@ export default function IconButton(
 			<NavLink {...props} className={`${style.button} ${props.className}`}>
 				{isValidElement(props.children)
 					? // biome-ignore lint/suspicious/noExplicitAny: allow any for generic component props
-						cloneElement<ComponentProps<JSXElementConstructor<any>>>(
-							props.children,
-							{
-								className: `${
-									(props.children as ReactElement<{ className: string }>).props
-										.className ?? ""
-								} ${style.button__icon}`,
-							},
-						)
+						cloneElement<ComponentProps<JSXElementConstructor<any>>>(props.children, {
+							className: `${
+								(props.children as ReactElement<{ className: string }>).props.className ?? ""
+							} ${style.button__icon}`,
+						})
 					: props.children}
 			</NavLink>
 		);
 	}
 	return (
-		<button
-			type="button"
-			className={`${style.button} ${props.className}`}
-			onClick={props.onClick}
-		>
+		<button type="button" className={`${style.button} ${props.className}`} onClick={props.onClick}>
 			{isValidElement(props.children)
 				? // biome-ignore lint/suspicious/noExplicitAny: allow any for generic component props
-					cloneElement<ComponentProps<JSXElementConstructor<any>>>(
-						props.children,
-						{
-							className: `${
-								(props.children as ReactElement<{ className: string }>).props
-									.className ?? ""
-							} ${style.button__icon}`,
-						},
-					)
+					cloneElement<ComponentProps<JSXElementConstructor<any>>>(props.children, {
+						className: `${
+							(props.children as ReactElement<{ className: string }>).props.className ?? ""
+						} ${style.button__icon}`,
+					})
 				: props.children}
 		</button>
 	);

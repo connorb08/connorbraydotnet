@@ -1,9 +1,7 @@
 import type { Kysely } from "kysely";
 import type { Database } from "../models";
 
-export default async function SetupDatabaseSchema(
-	db: Kysely<Database>,
-): Promise<void> {
+export default async function SetupDatabaseSchema(db: Kysely<Database>): Promise<void> {
 	try {
 		await db.schema
 			.createTable("queens")

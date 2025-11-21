@@ -6,13 +6,7 @@ import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { RxChevronRight } from "react-icons/rx";
 import { VscAccount } from "react-icons/vsc";
 
-type IconName =
-	| "home"
-	| "about"
-	| "chevron"
-	| "gear"
-	| "fullscreen"
-	| "exitFullscreen";
+type IconName = "home" | "about" | "chevron" | "gear" | "fullscreen" | "exitFullscreen";
 
 const iconObject: Record<IconName, IconType> = {
 	home: LuHouse,

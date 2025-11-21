@@ -8,11 +8,7 @@
 		},
 		"test": {
 			"cache": true,
-			"inputs": [
-				"{projectRoot}/src",
-				"{projectRoot}/validator",
-				"{projectRoot}/test"
-			]
+			"inputs": ["{projectRoot}/src", "{projectRoot}/validator", "{projectRoot}/test"]
 		}
 	}
 }

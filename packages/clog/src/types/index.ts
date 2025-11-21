@@ -1,13 +1,4 @@
-type LogLevel =
-	| "none"
-	| "custom"
-	| "fatal"
-	| "error"
-	| "warn"
-	| "info"
-	| "debug"
-	| "trace"
-	| "all";
+type LogLevel = "none" | "custom" | "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "all";
 
 type ILogger = {
 	// Properties

@@ -42,7 +42,8 @@ export const projectsData: ExtendedProject[] = [
 	{
 		slug: "portfolio",
 		name: "connorbray.net",
-		description: "Personal portfolio built with TypeScript and deployed globally at the edge. Focused on performance, accessibility, and a maintainable design system.",
+		description:
+			"Personal portfolio built with TypeScript and deployed globally at the edge. Focused on performance, accessibility, and a maintainable design system.",
 		about: [
 			"Built using React + TypeScript",
 			"Client routing with React Router; logical route + layout composition",
@@ -71,13 +72,14 @@ export const projectsData: ExtendedProject[] = [
 			"Project and resume data sourced from strongly typed modules",
 			"Smooth but mindful animations and micro-interactions",
 			"Semantic HTML + ARIA patterns; keyboard-first navigation",
-			"Edge deployment with automated CI/CD (build → test → deploy)"
+			"Edge deployment with automated CI/CD (build → test → deploy)",
 		],
 	},
 	{
 		slug: "resume",
 		name: "HTML Resume",
-		description: "JSON defined resume rendered as semantic HTML/CSS with print/PDF fidelity and zero runtime dependencies.",
+		description:
+			"JSON defined resume rendered as semantic HTML/CSS with print/PDF fidelity and zero runtime dependencies.",
 		about: [
 			"Hand-authored semantic HTML structure",
 			"Tokenized spacing & typography scale for consistent sizing across breakpoints",
@@ -121,7 +123,8 @@ export const projectsData: ExtendedProject[] = [
 	{
 		slug: "fstop",
 		name: "cumberland-foodstop.com",
-		description: "Marketing & menu site for a local food business with self-service weekly specials management and edge delivery.",
+		description:
+			"Marketing & menu site for a local food business with self-service weekly specials management and edge delivery.",
 		about: [
 			"Next.js (React + TypeScript) for static pre-rendered pages and fast navigation",
 			"Tailwind CSS utility layer with a small set of extracted component patterns",

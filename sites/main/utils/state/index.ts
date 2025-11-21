@@ -1,3 +1,3 @@
-export { GlobalContext } from "./context"
+export { GlobalContext } from "./context";
 
-export type { SessionFlashData } from "./types"
+export type { SessionFlashData } from "./types";

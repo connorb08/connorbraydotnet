@@ -4,9 +4,7 @@ import { $ } from "bun";
 
 //#region setup
 const IS_PROD = process.env.NODE_ENV === "production";
-const BUCKET_NAME = IS_PROD
-	? ("connorbray-net" as const)
-	: ("connorbray-net-preview" as const);
+const BUCKET_NAME = IS_PROD ? ("connorbray-net" as const) : ("connorbray-net-preview" as const);
 const currentDirectory = import.meta.dir;
 const seedDirectory = join(currentDirectory, "seed");
 const persistDirectory = join(currentDirectory, "../../", ".wrangler", "state");
