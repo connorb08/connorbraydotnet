@@ -1,0 +1,11 @@
+{
+	"ignores": [
+		"sass",
+		"typescript-plugin-css-modules",
+		"base",
+		"cloudflare:workers",
+		"abstracts",
+		"virtual:react-router"
+	],
+	"skip-missing": true
+}
