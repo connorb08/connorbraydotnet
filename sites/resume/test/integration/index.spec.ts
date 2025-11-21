@@ -1,5 +1,6 @@
 import { createExecutionContext, env, waitOnExecutionContext } from "cloudflare:test";
 import { assert, describe, expect, it } from "vitest";
+// @ts-expect-error importing compiled code for integration testing
 import WorkerMainEntrypoint from "../../build/server";
 
 describe("Built Cloudflare Worker Should Fetch", () => {

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import type { LoaderFunctionArgs } from "react-router";
 import { type Resume, ValidateResume, ValidResume } from "shared";
 import { describe, expect } from "vitest";
-import type { Route } from "./+types/index";
+import type { Route } from "../../.react-router/types/app/routes/+types";
 import Index, { loader } from "./index";
 
 describe("Index route", () => {

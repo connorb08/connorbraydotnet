@@ -15,7 +15,7 @@
 	"scripts": {
 		"checks": "bun run build && bun run test && bun run typecheck && bun run format && bun run lint",
 		"format": "biome format",
-		"lint": "biome lint && nx run-many -t lint",
+		"lint": "biome lint",
 		"typecheck": "nx run-many -t typecheck",
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build",
@@ -28,7 +28,7 @@
 		"@biomejs/js-api": "^0.7.1",
 		"@biomejs/wasm-nodejs": "^1.9.4",
 		"@cloudflare/vite-plugin": "^1.9.4",
-		"@cloudflare/vitest-pool-workers": "^0.8.53",
+		"@cloudflare/vitest-pool-workers": "^0.8.71",
 		"@nx/js": "20.8.0",
 		"@nx/playwright": "20.8.0",
 		"@nx/react": "20.8.0",

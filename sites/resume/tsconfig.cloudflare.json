@@ -8,7 +8,7 @@
 		"workers/**/*",
 		"vite-env.d.ts"
 	],
-	"exclude": ["app/**/*.spec.tsx"],
+	"exclude": ["app/**/*.spec.tsx", "app/**/*.spec.ts"],
 	"compilerOptions": {
 		"composite": true,
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],

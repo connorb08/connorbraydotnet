@@ -4,6 +4,7 @@ import type { ResumeAbout } from "#types";
 export const ResumeAboutSchema: JSONSchemaType<ResumeAbout> = {
 	type: "object",
 	properties: {
+		summary: { type: "string", nullable: true },
 		phoneNumber: { type: "string", isNotEmpty: true },
 		emailAddress: { type: "string", format: "email" },
 		location: { type: "string" },

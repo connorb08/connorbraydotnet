@@ -78,7 +78,7 @@
 				"useShorthandFunctionType": "error"
 			},
 			"suspicious": {
-				"noArrayIndexKey": "info"
+				"noArrayIndexKey": "off"
 			}
 		},
 		"domains": {

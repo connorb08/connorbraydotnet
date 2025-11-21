@@ -8,6 +8,11 @@
 		"workers/**/*",
 		"worker-configuration.d.ts"
 	],
+	"references": [
+		{
+			"path": "../../services/database"
+		}
+	],
 	"compilerOptions": {
 		"composite": true,
 		"strict": true,
