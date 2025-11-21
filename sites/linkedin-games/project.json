@@ -1,0 +1,10 @@
+{
+	"name": "linkedin-games",
+	"targets": {
+		"build": {
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"],
+			"outputs": ["{projectRoot}/build"]
+		}
+	}
+}

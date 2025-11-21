@@ -1,0 +1,10 @@
+{
+	"name": "admin",
+	"targets": {
+		"build": {
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"],
+			"outputs": ["{projectRoot}/build"]
+		}
+	}
+}
