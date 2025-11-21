@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
-		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json && react-router typegen",
+		"typegen": "wrangler types -c wrangler.json -c ../../services/database/wrangler.json && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"postinstall": "bun typegen",
