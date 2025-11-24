@@ -9,8 +9,6 @@
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",
 		"typecheck": "nx run typegen && tsc -b",
-		"lint": "biome lint",
-		"format": "biome format --write",
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {

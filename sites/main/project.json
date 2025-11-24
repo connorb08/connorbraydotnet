@@ -1,6 +1,9 @@
 {
 	"name": "site",
 	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {},
 		"build": {
 			"cache": true,
 			"inputs": [
@@ -12,8 +15,7 @@
 				"!{projectRoot}/tsconfig.*.json",
 				"!{projectRoot}/README.md",
 				"!{projectRoot}/.gitignore"
-			],
-			"outputs": ["{projectRoot}/build"]
+			]
 		},
 		"typegen": {
 			"cache": true,
@@ -21,13 +23,11 @@
 				"{projectRoot}/**/*",
 				"!{projectRoot}/package.json",
 				"!{projectRoot}/project.json",
-				"!{projectRoot}/.env",
 				"!{projectRoot}/tsconfig.json",
 				"!{projectRoot}/tsconfig.*.json",
 				"!{projectRoot}/README.md",
 				"!{projectRoot}/.gitignore"
-			],
-			"outputs": ["{projectRoot}/worker-configuration.d.ts", "{projectRoot}/.react-router/types"]
+			]
 		}
 	}
 }

@@ -1,0 +1,8 @@
+{
+	"name": "clog",
+	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {}
+	}
+}

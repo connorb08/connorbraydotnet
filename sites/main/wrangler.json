@@ -10,6 +10,9 @@
 	"observability": {
 		"enabled": true
 	},
+	"vars": {
+		"COOKIE_SECRET": ""
+	},
 	"routes": [
 		{
 			"pattern": "connorbray.net",

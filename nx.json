@@ -9,6 +9,35 @@
 	"sync": {
 		"applyChanges": true
 	},
+	"targetDefaults": {
+		"lint": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "biome lint",
+				"cwd": "{projectRoot}"
+			},
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
+		},
+		"format:check": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "biome format",
+				"cwd": "{projectRoot}"
+			},
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
+		},
+		"format:write": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "biome format --write",
+				"cwd": "{projectRoot}"
+			},
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
+		}
+	},
 	"plugins": [
 		{
 			"plugin": "@nx/js/typescript",

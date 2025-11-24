@@ -1,4 +1,4 @@
-name: CI
+name: Checks
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -47,7 +47,14 @@ jobs:
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: bun nx-cloud record -- echo Hello World
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      - run: bun nx affected --base=origin/main --head=HEAD -t format --no-agents
-      - run: bun nx affected --base=origin/main --head=HEAD -t lint --no-agents
-      - run: bun nx affected --base=origin/main --head=HEAD -t build
-      - run: bun nx affected --base=origin/main --head=HEAD -t test
+      - name: Check Formatting
+        run: bun nx affected --base=origin/main --head=HEAD -t format:check --no-agents
+
+      - name: Check Linting
+        run: bun nx affected --base=origin/main --head=HEAD -t lint --no-agents
+
+      - name: Build Projects
+        run: bun nx affected --base=origin/main --head=HEAD -t build
+
+      - name: Run Tests
+        run: bun nx affected --base=origin/main --head=HEAD -t test

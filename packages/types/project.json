@@ -1,0 +1,8 @@
+{
+	"name": "types",
+	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {}
+	}
+}
