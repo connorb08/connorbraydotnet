@@ -13,9 +13,10 @@
 		"inf/"
 	],
 	"scripts": {
-		"checks": "bun run build && bun run test && bun run typecheck && bun run format && bun run lint",
-		"format": "biome format",
-		"lint": "biome lint",
+		"checks": "NX_TUI=false bun run format:check && NX_TUI=false bun run lint && NX_TUI=false bun run typecheck && NX_TUI=false bun run build && NX_TUI=false bun run test",
+		"format:check": "nx run-many -t format:check",
+		"format:write": "nx run-many -t format:write",
+		"lint": "nx run-many -t lint",
 		"typecheck": "nx run-many -t typecheck",
 		"test": "nx run-many -t test",
 		"build": "nx run-many -t build",

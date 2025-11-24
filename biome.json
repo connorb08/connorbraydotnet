@@ -107,7 +107,7 @@
 			}
 		},
 		{
-			"includes": ["**/wrangler.json"],
+			"includes": ["**/*/wrangler.json"],
 			"json": {
 				"parser": {
 					"allowComments": true

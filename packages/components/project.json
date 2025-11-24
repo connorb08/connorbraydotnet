@@ -1,0 +1,8 @@
+{
+	"name": "components",
+	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {}
+	}
+}

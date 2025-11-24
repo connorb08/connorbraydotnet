@@ -1,28 +1,28 @@
 {
 	"folders": [
 		{
-			"path": "..",
+			"path": ".",
 			"name": "root"
 		},
 		{
-			"path": "../sites",
+			"path": "./sites",
 			"name": "sites"
 		},
 		{
-			"path": "../services",
+			"path": "./services",
 			"name": "services"
 		},
 		{
-			"path": "../packages",
+			"path": "./packages",
 			"name": "packages"
 		}
 	],
 	"settings": {
 		"explorer.fileNesting.enabled": true,
 		"explorer.fileNesting.patterns": {
+			"package.json": "nx.json, biome.json, project.json",
 			"*.tsx": "${capture}.scss, ${capture}.module.scss, ${capture}.spec.tsx",
-			"wrangler.json": "worker-configuration.d.ts",
-			"wrangler.jsonc": "worker-configuration.d.ts",
+			"wrangler.json": "worker-configuration.d.ts, .dev.vars",
 			"vite.config.ts": "vite-env.d.ts",
 			"README.md": ".gitignore, .gitattributes, .pre-commit-config.yaml, .depcheckrc, .clocignore",
 			"connorbraydotnet.code-workspace": "*.code-workspace"
@@ -35,7 +35,10 @@
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
 			"**/build": true,
-			"bun.lock": true
+			"bun.lock": true,
+			"sites/": true,
+			"services/": true,
+			"packages/": true
 		},
 		"editor.codeActionsOnSave": {
 			"source.organizeImports.biome": "explicit",
@@ -47,7 +50,6 @@
 		"editor.gotoLocation.multipleReferences": "goto",
 		"editor.gotoLocation.multipleTypeDefinitions": "goto",
 		"editor.gotoLocation.multipleDeclarations": "goto",
-		"scss.format.preserveNewLines": true,
-		"nxConsole.generateAiAgentRules": true
+		"scss.format.preserveNewLines": true
 	}
 }

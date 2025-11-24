@@ -1,6 +1,9 @@
 {
 	"name": "shared",
 	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {},
 		"build": {
 			"cache": true,
 			"inputs": ["{projectRoot}/src", "!{projectRoot}/src/validate"],
