@@ -7,11 +7,12 @@
 		"build": {
 			"cache": true,
 			"inputs": ["{projectRoot}/src", "!{projectRoot}/src/validate"],
-			"outputs": ["{projectRoot}/validator"]
+			"outputs": ["{projectRoot}/generated"]
 		},
 		"test": {
 			"cache": true,
-			"inputs": ["{projectRoot}/src", "{projectRoot}/validator", "{projectRoot}/test"]
+			"inputs": ["{projectRoot}/src", "{projectRoot}/test"],
+			"dependsOn": ["build"]
 		}
 	}
 }

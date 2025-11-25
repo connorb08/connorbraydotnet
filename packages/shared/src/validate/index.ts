@@ -1,6 +1,8 @@
 import type { ValidateFunction } from "ajv";
 import type { Resume, ValidationHandler } from "#types";
-import { Resume as ResumeValidation } from "../../validator/index.js";
+// biome-ignore lint/nursery/noTsIgnore: allow ts-ignore here, conditionally present file
+// @ts-ignore generated file, no types - doesn't exist before build
+import { Resume as ResumeValidation } from "../../generated/index.js";
 
 const ValidateResumeFunction = ResumeValidation as ValidateFunction<Resume>;
 
