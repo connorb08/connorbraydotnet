@@ -52,4 +52,6 @@ Thumbs.db
 .env
 **/.env
 
+# Wrangler
 .wrangler
+worker-configuration.d.ts
