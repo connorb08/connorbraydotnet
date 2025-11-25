@@ -33,8 +33,6 @@ const biome = await Biome.create({
 	distribution: Distribution.NODE,
 });
 
-// biome.applyConfiguration()
-
 const formatted = biome.formatContent(moduleCode, {
 	filePath: "example.js",
 });
@@ -48,7 +46,7 @@ const linted = biome.lintContent(formattedCode, {
 
 const lintedCode = linted.content;
 
-const outDir = joinPath(import.meta.dir, "./validator");
+const outDir = joinPath(import.meta.dir, "./generated");
 const filePath = joinPath(outDir, "./index.js");
 const declarationFilePath = joinPath(outDir, "./index.d.ts");
 

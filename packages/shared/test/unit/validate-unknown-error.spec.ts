@@ -1,7 +1,7 @@
 import { assert, describe, expect, it, vi } from "vitest";
 import { ValidateResume } from "../../src/validate";
 
-vi.mock("../../validator/index.js");
+vi.mock("../../generated/index.js");
 
 describe("Validate should handle missing error", () => {
 	it("should return generic error", async () => {
