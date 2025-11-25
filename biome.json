@@ -16,19 +16,16 @@
 			"!**/*/node_modules/**",
 			"!**/.nx",
 			"!**/.react-router",
-			"!**/worker-configuration.d.ts",
 			"!**/README.md",
 			"!**/coverage",
 			"!**/test/reports",
 			"!**/test/e2e-results",
-			"!**/validator/index.d.ts",
-			"!**/validate.js",
+			"!**/*.d.ts",
 			"!**/build",
 			"!**/.gitignore",
 			"!**/.tsbuildinfo",
 			"!**/.wrangler",
-			"!cli",
-			"!packages/shared/validator"
+			"!cli"
 		]
 	},
 	"formatter": {
