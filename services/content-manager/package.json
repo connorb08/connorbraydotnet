@@ -9,7 +9,7 @@
 		"seed": "bun run seed.ts",
 		"format": "biome format",
 		"lint": "biome lint",
-		"typecheck": "tsc -b",
+		"typecheck": "nx run typegen && tsc -b",
 		"depcheck": "bunx depcheck"
 	},
 	"peerDependencies": {

@@ -19,6 +19,7 @@
 		},
 		"typegen": {
 			"cache": true,
+			"dependsOn": [{ "target": "typecheck", "projects": "content-manager" }],
 			"inputs": [
 				"{projectRoot}/**/*",
 				"!{projectRoot}/package.json",
@@ -27,7 +28,8 @@
 				"!{projectRoot}/tsconfig.*.json",
 				"!{projectRoot}/README.md",
 				"!{projectRoot}/.gitignore"
-			]
+			],
+			"outputs": ["{projectRoot}/worker-configuration.d.ts"]
 		}
 	}
 }

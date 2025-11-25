@@ -3,11 +3,11 @@
 	"targets": {
 		"typegen": {
 			"cache": true,
-			"inputs": ["{projectRoot}/wrangler.jsonc", "{projectRoot}/backend/wrangler.jsonc"],
-			"outputs": [
-				"{projectRoot}/worker-configuration.d.ts",
-				"{projectRoot}/backend/worker-configuration.d.ts"
-			]
+			"inputs": ["{projectRoot}/**/*"]
+		},
+		"typecheck": {
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
 		}
 	}
 }
