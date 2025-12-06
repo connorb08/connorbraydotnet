@@ -15,7 +15,9 @@
 		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
 		"ghcr.io/devcontainers-extra/features/pre-commit:2": {},
 		"ghcr.io/devcontainers/features/rust:1": {},
-		"ghcr.io/devcontainers/features/docker-outside-of-docker": {}
+		"ghcr.io/devcontainers/features/docker-outside-of-docker": {
+			"moby": "false"
+		}
 	},
 	"customizations": {
 		"vscode": {
