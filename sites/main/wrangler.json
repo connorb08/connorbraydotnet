@@ -31,5 +31,25 @@
 			"service": "database",
 			"entrypoint": "Entrypoint"
 		}
-	]
+	],
+	"env": {
+		"preview": {
+			"route": {
+				"pattern": "preview.connorbray.net",
+				"custom_domain": true
+			},
+			"services": [
+				{
+					"binding": "CONTENT_MANAGER",
+					"service": "content-manager",
+					"entrypoint": "MainEntrypoint"
+				},
+				{
+					"binding": "DATABASE",
+					"service": "database",
+					"entrypoint": "Entrypoint"
+				}
+			]
+		}
+	}
 }

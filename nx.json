@@ -10,6 +10,14 @@
 		"applyChanges": true
 	},
 	"targetDefaults": {
+		"deploy": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "{projectRoot}"
+			},
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
+		},
 		"lint": {
 			"executor": "nx:run-commands",
 			"options": {
