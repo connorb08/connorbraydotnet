@@ -7,7 +7,6 @@
 		"typegen": "wrangler types -c wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
 		"deploy:prod": "nx run build && wrangler deploy",
 		"deploy:preview": "nx run build && wrangler deploy --env preview",
-		"rand:string": "echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)",
 		"dev": "react-router dev",
 		"preview": "nx run build && vite preview",
 		"typecheck": "nx run typegen && tsc -b",
