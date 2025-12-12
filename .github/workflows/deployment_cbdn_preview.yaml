@@ -28,6 +28,3 @@ jobs:
       - run: bun install --no-cache
       - uses: nrwl/nx-set-shas@v4
 
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.11.4"
