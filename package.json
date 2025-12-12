@@ -22,7 +22,8 @@
 		"build": "nx run-many -t build",
 		"cloc": "bunx cloc $(git ls-files) --exclude-ext=d.ts --exclude-list-file=.clocignore",
 		"depcheck": "nx run-many -t depcheck",
-		"check:packages": "bun pm"
+		"check:packages": "bun pm",
+		"deploy:preview": "nx run-many -t deploy:preview"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.1",

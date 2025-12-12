@@ -10,7 +10,15 @@
 		"applyChanges": true
 	},
 	"targetDefaults": {
-		"deploy": {
+		"deploy:preview": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "{projectRoot}"
+			},
+			"cache": true,
+			"inputs": ["{projectRoot}/**/*"]
+		},
+		"deploy:prod": {
 			"executor": "nx:run-commands",
 			"options": {
 				"cwd": "{projectRoot}"
