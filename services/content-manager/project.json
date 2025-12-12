@@ -3,7 +3,11 @@
 	"targets": {
 		"typegen": {
 			"cache": true,
-			"inputs": ["{projectRoot}/**/*"]
+			"inputs": [
+				"{projectRoot}/src/**/*.{js,ts,jsx,tsx}",
+				"{projectRoot}/types/**/*.d.ts",
+				"{projectRoot}/package.json"
+			]
 		},
 		"typecheck": {
 			"cache": true,
