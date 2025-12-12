@@ -58,3 +58,6 @@ jobs:
 
       - name: Run Tests
         run: bun nx affected --base=origin/main --head=HEAD -t test
+
+      - run: npx nx fix-ci
+        if: always()
