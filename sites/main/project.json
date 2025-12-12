@@ -1,6 +1,8 @@
 {
 	"name": "site",
 	"targets": {
+		"deploy:preview": {},
+		"deploy:prod": {},
 		"lint": {},
 		"format:check": {},
 		"format:write": {},
