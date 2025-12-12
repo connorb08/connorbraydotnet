@@ -34,7 +34,6 @@
 			"**/.react-router": true,
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
-			"**/build": true,
 			"bun.lock": true,
 			"sites/": true,
 			"services/": true,

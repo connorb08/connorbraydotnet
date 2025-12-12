@@ -1,12 +1,32 @@
-FROM mcr.microsoft.com/devcontainers/javascript-node
+# Base Image
+FROM mcr.microsoft.com/devcontainers/base:trixie
 
+# Set Shell
 SHELL ["/bin/bash", "-c"]
-ENV USERNAME="node"
 
-RUN echo $(pwd)
+# Environment Variables
+ENV USERNAME="vscode"
+ENV HOME="/home/vscode"
+ENV NVM_DIR="/home/vscode/.nvm"
+
+# Install apt packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    bash \
+    git \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./build-scripts ./scripts
 
 RUN ./scripts/upgrade-packages.sh
+RUN ./scripts/node.sh
 RUN ./scripts/bun.sh
-RUN ./scripts/playwright.sh
+# RUN ./scripts/playwright.sh
+
+# Ensure container runs as the non-root user where NVM is installed
+USER vscode
+
+# Use a login shell to ensure nvm is loaded from the user's profile
+CMD ["bash", "-l"]
