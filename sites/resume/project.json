@@ -3,6 +3,7 @@
 	"targets": {
 		"build": {
 			"cache": true,
+			"dependsOn": ["^build"],
 			"inputs": [
 				"{projectRoot}/app",
 				"{projectRoot}/models",
