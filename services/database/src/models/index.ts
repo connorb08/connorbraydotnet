@@ -3,7 +3,7 @@ import type { RepositoryTable } from "./repository";
 
 export type Database = {
 	queens: QueensTable;
-	repository: RepositoryTable;
+	repositories: RepositoryTable;
 };
 
 export type * from "./queens";
