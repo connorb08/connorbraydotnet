@@ -1,21 +1,30 @@
 import type { JSONSchemaType } from "ajv";
 import type { Resume } from "#types";
+import { ResumeSections } from "#types";
 import { ResumeAboutSchema } from "./about";
-import { ResumeCareerSchema } from "./career";
-import { ResumeEducationSchema } from "./education";
-import { ResumeProjectSchema } from "./project";
+import { ResumeSectionSchema } from "./section";
+import { ResumeSkillsSchema } from "./skills";
 
 const ResumeSchema: JSONSchemaType<Resume> = {
 	$id: "Resume",
 	type: "object",
 	properties: {
-		name: { type: "string" },
 		about: ResumeAboutSchema,
-		education: ResumeEducationSchema,
-		career: ResumeCareerSchema,
-		projects: ResumeProjectSchema,
+		skills: ResumeSkillsSchema,
+		summary: { type: "string", nullable: true },
+		sections: {
+			type: "array",
+			items: ResumeSectionSchema,
+		},
+		order: {
+			type: "array",
+			items: {
+				type: "string",
+				enum: Object.values(ResumeSections),
+			},
+		},
 	},
-	required: ["name", "about", "education", "career", "projects"],
+	required: ["about", "skills", "sections", "order"],
 	additionalProperties: false,
 };
 
