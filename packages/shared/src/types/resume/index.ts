@@ -1,22 +1,50 @@
 export interface Resume {
-	name: string;
 	about: ResumeAbout;
-	education: ResumeEducation[];
-	career: ResumeCareer[];
-	projects: ResumeProject[];
+	skills: ResumeSkills;
+	summary?: string | undefined;
+	education: EducationItem[];
+	career: ExperienceItem[];
+	projects: ProjectItem[];
+	boardPositions: BoardPositionItem[];
+	// sections: ResumeSection[];
+	// order: (typeof ResumeSections)[keyof typeof ResumeSections][];
 }
 
 export interface ResumeAbout {
+	name: string;
 	phoneNumber: string;
 	emailAddress: string;
 	location: string;
-	languages: string[];
-	technologies: string[];
-	summary?: string | null | undefined;
-	interests?: string[];
+	summary?: string | undefined;
 }
 
-export interface ResumeEducation {
+export type ResumeSkills = {
+	languages: string[];
+	technologies: string[];
+	interests: string[];
+};
+
+export type ResumeOptions = {
+	order: (keyof Resume)[];
+};
+
+/**
+ * Resume Sections
+ */
+
+export const ResumeSections = {
+	Education: "education",
+	Experience: "experience",
+	Projects: "projects",
+	BoardPositions: "boardPositions",
+};
+
+export interface ResumeSection {
+	title: string;
+	items: (EducationItem | ExperienceItem | ProjectItem | BoardPositionItem)[];
+}
+
+export interface EducationItem {
 	school: string;
 	degree: string;
 	about: string[];
@@ -25,7 +53,7 @@ export interface ResumeEducation {
 	endDate?: string;
 }
 
-export interface ResumeCareer {
+export interface ExperienceItem {
 	company: string;
 	title: string;
 	location: string;
@@ -34,8 +62,17 @@ export interface ResumeCareer {
 	endDate?: string;
 }
 
-export interface ResumeProject {
+export interface ProjectItem {
 	name: string;
 	description: string;
+	about: string[];
+}
+
+export interface BoardPositionItem {
+	name: string;
+	role: string;
+	location?: string;
+	startDate?: string;
+	endDate?: string;
 	about: string[];
 }
