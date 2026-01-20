@@ -1,0 +1,24 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["src/**/*.ts"],
+	"compilerOptions": {
+		"target": "es2021",
+		"lib": ["es2021"],
+		"module": "es2022",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		"types": ["./worker-configuration.d.ts"]
+	},
+	"references": [
+    {
+      "path": "../../packages/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../database/tsconfig.app.json"
+    }
+  ]
+}
