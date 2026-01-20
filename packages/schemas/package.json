@@ -1,0 +1,13 @@
+{
+	"name": "schemas",
+	"type": "module",
+	"scripts": {
+		"typecheck": "tsc -b"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"peerDependencies": {
+		"typescript": "*"
+	}
+}
