@@ -7,12 +7,17 @@ export const resumeData: Resume = {
 		emailAddress: "connor@connorbray.net",
 		location: "Boston, MA",
 		summary:
-			"Full-stack software engineer with experience building scalable, high-performance applications and improving developer workflows. Experience ranging from frontend to backend and CI/CD / devops / developer experience. Passionate about leveraging modern technologies to make meaningful change. Big proponent of optimizing processes to enhance efficiency and reliability. Special interest in accessibility and inclusive design.",
+			"Full-stack software engineer experienced in building scalable, high-performance systems and improving developer experience across frontend, backend, and CI/CD. Passionate about accessibility, reliability, and efficient engineering practices.",
 	},
 	skills: {
 		languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
-		technologies: ["Git", "Docker", "Terraform", "AWS", "CI/CD"],
-		interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
+		technologies: [".NET", "Git", "Docker", "Terraform", "AWS", "CI/CD"],
+		interests: [
+			"Distributed Systems",
+			"Containerization",
+			"Software Infrastructure",
+			"Developer Experience",
+		],
 	},
 	career: [
 		{
@@ -22,11 +27,12 @@ export const resumeData: Resume = {
 			startDate: "May 2021",
 			endDate: "Present",
 			about: [
-				"Architected end-to-end test runner with multi-tenant support and concurrency optimizations, reducing execution time from 3 days to under 1 day (5x faster) and enabling scalable performance.",
-				"Partnered with cross-functional teams to improve project organization and developer workflows in large-scale greenfield projects, increasing developer velocity and reducing onboarding friction.",
-				"Led modernization efforts of a product team, responsible for 3M+ lines of legacy code to a modern .NET stack, ensuring maintainability, performance, and functional parity.",
-				"Built unit, regression, and E2E tests that reduced defects and safeguarded product stability.",
-				"Mentor junior engineers, introducing coding standards and best practices that improved code quality and team efficiency.",
+				"Built an end-to-end multi-tenant test runner with concurrency optimizations, cutting execution time from 3 days to under 1 day (5× speedup).",
+				"Led modernization of a 3M+ line legacy codebase to modern .NET, preserving functionality while significantly improving performance and maintainability.",
+				"Designed and implemented unit, regression, and end-to-end test suites that reduced production defects and improved system reliability.",
+				"Developed automated code formatting tools to enforce consistent style across the codebase.",
+				"Mentored junior engineers on best practices, code review standards, and architectural patterns.",
+				"Rewrote important legacy processes to improve reliability and performance, increasing runtime execution speed by over 10×.",
 			],
 		},
 		{
@@ -36,12 +42,10 @@ export const resumeData: Resume = {
 			startDate: "May 2022",
 			endDate: "May 2023",
 			about: [
-				"Oversaw a 501(c)(3) organization comprised of 3 full-time staff, 20+ part-time student employees, and a volunteer board of directors of 20+ members",
-				"Elected by a student body of over 10,000 students to represent their interests and lead the student government organization.",
-				"Stepped in the interim to take over financial management and budgeting responsibilities, ensuring fiscal responsibility and sustainability, managing a budget of over $1 million.",
-				"Met with university leadership regularly to advocate for student needs, leading to the implementation of new policies that enhanced student welfare.",
-				"Managed student organizations and allocated funding to support their activities, fostering a vibrant campus community.",
-				"Led weekly board meetings using Robert's Rules of Order to ensure efficient and effective governance.",
+				"Served as Chief Executive and Board Chair of a 501(c)(3) nonprofit, directing a team of 3 full-time staff and 40+ student employees/volunteers.",
+				"Assumed interim responsibility for financial operations, managing a $1M+ budget and ensuring fiscal sustainability.",
+				"Worked directly with university leadership to advocate for students, contributing to policy changes that improved student welfare.",
+				"Chaired weekly board meetings using Robert’s Rules of Order to ensure effective governance.",
 			],
 		},
 	],
