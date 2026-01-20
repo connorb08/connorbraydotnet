@@ -1,0 +1,16 @@
+{
+	"name": "message-queue",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json"
+	},
+	"dependencies": {
+		"database": "workspace:*",
+		"types": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*"
+	}
+}
