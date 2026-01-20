@@ -1,0 +1,15 @@
+{
+	"name": "web-schemas",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"typegen": "wrangler types"
+	},
+	"dependencies": {
+		"types": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*"
+	}
+}
