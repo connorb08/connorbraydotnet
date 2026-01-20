@@ -1,0 +1,8 @@
+{
+	"name": "schemas",
+	"targets": {
+		"lint": {},
+		"format:check": {},
+		"format:write": {}
+	}
+}
