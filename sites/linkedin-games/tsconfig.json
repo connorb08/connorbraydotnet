@@ -2,31 +2,28 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"references": [
-		{
-			"path": "../../services/database"
-		},
-		{
-			"path": "../../packages/shared"
-		},
-		{
-			"path": "../../packages/clog"
-		},
-		{
-			"path": "../../packages/types"
-		},
-		{
-			"path": "../../packages/components"
-		},
-		{
-			"path": "./tsconfig.spec.json"
-		},
-		{
-			"path": "./tsconfig.cloudflare.json"
-		},
-		{
-			"path": "./tsconfig.node.json"
-		}
-	],
+    {
+      "path": "../../packages/shared"
+    },
+    {
+      "path": "../../packages/clog"
+    },
+    {
+      "path": "../../packages/types"
+    },
+    {
+      "path": "../../packages/components"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.cloudflare.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
 	"compilerOptions": {
 		"outDir": ".tsbuildinfo"
 	}
