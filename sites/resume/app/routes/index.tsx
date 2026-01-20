@@ -25,7 +25,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 				</p>
 			</div>
 			<div className="section" id="skills">
-				<h2 className="section__heading">Skills/Interests</h2>
+				<h2 className="section__heading">Skills</h2>
 				<ul className="section__item">
 					<li>
 						<p data-testid="resume.about.languages">
@@ -41,54 +41,11 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					</li>
 					<li>
 						<p data-testid="resume.about.interests">
-							<span className="footer__content--bold">Interests: </span>
+							<span className="footer__content--bold">Focus Areas: </span>
 							{resume.skills.interests?.join(", ")}
 						</p>
 					</li>
 				</ul>
-			</div>
-			<div className="section" id="education">
-				<h2 className="section__heading">Education</h2>
-				{resume.education.map((educationItem, index) => {
-					return (
-						<div className="section__item" key={index}>
-							<div className="section__item__heading">
-								<h3
-									className="section__item__heading__school"
-									data-testid={`resume.education[${index}].school`}
-								>
-									{educationItem.school}
-								</h3>
-								<p className="section__item__heading__location">{educationItem.location}</p>
-							</div>
-							<div className="section__item__subheading">
-								<p
-									className="section__item__subtitle"
-									data-testid={`resume.education[${index}].degree`}
-								>
-									{educationItem.degree}
-								</p>
-								<p className="section__item__date">{educationItem.endDate}</p>
-							</div>
-							{educationItem.about.length > 0 ? (
-								<div data-testid="education-about" className="section__item__content">
-									<ul>
-										{educationItem.about.map((bullet, bulletIndex) => {
-											return (
-												<li
-													key={bulletIndex}
-													data-testid={`resume.education[${index}].about[${bulletIndex}]`}
-												>
-													{bullet}
-												</li>
-											);
-										})}
-									</ul>
-								</div>
-							) : null}
-						</div>
-					);
-				})}
 			</div>
 			<div className="section" id="experience">
 				<h2 className="section__heading">Experience</h2>
@@ -129,6 +86,49 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 									})}
 								</ul>
 							</div>
+						</div>
+					);
+				})}
+			</div>
+			<div className="section" id="education">
+				<h2 className="section__heading">Education</h2>
+				{resume.education.map((educationItem, index) => {
+					return (
+						<div className="section__item" key={index}>
+							<div className="section__item__heading">
+								<h3
+									className="section__item__heading__school"
+									data-testid={`resume.education[${index}].school`}
+								>
+									{educationItem.school}
+								</h3>
+								<p className="section__item__heading__location">{educationItem.location}</p>
+							</div>
+							<div className="section__item__subheading">
+								<p
+									className="section__item__subtitle"
+									data-testid={`resume.education[${index}].degree`}
+								>
+									{educationItem.degree}
+								</p>
+								<p className="section__item__date">{educationItem.endDate}</p>
+							</div>
+							{educationItem.about.length > 0 ? (
+								<div data-testid="education-about" className="section__item__content">
+									<ul>
+										{educationItem.about.map((bullet, bulletIndex) => {
+											return (
+												<li
+													key={bulletIndex}
+													data-testid={`resume.education[${index}].about[${bulletIndex}]`}
+												>
+													{bullet}
+												</li>
+											);
+										})}
+									</ul>
+								</div>
+							) : null}
 						</div>
 					);
 				})}
@@ -211,7 +211,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 			<footer className="footer">
 				<h2 className="footer__heading">Links</h2>
 				<div className="footer__content">
-					<ul>
+					<ul className="footer__content__list">
 						<li>
 							<p>
 								<b className="footer__content--bold">{"Website: "}</b>
