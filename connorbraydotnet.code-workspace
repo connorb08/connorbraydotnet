@@ -49,6 +49,7 @@
 		"editor.gotoLocation.multipleReferences": "goto",
 		"editor.gotoLocation.multipleTypeDefinitions": "goto",
 		"editor.gotoLocation.multipleDeclarations": "goto",
-		"scss.format.preserveNewLines": true
+		"scss.format.preserveNewLines": true,
+		"window.zoomLevel": 1.25
 	}
 }
