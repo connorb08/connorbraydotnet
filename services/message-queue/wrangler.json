@@ -13,13 +13,9 @@
 	"queues": {
 		"consumers": [
 			{
-				"queue": "my-queue"
-			}
-		],
-		"producers": [
-			{
-				"binding": "MY_QUEUE",
-				"queue": "my-queue"
+				"queue": "queue-consumer",
+				"max_batch_size": 10,
+				"max_batch_timeout": 5
 			}
 		]
 	},
