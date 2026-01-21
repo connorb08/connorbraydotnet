@@ -1,5 +1,6 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
-import type { QueensSolution } from "types";
+import type { CloudflareDTO } from "types";
+import { processQueensMessage } from "./queens";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	override async queue(batch: MessageBatch<unknown>): Promise<void> {
@@ -10,20 +11,18 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 				return;
 			}
 
-			const messageBody = message.body as unknown as QueensSolution;
+			// CloudflareDTO
+			const data = message.body as unknown as CloudflareDTO;
 
 			// todo: validate data using schema validation
 
-			const { error, data } = await this.env.DATABASE.putQueens(messageBody);
-
-			if (error !== undefined) {
-				console.error("Error putting queens solution in database:", error);
-				message.ack();
-				return;
+			switch (data.id) {
+				case "queens":
+					return processQueensMessage(this.env, message, data);
+				default:
+					console.warn(`Unknown queue message id: ${data.id}`);
+					return;
 			}
-
-			console.log(data);
-			message.ack();
 		} catch (error) {
 			console.error("Error processing queue message:", error);
 			throw error;
