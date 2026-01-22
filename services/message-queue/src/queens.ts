@@ -1,6 +1,8 @@
 import type { CloudflareDTO } from "types";
 
-export async function processQueensMessage(env: Env, message: Message, body: CloudflareDTO) {
+export async function HandleMessage(env: Env, _ctx: ExecutionContext, message: Message) {
+	const body = message.body as CloudflareDTO;
+
 	const { error, data } = await env.DATABASE.putQueens(body.solution, body.steps);
 
 	if (error !== undefined) {

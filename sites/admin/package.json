@@ -7,7 +7,6 @@
 		"typegen": "wrangler types -c wrangler.json -c ../../services/database/wrangler.json && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
-		"postinstall": "bun typegen",
 		"preview": "bun run build && vite preview",
 		"typecheck": "bun typegen && react-router typegen && tsc -b"
 	},
