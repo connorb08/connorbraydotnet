@@ -20,4 +20,5 @@ export const createQueensTable = (schema: SchemaModule) =>
 		.addColumn("id", "text", (col) => col.notNull().primaryKey())
 		.addColumn("date", "text", (col) => col.notNull())
 		.addColumn("solution", "text", (col) => col.notNull())
+		.addColumn("steps", "text", (col) => col.notNull())
 		.execute();

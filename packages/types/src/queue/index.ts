@@ -1,5 +1,5 @@
-type QueueId = "queens";
+type QueueKey = "queens";
 
 export type QueueMessage<T> = T & {
-	id: QueueId;
+	queueKey: QueueKey;
 };
