@@ -26,6 +26,7 @@ function getPuzzleDate(now = new Date()): Date {
 	return new Date(year, month, day);
 }
 
+// biome-ignore lint/complexity/noExcessiveLinesPerFunction: refactor later
 export default function Home({ solution }: Props) {
 	const [showSolution, setShowSolution] = useState(true);
 

@@ -15,8 +15,10 @@
 		"types": "workspace:*"
 	},
 	"peerDependencies": {
+		"react": "*",
 		"typescript": "*",
 		"depcheck": "*",
-		"@types/css-modules": "*"
+		"@types/css-modules": "*",
+		"@types/react": "*"
 	}
 }

@@ -13,7 +13,7 @@
 	"queues": {
 		"consumers": [
 			{
-				"queue": "queue-consumer",
+				"queue": "primary-exchange",
 				"max_batch_size": 10,
 				"max_batch_timeout": 5
 			}
