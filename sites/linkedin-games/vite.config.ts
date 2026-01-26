@@ -6,8 +6,8 @@ export default defineConfig({
 	plugins: [
 		cloudflare({
 			viteEnvironment: { name: "ssr" },
-			configPath: "./wrangler.json",
-			auxiliaryWorkers: [{ configPath: "../../services/database/wrangler.json" }],
+			// configPath: "./wrangler.json",
+			// auxiliaryWorkers: [{ configPath: "../../services/database/wrangler.json" }],
 		}),
 		reactRouter(),
 	],

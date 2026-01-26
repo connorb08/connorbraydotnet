@@ -11,10 +11,6 @@
 		{
 			"custom_domain": true,
 			"pattern": "queens.connorbray.net"
-		},
-		{
-			"custom_domain": true,
-			"pattern": "linkedin-games.win"
 		}
 	],
 	"services": [
@@ -22,7 +18,7 @@
 			"service": "database",
 			"binding": "DATABASE",
 			"entrypoint": "Entrypoint",
-			"experimental_remote": true
+			"remote": true
 		}
 	],
 	"observability": {

@@ -3,7 +3,8 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json"
+		"typegen": "wrangler types -c wrangler.json -c $DATABASE_DIR/wrangler.json",
+		"deploy": "wrangler deploy"
 	},
 	"dependencies": {
 		"database": "workspace:*",

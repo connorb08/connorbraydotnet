@@ -12,8 +12,7 @@
 		"ignoreUnknown": true,
 		"includes": [
 			"**",
-			"!node_modules/**",
-			"!**/*/node_modules/**",
+			"!**/node_modules",
 			"!**/.nx",
 			"!**/.react-router",
 			"!**/README.md",
@@ -81,7 +80,8 @@
 		"domains": {
 			"project": "all",
 			"react": "all",
-			"test": "all"
+			"test": "all",
+			"solid": "none"
 		}
 	},
 	"overrides": [
