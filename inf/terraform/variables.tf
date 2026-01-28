@@ -7,3 +7,8 @@ variable "cloudflare-account-id" {
   type      = string
   sensitive = true
 }
+
+variable "zero-trust-email" {
+  type      = string
+  sensitive = true
+}
