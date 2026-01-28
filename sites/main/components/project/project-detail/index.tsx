@@ -1,4 +1,4 @@
-import type { ResumeProject } from "shared";
+import type { ProjectItem as ResumeProject } from "shared";
 import style from "./style.module.scss";
 
 interface ProjectDetailProps {

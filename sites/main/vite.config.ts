@@ -18,9 +18,6 @@ export default defineConfig({
 				{
 					configPath: "../../services/database/wrangler.json",
 				},
-				{
-					configPath: "../../services/api/wrangler.json",
-				},
 			],
 		}),
 		reactRouter(),

@@ -49,7 +49,10 @@
 					"service": "database",
 					"entrypoint": "Entrypoint"
 				}
-			]
+			],
+			"vars": {
+				"COOKIE_SECRET": ""
+			}
 		}
 	}
 }

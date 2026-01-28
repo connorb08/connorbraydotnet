@@ -2,11 +2,13 @@ import type { Resume } from "#types";
 import { DeepCopy } from "../../utils";
 
 const ResumeData: Resume = {
-	name: "Ronald McDonald",
 	about: {
+		name: "Ronald McDonald",
 		phoneNumber: "(555) 555-5555",
 		emailAddress: "ronald@mcdonalds.com",
 		location: "Orlando, FL",
+	},
+	skills: {
 		languages: ["C#", "TypeScript", "Python", "SQL", "C"],
 		technologies: ["Flat top", "Ice Cream Machine"],
 		interests: ["Chicken Nuggets", "Big Macs", "Software Infrastructure"],
@@ -56,14 +58,17 @@ const ResumeData: Resume = {
 			],
 		},
 	],
+	boardPositions: [],
 };
 
 const EmptyResume: Resume = {
-	name: "",
 	about: {
+		name: "",
 		phoneNumber: "",
 		emailAddress: "",
 		location: "",
+	},
+	skills: {
 		languages: [],
 		technologies: [],
 		interests: [],
@@ -71,6 +76,7 @@ const EmptyResume: Resume = {
 	career: [],
 	education: [],
 	projects: [],
+	boardPositions: [],
 };
 
 const ValidResume = () => {
