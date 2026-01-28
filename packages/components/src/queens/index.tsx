@@ -86,7 +86,6 @@ const CrossSvg = () => (
 
 export function QueensResult(props: QueensSolution) {
 	const solution: QueensSolution = props || _gameData;
-	// console.log(solution);
 	return (
 		<div
 			className={style.container}

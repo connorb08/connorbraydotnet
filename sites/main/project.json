@@ -11,26 +11,26 @@
 			"dependsOn": ["^build"],
 			"inputs": [
 				"{projectRoot}/**/*",
-				"!{projectRoot}/package.json",
 				"!{projectRoot}/project.json",
-				"!{projectRoot}/.env",
 				"!{projectRoot}/tsconfig.json",
 				"!{projectRoot}/tsconfig.*.json",
 				"!{projectRoot}/README.md",
-				"!{projectRoot}/.gitignore"
+				"!{projectRoot}/.gitignore",
+				"!{projectRoot}/.depcheckrc"
 			]
 		},
 		"typegen": {
 			"cache": true,
-			"dependsOn": [{ "target": "typecheck", "projects": "content-manager" }],
+			"dependsOn": [
+				{ "target": "typecheck", "projects": "content-manager" },
+				{ "target": "typecheck", "projects": "database" }
+			],
 			"inputs": [
 				"{projectRoot}/**/*",
-				"!{projectRoot}/package.json",
 				"!{projectRoot}/project.json",
-				"!{projectRoot}/tsconfig.json",
-				"!{projectRoot}/tsconfig.*.json",
 				"!{projectRoot}/README.md",
-				"!{projectRoot}/.gitignore"
+				"!{projectRoot}/.gitignore",
+				"!{projectRoot}/.depcheckrc"
 			],
 			"outputs": ["{projectRoot}/worker-configuration.d.ts"]
 		}

@@ -1,6 +1,6 @@
 import { CiLocationOn } from "react-icons/ci";
 import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
-import type { ResumeCareer } from "shared";
+import type { ExperienceItem as ResumeCareer } from "shared";
 import { getDateString } from "../education";
 import style from "../style.module.scss";
 

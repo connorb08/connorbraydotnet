@@ -10,7 +10,7 @@ export async function PutRepository(
 ): Promise<RPCResult<Repository>> {
 	try {
 		const [repository] = await db
-			.insertInto("repository")
+			.insertInto("repositories")
 			.values({ id: v7(), ...data })
 			.returningAll()
 			.execute();
