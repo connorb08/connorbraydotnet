@@ -30,7 +30,7 @@
 		"@biomejs/biome": "^2.1.1",
 		"@biomejs/js-api": "^0.7.1",
 		"@biomejs/wasm-nodejs": "^1.9.4",
-		"@cloudflare/vite-plugin": "^1.9.4",
+		"@cloudflare/vite-plugin": "^1.24.0",
 		"@cloudflare/vitest-pool-workers": "^0.12.0",
 		"@cloudflare/workers-types": "^4.20250404.0",
 		"@eslint/js": "^9.8.0",
@@ -75,15 +75,15 @@
 		"vite": "7.2.4",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^4.0.18",
-		"wrangler": "^4.59.3"
+		"wrangler": "^4.64.0"
 	},
 	"imports": {
 		"#workspace/*": "./*"
 	},
 	"dependencies": {
 		"isbot": "^5.1.28",
-		"react": "^19.1.0",
-		"react-dom": "^19.1.0",
-		"react-router": "^7.6.3"
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"react-router": "^7.13.0"
 	}
 }

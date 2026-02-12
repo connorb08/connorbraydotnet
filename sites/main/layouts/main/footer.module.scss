@@ -23,7 +23,8 @@ html[data-fullscreen] {
 
 .footer {
     @include surfaceDim;
-    padding: pt(1.5) pt(4);
+    padding-top: pt(1.5);
+    // padding: pt(1.5) 0;
 
     @media (max-width: breakpoint(md)) {
         display: none;

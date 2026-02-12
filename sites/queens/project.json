@@ -1,5 +1,5 @@
 {
-	"name": "linkedin-games",
+	"name": "queens",
 	"targets": {
 		"build": {
 			"cache": true,

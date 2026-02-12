@@ -5,6 +5,7 @@
 {
 	"$schema": "../../node_modules/wrangler/config-schema.json",
 	"name": "connorbray-net",
+	"compatibility_flags": ["nodejs_compat"],
 	"compatibility_date": "2025-07-26",
 	"main": "./workers/app.ts",
 	"observability": {
@@ -52,7 +53,8 @@
 			],
 			"vars": {
 				"COOKIE_SECRET": ""
-			}
+			},
+			"preview_urls": false
 		}
 	}
 }
