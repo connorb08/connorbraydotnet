@@ -32,7 +32,9 @@
 				"mrmlnc.vscode-scss",
 				"ms-azuretools.vscode-containers",
 				"oven.bun-vscode",
-				"yoavbls.pretty-ts-errors"
+				"yoavbls.pretty-ts-errors",
+				"ms-vscode.vscode-typescript-next",
+				"openai.chatgpt"
 			],
 			"settings": {
 				"files.associations": {

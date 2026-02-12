@@ -1,1 +1,1 @@
-export { QueensResult } from "./queens";
+export { QueensGrid } from "./queens";

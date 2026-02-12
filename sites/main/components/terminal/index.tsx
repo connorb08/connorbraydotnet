@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useId } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useTerminalController } from "./controller";
 import style from "./style.module.scss";
@@ -6,137 +6,39 @@ import style from "./style.module.scss";
 export default function Terminal() {
 	const location = useLocation().pathname;
 	const nav = useNavigate();
-	const out = useRef<HTMLParagraphElement | null>(null);
-	const terminal = useTerminalController(out, nav);
+	const inputId = useId().replace(/:/g, "-");
+	const terminal = useTerminalController({ nav, pathname: location });
 
 	return (
-		<div role="none" className={style.container} onClick={focusInput}>
-			<div className={style.container__terminal}>
-				<p
-					id="terminal-result"
+		<form className={style.container} onSubmit={terminal.handleSubmit}>
+			<label className={style.container__terminal} htmlFor={inputId}>
+				<output
 					className={style.container__terminal__result}
-					command-result="ok"
-					ref={out}
+					command-result={terminal.resultStatus}
+					aria-live="polite"
 				>
-					&nbsp;
-				</p>
+					{terminal.resultText || "\u00a0"}
+				</output>
 				<div className={style.container__terminal__entry}>
-					<span
-						id="terminal-prompt"
-						className={style.container__terminal__entry__prompt}
-						data-after="_"
-					>
+					<span className={style.container__terminal__entry__prompt}>
 						{`connorbray.net -> ~${location} (main) $`}
 					</span>
 					<input
-						id="terminal-input"
+						id={inputId}
+						name="terminal-command"
 						className={style.container__terminal__entry__input}
 						type="text"
-						onChange={terminal.handleType}
-						onBlur={terminal.removeCursor}
-						onFocus={terminal.handleFocus}
 						autoComplete="off"
-						onKeyDown={terminal.handleKeyDown}
+						aria-label="Terminal command input"
 					/>
 				</div>
-			</div>
-		</div>
+			</label>
+			{/* <button
+				type="submit"
+				className={style.container__terminal__entry__submit}
+				aria-hidden="true"
+				tabIndex={-1}
+			/> */}
+		</form>
 	);
 }
-
-// const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, nav: NavigateFunction) => {
-// 	if (event.key !== "Enter") {
-// 		return;
-// 	}
-// 	const input = event.currentTarget.value.trim();
-
-// 	if (input === "") {
-// 		return;
-// 	}
-
-// 	event.currentTarget.value = "";
-// 	resetCursorPosition();
-
-// 	const params = input.split(" ");
-// 	const command = params[0];
-// 	const args = params.slice(1);
-
-// 	switch (command) {
-// 		case "ls": {
-// 			const hiddenPaths = [".", ".."];
-// 			let pathList = ["about", "projects", "photos"];
-// 			if (args.length > 0) {
-// 				if (args[0] === "-a") {
-// 					pathList = hiddenPaths.concat(pathList);
-// 				}
-// 			}
-// 			writeTerminalResult(pathList.join(" "), false);
-// 			break;
-// 		}
-// 		case "cd":
-// 			if (args.length === 0) {
-// 				writeTerminalResult("Usage: cd &lt;directory&gt;", false);
-// 			} else {
-// 				clearTerminal();
-// 				const path = args.join(" ").replace(/~/g, "");
-// 				nav(path, { viewTransition: true });
-// 			}
-// 			break;
-// 		case "pwd":
-// 			writeTerminalResult(`Current directory: ~${window.location.pathname}`, false);
-// 			break;
-// 		case "clear":
-// 			clearTerminal();
-// 			break;
-// 		default:
-// 			writeTerminalResult(
-// 				`Command not found: ${command}. Type 'help' for a list of available commands.`,
-// 				true,
-// 			);
-// 	}
-// };
-
-// const writeTerminalResult = (result: string, error = false) => {
-// 	const terminalResult = document.getElementById("terminal-result");
-// 	if (terminalResult) {
-// 		terminalResult.innerHTML = result;
-// 		if (error) {
-// 			terminalResult.setAttribute("command-result", "error");
-// 		} else {
-// 			terminalResult.setAttribute("command-result", "ok");
-// 		}
-// 	}
-// };
-
-// // Handlers
-
-// const handleFocus: ChangeEventHandler<HTMLInputElement> = (event) => {
-// 	const dataAfterValue = `${"\xa0".repeat(event.target.value.length)}_`;
-// 	document.getElementById("terminal-prompt")?.setAttribute("data-after", dataAfterValue);
-// };
-
-const focusInput = () => {
-	document.getElementById("terminal-input")?.focus();
-};
-
-// const handleType: ChangeEventHandler<HTMLInputElement> = (event) => {
-// 	document
-// 		.getElementById("terminal-prompt")
-// 		?.setAttribute("data-after", `${"\xa0".repeat(event.target.value.length)}_`);
-// };
-
-// const clearTerminal = () => {
-// 	const terminalResult = document.getElementById("terminal-result");
-// 	if (terminalResult) {
-// 		terminalResult.innerHTML = "&nbsp;";
-// 	}
-// 	document.getElementById("terminal-input")?.focus();
-// };
-
-// const resetCursorPosition = () => {
-// 	document.getElementById("terminal-prompt")?.setAttribute("data-after", "_");
-// };
-
-// const removeCursor = () => {
-// 	document.getElementById("terminal-prompt")?.setAttribute("data-after", "");
-// };

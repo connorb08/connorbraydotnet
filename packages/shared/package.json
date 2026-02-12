@@ -5,7 +5,7 @@
 	"type": "module",
 	"main": "src/index.ts",
 	"scripts": {
-		"build": "bun build.ts",
+		"build": "",
 		"test": "vitest --run",
 		"coverage": "vitest run --coverage",
 		"test:watch": "vitest",

@@ -1,15 +1,19 @@
 @use "~/styles" as *;
 
 .container {
-    @include rounded("xl");
+    // position: relative;
+    // @include rounded("xl");
     background-color: $surfaceContainerHighest;
     height: 12rem;
-    border: 1px solid transparent;
+    overflow: hidden;
+    // border: 1px solid transparent;
+    // box-sizing: border-box;
 
     &:focus-within {
+        box-shadow: inset 0 0 0 1px $primary;
         // @include border;
-        border: 1px solid $primary;
-        box-shadow: 0 0 0 1px $primary;
+        // border: 1px solid $primary;
+        // box-shadow: 0 0 0 1px $primary;
         // @include shadow;
     }
 
@@ -42,41 +46,42 @@
             gap: 0;
             display: flex;
             line-height: normal;
+            margin: 0;
 
             &__prompt {
                 padding-right: pt(0.5);
-
-                &::after {
-                    content: attr(data-after);
-                    position: absolute;
-                    color: $primary;
-                    animation: blink 1s infinite;
-                    margin-left: pt(0.5);
-                    margin-top: pt(0.25);
-                }
-
-                @keyframes blink {
-                    50% {
-                        opacity: 0;
-                    }
-                }
             }
 
             &__input {
                 font-family: inherit;
                 font-size: inherit;
+                line-height: inherit;
                 width: 100%;
                 background-color: inherit;
                 color: $primary;
                 border: none;
+                padding: 0;
+                margin: 0;
+                appearance: none;
                 position: relative;
                 display: inline-block;
-                caret-color: transparent;
+                caret-color: $primary;
                 flex: 1;
 
                 &:focus {
                     outline: none;
                 }
+            }
+
+            &__submit {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                opacity: 0;
+                pointer-events: none;
             }
         }
     }

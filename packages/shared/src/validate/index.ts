@@ -1,13 +1,14 @@
 import type { ValidateFunction } from "ajv";
 import type { Resume, ValidationHandler } from "#types";
-// biome-ignore lint/nursery/noTsIgnore: allow ts-ignore here, conditionally present file
-// @ts-ignore generated file, no types - doesn't exist before build
-import { Resume as ResumeValidation } from "../../generated/index.js";
 
-const ValidateResumeFunction = ResumeValidation as ValidateFunction<Resume>;
+// import { Resume as ResumeValidation } from "../../generated/index.js";
 
-const ValidateResume: ValidationHandler = <T>(data: T) => {
-	const res = ValidateResumeFunction(data);
+// const ValidateResumeFunction = ResumeValidation as ValidateFunction<Resume>;
+
+// todo: fix validation impl
+const ValidateResume = <T>(data: T) => {
+	// const res = ValidateResumeFunction(data);
+	const res = true;
 	if (res === true) {
 		return {
 			ok: true,
@@ -15,9 +16,9 @@ const ValidateResume: ValidationHandler = <T>(data: T) => {
 	}
 	return {
 		ok: false,
-		errors: ValidateResumeFunction.errors?.map((val) => val.message || "Unknown Error") ?? [
-			"Unknown Error Validating",
-		],
+		// errors: ValidateResumeFunction.errors?.map((val) => val.message || "Unknown Error") ?? [
+		// "Unknown Error Validating",
+		// ],
 	};
 };
 

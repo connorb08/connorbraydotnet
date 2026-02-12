@@ -1,126 +1,110 @@
-import type { ChangeEventHandler, RefObject } from "react";
-import { useCallback } from "react";
+import type { FormEventHandler } from "react";
+import { useCallback, useState } from "react";
 import type { NavigateFunction } from "react-router";
 
-export function useTerminalController(ref: RefObject<HTMLElement | null>, nav: NavigateFunction) {
-	const write = useCallback(
-		(text: string) => {
-			const resultElement = ref?.current ?? document.getElementById("terminal-result");
-			if (resultElement) {
-				resultElement.textContent = text;
-				resultElement.setAttribute("command-result", "ok");
-			}
-		},
-		[ref],
-	);
+type CommandResultStatus = "ok" | "error";
 
-	const handleKeyDown = useCallback(
-		(event: React.KeyboardEvent<HTMLInputElement>) => {
-			if (event.key !== "Enter") {
-				return;
-			}
-			const input = event.currentTarget.value.trim();
-
-			if (input === "") {
-				return;
-			}
-
-			event.currentTarget.value = "";
-			resetCursorPosition();
-
-			handleInput(input, ref, nav);
-		},
-		[ref, nav],
-	);
-
-	return {
-		write,
-		handleKeyDown,
-		handleType,
-		handleFocus,
-		clearTerminal,
-		resetCursorPosition,
-		removeCursor,
-	};
-}
-
-const writeTerminalResult = (ref: RefObject<HTMLElement | null>, result: string, error = false) => {
-	const terminalResult = ref?.current;
-	if (terminalResult) {
-		terminalResult.innerHTML = result;
-		if (error) {
-			terminalResult.setAttribute("command-result", "error");
-		} else {
-			terminalResult.setAttribute("command-result", "ok");
-		}
-	}
+type TerminalControllerArgs = {
+	nav: NavigateFunction;
+	pathname: string;
 };
 
-// Handlers
-
-const handleFocus: ChangeEventHandler<HTMLInputElement> = (event) => {
-	const dataAfterValue = `${"\xa0".repeat(event.target.value.length)}_`;
-	document.getElementById("terminal-prompt")?.setAttribute("data-after", dataAfterValue);
+type TerminalRuntime = {
+	nav: NavigateFunction;
+	pathname: string;
+	writeTerminalResult: (text: string, status?: CommandResultStatus) => void;
+	clearTerminal: () => void;
 };
 
-const handleType: ChangeEventHandler<HTMLInputElement> = (event) => {
-	document
-		.getElementById("terminal-prompt")
-		?.setAttribute("data-after", `${"\xa0".repeat(event.target.value.length)}_`);
-};
+function runTerminalCommand(rawInput: string, runtime: TerminalRuntime) {
+	const { nav, pathname, writeTerminalResult, clearTerminal } = runtime;
+	const [command, ...args] = rawInput.split(" ");
 
-const clearTerminal = () => {
-	const terminalResult = document.getElementById("terminal-result");
-	if (terminalResult) {
-		terminalResult.innerHTML = "&nbsp;";
-	}
-	document.getElementById("terminal-input")?.focus();
-};
-
-const resetCursorPosition = () => {
-	document.getElementById("terminal-prompt")?.setAttribute("data-after", "_");
-};
-
-const removeCursor = () => {
-	document.getElementById("terminal-prompt")?.setAttribute("data-after", "");
-};
-
-const handleInput = (input: string, ref: RefObject<HTMLElement | null>, nav: NavigateFunction) => {
-	const params = input.split(" ");
-	const command = params[0];
-	const args = params.slice(1);
 	switch (command) {
 		case "ls": {
 			const hiddenPaths = [".", ".."];
 			let pathList = ["about", "projects", "photos"];
-			if (args.length > 0) {
-				if (args[0] === "-a") {
-					pathList = hiddenPaths.concat(pathList);
-				}
+
+			if (args[0] === "-a") {
+				pathList = hiddenPaths.concat(pathList);
 			}
-			writeTerminalResult(ref, pathList.join(" "), false);
+
+			writeTerminalResult(pathList.join(" "));
 			break;
 		}
-		case "cd":
+		case "cd": {
 			if (args.length === 0) {
-				writeTerminalResult(ref, "Usage: cd &lt;directory&gt;", false);
-			} else {
-				clearTerminal();
-				const path = args.join(" ").replace(/~/g, "");
-				nav(path, { viewTransition: true });
+				writeTerminalResult("Usage: cd <directory>");
+				return;
 			}
+
+			clearTerminal();
+			const path = args.join(" ").replace(/~/g, "");
+			nav(path, { viewTransition: true });
 			break;
+		}
 		case "pwd":
-			writeTerminalResult(ref, `Current directory: ~${window.location.pathname}`, false);
+			writeTerminalResult(`Current directory: ~${pathname}`);
 			break;
 		case "clear":
 			clearTerminal();
 			break;
 		default:
 			writeTerminalResult(
-				ref,
 				`Command not found: ${command}. Type 'help' for a list of available commands.`,
-				true,
+				"error",
 			);
 	}
-};
+}
+
+function useTerminalExecution() {
+	const [resultText, setResultText] = useState("");
+	const [resultStatus, setResultStatus] = useState<CommandResultStatus>("ok");
+
+	const writeTerminalResult = useCallback((text: string, status: CommandResultStatus = "ok") => {
+		setResultText(text);
+		setResultStatus(status);
+	}, []);
+
+	const clearTerminal = useCallback(() => {
+		writeTerminalResult("", "ok");
+	}, [writeTerminalResult]);
+
+	return {
+		resultText,
+		resultStatus,
+		writeTerminalResult,
+		clearTerminal,
+	};
+}
+
+export function useTerminalController({ nav, pathname }: TerminalControllerArgs) {
+	const { resultText, resultStatus, writeTerminalResult, clearTerminal } = useTerminalExecution();
+
+	const handleSubmit: FormEventHandler<HTMLFormElement> = //useCallback(
+		(event) => {
+			event.preventDefault();
+
+			const formData = new FormData(event.currentTarget);
+			const input = `${formData.get("terminal-command") ?? ""}`.trim();
+			if (input === "") {
+				return;
+			}
+
+			event.currentTarget.reset();
+			runTerminalCommand(input, {
+				nav,
+				pathname,
+				writeTerminalResult,
+				clearTerminal,
+			});
+		}
+	// 	[clearTerminal, nav, pathname, writeTerminalResult],
+	// );
+
+	return {
+		resultText,
+		resultStatus,
+		handleSubmit,
+	};
+}
