@@ -129,87 +129,51 @@ html[data-fullscreen] {
     }
 }
 
-@keyframes crt-off {
-    0% {
-        transform: scaleY(1) scaleX(1);
+@keyframes content-fade-out {
+    from {
         opacity: 1;
     }
-    25% {
-        transform: scaleY(1) scaleX(1);
-    }
-    40% {
-        transform: scaleY(0.01) scaleX(0.8);
-        opacity: 0.8;
-    }
-    60% {
-        transform: scaleY(0.005) scaleX(0.75);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scaleY(0) scaleX(0.01);
+    to {
         opacity: 0;
     }
 }
 
-@keyframes crt-on {
-    0% {
-        transform: scaleY(0) scaleX(0.01);
+@keyframes content-fade-in {
+    from {
         opacity: 0;
     }
-    25% {
-        transform: scaleY(0) scaleX(0.01);
-        opacity: 0;
-    }
-    45% {
-        transform: scaleY(0.01) scaleX(0.8);
-        opacity: 0.5;
-    }
-    70% {
-        transform: scaleY(1) scaleX(1);
-        opacity: 0.9;
-    }
-    100% {
-        transform: scaleY(1) scaleX(1);
+    to {
         opacity: 1;
     }
 }
 
-@keyframes static-noise {
-    0%,
-    100% {
-        opacity: 0.2;
-        filter: contrast(2);
-    }
-    50% {
-        opacity: 0.3;
-        filter: contrast(3);
-    }
+::view-transition-group(mainContent) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: clip;
+}
+
+::view-transition-image-pair(mainContent) {
+    overflow: clip;
 }
 
 ::view-transition-old(mainContent) {
-    animation: crt-off 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    transform-origin: center center;
-    overflow: hidden;
+    animation: content-fade-out 220ms ease-out both;
+    transform-origin: center top;
+    overflow: clip;
     clip-path: inset(0);
 }
 
 ::view-transition-new(mainContent) {
-    animation: crt-on 0.6s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    transform-origin: center center;
-    overflow: hidden;
+    animation: content-fade-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: center top;
+    overflow: clip;
     clip-path: inset(0);
 }
 
-::view-transition-old(mainContent)::after,
-::view-transition-new(mainContent)::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-        repeating-linear-gradient(0deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px),
-        repeating-linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
-    background-size: 4px 4px;
-    animation: static-noise 0.1s infinite;
-    pointer-events: none;
-    z-index: 10;
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(mainContent),
+    ::view-transition-new(mainContent) {
+        animation-duration: 1ms;
+    }
 }
