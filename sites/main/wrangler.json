@@ -11,9 +11,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"vars": {
-		"COOKIE_SECRET": ""
-	},
 	"routes": [
 		{
 			"pattern": "connorbray.net",
@@ -51,9 +48,6 @@
 					"entrypoint": "Entrypoint"
 				}
 			],
-			"vars": {
-				"COOKIE_SECRET": ""
-			},
 			"preview_urls": false
 		}
 	}
