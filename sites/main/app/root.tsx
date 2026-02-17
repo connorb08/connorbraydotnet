@@ -10,7 +10,8 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import "#styles/App.scss";
-import { ContextProvider } from "../utils/state/context";
+import { ThemeProvider } from "utils/providers/theme";
+import { FullscreenProvider } from "#utils/providers/index";
 import { getSession } from "./sessions.server";
 
 export const links: Route.LinksFunction = () => [
@@ -48,6 +49,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export function Layout({ children }: { children: React.ReactNode }) {
 	const rootRef = useRef<HTMLHtmlElement>(null);
 	const data = useLoaderData<typeof loader>();
+	console.log(data);
 
 	return (
 		<html
@@ -64,13 +66,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				{/* <script src="/head.js" /> */}
 			</head>
 			<body>
-				<ContextProvider
-					rootRef={rootRef}
-					fullscreen={data.fullscreen ?? false}
-					theme={data.theme ?? null}
-				>
-					{children}
-				</ContextProvider>
+				<FullscreenProvider fullscreen={data.fullscreen ?? false}>
+					<ThemeProvider theme={data.theme ?? null}>
+						{/* <ContextProvider
+						rootRef={rootRef}
+						fullscreen={data.fullscreen ?? false}
+						theme={data.theme ?? null}
+					> */}
+						{children}
+					</ThemeProvider>
+					{/* </ContextProvider> */}
+				</FullscreenProvider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

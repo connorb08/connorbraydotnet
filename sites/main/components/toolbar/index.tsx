@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { GlobalContext } from "#utils/state/index";
-import { ExitFullscreen, Fullscreen, Moon, Sun } from "./icons";
+import { useFullscreen, useTheme } from "#utils/hooks";
+import { ExitFullscreen, Fullscreen, Moon, Sun } from "../icons";
+import { Button } from "../ui/new-button";
 import style from "./toolbar.module.scss";
-import { Button } from "./ui/new-button";
 
 export default function Toolbar() {
 	return (
@@ -14,19 +13,19 @@ export default function Toolbar() {
 }
 
 export function ToggleThemeButton() {
-	const { theme, toggleTheme } = useContext(GlobalContext);
+	const { theme, toggleTheme } = useTheme();
 	return (
 		<Button
 			color="primary"
 			variant="ghost"
 			icon={theme === "light" ? <Moon /> : <Sun />}
-			onClick={() => toggleTheme()}
+			onClick={toggleTheme}
 		/>
 	);
 }
 
 function FullscreenToggle() {
-	const { fullscreen, toggleFullscreen } = useContext(GlobalContext);
+	const { fullscreen, toggleFullscreen } = useFullscreen();
 
 	return (
 		<Button

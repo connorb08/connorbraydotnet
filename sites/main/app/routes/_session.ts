@@ -13,8 +13,11 @@ export async function action({ request }: Route.ActionArgs) {
 		session.set("theme", theme);
 	}
 
-	if (fullscreen === "true" || fullscreen === "false") {
-		session.set("fullscreen", fullscreen === "true");
+	if (typeof fullscreen === "string") {
+		const normalizedFullscreen = fullscreen.toLowerCase();
+		if (normalizedFullscreen === "true" || normalizedFullscreen === "false") {
+			session.set("fullscreen", normalizedFullscreen === "true");
+		}
 	}
 
 	return data(

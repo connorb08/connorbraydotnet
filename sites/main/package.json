@@ -36,6 +36,7 @@
 		"sass-embedded": "^1.89.2",
 		"typescript-plugin-css-modules": "^5.1.0",
 		"vite-tsconfig-paths": "^5.1.4",
+		"zod": "^4.3.6",
 		"zustand": "^5.0.11"
 	},
 	"peerDependencies": {
