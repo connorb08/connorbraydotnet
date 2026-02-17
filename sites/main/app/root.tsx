@@ -10,8 +10,7 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import "#styles/App.scss";
-import { ThemeProvider } from "utils/providers/theme";
-import { FullscreenProvider } from "#utils/providers/index";
+import { FullscreenProvider, ThemeProvider } from "#utils/providers/index";
 import { getSession } from "./sessions.server";
 
 export const links: Route.LinksFunction = () => [

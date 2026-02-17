@@ -71,7 +71,8 @@
 				"useImportType": "error",
 				"useExportType": "error",
 				"noUselessElse": "error",
-				"useShorthandFunctionType": "error"
+				"useShorthandFunctionType": "error",
+				"useComponentExportOnlyModules": "off"
 			},
 			"suspicious": {
 				"noArrayIndexKey": "off"
