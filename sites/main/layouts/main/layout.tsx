@@ -1,6 +1,6 @@
-import Toolbar from "components/toolbar";
 import { NavLink, Outlet, useLocation } from "react-router";
 import Navigation, { MobileNavigation } from "#components/navigation";
+import Toolbar from "#components/toolbar";
 import Footer from "./footer";
 import style from "./layout.module.scss";
 // import Navbar from "./navbar";

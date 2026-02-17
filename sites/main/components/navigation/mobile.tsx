@@ -1,8 +1,8 @@
-import { ToggleThemeButton } from "components/toolbar";
 import { Button, LinkButton } from "components/ui/new-button";
 import { useState } from "react";
 import { Dialog, DialogTrigger, OverlayArrow, Popover, Separator } from "react-aria-components";
 import { useLocation } from "react-router";
+import { ToggleThemeButton } from "#components/toolbar";
 import { Menu as MenuIcon } from "../icons";
 import style from "./mobile.module.scss";
 import { routes } from "./pages";
