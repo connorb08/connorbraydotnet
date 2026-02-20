@@ -1,4 +1,4 @@
-import { LinkButton } from "components/ui/new-button";
+import { LinkButton } from "components/ui/button";
 import style from "./gallery.module.scss";
 
 export default function Gallery() {
