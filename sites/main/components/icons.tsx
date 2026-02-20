@@ -11,6 +11,7 @@ export {
 	MdFullscreenExit as ExitFullscreen,
 	MdOutlinePhotoCamera as Camera,
 } from "react-icons/md";
+
 export { RxChevronRight as Chevron } from "react-icons/rx";
 export { TbSitemap as Sitemap } from "react-icons/tb";
 export { VscAccount as About } from "react-icons/vsc";

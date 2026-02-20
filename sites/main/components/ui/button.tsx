@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { Button as AriaButton, type ButtonProps as AriaButtonProps } from "react-aria-components";
 import { NavLink, type NavLinkProps } from "react-router";
-import style from "./new-button.module.scss";
+import style from "./button.module.scss";
 
 type ButtonVariant = "normal" | "outline" | "ghost";
 type ButtonColor = "primary" | "secondary" | "tertiary" | "error";

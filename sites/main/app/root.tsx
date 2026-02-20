@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
 	isRouteErrorResponse,
 	Links,
@@ -46,35 +45,25 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-	const rootRef = useRef<HTMLHtmlElement>(null);
 	const data = useLoaderData<typeof loader>();
-	console.log(data);
 
 	return (
 		<html
 			lang="en"
-			ref={rootRef}
 			data-theme={data.theme ?? null}
-			data-fullscreen={data.fullscreen ? true : null}
+			data-fullscreen={data.fullscreen ? "" : null}
 		>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
-				{/* <script src="/head.js" /> */}
 			</head>
 			<body>
 				<FullscreenProvider fullscreen={data.fullscreen ?? false}>
 					<ThemeProvider theme={data.theme ?? null}>
-						{/* <ContextProvider
-						rootRef={rootRef}
-						fullscreen={data.fullscreen ?? false}
-						theme={data.theme ?? null}
-					> */}
 						{children}
 					</ThemeProvider>
-					{/* </ContextProvider> */}
 				</FullscreenProvider>
 				<ScrollRestoration />
 				<Scripts />
