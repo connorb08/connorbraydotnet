@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
-import { About, Camera, Folder, Home, Mail } from "../icons";
+import { About, Camera, Folder, HomeIcon, Mail } from "#components/ui/icons";
 
 export const routes = [
 	{
 		id: "home",
 		title: "Home",
-		icon: <Home />,
+		icon: <HomeIcon />,
 		href: "/",
 	},
 	{

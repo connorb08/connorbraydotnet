@@ -30,7 +30,7 @@ export const exitFullscreen = () => (
 	</svg>
 );
 
-export const home = () => (
+export const HomeIcon = () => (
 	<svg
 		stroke="currentColor"
 		fill="none"
