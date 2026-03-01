@@ -1,4 +1,4 @@
 export type StateData = {
-    theme: "light" | "dark" | null;
-    fullscreen: boolean;
+	theme: "light" | "dark" | null;
+	fullscreen: boolean;
 };

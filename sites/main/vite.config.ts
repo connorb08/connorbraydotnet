@@ -16,13 +16,13 @@ export default defineConfig({
 			},
 			auxiliaryWorkers: dev
 				? [
-					{
-						configPath: "../../services/content-manager/wrangler.json",
-					},
-					{
-						configPath: "../../services/database/wrangler.json",
-					},
-				]
+						{
+							configPath: "../../services/content-manager/wrangler.json",
+						},
+						{
+							configPath: "../../services/database/wrangler.json",
+						},
+					]
 				: [],
 		}),
 		reactRouter(),
@@ -33,7 +33,7 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			"~/styles": resolve(__dirname, "styles"),
+			"~/styles": resolve(import.meta.dirname, "styles"),
 		},
 	},
 });

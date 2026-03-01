@@ -8,6 +8,11 @@
 	"javascript": {
 		"globals": ["Bun"]
 	},
+	"json": {
+		"parser": {
+			"allowComments": true
+		}
+	},
 	"files": {
 		"ignoreUnknown": true,
 		"includes": [
@@ -82,7 +87,8 @@
 			"project": "all",
 			"react": "all",
 			"test": "all",
-			"solid": "none"
+			"solid": "none",
+			"qwik": "none"
 		}
 	},
 	"overrides": [
@@ -92,14 +98,29 @@
 				"rules": {
 					"correctness": {
 						"useImportExtensions": "off",
-						"noNodejsModules": "off"
+						"noNodejsModules": "off",
+						"noUnresolvedImports": "off"
 					},
 					"nursery": {
-						"useExplicitType": "off",
-						"noUnresolvedImports": "off"
+						"useExplicitType": "off"
 					},
 					"performance": {
 						"noBarrelFile": "off"
+					},
+					"complexity": {
+						"useMaxParams": {
+							"level": "info",
+							"options": {
+								"max": 5
+							}
+						},
+						"noExcessiveLinesPerFunction": {
+							"level": "info",
+							"options": {
+								"maxLines": 75,
+								"skipBlankLines": true
+							}
+						}
 					}
 				}
 			}

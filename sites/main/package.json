@@ -14,7 +14,7 @@
 	},
 	"imports": {
 		"#app/*": "./app/*.ts",
-		"#components/*": "./components/*/index.tsx",
+		"#components/*": "./components/*/index.ts",
 		"#pages/*": "./pages/*/index.tsx",
 		"#utils": "./utils/index.ts",
 		"#utils/*": "./utils/*.ts",

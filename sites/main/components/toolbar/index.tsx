@@ -1,6 +1,6 @@
 import { useFullscreen, useTheme } from "#utils/hooks";
 import { ExitFullscreen, Fullscreen, Moon, Sun } from "../icons";
-import { Button } from "../ui/button";
+import { Button } from "../ui/buttons/button";
 import style from "./toolbar.module.scss";
 
 export default function Toolbar() {

@@ -1,16 +1,16 @@
 import { createContext } from "react";
 
 type FullscreenState = {
-    fullscreen: boolean;
+	fullscreen: boolean;
 };
 
 type FullscreenActions = {
-    toggleFullscreen: () => void;
+	toggleFullscreen: () => void;
 };
 
 type FullscreenStore = FullscreenState & FullscreenActions;
 
 export const FullscreenContext = createContext<FullscreenStore>({
-    fullscreen: false,
-    toggleFullscreen: () => undefined,
+	fullscreen: false,
+	toggleFullscreen: () => undefined,
 });

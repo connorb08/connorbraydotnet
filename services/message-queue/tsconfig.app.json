@@ -14,11 +14,11 @@
 		"types": ["./worker-configuration.d.ts"]
 	},
 	"references": [
-    {
-      "path": "../../packages/types/tsconfig.lib.json"
-    },
-    {
-      "path": "../database/tsconfig.app.json"
-    }
-  ]
+		{
+			"path": "../../packages/types/tsconfig.lib.json"
+		},
+		{
+			"path": "../database/tsconfig.app.json"
+		}
+	]
 }

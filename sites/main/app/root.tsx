@@ -48,11 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	const data = useLoaderData<typeof loader>();
 
 	return (
-		<html
-			lang="en"
-			data-theme={data.theme ?? null}
-			data-fullscreen={data.fullscreen ? "" : null}
-		>
+		<html lang="en" data-theme={data.theme ?? null} data-fullscreen={data.fullscreen ? "" : null}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -61,9 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<FullscreenProvider fullscreen={data.fullscreen ?? false}>
-					<ThemeProvider theme={data.theme ?? null}>
-						{children}
-					</ThemeProvider>
+					<ThemeProvider theme={data.theme ?? null}>{children}</ThemeProvider>
 				</FullscreenProvider>
 				<ScrollRestoration />
 				<Scripts />

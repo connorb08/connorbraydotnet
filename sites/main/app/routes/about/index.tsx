@@ -11,14 +11,15 @@ export async function loader() {
 		setTimeout(
 			() =>
 				resolve({
-					name: "Connor Bray",
+					// name: "Connor Bray",
 					about: {
 						phoneNumber: "(207) 272-6463",
 						emailAddress: "connor@connorbray.net",
 						location: "Boston, MA",
-						languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
-						technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
-						interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
+						name: "Connor Bray",
+						// languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
+						// technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
+						// interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
 					},
 					career: [
 						{
@@ -68,6 +69,12 @@ export async function loader() {
 							],
 						},
 					],
+					skills: {
+						languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
+						technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
+						interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
+					},
+					boardPositions: [],
 				}),
 			1,
 		);
@@ -115,7 +122,7 @@ export async function clientLoader({ request, serverLoader }: Route.ClientLoader
 	return { resumeData, leadershipRoles, aboutMe };
 }
 
-export default function ({ loaderData }: Route.ComponentProps) {
+function AboutRoute({ loaderData }: Route.ComponentProps) {
 	const { data, error, loading } = usePromise<Resume>(loaderData.resumeData, EmptyResume);
 
 	if (error) {
@@ -131,3 +138,5 @@ export default function ({ loaderData }: Route.ComponentProps) {
 		/>
 	);
 }
+
+export default AboutRoute;
