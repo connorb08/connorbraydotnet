@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import process from "node:process";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
@@ -36,7 +37,7 @@ const viteConfig = defineConfig({
 	},
 	resolve: {
 		alias: {
-			"~": resolve(__dirname, "app"),
+			"~": resolve(import.meta.dirname, "app"),
 		},
 	},
 });

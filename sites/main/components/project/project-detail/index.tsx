@@ -10,7 +10,7 @@ interface ProjectDetailProps {
 	challenges?: string[];
 	solutions?: string[];
 	features?: string[];
-	heroElement?: React.ReactNode;
+	heroElement?: React.ReactNode | null | undefined;
 }
 
 export default function ProjectDetail({
@@ -21,7 +21,7 @@ export default function ProjectDetail({
 	challenges = [],
 	solutions = [],
 	features = [],
-	heroElement = undefined,
+	heroElement = null,
 }: ProjectDetailProps) {
 	return (
 		<article className={style.projectDetail}>

@@ -81,24 +81,24 @@ function useTerminalExecution() {
 export function useTerminalController({ nav, pathname }: TerminalControllerArgs) {
 	const { resultText, resultStatus, writeTerminalResult, clearTerminal } = useTerminalExecution();
 
-	const handleSubmit: FormEventHandler<HTMLFormElement> = //useCallback(
-		(event) => {
-			event.preventDefault();
+	const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+		//useCallback(
+		event.preventDefault();
 
-			const formData = new FormData(event.currentTarget);
-			const input = `${formData.get("terminal-command") ?? ""}`.trim();
-			if (input === "") {
-				return;
-			}
-
-			event.currentTarget.reset();
-			runTerminalCommand(input, {
-				nav,
-				pathname,
-				writeTerminalResult,
-				clearTerminal,
-			});
+		const formData = new FormData(event.currentTarget);
+		const input = `${formData.get("terminal-command") ?? ""}`.trim();
+		if (input === "") {
+			return;
 		}
+
+		event.currentTarget.reset();
+		runTerminalCommand(input, {
+			nav,
+			pathname,
+			writeTerminalResult,
+			clearTerminal,
+		});
+	};
 	// 	[clearTerminal, nav, pathname, writeTerminalResult],
 	// );
 

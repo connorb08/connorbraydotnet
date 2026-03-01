@@ -2,7 +2,7 @@ import type React from "react";
 import { useRef } from "react";
 import { FieldError, Form, Input, Label, TextArea, TextField } from "react-aria-components";
 import { useNavigation, useSubmit } from "react-router";
-import { Button as UIButton } from "../../../components/ui/button";
+import { Button as UIButton } from "../../../components/ui/buttons/button";
 import type { Route } from "../contact/+types/contact";
 import styles from "./contact.module.scss";
 

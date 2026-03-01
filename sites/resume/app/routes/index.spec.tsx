@@ -41,7 +41,7 @@ describe("Index route", () => {
 		expect(ok).toBe(true);
 	});
 });
-
+// biome-ignore lint/complexity/noExcessiveLinesPerFunction: allow long test functions
 describe("Resume page", () => {
 	it("should display basic info", async () => {
 		// Setup

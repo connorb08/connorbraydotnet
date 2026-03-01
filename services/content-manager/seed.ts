@@ -1,5 +1,6 @@
 import { readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import process from "node:process";
 import { $ } from "bun";
 
 //#region setup
@@ -37,7 +38,7 @@ const result = await Promise.allSettled(
 			console.log(command);
 			await $`${command}`.quiet();
 			return file;
-		} catch (_error) {
+		} catch {
 			return Promise.reject(`${file}`);
 		}
 	}),
