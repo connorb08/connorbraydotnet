@@ -1,3 +1,4 @@
+import { useId } from "react";
 import type { Route } from "./+types/index";
 import "./index.scss";
 import { resumeData } from "~/data";
@@ -7,6 +8,10 @@ export function loader({ context: _context }: Route.LoaderArgs) {
 }
 
 export default function Index({ loaderData: resume }: Route.ComponentProps) {
+	const summaryId = useId();
+	const skillsId = useId();
+	const experienceId = useId();
+	const educationId = useId();
 	return (
 		<div className="container">
 			<header className="header">
@@ -18,13 +23,13 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					data-testid="resume.contact"
 				>{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
 			</header>
-			<div className="section" id="summary">
+			<div className="section" id={summaryId}>
 				<h2 className="section__heading">Summary</h2>
 				<p className="section__content" data-testid="resume.about.summary">
 					{resume.about.summary}
 				</p>
 			</div>
-			<div className="section" id="skills">
+			<div className="section" id={skillsId}>
 				<h2 className="section__heading">Skills</h2>
 				<ul className="section__item">
 					<li>
@@ -47,7 +52,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					</li>
 				</ul>
 			</div>
-			<div className="section" id="experience">
+			<div className="section" id={experienceId}>
 				<h2 className="section__heading">Experience</h2>
 				{resume.career.map((careerItem, index) => {
 					return (
@@ -90,7 +95,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					);
 				})}
 			</div>
-			<div className="section" id="education">
+			<div className="section" id={educationId}>
 				<h2 className="section__heading">Education</h2>
 				{resume.education.map((educationItem, index) => {
 					return (
