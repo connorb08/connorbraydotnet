@@ -7,8 +7,8 @@ import { default as App, ErrorBoundary, Layout } from "./root";
 vi.mock("react-router", () => ({
 	Outlet: () => <div data-testid="outlet">Outlet Content</div>,
 	isRouteErrorResponse: vi.fn(),
-	Links: () => <link id="link-mock" />,
-	Scripts: () => <script id="script-mock" />,
+	Links: () => <link data-testid="link-mock" />,
+	Scripts: () => <script data-testid="script-mock" />,
 }));
 
 describe("App Component", () => {
@@ -31,8 +31,8 @@ describe("Layout Component", () => {
 
 		// Check that children are rendered
 		expect(screen.getByTestId("child-content")).toBeInTheDocument();
-		expect(document.getElementById("link-mock")).toBeInTheDocument();
-		expect(document.getElementById("script-mock")).toBeInTheDocument();
+		expect(document.querySelector('[data-testid="link-mock"]')).toBeInTheDocument();
+		expect(document.querySelector('[data-testid="script-mock"]')).toBeInTheDocument();
 	});
 });
 

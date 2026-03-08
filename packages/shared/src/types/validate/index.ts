@@ -10,4 +10,4 @@ type ValidationError = {
 
 export type ValidationResponse = ValidationOk | ValidationError;
 
-export type ValidationHandler<T = unknown> = (data: T) => ValidationResponse;
+export type ValidationHandler<T = unknown> = (data: T | unknown) => ValidationResponse;
