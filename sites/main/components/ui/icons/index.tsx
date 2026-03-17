@@ -2,7 +2,7 @@ export const fullscreen = () => (
 	<svg
 		stroke="currentColor"
 		fill="currentColor"
-		stroke-width="0"
+		strokeWidth="0"
 		viewBox="0 0 24 24"
 		height="1em"
 		width="1em"
@@ -18,7 +18,7 @@ export const exitFullscreen = () => (
 	<svg
 		stroke="currentColor"
 		fill="currentColor"
-		stroke-width="0"
+		strokeWidth="0"
 		viewBox="0 0 24 24"
 		height="1em"
 		width="1em"
@@ -34,10 +34,10 @@ export const HomeIcon = () => (
 	<svg
 		stroke="currentColor"
 		fill="none"
-		stroke-width="2"
+		strokeWidth="2"
 		viewBox="0 0 24 24"
-		stroke-linecap="round"
-		stroke-linejoin="round"
+		strokeLinecap="round"
+		strokeLinejoin="round"
 		height="1em"
 		width="1em"
 		xmlns="http://www.w3.org/2000/svg"
@@ -47,3 +47,22 @@ export const HomeIcon = () => (
 		<path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
 	</svg>
 );
+
+export {
+	FaBars as Menu,
+	FaGithub as Github,
+	FaLinkedin as Linkedin,
+	FaRegFolder as Folder,
+} from "react-icons/fa";
+export { GoGear as Gear, GoMail as Mail, GoMoon as Moon, GoSun as Sun } from "react-icons/go";
+// export { GoGear as Gear, GoMail as Mail, GoMoon as Moon, GoSun as Sun } from "react-icons/go";
+export { LuHouse as Home } from "react-icons/lu";
+export {
+	MdFullscreen as Fullscreen,
+	MdFullscreenExit as ExitFullscreen,
+	MdOutlinePhotoCamera as Camera,
+} from "react-icons/md";
+
+export { RxChevronRight as Chevron } from "react-icons/rx";
+export { TbSitemap as Sitemap } from "react-icons/tb";
+export { VscAccount as About } from "react-icons/vsc";
