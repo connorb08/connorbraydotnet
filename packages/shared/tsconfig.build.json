@@ -2,7 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["./build.ts"],
 	"compilerOptions": {
-		"types": ["bun-types"]
+		"types": ["bun"]
 	},
 	"references": [
 		{

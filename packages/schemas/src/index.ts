@@ -1,1 +1,1 @@
-export {};
+export { Resume } from "./resume";

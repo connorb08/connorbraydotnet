@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../sites/resume",
+			"name": "resume"
+		},
+		{
+			"path": "..",
+			"name": "root"
+		}
+	]
+}

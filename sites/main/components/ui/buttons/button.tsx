@@ -108,7 +108,7 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
 		<NavLink
 			{...restProps}
 			className={getButtonClasses({ ...props, hasChildren, className: resolvedClassName })}
-			viewTransition={viewTransition}
+			// viewTransition={viewTransition}
 		>
 			{renderButtonContent(icon, iconPosition, iconOnly, hasChildren, children)}
 		</NavLink>

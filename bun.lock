@@ -90,6 +90,7 @@
       "name": "schemas",
       "peerDependencies": {
         "typescript": "*",
+        "zod": "*",
       },
     },
     "packages/shared": {
@@ -113,6 +114,7 @@
       "name": "types",
       "peerDependencies": {
         "typescript": "*",
+        "zod": "*",
       },
     },
     "services/api": {
