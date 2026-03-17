@@ -41,7 +41,8 @@ const formattedCode = formatted.content;
 
 const linted = biome.lintContent(formattedCode, {
 	filePath: "example.js",
-	fixFileMode: "SafeAndUnsafeFixes",
+	fixFileMode: "SafeFixes",
+	// fixFileMode: "SafeAndUnsafeFixes",
 });
 
 const lintedCode = linted.content;
