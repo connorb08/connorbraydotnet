@@ -4,11 +4,7 @@
 		"lint": {},
 		"format:check": {},
 		"format:write": {},
-		"build": {
-			"cache": true,
-			"inputs": ["{projectRoot}/src"],
-			"outputs": ["{projectRoot}/generated"]
-		},
+		"build": {},
 		"test": {
 			"cache": true,
 			"inputs": ["{projectRoot}/src", "{projectRoot}/test"],

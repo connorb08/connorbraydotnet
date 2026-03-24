@@ -44,14 +44,13 @@ main * {
     line-height: 1.2;
 }
 
-/* Set page size */
-@page {
-    size: 8.5in 11in;
-    margin: 0;
-    padding: util.in(0.5) 0;
-}
-
 @media print {
+    @page {
+        size: letter;
+        margin: 0;
+        padding: util.in(0.5) 0;
+    }
+
     body {
         margin: 0;
 

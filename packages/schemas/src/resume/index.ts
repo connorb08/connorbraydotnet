@@ -12,3 +12,5 @@ export const Resume = object({
 });
 
 export type Resume = inferType<typeof Resume>;
+
+export type * from "./sections";

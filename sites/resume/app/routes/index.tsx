@@ -1,17 +1,18 @@
-import { useId } from "react";
 import type { Route } from "./+types/index";
 import "./index.scss";
+import Education from "~/components/Education";
+import Experience from "~/components/Experience";
+import Projects from "~/components/Projects";
 import { resumeData } from "~/data";
 
 export function loader({ context: _context }: Route.LoaderArgs) {
+	resumeData.sections.sort(
+		(a, b) => resumeData.options.order.indexOf(a.title) - resumeData.options.order.indexOf(b.title),
+	);
 	return resumeData;
 }
 
 export default function Index({ loaderData: resume }: Route.ComponentProps) {
-	const summaryId = useId();
-	const skillsId = useId();
-	const experienceId = useId();
-	const educationId = useId();
 	return (
 		<div className="container">
 			<header className="header">
@@ -23,196 +24,42 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					data-testid="resume.contact"
 				>{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
 			</header>
-			<div className="section" id={summaryId}>
-				<h2 className="section__heading">Summary</h2>
-				<p className="section__content" data-testid="resume.about.summary">
-					{resume.about.summary}
-				</p>
-			</div>
-			<div className="section" id={skillsId}>
+			{resume.about.summary && (
+				<div className="section">
+					<h2 className="section__heading">Summary</h2>
+					<p className="section__content" data-testid="resume.about.summary">
+						{resume.about.summary}
+					</p>
+				</div>
+			)}
+			<div className="section">
 				<h2 className="section__heading">Skills</h2>
 				<ul className="section__item">
-					<li>
-						<p data-testid="resume.about.languages">
-							<span className="footer__content--bold">Languages: </span>
-							{resume.skills.languages.join(", ")}
-						</p>
-					</li>
-					<li>
-						<p data-testid="resume.about.technologies">
-							<span className="footer__content--bold">Technologies: </span>
-							{resume.skills.technologies.join(", ")}
-						</p>
-					</li>
-					<li>
-						<p data-testid="resume.about.interests">
-							<span className="footer__content--bold">Focus Areas: </span>
-							{resume.skills.interests?.join(", ")}
-						</p>
-					</li>
+					{resume.skills.map((skill) => (
+						<li key={skill.skillName}>
+							<p data-testid={`resume.about.${skill.skillName.toLowerCase()}`}>
+								<span className="footer__content--bold">{skill.skillName}: </span>
+								{skill.skillList.join(", ")}
+							</p>
+						</li>
+					))}
 				</ul>
 			</div>
-			<div className="section" id={experienceId}>
-				<h2 className="section__heading">Experience</h2>
-				{resume.career.map((careerItem, index) => {
-					return (
-						<div className="section__item" key={index}>
-							<div className="section__item__heading">
-								<h3
-									className="section__item__heading__company"
-									data-testid={`resume.career[${index}].company`}
-								>
-									{careerItem.company}
-								</h3>
-								<p className="section__item__heading__location">{careerItem.location}</p>
-							</div>
-							<div className="section__item__subheading">
-								<p
-									className="section__item__subtitle"
-									data-testid={`resume.career[${index}].title`}
-								>
-									{careerItem.title}
-								</p>
-								<p className="section__item__date">
-									{`${careerItem.startDate} – ${careerItem.endDate}`}
-								</p>
-							</div>
-							<div className="section__item__content">
-								<ul>
-									{careerItem.about.map((bullet, bulletIndex) => {
-										return (
-											<li
-												key={bulletIndex}
-												data-testid={`resume.career[${index}].about[${bulletIndex}]`}
-											>
-												{bullet}
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</div>
-					);
-				})}
-			</div>
-			<div className="section" id={educationId}>
-				<h2 className="section__heading">Education</h2>
-				{resume.education.map((educationItem, index) => {
-					return (
-						<div className="section__item" key={index}>
-							<div className="section__item__heading">
-								<h3
-									className="section__item__heading__school"
-									data-testid={`resume.education[${index}].school`}
-								>
-									{educationItem.school}
-								</h3>
-								<p className="section__item__heading__location">{educationItem.location}</p>
-							</div>
-							<div className="section__item__subheading">
-								<p
-									className="section__item__subtitle"
-									data-testid={`resume.education[${index}].degree`}
-								>
-									{educationItem.degree}
-								</p>
-								<p className="section__item__date">{educationItem.endDate}</p>
-							</div>
-							{educationItem.about.length > 0 ? (
-								<div data-testid="education-about" className="section__item__content">
-									<ul>
-										{educationItem.about.map((bullet, bulletIndex) => {
-											return (
-												<li
-													key={bulletIndex}
-													data-testid={`resume.education[${index}].about[${bulletIndex}]`}
-												>
-													{bullet}
-												</li>
-											);
-										})}
-									</ul>
-								</div>
-							) : null}
-						</div>
-					);
-				})}
-			</div>
-			{/* <div className="section" id="projects">
-				<h2 className="section__heading">Projects</h2>
-				{resume.projects.map((project, index) => {
-					return (
-						<div className="section__item" key={index}>
-							<div className="section__item__heading">
-								<h3
-									className="section__item__heading__project"
-									data-testid={`resume.projects[${index}].name`}
-								>
-									{project.name}
-								</h3>
-							</div>
-							<div className="section__item__subheading">
-								<p
-									className="section__item__subtitle"
-									data-testid={`resume.projects[${index}].description`}
-								>
-									{project.description}
-								</p>
-							</div>
-							<div className="section__item__content">
-								<ul>
-									{project.about.map((bullet, bulletIndex) => {
-										return (
-											<li
-												key={bulletIndex}
-												data-testid={`resume.projects[${index}].about[${bulletIndex}]`}
-											>
-												{bullet}
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</div>
-					);
-				})}
-			</div> */}
-			{/* <div className="section" id="boards">
-				<h2 className="section__heading">Boards</h2>
-				{resume.boards.map((board, index) => {
-					return (
-						<div className="section__item" key={index}>
-							<div className="section__item__heading">
-								<h3
-									className="section__item__heading__project"
-									data-testid={`resume.boards[${index}].name`}
-								>
-									{board.name}
-								</h3>
-							</div>
-							<div className="section__item__subheading">
-								<p className="section__item__subtitle" data-testid={`resume.boards[${index}].role`}>
-									{board.role}
-								</p>
-							</div>
-							<div className="section__item__content">
-								<ul>
-									{board.about.map((bullet, bulletIndex) => {
-										return (
-											<li
-												key={bulletIndex}
-												data-testid={`resume.boards[${index}].about[${bulletIndex}]`}
-											>
-												{bullet}
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</div>
-					);
-				})}
-			</div> */}
+			{resume.sections.map((section) => {
+				switch (section.title) {
+					case "Experience": {
+						return <Experience items={section.items} key={section.title} />;
+					}
+					case "Education": {
+						return <Education items={section.items} key={section.title} />;
+					}
+					case "Projects": {
+						return <Projects items={section.items} key={section.title} />;
+					}
+					default:
+						return null;
+				}
+			})}
 			<footer className="footer">
 				<h2 className="footer__heading">Links</h2>
 				<div className="footer__content">

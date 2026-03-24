@@ -28,7 +28,7 @@
 		"#test/*": "./test/*.ts"
 	},
 	"dependencies": {
-		"shared": "workspace:*"
+		"schemas": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "^19.1.1",

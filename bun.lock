@@ -252,7 +252,7 @@
     "sites/resume": {
       "name": "resume",
       "dependencies": {
-        "shared": "workspace:*",
+        "schemas": "workspace:*",
       },
       "devDependencies": {
         "@types/react": "^19.1.1",
