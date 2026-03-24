@@ -1,4 +1,4 @@
-import { literal, object, string } from "zod";
+import { array, type infer as inferType, literal, object, string, union } from "zod";
 
 const Education = object({
 	school: string(),
@@ -40,4 +40,9 @@ const ProjectSection = object({
 	items: Project.array(),
 });
 
-export const Sections = object([EducationSection, ExperienceSection, ProjectSection]).array();
+export const Sections = array(union([EducationSection, ExperienceSection, ProjectSection]));
+
+export type ResumeEducationData = inferType<typeof EducationSection>;
+export type ResumeExperienceData = inferType<typeof ExperienceSection>;
+export type ResumeProjectData = inferType<typeof ProjectSection>;
+export type ResumeSection = inferType<typeof Sections>[number];
