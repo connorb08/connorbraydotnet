@@ -6,19 +6,35 @@ type ColorData = {
 	rgb: string;
 };
 
+type CellUpdate = {
+	id: number;
+	isQueen: boolean;
+	reason: string;
+};
+
 export type QueensStep = {
+	didUpdate: boolean;
 	analyzedCells: number[];
+	description: string;
+	updatedCells: CellUpdate[];
+};
+
+export type QueensGameDefinition = {
+	sideLength: number;
+	colors: ColorData[];
+	cellColors: number[];
 };
 
 export type QueensSolution = {
-	cellColors: number[];
-	cellsRemoved: number[];
-	colors: ColorData[];
-	queenPositions: number[];
 	sideLength: number;
+	colors: ColorData[];
+	cellColors: number[];
+	queenPositions: number[];
+	cellsRemoved: number[];
 };
 
 export type CloudflareDTO = QueueMessage<{
+	definition: QueensGameDefinition;
 	solution: QueensSolution;
 	steps: QueensStep[];
 }>;

@@ -1,4 +1,4 @@
-import { QueensResult } from "components";
+import { QueensGrid } from "components";
 import { useMemo, useState } from "react";
 import type { QueensSolution } from "types";
 import styles from "./home.module.css";
@@ -79,7 +79,7 @@ export default function Home({ solution }: Props) {
 					<div className={styles.boardWrapper}>
 						<div className={styles.boardFrame}>
 							{showSolution ? (
-								<QueensResult {...solution} />
+								<QueensGrid {...solution} />
 							) : (
 								<div className={styles.hiddenPlaceholder}>Solution hidden</div>
 							)}

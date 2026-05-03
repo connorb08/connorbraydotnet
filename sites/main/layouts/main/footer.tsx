@@ -1,4 +1,4 @@
-import Terminal from "#components/terminal";
+// import Terminal from "#components/terminal";
 import style from "./footer.module.scss";
 
 export default function Footer() {

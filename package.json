@@ -75,7 +75,7 @@
 		"vite": "7.2.4",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^4.0.18",
-		"wrangler": "^4.64.0"
+		"wrangler": "^4.87.0"
 	},
 	"imports": {
 		"#workspace/*": "./*"
