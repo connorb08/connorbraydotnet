@@ -2,6 +2,7 @@ import { DurableObject, WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely } from "kysely";
 import { DODialect } from "kysely-do";
 import type { QueensSolution, QueensStep, RPCResult } from "types";
+import type { QueensGameDefinition } from "../../../packages/types/src/queens";
 import { GetCurrentQueens, PutQueens } from "./data/queens";
 import type { Database, Queens } from "./models";
 import SetupDatabaseSchema from "./schema";
@@ -25,10 +26,11 @@ export class DatabaseObject extends DurableObject<Env> {
 	}
 
 	public async putQueens(
+		definition: QueensGameDefinition,
 		solution: QueensSolution,
 		steps: QueensStep[],
 	): Promise<RPCResult<Queens>> {
-		const result = PutQueens(this.db, solution, steps);
+		const result = PutQueens(this.db, definition, solution, steps);
 		this.ctx.waitUntil(result);
 		return result;
 	}
@@ -57,10 +59,12 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 		return result;
 	}
 	public async putQueens(
+		definition: QueensGameDefinition,
 		solution: QueensSolution,
 		steps: QueensStep[],
 	): Promise<RPCResult<Queens>> {
 		const result = this.env.DATABASE.get(this.env.DATABASE.idFromName("default")).putQueens(
+			definition,
 			solution,
 			steps,
 		);

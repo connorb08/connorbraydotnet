@@ -1,6 +1,9 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { createRequestHandler } from "react-router";
-import { ValidateResume, type ValidationResponse } from "shared";
+
+// import { Resume } from "schemas";
+
+// import { ValidateResume, type ValidationResponse } from "shared";
 
 interface IMainEntrypoint {
 	fetch(request: Request): Response | Promise<Response>;
@@ -23,15 +26,15 @@ export default class MainEntrypoint extends WorkerEntrypoint<Env> implements IMa
 		});
 	}
 
-	public async validate(data: unknown): Promise<ValidationResponse> {
-		try {
-			return ValidateResume(data);
-		} catch (e) {
-			console.error(e);
-			return {
-				ok: false,
-				errors: ["Unknown Server Error"],
-			};
-		}
-	}
+	// public async validate(data: unknown): Promise<ValidationResponse> {
+	// 	try {
+	// 		return Resume.parse(data);
+	// 	} catch (e) {
+	// 		console.error(e);
+	// 		return {
+	// 			ok: false,
+	// 			errors: ["Unknown Server Error"],
+	// 		};
+	// 	}
+	// }
 }

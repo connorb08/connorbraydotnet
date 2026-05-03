@@ -46,6 +46,9 @@ export default function ({ loaderData }: Route.ComponentProps) {
 		return "Error";
 	}
 	const solution = data.solutionData?.solution;
+	if (!solution) {
+		return "No solution found";
+	}
 	return (
 		<QueensGrid
 			cellColors={solution.cellColors}
