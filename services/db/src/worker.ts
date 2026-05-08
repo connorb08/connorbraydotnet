@@ -1,26 +1,29 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely } from "kysely";
 import { D1Dialect } from "kysely-d1";
+import type { RPCResult } from "../../../packages/types/src";
 import SetupDatabaseSchema from "./migrate";
 import type { Database } from "./schema";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
-	override async fetch(request: Request): Promise<Response> {
-		const key = new URL(request.url).searchParams.get("key");
-
-		if (key === "run-migrations") {
-			await this.runMigrations();
-			return new Response("Migrations run successfully.", { status: 200 });
-		}
-
+	public override async fetch(_request: Request): Promise<Response> {
 		return new Response("Hello, World!");
 	}
 
-	private async runMigrations(): Promise<void> {
-		const db = new Kysely<Database>({
-			dialect: new D1Dialect({ database: this.env.DB }),
-		});
-		await SetupDatabaseSchema(db);
+	public async RunMigrations(): Promise<RPCResult<string>> {
+		try {
+			const db = new Kysely<Database>({
+				dialect: new D1Dialect({ database: this.env.DB }),
+			});
+			await SetupDatabaseSchema(db);
+			return { data: "Migrations run successfully." };
+		} catch (error) {
+			if (Error.isError(error)) {
+				console.error("Error running migrations:", error);
+				return { error: "Error running migrations" };
+			}
+			return { error: "Unknown error running migrations" };
+		}
 	}
 }
 

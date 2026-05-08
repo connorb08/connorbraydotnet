@@ -33,7 +33,6 @@
 		"@cloudflare/vite-plugin": "^1.24.0",
 		"@cloudflare/vitest-pool-workers": "^0.12.0",
 		"@cloudflare/workers-types": "^4.20250404.0",
-		"@eslint/js": "^9.8.0",
 		"@nx/esbuild": "22.3.3",
 		"@nx/eslint": "22.3.3",
 		"@nx/eslint-plugin": "22.3.3",
@@ -64,26 +63,24 @@
 		"ajv-formats": "^3.0.1",
 		"depcheck": "^1.4.7",
 		"esbuild": "^0.19.2",
-		"eslint": "^9.8.0",
-		"eslint-config-prettier": "^10.0.0",
 		"jsdom": "^26.1.0",
 		"nx": "22.1.0",
 		"playwright": "^1.54.1",
 		"tslib": "^2.3.0",
-		"typescript": "^5.9.3",
+		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.40.0",
-		"vite": "7.2.4",
+		"vite": "8.0.11",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
-		"vitest": "^4.0.18",
-		"wrangler": "^4.87.0"
+		"vitest": "^4.1.5",
+		"wrangler": "^4.90.0"
 	},
 	"imports": {
 		"#workspace/*": "./*"
 	},
 	"dependencies": {
 		"isbot": "^5.1.28",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
-		"react-router": "^7.13.0"
+		"react": "^19.2.6",
+		"react-dom": "^19.2.6",
+		"react-router": "^7.15.0"
 	}
 }
