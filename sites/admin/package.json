@@ -1,19 +1,10 @@
 {
 	"name": "admin",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "react-router build",
-		"typegen": "wrangler types -c wrangler.json -c ../../services/database/wrangler.json && react-router typegen",
-		"deploy": "bun run build && wrangler deploy",
-		"dev": "react-router dev",
-		"preview": "bun run build && vite preview",
-		"typecheck": "bun typegen && react-router typegen && tsc -b"
-	},
 	"devDependencies": {
+		"@tailwindcss/vite": "^4.2.4",
 		"@types/react": "^19.2.9",
 		"@types/react-dom": "^19.2.3",
-		"@tailwindcss/vite": "^4.1.4",
+		"@vitejs/plugin-rsc": "^0.5.26",
 		"tailwindcss": "^4.1.4",
 		"vite-tsconfig-paths": "^5.1.4"
 	},
@@ -27,5 +18,18 @@
 		"vite": "*",
 		"@cloudflare/vite-plugin": "*",
 		"@react-router/dev": "*"
+	},
+	"private": true,
+	"scripts": {
+		"build": "react-router build",
+		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
+		"deploy": "bun run build && wrangler deploy",
+		"dev": "react-router dev",
+		"preview": "bun run build && vite preview",
+		"typecheck": "bun typegen && react-router typegen && tsc -b"
+	},
+	"type": "module",
+	"dependencies": {
+		"tailwind": "^4.0.0"
 	}
 }

@@ -13,5 +13,9 @@
 		"skipLibCheck": true,
 		"types": ["./worker-configuration.d.ts"]
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../../packages/types/tsconfig.lib.json"
+		}
+	]
 }

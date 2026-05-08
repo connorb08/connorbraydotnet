@@ -1,8 +1,10 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "admin",
-	"compatibility_date": "2025-04-04",
+	"compatibility_date": "2026-02-10",
+	"compatibility_flags": ["nodejs_compat"],
 	"workers_dev": false,
+	"preview_urls": false,
 	"main": "./workers/app.ts",
 	"routes": [
 		{
@@ -17,12 +19,13 @@
 			"entrypoint": "MainEntrypoint"
 		},
 		{
-			"binding": "DATABASE",
-			"service": "database",
+			"binding": "DB",
+			"service": "db",
 			"entrypoint": "Entrypoint"
 		}
 	],
 	"observability": {
 		"enabled": true
-	}
+	},
+	"upload_source_maps": true
 }
