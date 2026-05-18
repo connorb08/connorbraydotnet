@@ -1,4 +1,4 @@
 export const migrationLoaders = {
-	"0000_create_database": () => import("./0000_create_database"),
-	"0001_seed_database": () => import("./0001_seed_database"),
+	"0001_create_queens": () => import("./0001_create_queens"),
+	"0002_seed_queens": () => import("./0002_seed_queens"),
 };
