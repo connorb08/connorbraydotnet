@@ -1,6 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["src/**/*.ts"],
+	"include": ["**/*.ts", "src/migrate.ts", "src/worker.ts"],
 	"compilerOptions": {
 		"target": "esnext",
 		"lib": ["esnext"],

@@ -29,7 +29,8 @@ const DatabaseMigration = {
 			.addColumn("GameId", "text", (col) =>
 				col.notNull().unique().references("Queens_Game.Id").onDelete("cascade"),
 			)
-			.addColumn("Text", "text", (col) => col.notNull())
+			.addColumn("Queens", "text", (col) => col.notNull())
+			.addColumn("Removed", "text", (col) => col.notNull())
 			.execute();
 
 		await db.schema
