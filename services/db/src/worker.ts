@@ -2,12 +2,12 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely } from "kysely";
 import { D1Dialect } from "kysely-d1";
 import type { RPCResult } from "../../../packages/types/src";
-import SetupDatabaseSchema from "./migrate";
+import { RollbackLastMigration, RunMigrations } from "./migrate";
 import type { Database } from "./schema";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
-	public override async fetch(_request: Request): Promise<Response> {
-		return new Response("Hello, World!");
+	public override async fetch() {
+		return new Response(JSON.stringify({}));
 	}
 
 	public async RunMigrations(): Promise<RPCResult<string>> {
@@ -15,7 +15,7 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 			const db = new Kysely<Database>({
 				dialect: new D1Dialect({ database: this.env.DB }),
 			});
-			await SetupDatabaseSchema(db);
+			await RunMigrations(db);
 			return { data: "Migrations run successfully." };
 		} catch (error) {
 			if (Error.isError(error)) {
@@ -23,6 +23,22 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 				return { error: "Error running migrations" };
 			}
 			return { error: "Unknown error running migrations" };
+		}
+	}
+
+	public async RollbackLastMigration(): Promise<RPCResult<string>> {
+		try {
+			const db = new Kysely<Database>({
+				dialect: new D1Dialect({ database: this.env.DB }),
+			});
+			await RollbackLastMigration(db);
+			return { data: "Migration rolled back successfully." };
+		} catch (error) {
+			if (Error.isError(error)) {
+				console.error("Error rolling back migration:", error);
+				return { error: "Error rolling back migration" };
+			}
+			return { error: "Unknown error rolling back migration" };
 		}
 	}
 }
