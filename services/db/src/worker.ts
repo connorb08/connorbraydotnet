@@ -2,8 +2,7 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely } from "kysely";
 import { D1Dialect } from "kysely-d1";
 import type { RPCResult } from "../../../packages/types/src";
-import { RollbackLastMigration, RunMigrations } from "./migrate";
-import type { Database } from "./schema";
+import { type MigrationDatabase, RollbackMigration, RunMigrations } from "./migrate";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public override async fetch() {
@@ -12,7 +11,7 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 
 	public async RunMigrations(): Promise<RPCResult<string>> {
 		try {
-			const db = new Kysely<Database>({
+			const db = new Kysely<MigrationDatabase>({
 				dialect: new D1Dialect({ database: this.env.DB }),
 			});
 			await RunMigrations(db);
@@ -26,12 +25,12 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 		}
 	}
 
-	public async RollbackLastMigration(): Promise<RPCResult<string>> {
+	public async RollbackMigration(n?: number | undefined): Promise<RPCResult<string>> {
 		try {
-			const db = new Kysely<Database>({
+			const db = new Kysely<MigrationDatabase>({
 				dialect: new D1Dialect({ database: this.env.DB }),
 			});
-			await RollbackLastMigration(db);
+			await RollbackMigration(db, n);
 			return { data: "Migration rolled back successfully." };
 		} catch (error) {
 			if (Error.isError(error)) {

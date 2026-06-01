@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     bash \
     git \
     ca-certificates \
+    xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./build-scripts ./scripts

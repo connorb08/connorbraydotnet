@@ -1,12 +1,11 @@
 import type { Kysely, Migration, MigrationProvider } from "kysely";
 import { migrationLoaders } from "./migrations";
-import type { Database } from "./schema";
 
 type MigrationModule = {
 	default: Migration;
 };
 
-type MigrationDatabase = {
+export type MigrationDatabase = {
 	migrations: {
 		name: string;
 		timestamp: string;
@@ -26,19 +25,18 @@ const migrationProvider: MigrationProvider = {
 	},
 };
 
-export async function RunMigrations(db: Kysely<Database>): Promise<void> {
+export async function RunMigrations(db: Kysely<MigrationDatabase>): Promise<void> {
 	try {
-		const migrationDb = db as unknown as Kysely<MigrationDatabase>;
 		const migrations = await migrationProvider.getMigrations();
 
-		await migrationDb.schema
+		await db.schema
 			.createTable("migrations")
 			.ifNotExists()
 			.addColumn("name", "varchar(255)", (column) => column.primaryKey().notNull())
 			.addColumn("timestamp", "varchar(255)", (column) => column.notNull())
 			.execute();
 
-		const completedMigrations = await migrationDb
+		const completedMigrations = await db
 			.selectFrom("migrations")
 			.select("name")
 			.execute();
@@ -52,7 +50,7 @@ export async function RunMigrations(db: Kysely<Database>): Promise<void> {
 			async (previousMigration, [migrationName, migration]) => {
 				await previousMigration;
 				await migration.up(db);
-				await migrationDb
+				await db
 					.insertInto("migrations")
 					.values({ name: migrationName, timestamp: new Date().toISOString() })
 					.execute();
@@ -67,37 +65,81 @@ export async function RunMigrations(db: Kysely<Database>): Promise<void> {
 	}
 }
 
-export async function RollbackLastMigration(db: Kysely<Database>): Promise<void> {
+export async function RollbackMigration(
+	db: Kysely<MigrationDatabase>,
+	n: number | undefined = 1,
+): Promise<void> {
 	try {
 		const migrationDb = db as unknown as Kysely<MigrationDatabase>;
 		const migrations = await migrationProvider.getMigrations();
 
-		const completedMigrations = await migrationDb
-			.selectFrom("migrations")
-			.select("name")
-			.orderBy("timestamp", "desc")
-			.execute();
+		await db.transaction().execute(async (trx) => {
+			const completedMigrations = await trx
+				.selectFrom("migrations")
+				.select("name")
+				.orderBy("timestamp", "desc")
+				.limit(n ?? 1)
+				.execute();
 
-		if (completedMigrations.length === 0) {
-			console.log("[database] no migrations to roll back");
-			return;
-		}
+			if (completedMigrations.length === 0) {
+				console.log("[database] no migrations to roll back");
+				return;
+			}
+
+			for (const { name } of completedMigrations) {
+				const migration = migrations[name];
+				if (!migration?.down) {
+					throw new Error(`Migration ${name} does not have a down function`);
+				}
+
+				// biome-ignore lint/performance/noAwaitInLoops: migrations must be rolled back in order
+				await migration.down(db);
+				await migrationDb.deleteFrom("migrations").where("name", "=", name).execute();
+
+				console.log(`[database] rolled back migration ${name}: Success`);
+			}
+		});
+
+		// const completedMigrations = await migrationDb
+		// 	.selectFrom("migrations")
+		// 	.select("name")
+		// 	.orderBy("timestamp", "desc")
+		// 	.limit(n ?? 1)
+		// 	.execute();
+
+		// if (completedMigrations.length === 0) {
+		// 	console.log("[database] no migrations to roll back");
+		// 	return;
+		// }
+
+		// for (const { name } of completedMigrations) {
+		// 	const migration = migrations[name];
+		// 	if (!migration?.down) {
+		// 		throw new Error(`Migration ${name} does not have a down function`);
+		// 	}
+
+		// 	// biome-ignore lint/performance/noAwaitInLoops: migrations must be rolled back in order
+		// 	await migration.down(db);
+		// 	await migrationDb.deleteFrom("migrations").where("name", "=", name).execute();
+
+		// 	console.log(`[database] rolled back migration ${name}: Success`);
+		// }
 
 		// biome-ignore lint/style/noNonNullAssertion: already checked length
-		const lastMigrationName = completedMigrations[0]!.name;
-		const migration = migrations[lastMigrationName];
+		// const lastMigrationName = completedMigrations[0]!.name;
+		// const migration = migrations[lastMigrationName];
 
-		if (!migration?.down) {
-			throw new Error(`Migration ${lastMigrationName} does not have a down function`);
-		}
+		// if (!migration?.down) {
+		// 	throw new Error(`Migration ${lastMigrationName} does not have a down function`);
+		// }
 
-		await migration.down(db);
-		await migrationDb
-			.deleteFrom("migrations")
-			.where("name", "=", lastMigrationName)
-			.execute();
+		// await migration.down(db);
+		// await migrationDb
+		// 	.deleteFrom("migrations")
+		// 	.where("name", "=", lastMigrationName)
+		// 	.execute();
 
-		console.log(`[database] rolled back migration ${lastMigrationName}: Success`);
+		console.log(`[database] rolled back ${n ?? 1} migration(s): Success`);
 	} catch (error) {
 		console.error("Error rolling back migration:", error);
 		throw error;

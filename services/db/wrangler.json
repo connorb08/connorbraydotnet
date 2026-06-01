@@ -15,8 +15,19 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "default",
-			"database_id": "9428e782-e866-4487-80b0-cef76ebce18a"
+			"database_name": "prod",
+			"database_id": "8ba51a03-ade6-4911-8499-55de37c1f6ad"
 		}
-	]
+	],
+	"env": {
+		"test": {
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "test",
+					"database_id": "78c24395-827e-4477-8ea3-f8b79f1db08a"
+				}
+			]
+		}
+	}
 }

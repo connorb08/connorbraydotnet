@@ -14,8 +14,8 @@ export type Definition = {
 	 */
 	CellColors: JSONColumnType<
 		{
-			cellId: number;
-			colorId: number;
+			CellId: number;
+			ColorId: number;
 		}[]
 	>;
 
@@ -23,7 +23,7 @@ export type Definition = {
 	 * Index: Color Id
 	 * Value: Color Hex Code
 	 */
-	ColorDefinitions: JSONColumnType<
+	Colors: JSONColumnType<
 		{
 			Id: number;
 			Name: string;
