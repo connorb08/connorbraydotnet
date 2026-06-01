@@ -10,11 +10,11 @@ const DatabaseMigration = {
 			.values({
 				GameId: "test",
 				SideLength: 7,
-				ColorDefinitions: JSON.stringify(
+				Colors: JSON.stringify(
 					[
 						0, 0, 1, 1, 1, 2, 2, 0, 3, 4, 4, 4, 3, 2, 0, 3, 4, 4, 4, 3, 3, 3, 3, 3, 4, 3,
 						3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 6, 6, 3, 3, 3, 5, 3, 6, 6, 3,
-					].map((colorId, cellId) => ({ cellId, colorId })),
+					].map((colorId, cellId) => ({ CellId: cellId, ColorId: colorId })),
 				),
 				CellColors: JSON.stringify([
 					{ Id: 0, Name: "Lavender", RGB: "rgb(187, 163, 226)" },

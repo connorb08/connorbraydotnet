@@ -106,7 +106,8 @@
 						"useExplicitType": "off"
 					},
 					"performance": {
-						"noBarrelFile": "off"
+						"noBarrelFile": "warn",
+						"noAwaitInLoops": "warn"
 					},
 					"complexity": {
 						"useMaxParams": {

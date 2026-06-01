@@ -19,7 +19,7 @@ const DatabaseMigration = {
 				col.notNull().unique().references("Queens_Game.Id").onDelete("cascade"),
 			)
 			.addColumn("SideLength", "integer", (col) => col.notNull())
-			.addColumn("ColorDefinitions", "text", (col) => col.notNull())
+			.addColumn("Colors", "text", (col) => col.notNull())
 			.addColumn("CellColors", "text", (col) => col.notNull())
 			.execute();
 
