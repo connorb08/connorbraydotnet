@@ -2,5 +2,8 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"files.exclude": {
+		"**/node_modules": true
 	}
 }
