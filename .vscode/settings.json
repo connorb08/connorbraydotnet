@@ -4,6 +4,9 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"files.exclude": {
-		"**/node_modules": true
+		"**/node_modules": true,
+		"**/.wrangler": true,
+		"**/.react-router": true,
+		"**/worker-configuration.d.ts": true
 	}
 }
