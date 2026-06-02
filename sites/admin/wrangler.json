@@ -8,7 +8,7 @@
 	"main": "./workers/app.ts",
 	"routes": [
 		{
-			"pattern": "next-admin.connorbray.net",
+			"pattern": "admin.connorbray.net",
 			"custom_domain": true
 		}
 	],
