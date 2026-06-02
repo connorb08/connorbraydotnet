@@ -28,6 +28,7 @@ html[data-fullscreen] {
     height: 100%;
     display: flex;
     flex-direction: column;
+    @include surfaceDim;
 }
 
 .header {
@@ -87,6 +88,7 @@ html[data-fullscreen] {
 }
 
 .container {
+    @include surfaceDim;
     display: flex;
     flex: 1;
     overflow: hidden;

@@ -1,4 +1,4 @@
-import { LinkButton } from "components/ui/buttons/button";
+import { LinkButton } from "../ui/buttons/button";
 import { useLocation } from "react-router";
 import { routes } from "./pages";
 import style from "./style.module.scss";

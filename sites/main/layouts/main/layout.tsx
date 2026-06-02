@@ -36,8 +36,8 @@ export function MainLayout() {
 				</div>
 				<Sidebar />
 			</div>
-			<Footer />
 			<Toolbar />
+			<Footer />
 			<MobileNavigation />
 		</div>
 	);

@@ -2,11 +2,8 @@
 	"name": "admin",
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.2.4",
-		"@types/react": "^19.2.9",
-		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-rsc": "^0.5.26",
-		"tailwindcss": "^4.1.4",
-		"vite-tsconfig-paths": "^5.1.4"
+		"tailwindcss": "^4.1.4"
 	},
 	"peerDependencies": {
 		"isbot": "*",
@@ -17,7 +14,9 @@
 		"typescript": "*",
 		"vite": "*",
 		"@cloudflare/vite-plugin": "*",
-		"@react-router/dev": "*"
+		"@react-router/dev": "*",
+		"@types/react": "*",
+		"@types/react-dom": "*"
 	},
 	"private": true,
 	"scripts": {
