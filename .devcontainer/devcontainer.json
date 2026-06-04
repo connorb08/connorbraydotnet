@@ -8,18 +8,13 @@
 		"NODE_VERSION": "26.3.0"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/node:2": {
-			"version": "26.3.0"
-		},
-		"ghcr.io/devcontainers-extra/features/bun:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
-		"ghcr.io/devcontainers/features/dotnet:2": {},
-		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
-		"ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-		"ghcr.io/devcontainers/features/rust:1": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker": {
 			"moby": "false"
-		}
+		},
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
+		"ghcr.io/devcontainers-extra/features/pre-commit:2": {}
 	},
 	"customizations": {
 		"vscode": {
@@ -36,7 +31,10 @@
 				"oven.bun-vscode",
 				"yoavbls.pretty-ts-errors",
 				"ms-vscode.vscode-typescript-next",
-				"openai.chatgpt"
+				"openai.chatgpt",
+				"ms-dotnettools.csdevkit",
+				"EditorConfig.EditorConfig",
+				"Anthropic.claude-code"
 			],
 			"settings": {
 				"files.associations": {
