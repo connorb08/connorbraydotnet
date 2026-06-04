@@ -5,26 +5,24 @@ FROM mcr.microsoft.com/devcontainers/base:trixie
 SHELL ["/bin/bash", "-c"]
 
 # Environment Variables
-ENV USERNAME="vscode"
-ENV HOME="/home/vscode"
+ENV USERNAME="vscode" \
+    HOME="/home/vscode"
+ENV NODE_VERSION="26"
 
-# Install apt packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    build-essential \
-    bash \
-    git \
-    ca-certificates \
-    xdg-utils \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /tmp
 
-COPY ./build-scripts ./scripts
+COPY ./layers/apt-get.sh /tmp/layers/apt-get.sh
+RUN ./layers/apt-get.sh
 
-RUN ./scripts/upgrade-packages.sh
-# RUN ./scripts/bun.sh
+COPY ./layers/rust.sh /tmp/layers/rust.sh
+RUN ./layers/rust.sh
 
-# Ensure container runs as the non-root user where NVM is installed
+COPY ./layers/bun.sh /tmp/layers/bun.sh
+RUN ./layers/bun.sh
+
+COPY ./layers/node.sh /tmp/layers/node.sh
+RUN ./layers/node.sh
+
 USER vscode
-
-# Use a login shell to ensure nvm is loaded from the user's profile
+WORKDIR /home/vscode
 CMD ["bash", "-l"]
