@@ -10,6 +10,11 @@
 		"applyChanges": true
 	},
 	"targetDefaults": {
+		"nx:run-commands": {
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
 		"deploy:preview": {
 			"executor": "nx:run-commands",
 			"options": {
