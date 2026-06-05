@@ -3,6 +3,7 @@ source $(dirname "${BASH_SOURCE[0]}")/.env
 alias r="bun run"
 alias tf="terraform"
 alias n="bun nx run"
+alias c="bun nx run"
 
 alias web="python3 -m http.server"
 

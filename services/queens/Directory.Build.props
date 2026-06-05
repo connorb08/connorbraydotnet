@@ -1,0 +1,8 @@
+<Project>
+  <Target Name="DeepClean" AfterTargets="Clean">
+    <!-- Remove intermediate /obj folder -->
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <!-- Remove output /bin folder -->
+    <RemoveDir Directories="$(BaseOutputPath)" />
+  </Target>
+</Project>

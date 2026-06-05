@@ -34,7 +34,9 @@
 				"openai.chatgpt",
 				"ms-dotnettools.csdevkit",
 				"EditorConfig.EditorConfig",
-				"Anthropic.claude-code"
+				"Anthropic.claude-code",
+				"redhat.vscode-xml",
+				"ms-vscode.makefile-tools"
 			],
 			"settings": {
 				"files.associations": {
