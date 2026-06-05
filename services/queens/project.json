@@ -1,0 +1,101 @@
+{
+	"name": "queens.net",
+	"targets": {
+		"clean": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "dotnet clean"
+			}
+		},
+		"build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "make build"
+			},
+			"cache": true,
+			"inputs": [
+				"{projectRoot}/Directory.Build.props",
+				"{projectRoot}/Browser/**/*",
+				"{projectRoot}/Lambda/**/*",
+				"{projectRoot}/Queens/**/*",
+				"{projectRoot}/Tests/**/*",
+				"{projectRoot}/queens.sln"
+			],
+			"outputs": [
+				"{projectRoot}/Browser/bin/**/*",
+				"{projectRoot}/Lambda/bin/**/*",
+				"{projectRoot}/Queens/bin/**/*",
+				"{projectRoot}/Tests/bin/**/*"
+			]
+		},
+		"format": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "dotnet format"
+			}
+		},
+		"docker-build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "docker build --platform linux/arm64 --provenance=false -t queens.net:latest -f ./Dockerfile ."
+			}
+		},
+		"docker-tag": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["docker-build"],
+			"options": {
+				"command": "docker tag queens.net:latest ${AWS_ID}.dkr.ecr.us-east-2.amazonaws.com/queens:latest"
+			}
+		},
+		"docker-push": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["docker-tag"],
+			"options": {
+				"command": "docker push ${AWS_ID}.dkr.ecr.us-east-2.amazonaws.com/queens:latest"
+			}
+		},
+		"docker-login": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ID}.dkr.ecr.us-east-2.amazonaws.com"
+			}
+		},
+		"tf-init": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "terraform -chdir=inf init -backend-config=backend.conf"
+			}
+		},
+		"tf-validate": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "terraform -chdir=inf validate"
+			}
+		},
+		"tf-plan": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "terraform -chdir=inf plan"
+			}
+		},
+		"tf-apply": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "terraform -chdir=inf apply"
+			}
+		},
+		"deploy": {
+			"executor": "nx:run-commands",
+			"dependsOn": ["docker-push"],
+			"options": {
+				"command": "aws lambda update-function-code --function-name queens --image-uri ${AWS_ID}.dkr.ecr.us-east-2.amazonaws.com/queens:latest"
+			}
+		},
+		"invoke-lambda": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "aws lambda invoke --function-name queens --payload '{}' /tmp/response.json"
+			}
+		}
+	}
+}

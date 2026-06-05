@@ -10,6 +10,8 @@ fi
 
 """ >> ~/.bashrc
 
+sudo chown -R vscode:vscode /home/vscode/.local
+
 pre-commit install
 
 # __scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
