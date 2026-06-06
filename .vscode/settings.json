@@ -36,5 +36,8 @@
 		// .NET build artifacts
 		"**/*/bin": true,
 		"**/*/obj": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit"
 	}
 }

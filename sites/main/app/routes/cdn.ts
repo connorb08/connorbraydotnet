@@ -1,5 +1,6 @@
 import { redirect } from "react-router";
 import type { Route } from "./+types/cdn";
+import { cfContext } from "#app/context";
 
 const allowedReferers = ["https://connorbray.net", "127.0.0.1"];
 function forbiddenReferer(request: Request): boolean {
@@ -11,19 +12,19 @@ function forbiddenReferer(request: Request): boolean {
 	return false;
 }
 
-export function loader({ request, context }: Route.LoaderArgs) {
+export function loader({ request, url, context }: Route.LoaderArgs) {
 	if (forbiddenReferer(request)) {
 		return new Response("Forbidden", { status: 403 });
 	}
 
-	const url = new URL(request.url);
-	url.pathname = url.pathname.replace("/cdn", "");
+	const contentPath = new URL(url).pathname.replace("/cdn", "");
 
-	if (url.pathname === "/") {
+	if (contentPath === "/") {
 		return redirect("/404");
 	}
 
-	const newUrl = new URL(`https://connorbray.net${url.pathname + url.search}`);
+	const finalUrl = new URL(`https://connorbray.net${contentPath + new URL(url).search}`);
+	const cloudflare = context.get(cfContext);
 
-	return context.cloudflare.env.CONTENT_MANAGER.fetch(newUrl);
+	return cloudflare.env.CONTENT_MANAGER.fetch(finalUrl);
 }

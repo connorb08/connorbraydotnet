@@ -23,9 +23,10 @@
 		"#data/*": "./data/*.tsx"
 	},
 	"dependencies": {
+		"components": "workspace:*",
 		"react-aria-components": "^1.10.1",
 		"shared": "workspace:*",
-		"components": "workspace:*"
+		"wrangler": "^4.98.0"
 	},
 	"devDependencies": {
 		"@material/material-color-utilities": "^0.3.0",
