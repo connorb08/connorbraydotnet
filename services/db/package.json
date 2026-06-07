@@ -10,7 +10,7 @@
 		"typegen": "wrangler types"
 	},
 	"dependencies": {
-		"kysely": "^0.28.16",
+		"kysely": "^0.28.17",
 		"kysely-d1": "^0.4.0"
 	},
 	"peerDependencies": {

@@ -1,5 +1,5 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
-import { Kysely } from "kysely";
+import { Kysely, ParseJSONResultsPlugin } from "kysely";
 import { D1Dialect } from "kysely-d1";
 import type { RPCResult } from "../../../packages/types/src";
 import { type MigrationDatabase, RollbackMigration, RunMigrations } from "./migrate";
@@ -13,13 +13,14 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 	public async GetQueens() {
 		const db = new Kysely<Database>({
 			dialect: new D1Dialect({ database: this.env.DB }),
+			plugins: [new ParseJSONResultsPlugin()],
 		});
 		const data = await db
 			.selectFrom("Queens_Game")
 			.innerJoin("Queens_Definition", "Queens_Game.Id", "Queens_Definition.GameId")
 			.innerJoin("Queens_Solution", "Queens_Game.Id", "Queens_Solution.GameId")
 			.orderBy("Queens_Game.Id", "desc")
-			.top(1)
+			.limit(1)
 			.selectAll()
 			.executeTakeFirst();
 		console.log("Data fetched from D1:", data);
