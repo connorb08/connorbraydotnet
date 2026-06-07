@@ -1,14 +1,16 @@
 import { QueensGrid } from "components";
 import type { GameData } from "shared";
+import { cfContext } from "#app/context";
 import type { Route } from "./+types";
 
-export async function loader({ context: _ }: Route.LoaderArgs) {
-	// using result = await context.cloudflare.env.DATABASE.getQueens();
-	// if (result.error) {
-	// 	console.error("Error fetching queens:", result.error);
-	// 	return { solution: undefined, error: result.error };
-	// }
-	return { solutionData: {}, error: undefined };
+export async function loader({ context }: Route.LoaderArgs) {
+	try {
+		using data = await context.get(cfContext).env.DB.GetQueens();
+		return { data, error: undefined };
+	} catch (error) {
+		console.error("Error fetching queens:", error);
+		return { data: undefined, error: "Error" };
+	}
 }
 
 const _gameData: GameData = {
@@ -38,8 +40,20 @@ const _gameData: GameData = {
 	queenPositions: [57, 20, 37, 33, 14, 76, 53, 70, 0],
 };
 
-export default function ({ loaderData: _ }: Route.ComponentProps) {
-	// const data = loaderData;
+export default function ({ loaderData }: Route.ComponentProps) {
+	const { data, error } = loaderData;
+
+	if (error || !data) {
+		return "Error";
+	}
+
+	const cellColors = Array.isArray(data.CellColors)
+		? data.CellColors.reduce<number[]>((acc, cell) => {
+			acc[cell.CellId] = cell.ColorId;
+			return acc;
+		}, [])
+		: [];
+
 	// if (data.error) {
 	// 	return "Error";
 	// }
@@ -49,15 +63,11 @@ export default function ({ loaderData: _ }: Route.ComponentProps) {
 	// }
 	return (
 		<QueensGrid
-			cellColors={_gameData.cellColors}
-			colors={_gameData.colors.map((rgb, index) => ({
-				id: index,
-				rgb,
-				name: `Color ${index}`,
-			}))}
-			queenPositions={_gameData.queenPositions}
-			sideLength={_gameData.sideLength}
-			cellsRemoved={_gameData.cellsRemoved}
+			cellColors={cellColors}
+			colors={data.Colors.map((v) => ({ id: v.Id, rgb: v.RGB, name: v.Name }))}
+			queenPositions={data.Queens}
+			sideLength={data.SideLength}
+			cellsRemoved={data.Removed}
 		/>
 	);
 }

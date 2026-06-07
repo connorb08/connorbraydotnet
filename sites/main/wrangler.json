@@ -8,6 +8,7 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"compatibility_date": "2025-07-26",
 	"main": "./workers/app.ts",
+	"account_id": "e196c7973d299bda227cab878a1ca020",
 	"observability": {
 		"enabled": true
 	},
@@ -18,6 +19,7 @@
 		}
 	],
 	"preview_urls": false,
+	"workers_dev": false,
 	"services": [
 		{
 			"binding": "CONTENT_MANAGER",
@@ -28,6 +30,12 @@
 			"binding": "DATABASE",
 			"service": "database",
 			"entrypoint": "Entrypoint"
+		},
+		{
+			"binding": "DB",
+			"service": "db",
+			"entrypoint": "Entrypoint",
+			"remote": true
 		}
 	],
 	"env": {
@@ -46,6 +54,12 @@
 					"binding": "DATABASE",
 					"service": "database",
 					"entrypoint": "Entrypoint"
+				},
+				{
+					"binding": "DB",
+					"service": "db",
+					"entrypoint": "Entrypoint",
+					"remote": true
 				}
 			],
 			"preview_urls": false
