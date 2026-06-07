@@ -12,12 +12,13 @@ export type Definition = {
 	 * Index: Cell Id
 	 * Value: Cell Color Id
 	 */
-	CellColors: JSONColumnType<
-		{
-			CellId: number;
-			ColorId: number;
-		}[]
-	>;
+	// CellColors: JSONColumnType<
+	// 	{
+	// 		CellId: number;
+	// 		ColorId: number;
+	// 	}[]
+	// >;
+	CellColors: JSONColumnType<number[]>;
 
 	/**
 	 * Index: Color Id
