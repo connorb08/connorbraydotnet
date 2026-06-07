@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
-		"typegen": "wrangler types -c wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
+		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
 		"deploy": "nx run build && wrangler deploy",
 		"deploy:preview": "nx run build && wrangler deploy --env preview",
 		"dev": "react-router dev",

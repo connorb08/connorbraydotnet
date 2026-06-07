@@ -10,6 +10,7 @@ export default defineConfig({
 	plugins: [
 		cloudflare({
 			viteEnvironment: { name: "ssr" },
+			// remoteBindings: true,
 			persistState: {
 				path: "../../.wrangler/state",
 			},
@@ -21,6 +22,9 @@ export default defineConfig({
 						{
 							configPath: "../../services/database/wrangler.json",
 						},
+						{
+							configPath: "../../services/db/wrangler.json",
+						},
 					]
 				: [],
 		}),
@@ -28,6 +32,10 @@ export default defineConfig({
 	],
 	server: {
 		host: "127.0.0.1",
+		// hmr: {
+		// 	host: "localhost",
+		// 	protocol: "ws",
+		// },
 	},
 	resolve: {
 		// tsconfigPaths: true,
