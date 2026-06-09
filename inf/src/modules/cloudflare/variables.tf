@@ -1,13 +1,19 @@
-#region Non-sensitive variables
-
-variable "cloudflare_account_id" {
+variable "bucket_name" {
   type      = string
   sensitive = false
 }
 
-#endregion Non-sensitive variables
+variable "database_name" {
+  type      = string
+  sensitive = false
+}
 
-#region Sensitive variables
+# Sensitive vars
+
+variable "cloudflare_account_id" {
+  type      = string
+  sensitive = true
+}
 
 variable "cloudflare_api_token" {
   type      = string
@@ -18,5 +24,3 @@ variable "zero_trust_email" {
   type      = string
   sensitive = true
 }
-
-#endregion Sensitive variables
