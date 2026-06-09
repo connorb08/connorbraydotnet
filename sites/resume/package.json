@@ -31,12 +31,12 @@
 		"schemas": "workspace:*"
 	},
 	"devDependencies": {
-		"@types/react": "^19.1.1",
-		"@types/react-dom": "^19.1.2",
 		"sass-embedded": "^1.87.0",
 		"vite-tsconfig-paths": "^5.1.4"
 	},
 	"peerDependencies": {
+		"@types/react": "*",
+		"@types/react-dom": "*",
 		"isbot": "*",
 		"react": "*",
 		"react-dom": "*",
