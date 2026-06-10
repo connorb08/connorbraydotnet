@@ -10,7 +10,7 @@ export default function ProjectPreviewCard(props: ProjectPreviewCardProps) {
 	const project = props.project;
 
 	return (
-		<NavLink to={`/projects/${project.slug}`} viewTransition>
+		<NavLink to={project.path ?? `/projects/${project.slug}`} viewTransition>
 			<article className={style.previewCard}>
 				<div className={style.previewCard__header}>
 					<h3 className={style.previewCard__title}>{project.name}</h3>

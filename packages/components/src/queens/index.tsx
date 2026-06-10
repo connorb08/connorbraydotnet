@@ -1,10 +1,8 @@
-// import type { GameData } from "shared";
 import type { QueensSolution } from "types";
 import QueensCell from "./cell";
 import style from "./style.module.css";
 
 export function QueensGrid(props: QueensSolution) {
-	// const solution: QueensSolution = props || _gameData;
 	return (
 		<div
 			className={style.container}

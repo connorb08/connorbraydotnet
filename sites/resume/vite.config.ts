@@ -4,7 +4,6 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import removeAttributesPlugin from "vite-plugin-react-remove-attributes";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 const ENV_NAME = process.env.NODE_ENV;
 const IS_PRODUCTION = ENV_NAME === "production";
@@ -20,7 +19,6 @@ const viteConfig = defineConfig({
 	plugins: [
 		reactRouter(),
 		cloudflare({ viteEnvironment: { name: "ssr" } }),
-		tsconfigPaths(),
 		IS_PRODUCTION
 			? removeAttributes({
 					attributes: ["data-testid"],
@@ -39,6 +37,7 @@ const viteConfig = defineConfig({
 		alias: {
 			"~": resolve(import.meta.dirname, "app"),
 		},
+		tsconfigPaths: true,
 	},
 });
 

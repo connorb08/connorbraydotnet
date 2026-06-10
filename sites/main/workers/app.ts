@@ -1,5 +1,5 @@
-import { type AppContext, cfContext } from "#app/context";
 import { createRequestHandler, RouterContextProvider } from "react-router";
+import { type AppContext, cfContext } from "#app/context";
 
 declare module "react-router" {
 	export interface AppLoadContext extends AppContext {}

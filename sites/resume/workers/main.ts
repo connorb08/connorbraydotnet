@@ -1,5 +1,6 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
-import { createRequestHandler } from "react-router";
+import { createRequestHandler, RouterContextProvider } from "react-router";
+import { cfContext } from "~/context";
 
 // import { Resume } from "schemas";
 
@@ -15,26 +16,17 @@ const requestHandler = createRequestHandler(
 	import.meta.env.MODE,
 );
 
-export default class MainEntrypoint extends WorkerEntrypoint<Env> implements IMainEntrypoint {
+export default class MainEntrypoint
+	extends WorkerEntrypoint<Env>
+	implements IMainEntrypoint
+{
 	/**
 	 * Default HTTP Handler
 	 */
 	public override async fetch(request: Request): Promise<Response> {
 		const [env, ctx] = [this.env, this.ctx];
-		return requestHandler(request, {
-			cloudflare: { env, ctx },
-		});
+		const context = new RouterContextProvider();
+		context.set(cfContext, { env, ctx });
+		return requestHandler(request, context);
 	}
-
-	// public async validate(data: unknown): Promise<ValidationResponse> {
-	// 	try {
-	// 		return Resume.parse(data);
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 		return {
-	// 			ok: false,
-	// 			errors: ["Unknown Server Error"],
-	// 		};
-	// 	}
-	// }
 }
