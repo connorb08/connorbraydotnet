@@ -55,3 +55,7 @@ Thumbs.db
 # Wrangler
 .wrangler
 worker-configuration.d.ts
+
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json

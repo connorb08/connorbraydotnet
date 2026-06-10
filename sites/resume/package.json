@@ -31,8 +31,7 @@
 		"schemas": "workspace:*"
 	},
 	"devDependencies": {
-		"sass-embedded": "^1.87.0",
-		"vite-tsconfig-paths": "^5.1.4"
+		"sass-embedded": "^1.87.0"
 	},
 	"peerDependencies": {
 		"@types/react": "*",

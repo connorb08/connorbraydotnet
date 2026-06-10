@@ -2,6 +2,8 @@ import type { ProjectItem as ResumeProject } from "shared";
 
 export interface ExtendedProject extends ResumeProject {
 	slug: string;
+	/** Overrides the default `/projects/${slug}` detail link when set. */
+	path?: string;
 	technologies: string[];
 	repositoryUrl?: string;
 	liveUrl?: string;
@@ -13,18 +15,27 @@ export interface ExtendedProject extends ResumeProject {
 export const projectsData: ExtendedProject[] = [
 	{
 		slug: "queens",
+		path: "/queens",
 		name: "LinkedIn N-Queens Solver",
-		description: "Automated solver for LinkedIn's Queens puzzle game",
+		description: "Automatically scrapes and solves LinkedIn's daily Queens puzzle",
 		about: [
-			"Implemented constraint propagation algorithm in TypeScript",
-			"AWS Lambda function for automated serverless execution",
-			"Cloudflare Workers Queue for publishing results",
-			"Automated browser interaction using Playwright",
-			"Achieves 100% success rate on all puzzle sizes",
+			"Constraint-propagation solver written in C#/.NET, modeling the board as an undirected graph",
+			"Scheduled AWS Lambda scrapes the daily puzzle with a Playwright headless browser",
+			"Solutions are published over a Cloudflare Queue and rendered live at the edge",
+			"Persists puzzle history in SQLite; infrastructure provisioned with Terraform",
+			"Solves every daily puzzle size with a 100% success rate",
 		],
-		technologies: ["TypeScript", "AWS Lambda", "Cloudflare Workers", "Playwright"],
-		repositoryUrl: "https://github.com/connorb08/queens",
-		liveUrl: "https://linkedin-games.win",
+		technologies: [
+			".NET",
+			"TypeScript",
+			"Playwright",
+			"AWS Lambda",
+			"Cloudflare Workers",
+			"SQLite",
+			"Terraform",
+		],
+		repositoryUrl:
+			"https://github.com/connorb08/connorbraydotnet/tree/main/services/queens",
 		challenges: [
 			"Implementing an efficient constraint satisfaction algorithm for modified N-Queens puzzle",
 			"Get daily puzzle info from Linkedin website",
@@ -36,7 +47,7 @@ export const projectsData: ExtendedProject[] = [
 		features: [
 			"Solves daily N-Queens puzzle for any difficulty",
 			"Automated LinkedIn game interaction",
-			"Serverless deployment on Cloudflare Workers",
+			"Serverless deployment on AWS and Cloudflare",
 		],
 	},
 	{
