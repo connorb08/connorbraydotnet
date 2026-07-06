@@ -1,0 +1,26 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "gallery",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-07-06",
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"preview_urls": false,
+	"workers_dev": false,
+	"r2_buckets": [
+		{
+			"binding": "BUCKET",
+			"bucket_name": "gallery",
+			"preview_bucket_name": "gallery-preview"
+		}
+	]
+}

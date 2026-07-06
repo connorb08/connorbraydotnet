@@ -26,6 +26,9 @@
 		"check:packages": "bun pm",
 		"deploy:preview": "nx run-many -t deploy:preview"
 	},
+	"imports": {
+		"#workspace/*": "./*"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.2",
 		"@biomejs/js-api": "^0.7.1",
@@ -78,12 +81,12 @@
 		"vite": "8.0.11",
 		"vite-plugin-react-remove-attributes": "^1.0.3",
 		"vitest": "^4.1.8",
-		"wrangler": "^4.96.0"
-	},
-	"imports": {
-		"#workspace/*": "./*"
+		"wrangler": "^4.107.0"
 	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.1079.0",
+		"@aws-sdk/s3-request-presigner": "^3.1079.0",
+		"hono": "^4.12.28",
 		"isbot": "^5.1.28",
 		"react": "^19.2.7",
 		"react-dom": "^19.2.7",

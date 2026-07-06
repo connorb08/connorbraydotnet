@@ -1,0 +1,21 @@
+{
+	"name": "gallery",
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy --minify",
+		"typegen": "wrangler types --env-interface CloudflareBindings"
+	},
+	"peerDependencies": {
+
+	},
+	"dependencies": {
+		"hono": "*",
+		"@aws-sdk/client-s3": "*",
+		"@aws-sdk/s3-request-presigner": "*"
+	},
+	"devDependencies": {
+		"@types/node": "*",
+		"wrangler": "*"
+	}
+}
