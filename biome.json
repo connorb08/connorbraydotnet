@@ -106,7 +106,6 @@
 						"useExplicitType": "off"
 					},
 					"performance": {
-						"noBarrelFile": "warn",
 						"noAwaitInLoops": "warn"
 					},
 					"complexity": {
