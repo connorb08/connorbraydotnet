@@ -179,7 +179,9 @@
         "hono": "*",
       },
       "devDependencies": {
+        "@cloudflare/vite-plugin": "*",
         "@types/node": "*",
+        "vite": "*",
         "wrangler": "*",
       },
     },

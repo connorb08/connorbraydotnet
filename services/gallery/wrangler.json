@@ -6,14 +6,12 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "gallery",
 	"main": "src/index.ts",
-	"compatibility_date": "2026-07-06",
+	"compatibility_date": "2026-06-10",
 	"observability": {
 		"enabled": true
 	},
 	"upload_source_maps": true,
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"compatibility_flags": ["nodejs_compat"],
 	"preview_urls": false,
 	"workers_dev": false,
 	"r2_buckets": [
@@ -22,5 +20,11 @@
 			"bucket_name": "gallery",
 			"preview_bucket_name": "gallery-preview"
 		}
-	]
+	],
+	"images": {
+		"binding": "IMAGES"
+	},
+	"cache": {
+		"enabled": true
+	}
 }
