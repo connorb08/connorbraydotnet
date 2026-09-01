@@ -1,1 +1,0 @@
-export { QueensGrid } from "./queens";

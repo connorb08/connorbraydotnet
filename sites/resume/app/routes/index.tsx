@@ -7,7 +7,9 @@ import { resumeData } from "~/data";
 
 export function loader({ context: _context }: Route.LoaderArgs) {
 	resumeData.sections.sort(
-		(a, b) => resumeData.options.order.indexOf(a.title) - resumeData.options.order.indexOf(b.title),
+		(a, b) =>
+			resumeData.options.order.indexOf(a.title) -
+			resumeData.options.order.indexOf(b.title),
 	);
 	return resumeData;
 }
@@ -24,7 +26,7 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 					data-testid="resume.contact"
 				>{`${resume.about.phoneNumber} | ${resume.about.emailAddress} | ${resume.about.location}`}</p>
 			</header>
-			{resume.about.summary && (
+			{resume.about.summary !== undefined && (
 				<div className="section">
 					<h2 className="section__heading">Summary</h2>
 					<p className="section__content" data-testid="resume.about.summary">
@@ -83,7 +85,10 @@ export default function Index({ loaderData: resume }: Route.ComponentProps) {
 						<li>
 							<p>
 								<b className="footer__content--bold">{"LinkedIn: "}</b>
-								<a className="footer__content__link" href="https://linkedin.com/in/connor-bray">
+								<a
+									className="footer__content__link"
+									href="https://linkedin.com/in/connor-bray"
+								>
 									linkedin.com/in/connor-bray
 								</a>
 							</p>

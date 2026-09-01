@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useState } from "react";
 import { useFetcher } from "react-router";
-import { FullscreenContext } from "#utils/context/fullscreen";
+import { FullscreenContext } from "#context/fullscreen";
 
 export const FullscreenProvider = ({
 	fullscreen,
@@ -11,7 +11,10 @@ export const FullscreenProvider = ({
 
 	const toggleFullscreen = () => {
 		const nextFullscreen = !isFullscreen;
-		fetcher.submit({ fullscreen: String(nextFullscreen) }, { method: "post", action: "/_session" });
+		fetcher.submit(
+			{ fullscreen: String(nextFullscreen) },
+			{ method: "post", action: "/_session" },
+		);
 		setFullscreen(nextFullscreen);
 	};
 

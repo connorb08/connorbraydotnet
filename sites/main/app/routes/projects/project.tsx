@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { redirect } from "react-router";
-import { ProjectDetail } from "../../../components/project";
+import { ProjectDetail } from "../../../components/project/project-detail";
 import { getProjectBySlug } from "../../../data/projects";
 import type { Route } from "./+types/project";
 

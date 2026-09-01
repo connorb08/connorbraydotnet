@@ -6,7 +6,7 @@ interface ProjectGridProps {
 	projects: ExtendedProject[];
 }
 
-export default function ProjectGrid({ projects }: ProjectGridProps) {
+export function ProjectGrid({ projects }: ProjectGridProps) {
 	return (
 		<div className={style.projectGrid}>
 			{projects.map((project, index) => (

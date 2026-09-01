@@ -38,7 +38,9 @@ export const UserBlock = ({ aboutMe }: { aboutMe: AboutMeData }) => {
 					rel="noopener noreferrer"
 					className={style.userBlock__content__downloadButton}
 				>
-					<span className={style.userBlock__content__downloadButton__text}>Download CV</span>
+					<span className={style.userBlock__content__downloadButton__text}>
+						Download CV
+					</span>
 					<span className={style.userBlock__content__downloadButton__icon}>
 						<svg
 							className={style.userBlock__content__downloadButton__icon__svg}
@@ -71,10 +73,14 @@ export const InformationBlock = ({ aboutMe }: { aboutMe: AboutMeData }) => {
 			<div className={style.information__content}>
 				<div className={style.information__content__item}>
 					<div className={style.information__content__item__key}>Location</div>
-					<div className={style.information__content__item__value}>{aboutMe.location}</div>
+					<div className={style.information__content__item__value}>
+						{aboutMe.location}
+					</div>
 				</div>
 				<div className={style.information__content__item}>
-					<div className={style.information__content__item__key}>Professional Experience</div>
+					<div className={style.information__content__item__key}>
+						Professional Experience
+					</div>
 					<div className={style.information__content__item__value}>4+ years</div>
 				</div>
 			</div>

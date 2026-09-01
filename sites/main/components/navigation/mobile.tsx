@@ -1,4 +1,3 @@
-import { Button, LinkButton } from "../ui/buttons/button";
 import { useState } from "react";
 import {
 	Dialog,
@@ -8,14 +7,17 @@ import {
 	Separator,
 } from "react-aria-components";
 import { useLocation } from "react-router";
-import { ToggleThemeButton } from "#components/toolbar";
+import { ToggleThemeButton } from "#components/toolbar/index";
 import { Menu as MenuIcon } from "../icons";
+import { Button, LinkButton } from "../ui/buttons/button";
 import style from "./mobile.module.scss";
 import { routes } from "./pages";
 
 export default function MobileNavigation() {
 	const [navigationOpen, setNavigationOpen] = useState(false);
 	const location = useLocation();
+	const closeNavigation = () => setNavigationOpen(false);
+	const openNavigation = () => setNavigationOpen(true);
 
 	return (
 		<div className={style.MobileNavigation}>
@@ -27,7 +29,7 @@ export default function MobileNavigation() {
 					color="primary"
 					icon={<MenuIcon />}
 					size="medium"
-					onClick={() => setNavigationOpen(true)}
+					onClick={openNavigation}
 				/>
 				<Popover
 					className={style.Popover}
@@ -49,7 +51,7 @@ export default function MobileNavigation() {
 								prefetch="viewport"
 								variant="ghost"
 								color="primary"
-								onClick={() => setNavigationOpen(false)}
+								onClick={closeNavigation}
 							/>
 						))}
 						<Separator className={style.Separator} />

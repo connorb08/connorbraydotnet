@@ -8,11 +8,6 @@ export default defineConfig({
 			persistState: {
 				path: "../../.wrangler/state",
 			},
-			auxiliaryWorkers: [
-				{
-					configPath: "../alerts/wrangler.json",
-				},
-			],
 		}),
 	],
 	server: {

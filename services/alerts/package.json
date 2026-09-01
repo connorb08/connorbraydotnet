@@ -1,0 +1,20 @@
+{
+	"name": "alerts",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"deploy": "CLOUDFLARE_ENV=production wrangler deploy",
+		"deploy:test": "CLOUDFLARE_ENV=test wrangler deploy",
+		"dev": "vite dev",
+		"typegen": "wrangler types",
+		"typecheck": "tsc -b"
+	},
+	"peerDependencies": {
+		"typescript": "*",
+		"wrangler": "*",
+		"@types/node": "*",
+		"vite": "*",
+		"@cloudflare/vite-plugin": "*"
+	}
+}

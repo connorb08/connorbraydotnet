@@ -7,4 +7,5 @@ declare module "react-router" {
 	}
 }
 
-export { default } from "./main";
+import { Entrypoint } from "./main";
+export default Entrypoint;

@@ -20,7 +20,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./test-data": "./src/test-data.ts"
+		"./*": "./src/*.ts"
 	},
 	"peerDependencies": {
 		"typescript": "*",

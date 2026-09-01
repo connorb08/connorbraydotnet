@@ -1,4 +1,4 @@
-import { ProjectGrid } from "../../../../components/project";
+import { ProjectGrid } from "../../../../components/project/project-grid";
 import { projectsData } from "../../../../data/projects";
 import style from "./projects.module.scss";
 
@@ -10,8 +10,8 @@ export default function Projects() {
 			<div className={style.projects__header}>
 				<h1 className={style.projects__title}>Projects</h1>
 				<p className={style.projects__description}>
-					Here are some of the projects I've worked on. Each one showcases different technologies
-					and approaches to solving real-world problems.
+					Here are some of the projects I've worked on. Each one showcases different
+					technologies and approaches to solving real-world problems.
 				</p>
 			</div>
 

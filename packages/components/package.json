@@ -8,7 +8,7 @@
 		"typecheck": "tsc -b"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		"./*": "./src/*.tsx"
 	},
 	"dependencies": {
 		"shared": "workspace:*",

@@ -42,7 +42,9 @@ const About = memo((props: Props) => {
 										className={style.aboutBlock__content__iconList__link}
 										aria-label="GitHub Profile"
 									>
-										<GithubIcon className={style.aboutBlock__content__iconList__link__icon} />
+										<GithubIcon
+											className={style.aboutBlock__content__iconList__link__icon}
+										/>
 									</Link>
 								</li>
 								<li>
@@ -51,7 +53,9 @@ const About = memo((props: Props) => {
 										className={style.aboutBlock__content__iconList__link}
 										aria-label="LinkedIn"
 									>
-										<LinkedinIcon className={style.aboutBlock__content__iconList__link__icon} />
+										<LinkedinIcon
+											className={style.aboutBlock__content__iconList__link__icon}
+										/>
 									</Link>
 								</li>
 							</ul>

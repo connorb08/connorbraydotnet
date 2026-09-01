@@ -2,7 +2,10 @@ import { NavLink } from "react-router";
 import style from "./notfound.module.scss";
 
 export function meta() {
-	return [{ title: "404: Not Found" }, { name: "description", content: "Page not found." }];
+	return [
+		{ title: "404: Not Found" },
+		{ name: "description", content: "Page not found." },
+	];
 }
 
 export default function NotFound() {

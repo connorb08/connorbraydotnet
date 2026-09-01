@@ -51,5 +51,3 @@ export function Career({ data }: Props) {
 		</div>
 	);
 }
-
-export default Career;

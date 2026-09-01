@@ -61,10 +61,13 @@ function useTerminalExecution() {
 	const [resultText, setResultText] = useState("");
 	const [resultStatus, setResultStatus] = useState<CommandResultStatus>("ok");
 
-	const writeTerminalResult = useCallback((text: string, status: CommandResultStatus = "ok") => {
-		setResultText(text);
-		setResultStatus(status);
-	}, []);
+	const writeTerminalResult = useCallback(
+		(text: string, status: CommandResultStatus = "ok") => {
+			setResultText(text);
+			setResultStatus(status);
+		},
+		[],
+	);
 
 	const clearTerminal = useCallback(() => {
 		writeTerminalResult("", "ok");
@@ -79,7 +82,8 @@ function useTerminalExecution() {
 }
 
 export function useTerminalController({ nav, pathname }: TerminalControllerArgs) {
-	const { resultText, resultStatus, writeTerminalResult, clearTerminal } = useTerminalExecution();
+	const { resultText, resultStatus, writeTerminalResult, clearTerminal } =
+		useTerminalExecution();
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
 		//useCallback(

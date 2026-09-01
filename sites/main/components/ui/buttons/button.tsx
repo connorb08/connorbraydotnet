@@ -1,5 +1,8 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { Button as AriaButton, type ButtonProps as AriaButtonProps } from "react-aria-components";
+import {
+	Button as AriaButton,
+	type ButtonProps as AriaButtonProps,
+} from "react-aria-components";
 import { NavLink, type NavLinkProps } from "react-router";
 import style from "./button.module.scss";
 
@@ -19,7 +22,9 @@ type BaseButtonProps = {
 type ButtonProps = AriaButtonProps & BaseButtonProps;
 
 // Shared logic for button styling and content rendering
-function getButtonClasses(props: BaseButtonProps & { hasChildren?: boolean; className?: string }) {
+function getButtonClasses(
+	props: BaseButtonProps & { hasChildren?: boolean; className?: string },
+) {
 	const { icon, iconOnly, hasChildren, className } = props;
 
 	// Auto-detect icon-only mode: has icon but no children/text content
@@ -70,7 +75,14 @@ function renderButtonContent(
 }
 
 export function Button(props: ButtonProps) {
-	const { icon, iconPosition = "left", iconOnly, children, className, ...restProps } = props;
+	const {
+		icon,
+		iconPosition = "left",
+		iconOnly,
+		children,
+		className,
+		...restProps
+	} = props;
 
 	const resolvedClassName = typeof className === "function" ? undefined : className;
 	const hasChildren = Boolean(children);
@@ -78,7 +90,11 @@ export function Button(props: ButtonProps) {
 	return (
 		<AriaButton
 			{...restProps}
-			className={getButtonClasses({ ...props, hasChildren, className: resolvedClassName })}
+			className={getButtonClasses({
+				...props,
+				hasChildren,
+				className: resolvedClassName,
+			})}
 		>
 			{(renderProps) => {
 				const content = typeof children === "function" ? children(renderProps) : children;
@@ -107,7 +123,11 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
 	return (
 		<NavLink
 			{...restProps}
-			className={getButtonClasses({ ...props, hasChildren, className: resolvedClassName })}
+			className={getButtonClasses({
+				...props,
+				hasChildren,
+				className: resolvedClassName,
+			})}
 			// viewTransition={viewTransition}
 		>
 			{renderButtonContent(icon, iconPosition, iconOnly, hasChildren, children)}

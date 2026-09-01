@@ -9,12 +9,14 @@
 		"typescript": "*",
 		"wrangler": "*",
 		"vite": "*",
-		"@cloudflare/vite-plugin": "*"
+		"@cloudflare/vite-plugin": "*",
+		"alerts": "workspace:*"
 	},
 	"private": true,
 	"scripts": {
+		"deploy": "CLOUDFLARE_ENV=production wrangler deploy",
 		"dev": "vite dev",
-		"typegen": "wrangler types -c wrangler.json",
+		"typegen": "wrangler types -c wrangler.json -c ../alerts/wrangler.json",
 		"typecheck": "tsc -b"
 	},
 	"type": "module"

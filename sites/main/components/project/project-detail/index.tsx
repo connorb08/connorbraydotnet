@@ -13,7 +13,7 @@ interface ProjectDetailProps {
 	heroElement?: React.ReactNode | null | undefined;
 }
 
-export default function ProjectDetail({
+export function ProjectDetail({
 	project,
 	technologies = [],
 	repositoryUrl,
@@ -59,7 +59,9 @@ export default function ProjectDetail({
 				</div>
 
 				{/* Hero element / image */}
-				{heroElement && <div className={style.projectDetail__heroElement}>{heroElement}</div>}
+				{heroElement && (
+					<div className={style.projectDetail__heroElement}>{heroElement}</div>
+				)}
 			</header>
 
 			{/* Main content */}

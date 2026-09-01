@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useLocation } from "react-router";
-import Navigation, { MobileNavigation } from "#components/navigation";
-import Toolbar from "#components/toolbar";
+import Navigation, { MobileNavigation } from "#components/navigation/index";
+import Toolbar from "#components/toolbar/index";
 import Footer from "./footer";
 import style from "./layout.module.scss";
 // import Navbar from "./navbar";
@@ -42,5 +42,3 @@ export function MainLayout() {
 		</div>
 	);
 }
-
-export default MainLayout;

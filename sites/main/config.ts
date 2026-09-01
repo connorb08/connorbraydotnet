@@ -4,8 +4,6 @@ interface ProjectConfig {
 	contentUrl: string;
 }
 
-export const config = {
+export default {
 	contentUrl: CONTENT_URL,
 } satisfies ProjectConfig;
-
-export default config;

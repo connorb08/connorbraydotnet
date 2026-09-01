@@ -1,0 +1,48 @@
+/**
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "alerts",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-06-10",
+	"observability": {
+		"enabled": true
+	},
+	"workers_dev": false,
+	"preview_urls": false,
+	"upload_source_maps": true,
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"remote": true
+		}
+	],
+	"secrets": {
+		"required": ["EMAIL_FROM", "EMAIL_RECIPIENTS"]
+	},
+	"env": {
+		"production": {
+			"name": "alerts",
+			"send_email": [
+				{
+					"name": "EMAIL"
+				}
+			],
+			"secrets": {
+				"required": ["EMAIL_FROM", "EMAIL_RECIPIENTS"]
+			}
+		},
+		"test": {
+			"name": "alerts-test",
+			"send_email": [
+				{
+					"name": "EMAIL"
+				}
+			],
+			"secrets": {
+				"required": ["EMAIL_FROM", "EMAIL_RECIPIENTS"]
+			}
+		}
+	}
+}

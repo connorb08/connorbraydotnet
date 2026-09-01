@@ -1,7 +1,7 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { calculateWidth, getImages, getOutputType, isImage, Quality } from "./utils";
 
-export class MainEntrypoint extends WorkerEntrypoint<Env> {
+export default class Entrypoint extends WorkerEntrypoint<Env> {
 	/**
 	 * Default HTTP Handler
 	 */
@@ -58,5 +58,3 @@ export class MainEntrypoint extends WorkerEntrypoint<Env> {
 		}
 	}
 }
-
-export default MainEntrypoint;
