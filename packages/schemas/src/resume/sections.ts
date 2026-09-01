@@ -40,7 +40,9 @@ const ProjectSection = object({
 	items: Project.array(),
 });
 
-export const Sections = array(union([EducationSection, ExperienceSection, ProjectSection]));
+export const Sections = array(
+	union([EducationSection, ExperienceSection, ProjectSection]),
+);
 
 export type ResumeEducationData = inferType<typeof EducationSection>;
 export type ResumeExperienceData = inferType<typeof ExperienceSection>;

@@ -1,17 +1,43 @@
-export {
-	FaBars as Menu,
+import {
+	FaRegFolder as Folder,
 	FaGithub as Github,
 	FaLinkedin as Linkedin,
-	FaRegFolder as Folder,
+	FaBars as Menu,
 } from "react-icons/fa";
-export { GoGear as Gear, GoMail as Mail, GoMoon as Moon, GoSun as Sun } from "react-icons/go";
-export { LuHouse as Home } from "react-icons/lu";
-export {
-	MdFullscreen as Fullscreen,
-	MdFullscreenExit as ExitFullscreen,
+
+import {
+	GoGear as Gear,
+	GoMail as Mail,
+	GoMoon as Moon,
+	GoSun as Sun,
+} from "react-icons/go";
+
+import { LuHouse as Home } from "react-icons/lu";
+
+import {
 	MdOutlinePhotoCamera as Camera,
+	MdFullscreenExit as ExitFullscreen,
+	MdFullscreen as Fullscreen,
 } from "react-icons/md";
 
-export { RxChevronRight as Chevron } from "react-icons/rx";
-export { TbSitemap as Sitemap } from "react-icons/tb";
-export { VscAccount as About } from "react-icons/vsc";
+import type { RxChevronRight as Chevron } from "react-icons/rx";
+import type { TbSitemap as Sitemap } from "react-icons/tb";
+import type { VscAccount as About } from "react-icons/vsc";
+
+export {
+	type About,
+	Camera,
+	type Chevron,
+	ExitFullscreen,
+	Folder,
+	Fullscreen,
+	Gear,
+	Github,
+	Home,
+	Linkedin,
+	Mail,
+	Menu,
+	Moon,
+	type Sitemap,
+	Sun,
+};

@@ -16,10 +16,7 @@ const requestHandler = createRequestHandler(
 	import.meta.env.MODE,
 );
 
-export default class MainEntrypoint
-	extends WorkerEntrypoint<Env>
-	implements IMainEntrypoint
-{
+export class Entrypoint extends WorkerEntrypoint<Env> implements IMainEntrypoint {
 	/**
 	 * Default HTTP Handler
 	 */

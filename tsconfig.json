@@ -2,49 +2,55 @@
 	"extends": "./tsconfig.base.json",
 	"files": [],
 	"references": [
-		{
-			"path": "./packages/types"
-		},
-		{
-			"path": "./packages/schemas"
-		},
-		{
-			"path": "./packages/components"
-		},
-		{
-			"path": "./packages/shared"
-		},
-		{
-			"path": "./packages/clog"
-		},
-		{
-			"path": "./sites/admin"
-		},
-		{
-			"path": "./sites/resume"
-		},
-		{
-			"path": "./sites/main"
-		},
-		{
-			"path": "./sites/queens"
-		},
-		{
-			"path": "./services/api"
-		},
-		{
-			"path": "./services/content-manager"
-		},
-		{
-			"path": "./services/database"
-		},
-		{
-			"path": "./services/web-schemas"
-		},
-		{
-			"path": "./services/message-queue"
-		}
-	],
+    {
+      "path": "./packages/types"
+    },
+    {
+      "path": "./packages/schemas"
+    },
+    {
+      "path": "./packages/components"
+    },
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/clog"
+    },
+    {
+      "path": "./sites/admin"
+    },
+    {
+      "path": "./sites/resume"
+    },
+    {
+      "path": "./sites/main"
+    },
+    {
+      "path": "./sites/queens"
+    },
+    {
+      "path": "./services/api"
+    },
+    {
+      "path": "./services/alerts"
+    },
+    {
+      "path": "./services/content-manager"
+    },
+    {
+      "path": "./services/database"
+    },
+    {
+      "path": "./services/web-schemas"
+    },
+    {
+      "path": "./services/message-queue"
+    },
+    {
+      "path": "./services/db"
+    }
+  ],
 	"compilerOptions": {
 		"rootDir": ".",
 		"outDir": ".tsbuildinfo"

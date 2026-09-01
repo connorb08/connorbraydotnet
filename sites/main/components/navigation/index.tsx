@@ -1,5 +1,5 @@
-import { LinkButton } from "../ui/buttons/button";
 import { useLocation } from "react-router";
+import { LinkButton } from "../ui/buttons/button";
 import { routes } from "./pages";
 import style from "./style.module.scss";
 
@@ -25,4 +25,6 @@ export default function Navigation() {
 	);
 }
 
-export { default as MobileNavigation } from "./mobile";
+import { default as MobileNavigation } from "./mobile";
+
+export { MobileNavigation };

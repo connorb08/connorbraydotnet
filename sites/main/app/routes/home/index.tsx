@@ -51,14 +51,15 @@ export default function (_: Route.ComponentProps) {
 						<p className={style.hero__main__subtitle}>Software Engineer</p>
 						<div className={style.hero__main__content}>
 							<p className={style.hero__main__content__paragraph}>
-								I love building software that helps people in their daily lives. I'm passionate
-								about web and cloud technologies, and enjoy solving real problems through code. From
-								front-end design to backend services and CI/CD, I focus on creating things that work
-								well and are accessible to everyone.
+								I love building software that helps people in their daily lives. I'm
+								passionate about web and cloud technologies, and enjoy solving real
+								problems through code. From front-end design to backend services and
+								CI/CD, I focus on creating things that work well and are accessible to
+								everyone.
 							</p>
 							<p className={style.hero__main__content__paragraph}>
-								Outside of work, I enjoy wildlife photography, staying active through gym workouts
-								and hiking, and sharpening my mind with a game of chess.
+								Outside of work, I enjoy wildlife photography, staying active through gym
+								workouts and hiking, and sharpening my mind with a game of chess.
 							</p>
 						</div>
 					</div>

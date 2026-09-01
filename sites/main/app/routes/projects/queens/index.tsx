@@ -1,4 +1,4 @@
-import { QueensGrid } from "components";
+import { QueensGrid } from "components/queens/index";
 import { cfContext } from "#app/context";
 import { getProjectBySlug } from "../../../../data/projects";
 import type { Route } from "./+types";

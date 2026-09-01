@@ -1,7 +1,7 @@
 import type { Resume } from "shared";
-import { EmptyResume } from "shared";
+import { EmptyResume } from "shared/test-data/resume/index";
 import { usePromise } from "#utils";
-import aboutMe from "../../../data/about-me";
+import { aboutMe } from "../../../data/about-me";
 import type { Route } from "./+types";
 import { About } from "./about";
 import type { LeadershipRole } from "./about/tabs/leadership";
@@ -72,7 +72,11 @@ export async function loader() {
 					skills: {
 						languages: ["C#", "TypeScript/JavaScript", "Python", "SQL", "C"],
 						technologies: ["Git", "React", "Terraform", "AWS", "Docker"],
-						interests: ["Distributed Computing", "Containerization", "Software Infrastructure"],
+						interests: [
+							"Distributed Computing",
+							"Containerization",
+							"Software Infrastructure",
+						],
 					},
 					boardPositions: [],
 				}),

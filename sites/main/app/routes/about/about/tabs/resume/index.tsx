@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import type { Resume } from "shared";
-import Career from "./career";
+import { Career } from "./career";
 import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
 

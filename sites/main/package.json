@@ -14,10 +14,12 @@
 	},
 	"imports": {
 		"#app/*": "./app/*.ts",
-		"#components/*": "./components/*/index.tsx",
+		"#components/*": "./components/*.tsx",
 		"#pages/*": "./pages/*/index.tsx",
+		"#context/*": "./utils/context/*.ts",
 		"#utils": "./utils/index.ts",
-		"#utils/*": "./utils/*.ts",
+		"#utils/*": "./utils/*.tsx",
+		"#hooks": "./utils/hooks.ts",
 		"#config": "./config.ts",
 		"#styles/": "./styles/*",
 		"#data/*": "./data/*.tsx"

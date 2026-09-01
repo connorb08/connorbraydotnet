@@ -2,7 +2,8 @@
 	"extends": "../../tsconfig.base.json",
 	"files": [],
 	"compilerOptions": {
-		"outDir": ".tsbuildinfo"
+		"outDir": ".tsbuildinfo",
+		"types": ["node"]
 	},
 	"references": [
 		{
