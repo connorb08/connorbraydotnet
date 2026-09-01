@@ -1,8 +1,11 @@
 import { type PropsWithChildren, useState } from "react";
 import { useFetcher } from "react-router";
-import { type Theme, ThemeContext } from "#utils/context/theme";
+import { type Theme, ThemeContext } from "#context/theme";
 
-export const ThemeProvider = ({ theme, children }: PropsWithChildren<{ theme: Theme }>) => {
+export const ThemeProvider = ({
+	theme,
+	children,
+}: PropsWithChildren<{ theme: Theme }>) => {
 	const fetcher = useFetcher();
 	const [currentTheme, setCurrentTheme] = useState(theme);
 

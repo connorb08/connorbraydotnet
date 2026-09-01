@@ -1,6 +1,13 @@
 import type React from "react";
 import { useRef } from "react";
-import { FieldError, Form, Input, Label, TextArea, TextField } from "react-aria-components";
+import {
+	FieldError,
+	Form,
+	Input,
+	Label,
+	TextArea,
+	TextField,
+} from "react-aria-components";
 import { useNavigation, useSubmit } from "react-router";
 import { Button as UIButton } from "../../../components/ui/buttons/button";
 import type { Route } from "../contact/+types/contact";
@@ -72,7 +79,9 @@ export default function Contact({ actionData }: Route.ComponentProps) {
 		<div className={styles.contact}>
 			<header className={styles.header}>
 				<h1>Get in Touch</h1>
-				<p>Have a project in mind or just want to say hello? I'd love to hear from you.</p>
+				<p>
+					Have a project in mind or just want to say hello? I'd love to hear from you.
+				</p>
 			</header>
 
 			<Form
@@ -132,7 +141,12 @@ export default function Contact({ actionData }: Route.ComponentProps) {
 				</TextField>
 
 				<div className={styles.submitSection}>
-					<UIButton type="submit" variant="normal" color="primary" isDisabled={isSubmitting}>
+					<UIButton
+						type="submit"
+						variant="normal"
+						color="primary"
+						isDisabled={isSubmitting}
+					>
 						{isSubmitting ? "Sending..." : "Send Message"}
 					</UIButton>
 				</div>

@@ -51,6 +51,7 @@ Thumbs.db
 
 .env
 **/.env
+.dev.vars
 
 # Wrangler
 .wrangler

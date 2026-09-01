@@ -1,6 +1,6 @@
 import type { ILogger } from "#types";
 
-const logError = (
+export const logError = (
 	errorFunction: ILogger["error"],
 	errorMessage: string,
 	...args: unknown[]
@@ -9,5 +9,3 @@ const logError = (
 	Error.captureStackTrace(error, errorFunction);
 	console.error(error, ...args);
 };
-
-export default logError;

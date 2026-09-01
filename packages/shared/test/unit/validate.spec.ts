@@ -52,6 +52,8 @@ describe.concurrent("Resume Validation", () => {
 		const data = {};
 		const { ok, errors } = await ValidateResume(data);
 		assert.isFalse(ok);
-		expect(errors).to.be.an("array").has.length.greaterThan(0, "Error length should be > 0");
+		expect(errors)
+			.to.be.an("array")
+			.has.length.greaterThan(0, "Error length should be > 0");
 	});
 });

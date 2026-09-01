@@ -1,4 +1,4 @@
-import { useFullscreen, useTheme } from "#utils/hooks";
+import { useFullscreen, useTheme } from "#hooks";
 import { ExitFullscreen, Fullscreen, Moon, Sun } from "../icons";
 import { Button } from "../ui/buttons/button";
 import style from "./toolbar.module.scss";
@@ -32,7 +32,7 @@ function FullscreenToggle() {
 			color="primary"
 			variant="ghost"
 			icon={fullscreen ? <ExitFullscreen /> : <Fullscreen />}
-			onClick={() => toggleFullscreen()}
+			onClick={toggleFullscreen}
 		/>
 	);
 }

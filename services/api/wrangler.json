@@ -11,8 +11,21 @@
 	"observability": {
 		"enabled": true
 	},
-	"route": {
-		"custom_domain": true,
-		"pattern": "api.connorbray.net"
+	"services": [
+		{
+			"binding": "ALERTS",
+			"service": "alerts"
+		}
+	],
+	"env": {
+		"production": {
+			"name": "api",
+			"services": [
+				{
+					"binding": "ALERTS",
+					"service": "alerts"
+				}
+			]
+		}
 	}
 }
