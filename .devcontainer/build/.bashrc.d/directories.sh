@@ -1,0 +1,1 @@
+export DATABASE_DIR=$WORKSPACE_PATH/services/database

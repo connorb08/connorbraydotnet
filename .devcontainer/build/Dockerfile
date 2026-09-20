@@ -6,7 +6,6 @@ SHELL ["/bin/bash", "-c"]
 
 # Environment Variables
 ENV USERNAME="vscode"
-ENV HOME="/home/vscode"
 ENV NVM_DIR="/home/vscode/.nvm"
 
 # Install apt packages
@@ -27,6 +26,8 @@ RUN ./scripts/bun.sh
 
 # Ensure container runs as the non-root user where NVM is installed
 USER vscode
+
+COPY ./.bashrc.d /home/vscode/.bashrc.d
 
 # Use a login shell to ensure nvm is loaded from the user's profile
 CMD ["bash", "-l"]

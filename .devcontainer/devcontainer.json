@@ -5,12 +5,10 @@
 	},
 	"postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/postCreateCommand.sh",
 	"containerEnv": {
-		"NODE_VERSION": "23.11.0"
+		"NODE_VERSION": "23.11.0",
+		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "23.11.0"
-		},
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
 		"ghcr.io/devcontainers-extra/features/pre-commit:2": {},
