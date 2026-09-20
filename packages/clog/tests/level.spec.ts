@@ -18,7 +18,7 @@ describe("Logger Levels", () => {
 			.mockImplementation((...args) => args[0]);
 	});
 
-	afterEach(() => {
+	afterAll(() => {
 		vi.restoreAllMocks();
 	});
 

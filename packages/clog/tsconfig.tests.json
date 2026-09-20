@@ -3,7 +3,7 @@
 	"include": ["tests/**/*.spec.ts"],
 	"compilerOptions": {
 		"lib": ["ES2022"],
-		"types": ["vitest/globals", "node"]
+		"types": ["vitest/globals"]
 	},
 	"references": [
 		{
