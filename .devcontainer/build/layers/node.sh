@@ -9,3 +9,5 @@ nvm install $NODE_VERSION
 
 node -v
 npm -v
+
+chown -R $USERNAME:$USERNAME "$HOME/.nvm"

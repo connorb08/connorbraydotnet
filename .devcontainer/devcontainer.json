@@ -8,13 +8,13 @@
 		"NODE_VERSION": "26.3.0"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/terraform:1": {},
+		// "ghcr.io/devcontainers/features/terraform:1": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker": {
 			"moby": "false"
 		},
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
-		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
-		"ghcr.io/devcontainers-extra/features/pre-commit:2": {}
+		"ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {}
+		// "ghcr.io/devcontainers-extra/features/pre-commit:2": {}
 	},
 	"customizations": {
 		"vscode": {

@@ -10,7 +10,7 @@ fi
 
 """ >> ~/.bashrc
 
-sudo chown -R vscode:vscode /home/vscode/.local
+# sudo chown -R vscode:vscode /home/vscode/.local
 
 pre-commit install
 

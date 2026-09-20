@@ -8,3 +8,5 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 bun -v
+
+chown -R $USERNAME:$USERNAME "$HOME/.bun"
