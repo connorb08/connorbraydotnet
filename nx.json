@@ -80,5 +80,6 @@
 				"targetName": "playwright:e2e"
 			}
 		}
-	]
+	],
+	"analytics": false
 }
