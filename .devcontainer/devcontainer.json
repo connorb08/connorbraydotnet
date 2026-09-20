@@ -34,7 +34,8 @@
 				"EditorConfig.EditorConfig",
 				"Anthropic.claude-code",
 				"redhat.vscode-xml",
-				"ms-vscode.makefile-tools"
+				"ms-vscode.makefile-tools",
+				"hashicorp.terraform"
 			],
 			"settings": {
 				"files.associations": {
