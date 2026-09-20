@@ -12,7 +12,8 @@
 	},
 	"scripts": {
 		"typecheck": "tsc -b",
-		"test": "vitest"
+		"test": "bun test",
+		"test:coverage": "vitest run --coverage"
 	},
 	"peerDependencies": {
 		"vitest": "*"
