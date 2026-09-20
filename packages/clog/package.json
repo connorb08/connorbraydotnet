@@ -4,14 +4,15 @@
 	"type": "module",
 	"imports": {
 		"#types": "./src/types/index.ts",
-		"#environment": "./src/environment/index.ts"
+		"#src/*": "./src/*.ts"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./types": "./src/types/index.ts"
 	},
 	"scripts": {
-		"dev": "bun run index.ts",
-		"typecheck": "tsc -b"
+		"typecheck": "tsc -b",
+		"test": "vitest"
 	},
 	"peerDependencies": {
 		"vitest": "*"

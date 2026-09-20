@@ -1,12 +1,15 @@
-import type { LogLevel } from "#types";
+import type { ClogConfig } from "#types";
 
-export type LogFormat = "text" | "json" | "xml" | "markdown" | "csv" | "yaml";
+// Defaults
+const defaults = {
+	level: "Information",
+	format: "text",
+	output: "console",
+	formatter: (logLevel, ...args) =>
+		`${logLevel.toUpperCase()}: ${args.join(" ")}`,
+} satisfies ClogConfig;
 
-export type ClogConfig = {
-	level: LogLevel;
-	customLevel: LogLevel;
-	format: LogFormat;
-};
+export { defaults };
 
 // Features?
 

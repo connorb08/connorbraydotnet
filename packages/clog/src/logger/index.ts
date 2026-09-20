@@ -1,229 +1,113 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: singleton pattern - #instance is guaranteed to be assigned */
-import type { ILogger, LogLevel } from "#types";
-// import { ClogEnv, EnvironmentVars } from "../environment/variables";
-import { logError } from "./methods/error";
+import type { LogFormatter, LogOutput } from "#src/types/config";
+import type { ClogConfig, ILogger, LogFormat, LogLevel } from "#types";
+import { defaults } from "./config";
 
-export const LogLevels = {
-	Fatal: 0b1,
+export const LogLevels: Record<LogLevel, number> = {
+	None: 0b0,
+	Critical: 0b1,
 	Error: 0b10,
-	Warn: 0b100,
-	Info: 0b1000,
+	Warning: 0b100,
+	Information: 0b1000,
 	Debug: 0b10000,
 	Trace: 0b100000,
 } as const;
 
-const defaultLogLevel: LogLevel = "info";
-// (EnvironmentVars[ClogEnv.LogLevel] as LogLevel) ?? "info";
+export class Logger implements ILogger {
+	#level: LogLevel;
+	#format: LogFormat;
+	#formatter: LogFormatter;
+	#output: LogOutput;
 
-const noLoggingConfig: InternalLogLevelConfig = {
-	fatal: false,
-	error: false,
-	warn: false,
-	info: false,
-	debug: false,
-	trace: false,
-};
-
-class Logger implements ILogger {
-	// #region Singleton Pattern
-
-	static #instance: Logger = null!;
-	static #blockConstruction = true;
-
-	public static get instance(): Logger {
-		if (Logger.#instance === null) {
-			Logger.#blockConstruction = false;
-			Logger.#instance = new Logger();
-		}
-		return Logger.#instance;
+	public constructor(config: Partial<ClogConfig>) {
+		this.#level = config.level ?? defaults.level;
+		this.#format = config.format ?? defaults.format;
+		this.#formatter = config.formatter ?? defaults.formatter;
+		this.#output = config.output ?? defaults.output;
 	}
 
-	private constructor() {
-		if (Logger.#blockConstruction) {
-			throw new TypeError("Logger is not constructable");
-		}
-		Logger.#blockConstruction = true;
-		this.#setBaseLogLevel(defaultLogLevel);
-		this.#logLevel = defaultLogLevel;
+	public get level(): LogLevel {
+		return this.#level;
 	}
 
-	// #endregion Singleton Pattern
+	public get format(): LogFormat {
+		return this.#format;
+	}
 
-	// #region Private Properties
+	public set level(level: LogLevel) {
+		this.#level = level;
+	}
 
-	#logLevel: LogLevel = "custom";
-	#loggerConfig: InternalLogLevelConfig = noLoggingConfig;
+	public set format(format: LogFormat) {
+		this.#format = format;
+	}
 
-	// #endregion Private Properties
+	// #region Critical
 
-	// #region Private Methods
-
-	#setBaseLogLevel(level: LogLevel): void {
-		switch (level) {
-			case "none":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-				};
-				return;
-			case "fatal":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-				};
-				return;
-			case "error":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-					error: true,
-				};
-				return;
-			case "warn":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-					error: true,
-					warn: true,
-				};
-				return;
-			case "info":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-					error: true,
-					warn: true,
-					info: true,
-				};
-				return;
-			case "debug":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-					error: true,
-					warn: true,
-					info: true,
-					debug: true,
-				};
-				return;
-			case "trace":
-				this.#loggerConfig = {
-					...noLoggingConfig,
-					fatal: true,
-					error: true,
-					warn: true,
-					info: true,
-					debug: true,
-					trace: true,
-				};
-				return;
-			case "all":
-				this.#loggerConfig = {
-					fatal: true,
-					error: true,
-					warn: true,
-					info: true,
-					debug: true,
-					trace: true,
-				};
-				return;
-			case "custom":
-				return;
-			default:
-				throw new Error(`Unknown log level: ${level}`);
+	public logCritical(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Critical) {
+			this.log("Critical", ...args);
 		}
 	}
 
-	// #endregion Private Methods
+	// #endregion Critical
 
-	// #region Public Getters
+	// #region Error
 
-	public get logLevel(): LogLevel {
-		return this.#logLevel;
-	}
-
-	public get customLogLevel(): InternalLogLevelConfig {
-		return this.#loggerConfig;
-	}
-
-	// #endregion Public Getters
-
-	// #region Public Setters
-
-	public set logLevel(level: Exclude<LogLevel, "custom">) {
-		if (level === undefined) {
-			return;
-		}
-		this.#setBaseLogLevel(level);
-		this.#logLevel = level;
-	}
-
-	public set customLogLevel(bitmask: number) {
-		this.#loggerConfig = {
-			fatal: Boolean(bitmask & LogLevels.Fatal),
-			error: Boolean(bitmask & LogLevels.Error),
-			warn: Boolean(bitmask & LogLevels.Warn),
-			info: Boolean(bitmask & LogLevels.Info),
-			debug: Boolean(bitmask & LogLevels.Debug),
-			trace: Boolean(bitmask & LogLevels.Trace),
-		};
-		this.#logLevel = "custom";
-	}
-
-	// #endregion Public Setters
-
-	// #region Logging Methods
-
-	public fatal(...args: unknown[]): void {
-		if (this.#loggerConfig.fatal) {
-			console.error("FATAL:", ...args);
+	public logError(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Error) {
+			this.log("Error", ...args);
 		}
 	}
 
-	public error(errorMessage: string, ...args: unknown[]): void {
-		if (this.#loggerConfig.error) {
-			logError(this.error, errorMessage, ...args);
+	// #endregion Error
+
+	// #region Warn
+
+	public logWarning(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Warning) {
+			this.log("Warning", ...args);
 		}
 	}
 
-	public warn(...args: unknown[]): void {
-		if (this.#loggerConfig.warn) {
-			console.warn("WARN:", ...args);
+	// #endregion Warn
+
+	// #region Info
+
+	public logInformation(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Information) {
+			this.log("Information", ...args);
 		}
 	}
 
-	public info(...args: unknown[]): void {
-		if (this.#loggerConfig.info) {
-			console.info("INFO:", ...args);
+	// #endregion Info
+
+	// #region Debug
+
+	public logDebug(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Debug) {
+			this.log("Debug", ...args);
 		}
 	}
 
-	public log(...args: unknown[]): void {
-		if (this.#loggerConfig.info) {
-			console.log("INFO:", ...args);
+	// #endregion Debug
+
+	// #region Trace
+
+	public logTrace(...args: unknown[]): void {
+		if (LogLevels[this.#level] >= LogLevels.Trace) {
+			this.log("Trace", ...args);
 		}
 	}
 
-	public debug(...args: unknown[]): void {
-		if (this.#loggerConfig.debug) {
-			console.debug("DEBUG:", ...args);
+	// #endregion Trace
+
+	private log(level: LogLevel, ...args: unknown[]): void {
+		if (this.#output === "console") {
+			this.logConsole(this.#formatter(level, ...args));
 		}
 	}
 
-	public trace(...args: unknown[]): void {
-		if (this.#loggerConfig.trace) {
-			console.trace("TRACE:", ...args);
-		}
+	private logConsole(...args: unknown[]): void {
+		console.log(...args);
 	}
-
-	// #endregion Logging Methods
 }
-
-export default Logger.instance as ILogger;
-
-// #region Types
-
-type InternalLogLevelConfig = {
-	[key in Exclude<LogLevel, "none" | "custom" | "all">]: boolean;
-};
-
-// #endregion Types

@@ -126,6 +126,13 @@
 				}
 			}
 		},
+		// Vitest overrides
+		{
+			"includes": ["**/*.spec.ts"],
+			"javascript": {
+				"globals": ["vitest/globals"]
+			}
+		},
 		{
 			"includes": ["**/*/wrangler.json"],
 			"json": {

@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["tests/**/*.spec.ts"],
+	"compilerOptions": {
+		"lib": ["ES2022"],
+		"types": ["vitest/globals", "node"]
+	},
+	"references": [
+		{
+			"path": "./tsconfig.lib.json"
+		}
+	]
+}
