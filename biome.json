@@ -126,7 +126,6 @@
 				}
 			}
 		},
-		// Vitest overrides
 		{
 			"includes": ["**/*.spec.ts"],
 			"javascript": {
