@@ -9,11 +9,6 @@
       "version": "1.10.1",
       "resolved": "ghcr.io/devcontainers/features/docker-outside-of-docker@sha256:698f5900fac471e046c6e9d4333fec88c0e8d952c713494fa0712dce80baeca0",
       "integrity": "sha256:698f5900fac471e046c6e9d4333fec88c0e8d952c713494fa0712dce80baeca0"
-    },
-    "ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {
-      "version": "1.0.0",
-      "resolved": "ghcr.io/jsburckhardt/devcontainer-features/gitleaks@sha256:8ac4946ade23f372e9c23f262c2006c8dd29090bd2b92b1f14948de48eb077d4",
-      "integrity": "sha256:8ac4946ade23f372e9c23f262c2006c8dd29090bd2b92b1f14948de48eb077d4"
     }
   }
 }
