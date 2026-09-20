@@ -10,11 +10,4 @@ fi
 
 """ >> ~/.bashrc
 
-# sudo chown -R vscode:vscode /home/vscode/.local
-
 pre-commit install
-
-# __scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# __devcontainer_dir="$(dirname "$__scripts_dir")"
-# __shell_dir="$__devcontainer_dir/.bashrc"
-# echo "source $__shell_dir" >> ~/.bashrc
