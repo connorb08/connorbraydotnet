@@ -48,9 +48,9 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"nursery": {
-				"recommended": true
+				"preset": "recommended"
 			},
 			"performance": "error",
 			"security": "error",
