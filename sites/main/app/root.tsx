@@ -11,8 +11,8 @@ import type { Route } from "./+types/root";
 import "#styles/App.scss";
 import "@mantine/core/styles.css";
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
-import { FullscreenProvider } from "#utils/providers/fullscreen";
-import { ThemeProvider } from "#utils/providers/theme";
+import { FullscreenProvider } from "#providers/fullscreen";
+import { ThemeProvider } from "#providers/theme";
 import { getSession } from "./sessions.server";
 import { theme } from "./theme";
 

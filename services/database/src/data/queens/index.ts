@@ -1,5 +1,6 @@
 import type { Kysely } from "kysely";
-import { type QueensSolution, type QueensStep, RPCErr, RPCOk, type RPCResult } from "types";
+import type { QueensSolution, QueensStep, RPCResult } from "types";
+import { RPCErr, RPCOk } from "types/rpc";
 import { v7 } from "uuid";
 import type { QueensGameDefinition } from "../../../../../packages/types/src/queens";
 import type { Database, Queens } from "../../models";
@@ -32,7 +33,9 @@ export async function PutQueens(
 		return RPCOk(queens);
 	} catch (error) {
 		console.error("Error putting queens:", error);
-		return RPCErr(error instanceof Error ? error.message : "Unknown error inserting queens");
+		return RPCErr(
+			error instanceof Error ? error.message : "Unknown error inserting queens",
+		);
 	}
 }
 
@@ -53,6 +56,8 @@ export async function GetCurrentQueens(db: Kysely<Database>): Promise<RPCResult<
 		});
 	} catch (error) {
 		console.error("Error fetching queens:", error);
-		return RPCErr(error instanceof Error ? error.message : "Unknown error getting queens");
+		return RPCErr(
+			error instanceof Error ? error.message : "Unknown error getting queens",
+		);
 	}
 }

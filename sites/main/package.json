@@ -18,7 +18,8 @@
 		"#pages/*": "./pages/*/index.tsx",
 		"#context/*": "./utils/context/*.ts",
 		"#utils": "./utils/index.ts",
-		"#utils/*": "./utils/*.tsx",
+		"#utils/*": "./utils/*.ts",
+		"#providers/*": "./utils/providers/*.tsx",
 		"#hooks": "./utils/hooks.ts",
 		"#config": "./config.ts",
 		"#styles/": "./styles/*",
@@ -27,6 +28,7 @@
 	"dependencies": {
 		"components": "workspace:*",
 		"react-aria-components": "^1.10.1",
+		"schemas": "workspace:*",
 		"shared": "workspace:*"
 	},
 	"devDependencies": {

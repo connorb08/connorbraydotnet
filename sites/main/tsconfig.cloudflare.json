@@ -29,6 +29,9 @@
 		},
 		{
 			"path": "../../services/database/tsconfig.app.json"
+		},
+		{
+			"path": "../../packages/schemas"
 		}
 	]
 }
