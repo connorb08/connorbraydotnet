@@ -10,7 +10,8 @@
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
 		"preview": "bun run build && vite preview",
-		"test": "nx run build && vitest --run",
+		"pretest": "bun run typegen && react-router build 1> /dev/null",
+		"test": "vitest --run",
 		"e2e": "nx playwright:e2e",
 		"test:watch": "nx run build && vitest",
 		"coverage": "vitest run --coverage",
@@ -20,12 +21,14 @@
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {
+		"#app/*": "./app/*",
 		"#styles/*": "./app/styles/*",
 		"#models": "./models/index.ts",
 		"#validate": "./validate/index.ts",
 		"#validate/validate.js": "./validate/validate.js",
 		"#worker": "./workers/app.ts",
-		"#test/*": "./test/*.ts"
+		"#test/*": "./test/*.ts",
+		"#context": "./app/context.ts"
 	},
 	"dependencies": {
 		"schemas": "workspace:*"
@@ -43,14 +46,16 @@
 		"@playwright/test": "*",
 		"@testing-library/jest-dom": "*",
 		"@testing-library/react": "*",
+		"@testing-library/dom": "*",
 		"@vitejs/plugin-react": "*",
 		"@vitest/coverage-istanbul": "*",
 		"vitest": "*",
 		"vite-plugin-react-remove-attributes": "*",
-		"@cloudflare/vitest-pool-workers": "*",
+		"@cloudflare/vitest-plugin": "^1.0.0",
 		"@cloudflare/vite-plugin": "*",
 		"vite": "*",
-		"@react-router/dev": "*"
-	},
-	"packageManager": "bun@10.8.0"
+		"@react-router/dev": "*",
+		"@happy-dom/global-registrator": "*",
+		"happy-dom": "*"
+	}
 }

@@ -1,6 +1,7 @@
 import type { MockInstance } from "vitest";
 import { Logger } from "#src/logger/index";
 
+// biome-ignore lint/complexity/noExcessiveLinesPerFunction: test
 describe("Logger Levels", () => {
 	let logger: Logger;
 	let loggerOutput: MockInstance<(...args: unknown[]) => void>;
@@ -11,10 +12,7 @@ describe("Logger Levels", () => {
 			formatter: (_level, ...args) => `${args.join(" ")}`,
 		});
 		loggerOutput = vi
-			.spyOn(
-				logger as unknown as { logConsole: Logger["logConsole"] },
-				"logConsole",
-			)
+			.spyOn(logger as unknown as { logConsole: Logger["logConsole"] }, "logConsole")
 			.mockImplementation((...args) => args[0]);
 	});
 

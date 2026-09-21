@@ -127,9 +127,9 @@
 			}
 		},
 		{
-			"includes": ["**/*.spec.ts"],
+			"includes": ["**/*.spec.{ts,tsx}"],
 			"javascript": {
-				"globals": ["vitest/globals"]
+				"globals": ["vitest/globals", "vi"]
 			}
 		},
 		{

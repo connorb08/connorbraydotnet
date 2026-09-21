@@ -1,26 +1,18 @@
-import {
-	defineWorkersProject,
-	type WorkersProjectConfigExport,
-} from "@cloudflare/vitest-pool-workers/config";
-
+import { cloudflareTest } from "@cloudflare/vitest-plugin";
 import { defineProject, type ViteUserConfig } from "vitest/config";
 
-const workerProjectConfig = {
+const workerProject = defineProject({
+	plugins: [
+		cloudflareTest({
+			wrangler: { configPath: "./wrangler.jsonc", environment: "integration" },
+		}),
+	],
 	test: {
+		globals: true,
 		name: "Worker",
 		include: ["test/unit/**/*.spec.ts", "test/integration/**/*.spec.ts"],
-		poolOptions: {
-			workers: {
-				wrangler: {
-					configPath: "./wrangler.jsonc",
-					environment: "integration",
-				},
-			},
-		},
 	},
-} satisfies WorkersProjectConfigExport;
-
-const workerProject = defineWorkersProject(workerProjectConfig);
+});
 
 const vitestConfig = {
 	test: {

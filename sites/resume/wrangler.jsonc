@@ -20,7 +20,8 @@
 		"integration": {
 			"vars": {
 				"HELLO_WORLD": "Hello, world!"
-			}
+			},
+			"routes": []
 		}
 	},
 	"dev": {

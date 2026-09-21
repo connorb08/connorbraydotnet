@@ -17,8 +17,8 @@ const removeAttributes = (
 
 const viteConfig = defineConfig({
 	plugins: [
-		reactRouter(),
 		cloudflare({ viteEnvironment: { name: "ssr" } }),
+		reactRouter(),
 		IS_PRODUCTION
 			? removeAttributes({
 					attributes: ["data-testid"],

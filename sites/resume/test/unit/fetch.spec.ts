@@ -1,19 +1,16 @@
-import { createExecutionContext, SELF, waitOnExecutionContext } from "cloudflare:test";
+/** biome-ignore-all lint/style/noNonNullAssertion: Using non-null assertion to explicitly indicate that the variables will be initialized before use */
+import { createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
+import { env } from "cloudflare:workers";
+import type { RouterContextProvider } from "react-router";
 import { assert, describe, expect, it, vi } from "vitest";
+import { cfContext } from "#context";
+import WorkerEntrypoint from "#worker";
 
 vi.mock("react-router", async (importOriginal) => {
 	return {
 		...(await importOriginal<typeof import("react-router")>()),
 		createRequestHandler: () => {
-			return async (
-				request: Request,
-				context: {
-					cloudflare: {
-						env: Env;
-						ctx: ExecutionContext;
-					};
-				},
-			) => {
+			return async (request: Request, context: RouterContextProvider) => {
 				const url = new URL(request.url);
 				switch (url.pathname) {
 					case "/":
@@ -22,7 +19,7 @@ vi.mock("react-router", async (importOriginal) => {
 							statusText: "OK",
 						});
 					case "/hello-world":
-						return new Response(context?.cloudflare.env.HELLO_WORLD);
+						return new Response(context.get(cfContext).env.HELLO_WORLD);
 					default:
 						return new Response("Not Found", {
 							status: 404,
@@ -35,13 +32,29 @@ vi.mock("react-router", async (importOriginal) => {
 });
 
 describe("Worker Fetch", () => {
+	let worker: WorkerEntrypoint = null!;
+	let ctx: ExecutionContext = null!;
+
+	beforeEach(() => {
+		ctx = createExecutionContext();
+		worker = new WorkerEntrypoint(ctx, env);
+	});
+
+	afterEach(() => {
+		ctx = null!;
+		worker = null!;
+	});
+
+	afterAll(() => {
+		vi.resetAllMocks();
+	});
+
 	it("Should Return a Response", async () => {
 		// Setup
 		const request = new Request("http://example.com");
-		const ctx = createExecutionContext();
 
 		// Execute
-		const res = await SELF.fetch(request);
+		const res = await worker.fetch(request);
 		const body = await res.text();
 		await waitOnExecutionContext(ctx);
 
@@ -55,10 +68,9 @@ describe("Worker Fetch", () => {
 	it("Should get Environment Variable", async () => {
 		// Setup
 		const request = new Request("http://example.com/hello-world");
-		const ctx = createExecutionContext();
 
 		// Execute
-		const res = await SELF.fetch(request);
+		const res = await worker.fetch(request);
 		const body = await res.text();
 		await waitOnExecutionContext(ctx);
 
