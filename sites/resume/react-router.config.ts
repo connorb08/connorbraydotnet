@@ -4,4 +4,5 @@ export default {
 	ssr: true,
 	future: {},
 	// prerender: true,
+	buildDirectory: "dist",
 } satisfies Config;

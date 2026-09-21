@@ -20,6 +20,8 @@
 			"**/.react-router": true,
 			"**/.wrangler": true,
 			"**/*.tsbuildinfo": true,
+			"**/target": true,
+			"**/dist": true,
 			"bun.lock": true
 		},
 		"editor.codeActionsOnSave": {

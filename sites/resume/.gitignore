@@ -5,7 +5,7 @@
 
 # React Router
 /.react-router/
-/build/
+/dist/
 
 # Cloudflare
 .mf
