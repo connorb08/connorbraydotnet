@@ -6,11 +6,8 @@
 		"types": ["@types/css-modules"]
 	},
 	"references": [
-		{
-			"path": "../types/tsconfig.lib.json"
-		},
-		{
-			"path": "../shared/tsconfig.lib.json"
-		}
-	]
+    {
+      "path": "../types/tsconfig.lib.json"
+    }
+  ]
 }

@@ -9,6 +9,9 @@
 			"path": "../../packages/shared"
 		},
 		{
+			"path": "../../packages/schemas"
+		},
+		{
 			"path": "./tsconfig.node.json"
 		},
 		{
