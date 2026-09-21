@@ -1,8 +1,10 @@
 import { CiLocationOn } from "react-icons/ci";
 import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
-import type { ExperienceItem as ResumeCareer } from "shared";
+import type { ResumeExperienceData } from "schemas";
 import { getDateString } from "../education";
 import style from "../style.module.scss";
+
+type ResumeCareer = ResumeExperienceData["items"][number];
 
 type Props = {
 	icon_url?: string | undefined;

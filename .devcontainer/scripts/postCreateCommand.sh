@@ -10,4 +10,4 @@ fi
 
 """ >> ~/.bashrc
 
-pre-commit install
+# pre-commit install

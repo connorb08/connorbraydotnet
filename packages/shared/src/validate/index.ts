@@ -23,3 +23,4 @@
 // };
 
 // export { ValidateResume };
+export {};

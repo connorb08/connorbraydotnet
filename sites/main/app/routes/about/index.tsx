@@ -1,10 +1,23 @@
 import type { Resume } from "schemas";
-import { EmptyResume } from "shared/test-data/resume/index";
 import { usePromise } from "#utils";
 import { aboutMe } from "../../../data/about-me";
 import type { Route } from "./+types";
 import { About } from "./about";
 import type { LeadershipRole } from "./about/tabs/leadership";
+
+const EmptyResume: Resume = {
+	about: {
+		name: "",
+		phoneNumber: "",
+		emailAddress: "",
+		location: "",
+	},
+	options: {
+		order: ["Experience", "Education", "Projects"],
+	},
+	skills: [],
+	sections: [],
+};
 
 // biome-ignore lint/complexity/noExcessiveLinesPerFunction: fix later
 export async function loader() {

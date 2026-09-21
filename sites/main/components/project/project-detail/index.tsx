@@ -1,5 +1,7 @@
-import type { ProjectItem as ResumeProject } from "shared";
+import type { ResumeProjectData } from "schemas";
 import style from "./style.module.scss";
+
+type ResumeProject = ResumeProjectData["items"][number];
 
 interface ProjectDetailProps {
 	project: ResumeProject;
