@@ -5,8 +5,7 @@ const defaults = {
 	level: "Information",
 	format: "text",
 	output: "console",
-	formatter: (logLevel, ...args) =>
-		`${logLevel.toUpperCase()}: ${args.join(" ")}`,
+	formatter: (logLevel, ...args) => `${logLevel.toUpperCase()}: ${args.join(" ")}`,
 } satisfies ClogConfig;
 
 export { defaults };
