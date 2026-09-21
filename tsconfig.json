@@ -27,9 +27,6 @@
       "path": "./sites/main"
     },
     {
-      "path": "./sites/queens"
-    },
-    {
       "path": "./services/api"
     },
     {

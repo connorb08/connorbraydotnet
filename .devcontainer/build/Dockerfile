@@ -23,7 +23,5 @@ RUN ./layers/bun.sh
 COPY ./layers/node.sh /tmp/layers/node.sh
 RUN ./layers/node.sh
 
-COPY --chown=$USERNAME:$USERNAME ./.bashrc.d /home/vscode/.bashrc.d
-
 USER vscode
 CMD ["bash", "-l"]
