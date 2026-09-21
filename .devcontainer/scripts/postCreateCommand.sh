@@ -1,6 +1,6 @@
 echo """
-if [ -d ~/.bashrc.d ]; then
-  for i in ~/.bashrc.d/*.sh; do
+if [ -d \$WORKSPACE_PATH/.devcontainer/.bashrc.d ]; then
+  for i in \$WORKSPACE_PATH/.devcontainer/.bashrc.d/*.sh; do
     if [ -r \$i ]; then
       . \$i
     fi
