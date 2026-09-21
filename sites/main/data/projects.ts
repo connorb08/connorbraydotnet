@@ -1,4 +1,6 @@
-import type { ProjectItem as ResumeProject } from "shared";
+import type { ResumeProjectData } from "schemas";
+
+type ResumeProject = ResumeProjectData["items"][number];
 
 export interface ExtendedProject extends ResumeProject {
 	slug: string;

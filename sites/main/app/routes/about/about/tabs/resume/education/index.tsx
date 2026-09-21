@@ -1,7 +1,9 @@
 import { CiLocationOn } from "react-icons/ci";
 import { FaGraduationCap, FaRegCalendar } from "react-icons/fa";
-import type { EducationItem as ResumeEducation } from "shared";
+import type { ResumeEducationData } from "schemas";
 import style from "../style.module.scss";
+
+type ResumeEducation = ResumeEducationData["items"][number];
 
 type Props = {
 	icon_url?: string | undefined;

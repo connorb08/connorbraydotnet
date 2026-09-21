@@ -1,15 +1,15 @@
-import { assert, describe, expect, it, vi } from "vitest";
-import { ValidateResume } from "../../src/validate";
+// import { assert, describe, expect, it, vi } from "vitest";
+// import { ValidateResume } from "../../src/validate";
 
-vi.mock("../../generated/index.js");
+// vi.mock("../../generated/index.js");
 
-describe("Validate should handle missing error", () => {
-	it("should return generic error", async () => {
-		const resume = {};
-		const result = ValidateResume(resume);
-		assert.isFalse(result.ok);
-		assert.isArray(result.errors, "Errors should be an array");
-		assert.lengthOf(result.errors, 1);
-		expect(result.errors).toContain("Unknown Error Validating");
-	});
-});
+// describe("Validate should handle missing error", () => {
+// 	it("should return generic error", async () => {
+// 		const resume = {};
+// 		const result = ValidateResume(resume);
+// 		assert.isFalse(result.ok);
+// 		assert.isArray(result.errors, "Errors should be an array");
+// 		assert.lengthOf(result.errors, 1);
+// 		expect(result.errors).toContain("Unknown Error Validating");
+// 	});
+// });

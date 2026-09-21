@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import type { Resume } from "shared";
+import type { Resume } from "schemas";
 import { Career } from "./career";
 import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
@@ -9,8 +9,20 @@ type Props = {
 	loading: boolean;
 };
 
+type ResumeSection = Resume["sections"][number];
+
+function isSectionTitled<Title extends ResumeSection["title"]>(title: Title) {
+	return (section: ResumeSection): section is Extract<ResumeSection, { title: Title }> =>
+		section.title === title;
+}
+
 const Experience = (props: Props) => {
 	const bottomBorder = <div className={style.bottomBorder} />;
+
+	const educationItems =
+		props.resume.sections.find(isSectionTitled("Education"))?.items ?? [];
+	const experienceItems =
+		props.resume.sections.find(isSectionTitled("Experience"))?.items ?? [];
 
 	return (
 		<Fragment>
@@ -19,7 +31,7 @@ const Experience = (props: Props) => {
 				{props.loading ? (
 					<EducationSkeleton />
 				) : (
-					props.resume.education.map((data, index) => {
+					educationItems.map((data, index) => {
 						return <Education data={data} key={index} />;
 					})
 				)}
@@ -33,7 +45,7 @@ const Experience = (props: Props) => {
 								{index !== 1 - 1 ? bottomBorder : ""}
 							</Fragment>
 						))
-					: props.resume.career.map((job, index, jobs) => {
+					: experienceItems.map((job, index, jobs) => {
 							return (
 								<Fragment key={index}>
 									<Career data={job} />
