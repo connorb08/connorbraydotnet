@@ -10,4 +10,5 @@ export default {
 		v8_splitRouteModules: "enforce",
 		v8_middleware: true,
 	},
+	buildDirectory: "dist",
 } satisfies Config;
