@@ -29,7 +29,8 @@
 			"!**/.gitignore",
 			"!**/.tsbuildinfo",
 			"!**/.wrangler",
-			"!cli"
+			"!cli",
+			"!**/devcontainer-lock.json"
 		]
 	},
 	"formatter": {
@@ -41,7 +42,16 @@
 	"assist": {
 		"actions": {
 			"source": {
-				"organizeImports": "on"
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							{
+								"type": true
+							}
+						]
+					}
+				}
 			}
 		}
 	},
@@ -74,7 +84,13 @@
 				"noParameterAssign": "error",
 				"noNonNullAssertion": "error",
 				"useDefaultParameterLast": "error",
-				"useImportType": "error",
+				"useImportType": {
+					"level": "error",
+					"fix": "safe",
+					"options": {
+						"style": "separatedType"
+					}
+				},
 				"useExportType": "error",
 				"noUselessElse": "error",
 				"useShorthandFunctionType": "error",

@@ -5,7 +5,9 @@
 		"typecheck": "tsc -b"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./resume": "./src/resume/index.ts",
+		"./resume/test-data": "./src/resume/test-data.ts"
 	},
 	"peerDependencies": {
 		"typescript": "*",

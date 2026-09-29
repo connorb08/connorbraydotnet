@@ -1,4 +1,5 @@
-import { array, type infer as inferType, literal, object, string, union } from "zod";
+import type { infer as inferType } from "zod";
+import { array, literal, object, string, union } from "zod";
 
 const Education = object({
 	school: string(),

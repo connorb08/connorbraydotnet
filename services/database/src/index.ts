@@ -54,7 +54,9 @@ export class DatabaseObject extends DurableObject<Env> {
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public async getQueens(): Promise<RPCResult<Queens>> {
-		const result = this.env.DATABASE.get(this.env.DATABASE.idFromName("default")).getQueens();
+		const result = this.env.DATABASE.get(
+			this.env.DATABASE.idFromName("default"),
+		).getQueens();
 		this.ctx.waitUntil(result);
 		return result;
 	}
@@ -63,11 +65,9 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 		solution: QueensSolution,
 		steps: QueensStep[],
 	): Promise<RPCResult<Queens>> {
-		const result = this.env.DATABASE.get(this.env.DATABASE.idFromName("default")).putQueens(
-			definition,
-			solution,
-			steps,
-		);
+		const result = this.env.DATABASE.get(
+			this.env.DATABASE.idFromName("default"),
+		).putQueens(definition, solution, steps);
 		this.ctx.waitUntil(result);
 		return result;
 	}

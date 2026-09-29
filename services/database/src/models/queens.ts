@@ -1,4 +1,10 @@
-import type { Insertable, JSONColumnType, SchemaModule, Selectable, Updateable } from "kysely";
+import type {
+	Insertable,
+	JSONColumnType,
+	SchemaModule,
+	Selectable,
+	Updateable,
+} from "kysely";
 import type { QueensSolution, QueensStep } from "types";
 import type { QueensGameDefinition } from "../../../../packages/types/src/queens";
 

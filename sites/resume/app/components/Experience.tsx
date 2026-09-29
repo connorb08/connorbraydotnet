@@ -21,7 +21,10 @@ export default function Experience({ items }: Props) {
 							<p className="section__item__heading__location">{job.location}</p>
 						</div>
 						<div className="section__item__subheading">
-							<p className="section__item__subtitle" data-testid={`resume.career[${index}].title`}>
+							<p
+								className="section__item__subtitle"
+								data-testid={`resume.career[${index}].title`}
+							>
 								{job.title}
 							</p>
 							<p className="section__item__date">{`${job.startDate} – ${job.endDate}`}</p>

@@ -1,3 +1,4 @@
+import type { infer as inferType } from "zod";
 import { object, string } from "zod";
 
 export const About = object({
@@ -7,3 +8,5 @@ export const About = object({
 	location: string(),
 	summary: string().optional(),
 });
+
+export type ResumeAbout = inferType<typeof About>;
