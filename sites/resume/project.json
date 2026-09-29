@@ -26,7 +26,10 @@
 		"typegen": {
 			"cache": true,
 			"inputs": ["{projectRoot}/wrangler.jsonc", "{projectRoot}/app/routes.ts"],
-			"outputs": ["{projectRoot}/worker-configuration.d.ts", "{projectRoot}/.react-router/types"]
+			"outputs": [
+				"{projectRoot}/worker-configuration.d.ts",
+				"{projectRoot}/.react-router/types"
+			]
 		}
 	}
 }

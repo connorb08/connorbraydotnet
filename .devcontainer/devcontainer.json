@@ -21,7 +21,6 @@
 				"biomejs.biome",
 				"-dbaeumer.vscode-eslint",
 				"GitHub.vscode-github-actions",
-				"ms-vscode.vscode-websearchforcopilot",
 				"pranaygp.vscode-css-peek",
 				"sibiraj-s.vscode-scss-formatter",
 				"mrmlnc.vscode-scss",
@@ -29,10 +28,8 @@
 				"oven.bun-vscode",
 				"yoavbls.pretty-ts-errors",
 				"ms-vscode.vscode-typescript-next",
-				"openai.chatgpt",
 				"ms-dotnettools.csdevkit",
 				"EditorConfig.EditorConfig",
-				"Anthropic.claude-code",
 				"redhat.vscode-xml",
 				"ms-vscode.makefile-tools",
 				"hashicorp.terraform"
