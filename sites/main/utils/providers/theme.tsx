@@ -1,6 +1,8 @@
-import { type PropsWithChildren, useState } from "react";
+import type { PropsWithChildren } from "react";
+import { useState } from "react";
 import { useFetcher } from "react-router";
-import { type Theme, ThemeContext } from "#context/theme";
+import type { Theme } from "#context/theme";
+import { ThemeContext } from "#context/theme";
 
 export const ThemeProvider = ({
 	theme,

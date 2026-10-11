@@ -9,7 +9,7 @@
 		"deploy:preview": "nx run build && wrangler deploy --env preview",
 		"dev": "react-router dev",
 		"preview": "nx run build && vite preview",
-		"typecheck": "nx run typegen && tsc -b",
+		"typecheck": "bun run typegen && tsc -b",
 		"depcheck": "bunx depcheck"
 	},
 	"imports": {

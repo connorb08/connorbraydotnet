@@ -1,4 +1,5 @@
-import { expect, type PlaywrightTestArgs, test } from "@playwright/test";
+import type { PlaywrightTestArgs } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Page has title", () => {
 	test("has title", async ({ context }: PlaywrightTestArgs) => {

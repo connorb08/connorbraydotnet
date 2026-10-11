@@ -6,7 +6,8 @@ import type { Resume } from "schemas";
 import type { AboutMeData } from "../../../../data/about-me";
 import style from "./style.module.scss";
 import { InformationBlock, SkillsBlock, UserBlock } from "./summary";
-import Leadership, { type LeadershipRole } from "./tabs/leadership";
+import Leadership from "./tabs/leadership";
+import type { LeadershipRole } from "./tabs/leadership";
 import ResumeTab from "./tabs/resume";
 
 type Props = {

@@ -1,9 +1,8 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import {
-	Button as AriaButton,
-	type ButtonProps as AriaButtonProps,
-} from "react-aria-components";
-import { NavLink, type NavLinkProps } from "react-router";
+import type { ButtonProps as AriaButtonProps } from "react-aria-components";
+import { Button as AriaButton } from "react-aria-components";
+import type { NavLinkProps } from "react-router";
+import { NavLink } from "react-router";
 import style from "./button.module.scss";
 
 type ButtonVariant = "normal" | "outline" | "ghost";

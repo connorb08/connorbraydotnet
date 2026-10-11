@@ -1,3 +1,6 @@
+# Use to install TFLint
+FROM ghcr.io/terraform-linters/tflint:latest AS tflint
+
 # Base Image
 FROM mcr.microsoft.com/devcontainers/base:trixie
 
@@ -11,6 +14,10 @@ ENV NODE_VERSION="26"
 
 WORKDIR /tmp
 
+# Install TFLint
+COPY --from=tflint /usr/local/bin/tflint /usr/local/bin/tflint
+RUN tflint --version
+
 COPY ./layers/apt-get.sh /tmp/layers/apt-get.sh
 RUN ./layers/apt-get.sh
 
@@ -22,6 +29,8 @@ RUN ./layers/bun.sh
 
 COPY ./layers/node.sh /tmp/layers/node.sh
 RUN ./layers/node.sh
+
+RUN mkdir -p "$HOME/.cache" && chown -R "$USERNAME:$USERNAME" "$HOME/.cache"
 
 USER vscode
 CMD ["bash", "-l"]

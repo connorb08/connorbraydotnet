@@ -44,7 +44,6 @@ export class DatabaseObject extends DurableObject<Env> {
 	async deleteData(): Promise<void> {
 		try {
 			this.ctx.waitUntil(this.ctx.storage.deleteAll());
-			return;
 		} catch (error) {
 			console.error("Error deleting data:", error);
 			throw error;
