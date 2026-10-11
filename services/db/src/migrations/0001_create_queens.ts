@@ -1,4 +1,5 @@
-import { type Kysely, type Migration, sql } from "kysely";
+import type { Kysely, Migration } from "kysely";
+import { sql } from "kysely";
 import type { Database } from "../schema";
 
 const DatabaseMigration = {

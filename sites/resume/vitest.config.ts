@@ -1,5 +1,6 @@
 import { cloudflareTest } from "@cloudflare/vitest-plugin";
-import { defineProject, type ViteUserConfig } from "vitest/config";
+import type { ViteUserConfig } from "vitest/config";
+import { defineProject } from "vitest/config";
 
 const workerProject = defineProject({
 	plugins: [

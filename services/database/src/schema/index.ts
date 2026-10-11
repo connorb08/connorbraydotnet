@@ -1,4 +1,5 @@
-import { type Kysely, Migrator } from "kysely";
+import type { Kysely } from "kysely";
+import { Migrator } from "kysely";
 import type { Database } from "../models";
 import { migrationProvider } from "./migrations";
 

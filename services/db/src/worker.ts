@@ -1,9 +1,10 @@
+import type { RPCResult } from "../../../packages/types/src";
+import type { MigrationDatabase } from "./migrate";
+import type { Database } from "./schema";
 import { WorkerEntrypoint } from "cloudflare:workers";
 import { Kysely, ParseJSONResultsPlugin } from "kysely";
 import { D1Dialect } from "kysely-d1";
-import type { RPCResult } from "../../../packages/types/src";
-import { type MigrationDatabase, RollbackMigration, RunMigrations } from "./migrate";
-import type { Database } from "./schema";
+import { RollbackMigration, RunMigrations } from "./migrate";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	public override async fetch() {
@@ -60,4 +61,5 @@ export class Entrypoint extends WorkerEntrypoint<Env> {
 	}
 }
 
+// biome-ignore lint/complexity/noRedundantDefaultExport: cuz
 export default Entrypoint;

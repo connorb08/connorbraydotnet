@@ -1,6 +1,6 @@
+import type { ResumeExperienceData } from "schemas";
 import { CiLocationOn } from "react-icons/ci";
 import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
-import type { ResumeExperienceData } from "schemas";
 import { getDateString } from "../education";
 import style from "../style.module.scss";
 

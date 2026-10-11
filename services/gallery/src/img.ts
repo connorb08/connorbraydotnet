@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { getFromCache, putInCache } from "./img/cache";
-import { getWidth, type Size, sizes } from "./img/utils";
+import type { Size } from "./img/utils";
+import { getWidth, sizes } from "./img/utils";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 

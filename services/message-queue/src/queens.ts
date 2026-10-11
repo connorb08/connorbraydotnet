@@ -17,5 +17,4 @@ export async function HandleMessage(env: Env, _ctx: ExecutionContext, message: M
 
 	console.log(data);
 	message.ack();
-	return;
 }

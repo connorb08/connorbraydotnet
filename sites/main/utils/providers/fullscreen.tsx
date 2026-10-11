@@ -1,4 +1,5 @@
-import { type PropsWithChildren, useState } from "react";
+import type { PropsWithChildren } from "react";
+import { useState } from "react";
 import { useFetcher } from "react-router";
 import { FullscreenContext } from "#context/fullscreen";
 

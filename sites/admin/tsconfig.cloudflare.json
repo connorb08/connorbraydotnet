@@ -10,6 +10,9 @@
 	"references": [
 		{
 			"path": "../../services/database"
+		},
+		{
+			"path": "../../services/db/tsconfig.app.json"
 		}
 	],
 	"compilerOptions": {
