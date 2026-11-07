@@ -1,9 +1,5 @@
 name: Infrastructure
 description: Base inf
 runtime: dotnet
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: csharp
 backend:
-  url: s3://<your-bucket-name>?endpoint=https://<your-account-id>.r2.cloudflarestorage.com&region=auto&s3ForcePathStyle=true
+  url: s3://state-826ce6d6ba9b12511096b2b6ec-308946512285-us-east-2-an
