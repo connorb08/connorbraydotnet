@@ -2,7 +2,8 @@
   "image": "dev-image:latest",
   "remoteUser": "dev",
   "overrideCommand": false,
-  "onCreateCommand": "pre-commit install",
+  "onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
+  "postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
   "runArgs": [
     "--hostname",
     "dev"
@@ -35,7 +36,8 @@
         "ms-vscode.makefile-tools",
         "hashicorp.terraform",
         "docker.docker",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "hashicorp.hcl"
       ],
       "settings": {
         "remote.portsAttributes": {

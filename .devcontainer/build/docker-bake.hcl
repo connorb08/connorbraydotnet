@@ -64,6 +64,7 @@ variable "PACKAGES" {
     "libatomic1",
     "libevent-dev",
     "locales",
+    "pass",
     "sudo",
     "traceroute",
     "unzip",
