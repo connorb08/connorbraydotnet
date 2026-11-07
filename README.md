@@ -78,6 +78,21 @@ The script discovers all install layers in `.devcontainer/build/layers/` and
 passes them to `.devcontainer/build/docker-bake.hcl`. Additional Buildx arguments
 are forwarded; use `--print` to inspect the build configuration without building.
 
+The Pulumi layer installs CLI version `3.274.1`, including its bundled language
+tools and Bash completion, using the matching Linux ARM64 or x64 release.
+
+The HashiCorp Vault layer installs CLI version `2.2.1` with Bash completion
+using the matching Linux ARM64 or amd64 release.
+
+The Vault Compose stack in `inf/Vault/` exposes Vault only through Tailscale,
+without publishing host port 8200. Copy `example.env` to `.env` in that directory,
+set `TS_AUTHKEY` to a Tailscale auth key, and run `docker compose up -d`.
+Use a non-ephemeral key so the persisted Tailscale state retains the node identity.
+Vault shares the Tailscale container's network namespace; userspace networking
+forwards tailnet traffic to its loopback listener without requiring `/dev/net/tun`.
+Connect from an authorized tailnet device at `http://vault:8200` (with MagicDNS
+enabled), or use the node's Tailscale IP. Change `TS_HOSTNAME` to rename the node.
+
 Rebuild/reopen the dev container after building the image. The container directly
 bind-mounts `/var/run/docker.sock` from the host and sets `DOCKER_HOST` to that
 socket; no dev-container feature or Docker daemon is installed. The image's

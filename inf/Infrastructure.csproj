@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net11.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Pulumi" />
+        <PackageReference Include="Pulumi.Automation" />
+        <PackageReference Include="Pulumi.Aws" />
+        <PackageReference Include="Pulumi.Cloudflare" />
+        <PackageReference Include="Pulumi.Vault" />
+    </ItemGroup>
+
+</Project>
