@@ -68,6 +68,46 @@ bun run checks
 
 ## Notes
 
+Build the development container image with Docker Buildx:
+
+```bash
+IMAGE=dev-image bash .devcontainer/bake.sh --load
+```
+
+The script discovers all install layers in `.devcontainer/build/layers/` and
+passes them to `.devcontainer/build/docker-bake.hcl`. Additional Buildx arguments
+are forwarded; use `--print` to inspect the build configuration without building.
+
+Rebuild/reopen the dev container after building the image. The container directly
+bind-mounts `/var/run/docker.sock` from the host and sets `DOCKER_HOST` to that
+socket; no dev-container feature or Docker daemon is installed. The image's
+entrypoint briefly runs as root to add `dev` to the socket's group inside the
+container, then runs the container command as `dev`. Host socket permissions
+are not changed. VS Code terminals also run as `dev`.
+`overrideCommand: false` preserves the image's startup command so VS Code runs
+the socket-permission entrypoint. After changing this setting, rebuild the
+container; reopening a terminal alone does not rerun the entrypoint.
+Docker must be running on the host. Containers and images are shared with the
+host, and socket access grants control of the host daemon; use trusted code only.
+Bind-mount source paths must exist on the host, not just inside the dev container.
+For rootless Docker or a custom socket location, change the mount's `source` in
+`.devcontainer/devcontainer.json`, keeping its target at `/var/run/docker.sock`.
+
+The container runs `pre-commit install` on creation to refresh the Git hook for
+the image's standalone pre-commit runtime. If an existing hook reports
+`/usr/bin/python3: No module named pre_commit`, run `pre-commit install` in the
+repository to regenerate it; installing a separate system Python package is
+not necessary.
+
+Interactive Bash shells use a two-line colored prompt with Git branch/detached
+HEAD context and the exit code of failed commands. Directory listings use eza
+when available; `lt` shows a two-level tree. `..` and `...` navigate up directories.
+History is appended rather than overwritten, and Up/Down search history matching
+what you have typed. Tab completion ignores case, displays ambiguous matches,
+and highlights files; Shift-Tab cycles backward through completions.
+Set `NO_COLOR=1` before starting a shell to disable these colors;
+`TERM=dumb` also uses a plain prompt.
+
 - Most projects follow this structure:
   - `package.json`
   - `project.json`
