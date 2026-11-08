@@ -1,36 +1,32 @@
-import type { PropsWithChildren } from "react";
-import { useState } from "react";
-import { useFetcher } from "react-router";
 import type { Theme } from "#context/theme";
+import type { PropsWithChildren } from "react";
 import { ThemeContext } from "#context/theme";
+import { useCallback, useMemo, useState } from "react";
+import { useFetcher } from "react-router";
 
 export const ThemeProvider = ({
 	theme,
 	children,
 }: PropsWithChildren<{ theme: Theme }>) => {
-	const fetcher = useFetcher();
+	const { submit } = useFetcher();
 	const [currentTheme, setCurrentTheme] = useState(theme);
 
-	const toggleTheme = () => {
-		const nextTheme = currentTheme === "light" ? "dark" : "light";
-		fetcher.submit({ theme: nextTheme }, { method: "post", action: "/_session" });
-		setCurrentTheme(nextTheme);
-	};
-
-	const setTheme = (newTheme: Theme) => {
-		fetcher.submit({ theme: newTheme }, { method: "post", action: "/_session" });
-		setCurrentTheme(newTheme);
-	};
-
-	return (
-		<ThemeContext.Provider
-			value={{
-				theme: currentTheme,
-				setTheme,
-				toggleTheme,
-			}}
-		>
-			{children}
-		</ThemeContext.Provider>
+	const setTheme = useCallback(
+		(newTheme: Theme) => {
+			submit({ theme: newTheme }, { method: "post", action: "/_session" });
+			setCurrentTheme(newTheme);
+		},
+		[submit],
 	);
+
+	const toggleTheme = useCallback(() => {
+		setTheme(currentTheme === "light" ? "dark" : "light");
+	}, [currentTheme, setTheme]);
+
+	const value = useMemo(
+		() => ({ theme: currentTheme, setTheme, toggleTheme }),
+		[currentTheme, setTheme, toggleTheme],
+	);
+
+	return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

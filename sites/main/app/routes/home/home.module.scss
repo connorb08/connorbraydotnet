@@ -1,213 +1,213 @@
 @use "~/styles" as *;
 
 .home {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    justify-content: center;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	justify-content: center;
 }
 
 html[data-fullscreen] {
-    & .hero {
-        @include shadow;
-    }
+	& .hero {
+		@include shadow;
+	}
 }
 
 .hero {
-    display: flex;
-    justify-content: center;
-    background-color: $primaryContainer;
-    color: $onSecondaryContainer;
-    border-radius: clamp(1rem, 2vw, 1.5rem);
-    width: 100%;
-    margin-bottom: 2rem;
-    padding: clamp(2rem, 5vw, 3rem);
-    min-height: clamp(200px, 25vh, 300px);
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+	display: flex;
+	justify-content: center;
+	background-color: $primaryContainer;
+	color: $onSecondaryContainer;
+	border-radius: clamp(1rem, 2vw, 1.5rem);
+	width: 100%;
+	margin-bottom: 2rem;
+	padding: clamp(2rem, 5vw, 3rem);
+	min-height: clamp(200px, 25vh, 300px);
+	align-items: center;
+	position: relative;
+	overflow: hidden;
 
-    &__container {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: clamp(1.5rem, 4vw, 3rem);
-        align-items: center;
-        max-width: min(calc(60ch + 12rem + 3rem), 100%);
-        width: 100%;
-    }
+	&__container {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: center;
+		max-width: min(calc(60ch + 12rem + 3rem), 100%);
+		width: 100%;
+	}
 
-    // Subtle decorative element
-    &::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, $surfaceContainerHighest 0%, transparent 70%);
-        opacity: 0.3;
-        border-radius: 50%;
-        pointer-events: none;
-    }
+	// Subtle decorative element
+	&::before {
+		content: "";
+		position: absolute;
+		top: -50%;
+		right: -20%;
+		width: 300px;
+		height: 300px;
+		background: radial-gradient(circle, $surfaceContainerHighest 0%, transparent 70%);
+		opacity: 0.3;
+		border-radius: 50%;
+		pointer-events: none;
+	}
 
-    @media (max-width: breakpoint(md)) {
-        &__container {
-            grid-template-columns: 1fr;
-            text-align: center;
-            gap: 1.5rem;
-        }
-    }
+	@media (max-width: breakpoint(md)) {
+		&__container {
+			grid-template-columns: 1fr;
+			text-align: center;
+			gap: 1.5rem;
+		}
+	}
 
-    &__image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+	&__image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
 
-        img {
-            aspect-ratio: 1 / 1;
-            width: clamp(8rem, 15vw, 12rem);
-            height: auto;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid $outline;
-            @include shadow;
-        }
+		img {
+			aspect-ratio: 1 / 1;
+			width: clamp(8rem, 15vw, 12rem);
+			height: auto;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 3px solid $outline;
+			@include shadow;
+		}
 
-        @media (max-width: breakpoint(md)) {
-            img {
-                width: clamp(6rem, 20vw, 10rem);
-            }
-        }
-    }
+		@media (max-width: breakpoint(md)) {
+			img {
+				width: clamp(6rem, 20vw, 10rem);
+			}
+		}
+	}
 
-    &__main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 0.75rem;
-        z-index: 1;
-        max-width: min(60ch, 100%);
-        width: 100%;
-        margin: auto;
+	&__main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.75rem;
+		z-index: 1;
+		max-width: min(60ch, 100%);
+		width: 100%;
+		margin: auto;
 
-        &__title {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 700;
-            color: $onSecondaryContainer;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            margin: 0;
-        }
+		&__title {
+			font-size: clamp(1.75rem, 4vw, 2.5rem);
+			font-weight: 700;
+			color: $onSecondaryContainer;
+			letter-spacing: -0.02em;
+			line-height: 1.2;
+			margin: 0;
+		}
 
-        &__subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: $onSecondaryContainer;
-            opacity: 0.9;
-            font-weight: 500;
-            margin: 0;
-            letter-spacing: 0.01em;
-        }
+		&__subtitle {
+			font-size: clamp(1rem, 2.5vw, 1.25rem);
+			color: $onSecondaryContainer;
+			opacity: 0.9;
+			font-weight: 500;
+			margin: 0;
+			letter-spacing: 0.01em;
+		}
 
-        &__content {
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            color: $onSecondaryContainer;
-            opacity: 0.8;
-            line-height: 1.6;
-            margin: 0.5rem 0 0.5rem 0;
+		&__content {
+			font-size: clamp(0.875rem, 2vw, 1rem);
+			color: $onSecondaryContainer;
+			opacity: 0.8;
+			line-height: 1.6;
+			margin: 0.5rem 0 0.5rem 0;
 
-            &__paragraph {
-                margin-bottom: 1rem;
+			&__paragraph {
+				margin-bottom: 1rem;
 
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 
-            span {
-                color: $primary;
-                font-weight: 500;
-                cursor: pointer;
-                transition: opacity 0.2s ease;
+			span {
+				color: $primary;
+				font-weight: 500;
+				cursor: pointer;
+				transition: opacity 0.2s ease;
 
-                &:hover {
-                    opacity: 0.8;
-                }
-            }
-        }
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+		}
 
-        button {
-            align-self: flex-start;
-            background: $primary;
-            color: $onPrimary;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            letter-spacing: 0.01em;
+		button {
+			align-self: flex-start;
+			background: $primary;
+			color: $onPrimary;
+			border: none;
+			padding: 0.75rem 1.5rem;
+			border-radius: 2rem;
+			font-weight: 600;
+			font-size: 0.875rem;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			letter-spacing: 0.01em;
 
-            &:hover {
-                background: $primaryContainer;
-                color: $onPrimaryContainer;
-                transform: translateY(-1px);
-                @include shadow;
-            }
+			&:hover {
+				background: $primaryContainer;
+				color: $onPrimaryContainer;
+				transform: translateY(-1px);
+				@include shadow;
+			}
 
-            &:active {
-                transform: translateY(0);
-            }
+			&:active {
+				transform: translateY(0);
+			}
 
-            @media (max-width: breakpoint(md)) {
-                align-self: center;
-            }
-        }
-    }
+			@media (max-width: breakpoint(md)) {
+				align-self: center;
+			}
+		}
+	}
 }
 
 .content {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 45%, 100%), 1fr));
-    gap: 20px;
-    align-items: stretch;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 45%, 100%), 1fr));
+	gap: 20px;
+	align-items: stretch;
 }
 
 .section {
-    @include column;
-    height: 100%;
+	@include column;
+	height: 100%;
 
-    background-color: $tertiaryContainer;
-    color: $onTertiaryContainer;
-    border: 1px solid transparent;
+	background-color: $tertiaryContainer;
+	color: $onTertiaryContainer;
+	border: 1px solid transparent;
 
-    padding: 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition:
-        top 0.3s ease,
-        right 0.3s ease,
-        box-shadow 0.2s ease;
+	padding: 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition:
+		top 0.3s ease,
+		right 0.3s ease,
+		box-shadow 0.2s ease;
 
-    &:hover {
-        @include border;
-        box-shadow: 1px 1px 4px $shadow;
-        top: -3px;
-        right: -3px;
-    }
+	&:hover {
+		@include border;
+		box-shadow: 1px 1px 4px $shadow;
+		top: -3px;
+		right: -3px;
+	}
 
-    &__title {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
+	&__title {
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
 
-    &__content {
-        margin-top: 10px;
-        display: flex;
-        flex: 1; // Takes up remaining space, pushing content to fill height evenly
-    }
+	&__content {
+		margin-top: 10px;
+		display: flex;
+		flex: 1; // Takes up remaining space, pushing content to fill height evenly
+	}
 }

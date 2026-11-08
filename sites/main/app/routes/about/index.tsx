@@ -1,9 +1,9 @@
+import type { Route } from "./+types";
+import type { LeadershipRole } from "./about/tabs/leadership";
 import type { Resume } from "schemas";
 import { usePromise } from "#utils";
-import { aboutMe } from "../../../data/about-me";
-import type { Route } from "./+types";
+import { aboutMe as aboutMeData } from "../../../data/about-me";
 import { About } from "./about";
-import type { LeadershipRole } from "./about/tabs/leadership";
 
 const EmptyResume: Resume = {
 	about: {
@@ -19,7 +19,7 @@ const EmptyResume: Resume = {
 	sections: [],
 };
 
-// biome-ignore lint/complexity/noExcessiveLinesPerFunction: fix later
+// oxlint-disable max-lines-per-function -- Loader function is long but necessary for coverage.
 export async function loader() {
 	const resumeData: Promise<Resume> = new Promise((resolve) => {
 		setTimeout(
@@ -186,7 +186,7 @@ export async function loader() {
 		},
 	];
 
-	return { resumeData, leadershipRoles, aboutMe };
+	return { resumeData, leadershipRoles, aboutMe: aboutMeData };
 }
 
 /**

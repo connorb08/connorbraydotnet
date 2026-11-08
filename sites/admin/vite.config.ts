@@ -1,7 +1,7 @@
-import process from "node:process";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import process from "node:process";
 import { defineConfig } from "vite";
 
 const dev = process.env.NODE_ENV !== "production";

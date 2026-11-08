@@ -2,87 +2,87 @@
 
 /* The navbar is visible and styled for the normal (non-fullscreen) state. */
 .navbar {
-    /* Includes */
-    @include surfaceDim;
+	/* Includes */
+	@include surfaceDim;
 
-    /* Normal layout (non-fullscreen) */
+	/* Normal layout (non-fullscreen) */
 
-    /* Position and Layout */
-    display: flex;
-    flex-direction: column;
+	/* Position and Layout */
+	display: flex;
+	flex-direction: column;
 
-    /* Box Model */
-    margin: pt(0.5);
-    width: fit-content;
-    min-width: 0;
+	/* Box Model */
+	margin: pt(0.5);
+	width: fit-content;
+	min-width: 0;
 
-    /* Breakpoint */
-    @media (max-width: breakpoint(md)) {
-        display: none;
-    }
+	/* Breakpoint */
+	@media (max-width: breakpoint(md)) {
+		display: none;
+	}
 
-    &__navigation {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: pt(2);
-        // margin-top: pt(2);
-    }
+	&__navigation {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: pt(2);
+		// margin-top: pt(2);
+	}
 }
 
 html[data-fullscreen] {
-    & .navbar {
-        /* Fullscreen appearance (different from normal state) */
-        position: fixed;
-        left: 0;
-        top: 50%;
-        bottom: 50%;
-        backdrop-filter: blur(10px);
-        padding: pt(1) pt(0.25);
-        background-color: transparent;
-        color: $primary;
+	& .navbar {
+		/* Fullscreen appearance (different from normal state) */
+		position: fixed;
+		left: 0;
+		top: 50%;
+		bottom: 50%;
+		backdrop-filter: blur(10px);
+		padding: pt(1) pt(0.25);
+		background-color: transparent;
+		color: $primary;
 
-        @include rounded;
-        @include shadow;
+		@include rounded;
+		@include shadow;
 
-        z-index: 100;
-        width: 48px;
+		z-index: 100;
+		width: 48px;
 
-        margin-left: pt(0.5);
+		margin-left: pt(0.5);
 
-        min-height: fit-content;
+		min-height: fit-content;
 
-        /* Start offscreen on fullscreen toggle, then slide in left->right */
-        transform: translate(-110%, -50%);
-        animation: navbar-fullscreen-entrance 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+		/* Start offscreen on fullscreen toggle, then slide in left->right */
+		transform: translate(-110%, -50%);
+		animation: navbar-fullscreen-entrance 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 
-        /* Navigation layout used in fullscreen */
-        &__navigation {
-            @include column;
-            margin: 0;
-            gap: pt(1);
-        }
+		/* Navigation layout used in fullscreen */
+		&__navigation {
+			@include column;
+			margin: 0;
+			gap: pt(1);
+		}
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: $background; /* Or background-image */
-            opacity: 0.3;
-            z-index: -1; /* Place it behind the content */
-        }
-    }
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: $background; /* Or background-image */
+			opacity: 0.3;
+			z-index: -1; /* Place it behind the content */
+		}
+	}
 }
 
 @keyframes navbar-fullscreen-entrance {
-    from {
-        transform: translate(-110%, -50%);
-    }
-    to {
-        transform: translate(0, -50%);
-    }
+	from {
+		transform: translate(-110%, -50%);
+	}
+	to {
+		transform: translate(0, -50%);
+	}
 }

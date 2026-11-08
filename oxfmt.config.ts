@@ -1,0 +1,40 @@
+import { defineConfig } from "oxfmt";
+
+export default defineConfig({
+	useTabs: true,
+	tabWidth: 2,
+	printWidth: 90,
+	endOfLine: "lf",
+	semi: true,
+	singleQuote: false,
+	jsxSingleQuote: false,
+	trailingComma: "all",
+	arrowParens: "always",
+	quoteProps: "as-needed",
+	sortImports: {
+		groups: [
+			"type",
+			["builtin", "external", "internal", "parent", "sibling", "index"],
+			"unknown",
+		],
+		newlinesBetween: false,
+		sortSideEffects: false,
+	},
+	sortPackageJson: false,
+	ignorePatterns: [
+		"**/node_modules/**",
+		"**/.nx/**",
+		"**/.react-router/**",
+		"**/README.md",
+		"**/coverage/**",
+		"**/test/reports/**",
+		"**/test/e2e-results/**",
+		"**/*.d.ts",
+		"**/build/**",
+		"**/.gitignore",
+		"**/.tsbuildinfo/**",
+		"**/.wrangler/**",
+		"cli/**",
+		"**/devcontainer-lock.json",
+	],
+});

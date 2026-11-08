@@ -1,9 +1,0 @@
-<Solution>
-    <Folder Name="/inf/">
-        <Project Path="inf/Amazon/Amazon.csproj" />
-        <Project Path="inf/Backend/Backend.csproj" />
-    </Folder>
-    <Folder Name="/inf/K8S/">
-        <Project Path="inf/K8S/Kubernetes.csproj" />
-    </Folder>
-</Solution>

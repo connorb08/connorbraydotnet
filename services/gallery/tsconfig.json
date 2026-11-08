@@ -1,5 +1,8 @@
 {
 	"compilerOptions": {
+		"noEmit": true,
+		"incremental": true,
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "Bundler",

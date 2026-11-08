@@ -1,48 +1,48 @@
 @use "~/styles" as *;
 
 .MobileNavigation {
-    display: none;
+	display: none;
 
-    @media (max-width: breakpoint(md)) {
-        display: block;
-    }
+	@media (max-width: breakpoint(md)) {
+		display: block;
+	}
 
-    .Trigger {
-        position: fixed;
-        bottom: pt(1);
-        right: pt(1);
-    }
+	.Trigger {
+		position: fixed;
+		bottom: pt(1);
+		right: pt(1);
+	}
 }
 
 .Popover {
-    background-color: $surfaceContainer;
-    color: $onSurface;
-    @include rounded;
-    @include border($outline, 1px);
-    margin-bottom: 6px;
-    bottom: pt(1);
-    right: pt(1);
-    left: auto;
-    max-width: fit-content;
+	background-color: $surfaceContainer;
+	color: $onSurface;
+	@include rounded;
+	@include border($outline, 1px);
+	margin-bottom: 6px;
+	bottom: pt(1);
+	right: pt(1);
+	left: auto;
+	max-width: fit-content;
 
-    &__Arrow {
-        display: block;
-        fill: $surfaceContainer;
-        stroke: $outline;
-        stroke-width: 1px;
-        margin-top: -2px;
-    }
+	&__Arrow {
+		display: block;
+		fill: $surfaceContainer;
+		stroke: $outline;
+		stroke-width: 1px;
+		margin-top: -2px;
+	}
 }
 
 .Separator {
-    border: none;
-    border-top: 1px solid $outline;
-    margin: pt(0.25) 0;
-    width: 100%;
-    background: none;
-    height: 0;
+	border: none;
+	border-top: 1px solid $outline;
+	margin: pt(0.25) 0;
+	width: 100%;
+	background: none;
+	height: 0;
 }
 
 .Dialog {
-    padding: pt(0.25) 0;
+	padding: pt(0.25) 0;
 }

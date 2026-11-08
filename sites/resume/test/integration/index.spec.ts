@@ -1,7 +1,7 @@
-import { createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
-import { assert, describe, expect, it } from "vitest";
 // @ts-expect-error Importing the worker main entrypoint may not have proper TypeScript types
 import WorkerMainEntrypoint from "../../build/server";
+import { createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
+import { assert, describe, expect, it } from "vitest";
 
 describe("Built Cloudflare Worker Should Fetch", () => {
 	it("Should return a response", async () => {

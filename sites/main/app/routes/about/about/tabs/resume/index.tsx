@@ -1,8 +1,8 @@
-import { Fragment } from "react";
 import type { Resume } from "schemas";
 import { Career } from "./career";
 import Education, { EducationSkeleton } from "./education";
 import style from "./style.module.scss";
+import { Fragment } from "react";
 
 type Props = {
 	resume: Resume;

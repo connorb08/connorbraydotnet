@@ -1,8 +1,8 @@
-import { QueensGrid } from "components/queens/index";
+import type { Route } from "./+types";
 import { cfContext } from "#app/context";
 import { getProjectBySlug } from "../../../../data/projects";
-import type { Route } from "./+types";
 import style from "./queens.module.scss";
+import { QueensGrid } from "components/queens/index";
 
 export async function loader({ context }: Route.LoaderArgs) {
 	try {
@@ -32,6 +32,7 @@ const pipeline = [
 	},
 ];
 
+// oxlint-disable max-lines-per-function -- Component function is long but necessary for coverage.
 export default function QueensRoute({ loaderData }: Route.ComponentProps) {
 	const { data, error } = loaderData;
 	const project = getProjectBySlug("queens");
@@ -71,7 +72,11 @@ export default function QueensRoute({ loaderData }: Route.ComponentProps) {
 						{!error && data ? (
 							<QueensGrid
 								cellColors={data.CellColors}
-								colors={data.Colors.map((v) => ({ id: v.Id, rgb: v.RGB, name: v.Name }))}
+								colors={data.Colors.map((v) => ({
+									id: v.Id,
+									rgb: v.RGB,
+									name: v.Name,
+								}))}
 								queenPositions={data.Queens}
 								sideLength={data.SideLength}
 								cellsRemoved={data.Removed}

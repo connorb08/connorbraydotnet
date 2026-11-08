@@ -5,65 +5,65 @@
 @use "~/styles/util.scss";
 
 :root {
-    /* Font */
-    font-family: "Roboto Flex", sans-serif;
-    @include font.size(11);
-    @include font.weight-default;
+	/* Font */
+	font-family: "Roboto Flex", sans-serif;
+	@include font.size(11);
+	@include font.weight-default;
 }
 
 html {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #666;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #666;
 }
 
 /* Set body to size of normal sheet paper */
 body {
-    /* Layout */
-    height: 100%;
-    width: 100%;
+	/* Layout */
+	height: 100%;
+	width: 100%;
 
-    /* Styling */
-    background-color: white;
+	/* Styling */
+	background-color: white;
 
-    /* Disable Overscroll */
-    overscroll-behavior: none;
+	/* Disable Overscroll */
+	overscroll-behavior: none;
 }
 
 /* Take up body */
 main {
-    width: calc(100vw - util.in(1));
-    padding: util.in(0.5);
+	width: calc(100vw - util.in(1));
+	padding: util.in(0.5);
 }
 
 /* Set default styling for children */
 main * {
-    box-sizing: border-box;
-    line-height: 1.2;
+	box-sizing: border-box;
+	line-height: 1.2;
 }
 
 @media print {
-    @page {
-        size: letter;
-        margin: 0;
-        padding: util.in(0.5) 0;
-    }
+	@page {
+		size: letter;
+		margin: 0;
+		padding: util.in(0.5) 0;
+	}
 
-    html {
-        margin: 0;
-    }
+	html {
+		margin: 0;
+	}
 
-    body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
 
-        main {
-            width: auto;
-            margin: 0;
-            padding: 0 util.in(0.5);
-        }
-    }
+		main {
+			width: auto;
+			margin: 0;
+			padding: 0 util.in(0.5);
+		}
+	}
 }

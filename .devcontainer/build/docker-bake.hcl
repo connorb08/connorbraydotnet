@@ -69,6 +69,7 @@ variable "PACKAGES" {
     "netcat-openbsd",
     "openssh-client",
     "pass",
+    "psmisc",
     "sudo",
     "traceroute",
     "unzip",
@@ -133,8 +134,9 @@ FROM base
 ENV DEBIAN_FRONTEND=noninteractive
 ${apt_install(BUILDER_PACKAGES)}
 RUN printf '%s\n' \
-    'retry = 4' \
-    'retry-max-time = 120' \
+    'user-agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"' \
+    'retry = 6' \
+    'retry-max-time = 900' \
     'connect-timeout = 30' \
     'max-time = 120' > /root/.curlrc
 DOCKERFILE

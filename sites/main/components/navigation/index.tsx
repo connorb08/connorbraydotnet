@@ -1,7 +1,7 @@
-import { useLocation } from "react-router";
 import { LinkButton } from "../ui/buttons/button";
 import { routes } from "./pages";
 import style from "./style.module.scss";
+import { useLocation } from "react-router";
 
 export default function Navigation() {
 	const location = useLocation();

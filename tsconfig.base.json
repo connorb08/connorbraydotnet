@@ -2,6 +2,8 @@
 	"files": [],
 	"compilerOptions": {
 		"composite": true,
+		"incremental": true,
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.base.tsbuildinfo",
 		"declaration": true,
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
@@ -35,6 +37,7 @@
 		"lib": ["ESNext"],
 		"customConditions": ["@connorbraydotnet/source"],
 		"outDir": ".tsbuildinfo",
-		"rootDir": "."
+		"rootDir": ".",
+		"noEmit": false
 	}
 }

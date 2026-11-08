@@ -1,9 +1,9 @@
+import type { QueensGameDefinition } from "../../../../../packages/types/src/queens";
+import type { Database, Queens } from "../../models";
 import type { Kysely } from "kysely";
 import type { QueensSolution, QueensStep, RPCResult } from "types";
 import { RPCErr, RPCOk } from "types/rpc";
 import { v7 } from "uuid";
-import type { QueensGameDefinition } from "../../../../../packages/types/src/queens";
-import type { Database, Queens } from "../../models";
 
 export async function PutQueens(
 	db: Kysely<Database>,

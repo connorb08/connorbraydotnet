@@ -1,10 +1,10 @@
-import { NavLink, Outlet, useLocation } from "react-router";
 import Navigation, { MobileNavigation } from "#components/navigation/index";
 import Toolbar from "#components/toolbar/index";
 import Footer from "./footer";
 import style from "./layout.module.scss";
 // import Navbar from "./navbar";
 import Sidebar from "./sidebar";
+import { NavLink, Outlet, useLocation } from "react-router";
 
 export function MainLayout() {
 	const location = useLocation();

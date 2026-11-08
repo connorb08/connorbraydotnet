@@ -1,44 +1,17 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "biomejs.biome",
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csharp"
-  },
-  "[terraform]": {
-    "editor.defaultFormatter": "hashicorp.terraform"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
-  },
-  "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml"
-  },
-  "dotnet.codeLens.enableReferencesCodeLens": false,
-  "files.associations": {
-    "wrangler.json": "jsonc",
-    "biome.json": "jsonc",
-    "project.json": "jsonc"
-  },
-  "files.exclude": {
-    // Node.js dependencies
-    "**/node_modules": true,
-    // Cloudflare Workers build artifacts
-    "**/.wrangler": true,
-    // React Router build artifacts
-    "**/.react-router": true,
-    // Cloudflare Workers generated type definitions
-    "**/worker-configuration.d.ts": true,
-    // .NET build artifacts
-    "**/*/bin": true,
-    "**/*/obj": true
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit"
-  }
+	"typescript.suggestionActions.enabled": false,
+	"javascript.suggestionActions.enabled": false,
+	"files.associations": {
+		"wrangler.json": "jsonc",
+		"biome.json": "jsonc",
+		"project.json": "jsonc"
+	},
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/.wrangler": true,
+		"**/.react-router": true,
+		"**/worker-configuration.d.ts": true,
+		"**/*/bin": true,
+		"**/*/obj": true
+	}
 }

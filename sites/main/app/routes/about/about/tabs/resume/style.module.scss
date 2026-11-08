@@ -2,202 +2,202 @@
 @use "~/styles" as *;
 
 .section {
-    @include base.block-section;
-    padding: 2rem;
+	@include base.block-section;
+	padding: 2rem;
 
-    &__title {
-        @include base.block-title;
-    }
+	&__title {
+		@include base.block-title;
+	}
 }
 
 .bottomBorder {
-    border-bottom: 1px solid $outline;
-    margin: 1rem 0;
+	border-bottom: 1px solid $outline;
+	margin: 1rem 0;
 }
 
 .skeleton {
-    background-color: $scrim;
-    opacity: 0.2;
-    border-radius: 1rem;
+	background-color: $scrim;
+	opacity: 0.2;
+	border-radius: 1rem;
 
-    animation: shimmer 1.5s infinite linear;
-    background-image: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-size: 200% 100%;
+	animation: shimmer 1.5s infinite linear;
+	background-image: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.3) 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	background-size: 200% 100%;
 
-    @keyframes shimmer {
-        0% {
-            background-position: -200% 0;
-        }
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
 
-        100% {
-            background-position: 200% 0;
-        }
-    }
+		100% {
+			background-position: 200% 0;
+		}
+	}
 
-    *::after {
-        content: "\00a0";
-    }
+	*::after {
+		content: "\00a0";
+	}
 }
 
 .contentblock {
-    &__listItem {
-        display: flex;
+	&__listItem {
+		display: flex;
 
-        &__logo {
-            flex-shrink: 0;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.75rem;
-            background-size: cover;
-        }
-    }
+		&__logo {
+			flex-shrink: 0;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 0.75rem;
+			background-size: cover;
+		}
+	}
 }
 
 .listItem {
-    display: flex;
+	display: flex;
 
-    &__logo {
-        flex-shrink: 0;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 0.75rem;
-        background-size: cover;
-    }
+	&__logo {
+		flex-shrink: 0;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 0.75rem;
+		background-size: cover;
+	}
 
-    &__content {
-        width: 100%;
-        margin-left: 1rem;
+	&__content {
+		width: 100%;
+		margin-left: 1rem;
 
-        &__heading {
-            font-size: 1.125rem;
-            line-height: 1.2;
-        }
+		&__heading {
+			font-size: 1.125rem;
+			line-height: 1.2;
+		}
 
-        &__subheading {
-            display: flex;
-            gap: 1rem;
-            line-height: 1.2;
+		&__subheading {
+			display: flex;
+			gap: 1rem;
+			line-height: 1.2;
 
-            @media (max-width: breakpoint(sm)) {
-                flex-direction: column;
-                gap: 0.1rem;
-            }
+			@media (max-width: breakpoint(sm)) {
+				flex-direction: column;
+				gap: 0.1rem;
+			}
 
-            &__company {
-                display: flex;
-                gap: 0.5rem;
-                align-items: center;
-            }
+			&__company {
+				display: flex;
+				gap: 0.5rem;
+				align-items: center;
+			}
 
-            &__location {
-                display: flex;
-                gap: 0.5rem;
-                align-items: center;
-            }
+			&__location {
+				display: flex;
+				gap: 0.5rem;
+				align-items: center;
+			}
 
-            &__date {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                justify-content: end;
-                @media (max-width: breakpoint(sm)) {
-                    justify-content: start;
-                }
-            }
-        }
+			&__date {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				justify-content: end;
+				@media (max-width: breakpoint(sm)) {
+					justify-content: start;
+				}
+			}
+		}
 
-        &__description {
-            margin-top: 1.25rem;
+		&__description {
+			margin-top: 1.25rem;
 
-            ul {
-                li {
-                    line-height: 1.2;
-                    list-style-type: disc;
-                    margin-bottom: 0.75rem;
+			ul {
+				li {
+					line-height: 1.2;
+					list-style-type: disc;
+					margin-bottom: 0.75rem;
 
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
 }
 
 .educationItem {
-    display: flex;
+	display: flex;
 
-    &__schoolLogo {
-        // flex-shrink-0 w-12 h-12 rounded-xl bg-cover
-        flex-shrink: 0;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 0.75rem;
-        background-size: cover;
-    }
+	&__schoolLogo {
+		// flex-shrink-0 w-12 h-12 rounded-xl bg-cover
+		flex-shrink: 0;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 0.75rem;
+		background-size: cover;
+	}
 
-    &__content {
-        width: 100%;
-        margin-left: 1rem;
+	&__content {
+		width: 100%;
+		margin-left: 1rem;
 
-        &__heading {
-            font-size: 1.125rem;
-            line-height: 1.2;
-        }
+		&__heading {
+			font-size: 1.125rem;
+			line-height: 1.2;
+		}
 
-        &__subheading {
-            display: flex;
-            gap: 1rem;
-            line-height: 1.2;
+		&__subheading {
+			display: flex;
+			gap: 1rem;
+			line-height: 1.2;
 
-            @media (max-width: breakpoint(sm)) {
-                flex-direction: column;
-                gap: 0.1rem;
-            }
+			@media (max-width: breakpoint(sm)) {
+				flex-direction: column;
+				gap: 0.1rem;
+			}
 
-            &__school {
-                display: flex;
-                gap: 0.5rem;
-                align-items: center;
-            }
+			&__school {
+				display: flex;
+				gap: 0.5rem;
+				align-items: center;
+			}
 
-            &__location {
-                display: flex;
-                gap: 0.5rem;
-                align-items: center;
-            }
+			&__location {
+				display: flex;
+				gap: 0.5rem;
+				align-items: center;
+			}
 
-            &__date {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                justify-content: end;
-                @media (max-width: breakpoint(sm)) {
-                    justify-content: start;
-                }
-            }
-        }
+			&__date {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				justify-content: end;
+				@media (max-width: breakpoint(sm)) {
+					justify-content: start;
+				}
+			}
+		}
 
-        &__description {
-            margin-top: 1.25rem;
+		&__description {
+			margin-top: 1.25rem;
 
-            ul {
-                li {
-                    list-style-type: disc;
-                    margin-bottom: 0.25rem;
+			ul {
+				li {
+					list-style-type: disc;
+					margin-bottom: 0.25rem;
 
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
 }

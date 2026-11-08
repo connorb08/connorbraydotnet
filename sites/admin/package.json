@@ -1,24 +1,7 @@
 {
 	"name": "admin",
-	"devDependencies": {
-		"@tailwindcss/vite": "^4.2.4",
-		"@vitejs/plugin-rsc": "^0.5.26",
-		"tailwindcss": "^4.1.4"
-	},
-	"peerDependencies": {
-		"isbot": "*",
-		"react": "*",
-		"react-dom": "*",
-		"react-router": "*",
-		"wrangler": "*",
-		"typescript": "*",
-		"vite": "*",
-		"@cloudflare/vite-plugin": "*",
-		"@react-router/dev": "*",
-		"@types/react": "*",
-		"@types/react-dom": "*"
-	},
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"build": "react-router build",
 		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
@@ -27,8 +10,25 @@
 		"preview": "bun run build && vite preview",
 		"typecheck": "bun typegen && react-router typegen && tsc -b"
 	},
-	"type": "module",
 	"dependencies": {
 		"tailwind": "^4.0.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.2.4",
+		"@vitejs/plugin-rsc": "^0.5.26",
+		"tailwindcss": "^4.1.4"
+	},
+	"peerDependencies": {
+		"@cloudflare/vite-plugin": "*",
+		"@react-router/dev": "*",
+		"@types/react": "*",
+		"@types/react-dom": "*",
+		"isbot": "*",
+		"react": "*",
+		"react-dom": "*",
+		"react-router": "*",
+		"typescript": "*",
+		"vite": "*",
+		"wrangler": "*"
 	}
 }

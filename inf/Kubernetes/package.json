@@ -1,0 +1,33 @@
+{
+	"name": "inf-kubernetes",
+	"private": true,
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"deploy:preview": "pulumi preview",
+		"deploy": "pulumi up"
+	},
+	"peerDependencies": {
+		"@pulumi/kubernetes": "*",
+		"@pulumi/pulumi": "*",
+		"@pulumi/tls": "*"
+	},
+	"engines": {
+		"node": ">=22.18.0"
+	},
+	"nx": {
+		"targets": {
+			"lint": {},
+			"format:check": {},
+			"format:write": {},
+			"deploy:preview": {
+				"cache": false
+			},
+			"deploy": {
+				"cache": false
+			}
+		}
+	}
+}

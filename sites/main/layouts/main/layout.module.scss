@@ -1,181 +1,181 @@
 @use "~/styles" as *;
 
 html[data-fullscreen] {
-    .header {
-        display: none;
-    }
-    .content {
-        border-radius: 0;
-        margin-bottom: 0;
-        border: none;
-    }
-    .container {
-        overflow: visible;
-    }
+	.header {
+		display: none;
+	}
+	.content {
+		border-radius: 0;
+		margin-bottom: 0;
+		border: none;
+	}
+	.container {
+		overflow: visible;
+	}
 
-    .layout {
-        @include surfaceContainer;
-    }
+	.layout {
+		@include surfaceContainer;
+	}
 
-    .content__main {
-        max-width: width(xl);
-        margin: 0 auto;
-    }
+	.content__main {
+		max-width: width(xl);
+		margin: 0 auto;
+	}
 }
 
 .layout {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    @include surfaceDim;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	@include surfaceDim;
 }
 
 .header {
-    @include surfaceDim;
-    padding-top: pt(1.5);
-    padding-bottom: pt(1.5);
-    margin-left: pt(0.5);
-    margin-right: pt(0.5);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+	@include surfaceDim;
+	padding-top: pt(1.5);
+	padding-bottom: pt(1.5);
+	margin-left: pt(0.5);
+	margin-right: pt(0.5);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 
-    @media screen and (max-width: breakpoint(md)) {
-        display: none;
-    }
+	@media screen and (max-width: breakpoint(md)) {
+		display: none;
+	}
 
-    &__main {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        justify-content: center;
+	&__main {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
 
-        &__link {
-            display: flex;
+		&__link {
+			display: flex;
 
-            gap: pt(1);
-            text-decoration: none;
-            font-size: pt(2);
+			gap: pt(1);
+			text-decoration: none;
+			font-size: pt(2);
 
-            &__icon {
-                color: $tertiary;
-                font-weight: bold;
-            }
+			&__icon {
+				color: $tertiary;
+				font-weight: bold;
+			}
 
-            &__text {
-                color: $primary;
-                font-weight: 600;
-            }
+			&__text {
+				color: $primary;
+				font-weight: 600;
+			}
 
-            &__cursor {
-                color: $primary;
-                animation: blink 1s step-end infinite;
+			&__cursor {
+				color: $primary;
+				animation: blink 1s step-end infinite;
 
-                @keyframes blink {
-                    0%,
-                    100% {
-                        opacity: 1;
-                    }
+				@keyframes blink {
+					0%,
+					100% {
+						opacity: 1;
+					}
 
-                    50% {
-                        opacity: 0;
-                    }
-                }
-            }
-        }
-    }
+					50% {
+						opacity: 0;
+					}
+				}
+			}
+		}
+	}
 }
 
 .container {
-    @include surfaceDim;
-    display: flex;
-    flex: 1;
-    overflow: hidden;
+	@include surfaceDim;
+	display: flex;
+	flex: 1;
+	overflow: hidden;
 }
 
 .content {
-    @include surfaceContainer;
-    @include border(2px);
-    @include rounded("xl");
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    contain: layout style paint;
-    position: relative;
+	@include surfaceContainer;
+	@include border(2px);
+	@include rounded("xl");
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	contain: layout style paint;
+	position: relative;
 
-    overflow-y: auto;
-    scrollbar-color: $tertiary $surfaceContainer;
+	overflow-y: auto;
+	scrollbar-color: $tertiary $surfaceContainer;
 
-    &__spacer {
-        view-transition-name: mainContent;
-        max-width: width(xl);
-        margin: 0 auto;
-        height: 100%;
-        &__main {
-            @include sans-serif;
-            @include column;
-            justify-content: center;
-            flex: 1;
-            padding: pt(0.5);
-            width: 100%;
-            min-height: 100%;
-            transform-origin: center top;
-            overflow: hidden;
-        }
-    }
+	&__spacer {
+		view-transition-name: mainContent;
+		max-width: width(xl);
+		margin: 0 auto;
+		height: 100%;
+		&__main {
+			@include sans-serif;
+			@include column;
+			justify-content: center;
+			flex: 1;
+			padding: pt(0.5);
+			width: 100%;
+			min-height: 100%;
+			transform-origin: center top;
+			overflow: hidden;
+		}
+	}
 
-    @media screen and (max-width: breakpoint(md)) {
-        border: none;
-        border-radius: 0;
-    }
+	@media screen and (max-width: breakpoint(md)) {
+		border: none;
+		border-radius: 0;
+	}
 }
 
 @keyframes content-fade-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 @keyframes content-fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 ::view-transition-group(mainContent) {
-    animation-duration: 280ms;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-    overflow: clip;
+	animation-duration: 280ms;
+	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+	overflow: clip;
 }
 
 ::view-transition-image-pair(mainContent) {
-    overflow: clip;
+	overflow: clip;
 }
 
 ::view-transition-old(mainContent) {
-    animation: content-fade-out 220ms ease-out both;
-    transform-origin: center top;
-    overflow: clip;
-    clip-path: inset(0);
+	animation: content-fade-out 220ms ease-out both;
+	transform-origin: center top;
+	overflow: clip;
+	clip-path: inset(0);
 }
 
 ::view-transition-new(mainContent) {
-    animation: content-fade-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    transform-origin: center top;
-    overflow: clip;
-    clip-path: inset(0);
+	animation: content-fade-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	transform-origin: center top;
+	overflow: clip;
+	clip-path: inset(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    ::view-transition-old(mainContent),
-    ::view-transition-new(mainContent) {
-        animation-duration: 1ms;
-    }
+	::view-transition-old(mainContent),
+	::view-transition-new(mainContent) {
+		animation-duration: 1ms;
+	}
 }

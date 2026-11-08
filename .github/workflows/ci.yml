@@ -23,7 +23,7 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-      
+
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: v1.2.10

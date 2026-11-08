@@ -1,6 +1,6 @@
-import { Link } from "react-router";
 import type { AboutMeData } from "../../../../../data/about-me";
 import style from "../style.module.scss";
+import { Link } from "react-router";
 
 export const UserBlock = ({ aboutMe }: { aboutMe: AboutMeData }) => {
 	return (

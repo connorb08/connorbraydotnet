@@ -10,6 +10,7 @@
 		}
 	],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
 		"outDir": ".tsbuildinfo"
 	}
 }

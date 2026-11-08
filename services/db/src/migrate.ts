@@ -44,7 +44,7 @@ export async function RunMigrations(db: Kysely<MigrationDatabase>): Promise<void
 		const completedMigrationNames = new Set(completedMigrations.map(({ name }) => name));
 		const pendingMigrations = Object.entries(migrations)
 			.filter(([migrationName]) => !completedMigrationNames.has(migrationName))
-			.sort(([left], [right]) => left.localeCompare(right));
+			.toSorted(([left], [right]) => left.localeCompare(right));
 
 		await pendingMigrations.reduce(
 			async (previousMigration, [migrationName, migration]) => {
@@ -92,8 +92,9 @@ export async function RollbackMigration(
 					throw new Error(`Migration ${name} does not have a down function`);
 				}
 
-				// biome-ignore lint/performance/noAwaitInLoops: migrations must be rolled back in order
+				// oxlint-disable-next-line no-await-in-loop -- Migrations must roll back in order.
 				await migration.down(db);
+				// oxlint-disable-next-line no-await-in-loop -- Delete the record only after rollback completes.
 				await migrationDb.deleteFrom("migrations").where("name", "=", name).execute();
 
 				console.log(`[database] rolled back migration ${name}: Success`);

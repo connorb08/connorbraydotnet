@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["src"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.lib.tsbuildinfo",
 		"jsx": "react-jsx",
 		"types": ["@types/css-modules"]
 	},

@@ -1,37 +1,37 @@
 @use "~/styles" as *;
 
 .footer__default {
-    display: block;
-    height: 10px;
+	display: block;
+	height: 10px;
 }
 
 .footer__fullscreen {
-    display: none;
+	display: none;
 }
 
 html[data-fullscreen] {
-    & .footer {
-        @include surfaceContainer;
-        position: relative;
-    }
-    & .footer__default {
-        display: none;
-    }
-    & .footer__fullscreen {
-        display: flex;
-    }
+	& .footer {
+		@include surfaceContainer;
+		position: relative;
+	}
+	& .footer__default {
+		display: none;
+	}
+	& .footer__fullscreen {
+		display: flex;
+	}
 }
 
 .footer {
-    @include surfaceDim;
-    padding-top: pt(1.5);
-    // padding: pt(1.5) 0;
+	@include surfaceDim;
+	padding-top: pt(1.5);
+	// padding: pt(1.5) 0;
 
-    @media (max-width: breakpoint(md)) {
-        display: none;
-    }
+	@media (max-width: breakpoint(md)) {
+		display: none;
+	}
 
-    &__fullscreen {
-        @include sans-serif;
-    }
+	&__fullscreen {
+		@include sans-serif;
+	}
 }

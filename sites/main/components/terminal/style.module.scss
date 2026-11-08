@@ -1,88 +1,88 @@
 @use "~/styles" as *;
 
 .container {
-    // position: relative;
-    // @include rounded("xl");
-    background-color: $surfaceContainerHighest;
-    height: 12rem;
-    overflow: hidden;
-    // border: 1px solid transparent;
-    // box-sizing: border-box;
+	// position: relative;
+	// @include rounded("xl");
+	background-color: $surfaceContainerHighest;
+	height: 12rem;
+	overflow: hidden;
+	// border: 1px solid transparent;
+	// box-sizing: border-box;
 
-    &:focus-within {
-        box-shadow: inset 0 0 0 1px $primary;
-        // @include border;
-        // border: 1px solid $primary;
-        // box-shadow: 0 0 0 1px $primary;
-        // @include shadow;
-    }
+	&:focus-within {
+		box-shadow: inset 0 0 0 1px $primary;
+		// @include border;
+		// border: 1px solid $primary;
+		// box-shadow: 0 0 0 1px $primary;
+		// @include shadow;
+	}
 
-    &__terminal {
-        height: 100%;
-        margin: 0 auto;
-        padding: pt(1) pt(2);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin: 0;
+	&__terminal {
+		height: 100%;
+		margin: 0 auto;
+		padding: pt(1) pt(2);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0;
 
-        &__result {
-            flex: 1;
-            margin-bottom: pt(0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+		&__result {
+			flex: 1;
+			margin-bottom: pt(0.5);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 
-            &[command-result="ok"] {
-                color: inherit;
-            }
+			&[command-result="ok"] {
+				color: inherit;
+			}
 
-            &[command-result="error"] {
-                color: $error;
-            }
-        }
+			&[command-result="error"] {
+				color: $error;
+			}
+		}
 
-        &__entry {
-            gap: 0;
-            display: flex;
-            line-height: normal;
-            margin: 0;
+		&__entry {
+			gap: 0;
+			display: flex;
+			line-height: normal;
+			margin: 0;
 
-            &__prompt {
-                padding-right: pt(0.5);
-            }
+			&__prompt {
+				padding-right: pt(0.5);
+			}
 
-            &__input {
-                font-family: inherit;
-                font-size: inherit;
-                line-height: inherit;
-                width: 100%;
-                background-color: inherit;
-                color: $primary;
-                border: none;
-                padding: 0;
-                margin: 0;
-                appearance: none;
-                position: relative;
-                display: inline-block;
-                caret-color: $primary;
-                flex: 1;
+			&__input {
+				font-family: inherit;
+				font-size: inherit;
+				line-height: inherit;
+				width: 100%;
+				background-color: inherit;
+				color: $primary;
+				border: none;
+				padding: 0;
+				margin: 0;
+				appearance: none;
+				position: relative;
+				display: inline-block;
+				caret-color: $primary;
+				flex: 1;
 
-                &:focus {
-                    outline: none;
-                }
-            }
+				&:focus {
+					outline: none;
+				}
+			}
 
-            &__submit {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                margin: 0;
-                padding: 0;
-                border: 0;
-                opacity: 0;
-                pointer-events: none;
-            }
-        }
-    }
+			&__submit {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				opacity: 0;
+				pointer-events: none;
+			}
+		}
+	}
 }

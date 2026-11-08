@@ -3,6 +3,7 @@
 	"include": ["**/*.spec.ts", "**/*.spec.tsx", "test/setup.ts"],
 	"exclude": ["test/e2e"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.spec.tsbuildinfo",
 		"lib": ["DOM", "ES2022"],
 		"jsx": "react-jsx",
 		"types": [

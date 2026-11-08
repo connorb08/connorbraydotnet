@@ -1,5 +1,5 @@
-import { defineConfig } from "vitest/config";
 import process from "node:process";
+import { defineConfig } from "vitest/config";
 
 const workspacePath = process.env.WORKSPACE_PATH ?? "";
 const childPath = import.meta.dirname.replace(workspacePath ?? "", "");

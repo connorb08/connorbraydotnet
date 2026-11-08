@@ -1,269 +1,269 @@
 @use "~/styles" as *;
 
 @mixin block-section {
-    @include surfaceContainerHighest;
-    @include shadow;
-    @include rounded("lg");
+	@include surfaceContainerHighest;
+	@include shadow;
+	@include rounded("lg");
 }
 
 @mixin block-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1.25rem;
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 1.25rem;
 }
 
 @mixin social-link-hover {
-    transition: all 300ms;
+	transition: all 300ms;
 
-    &:hover {
-        color: $primary;
-    }
+	&:hover {
+		color: $primary;
+	}
 }
 
 .container {
-    @include column;
-    justify-content: center;
-    margin: pt(4) 0;
+	@include column;
+	justify-content: center;
+	margin: pt(4) 0;
 
-    @media screen and (max-width: breakpoint(md)) {
-        margin: pt(1);
-    }
+	@media screen and (max-width: breakpoint(md)) {
+		margin: pt(1);
+	}
 
-    &__grid {
-        display: grid;
-        gap: 1.25rem;
-        grid-template-columns: minmax(min(100%, 15rem), 1fr) minmax(min(100%, 30rem), 2fr);
-        width: 100%;
+	&__grid {
+		display: grid;
+		gap: 1.25rem;
+		grid-template-columns: minmax(min(100%, 15rem), 1fr) minmax(min(100%, 30rem), 2fr);
+		width: 100%;
 
-        @media (max-width: breakpoint(lg)) {
-            grid-template-columns: 1fr;
-        }
+		@media (max-width: breakpoint(lg)) {
+			grid-template-columns: 1fr;
+		}
 
-        &__left {
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
+		&__left {
+			display: flex;
+			width: 100%;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
 
-        &__main {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            width: 100%;
-        }
-    }
+		&__main {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+			width: 100%;
+		}
+	}
 }
 
 .aboutBlock {
-    @include block-section;
-    color: inherit;
-    padding: 2rem;
-    padding-bottom: 0;
+	@include block-section;
+	color: inherit;
+	padding: 2rem;
+	padding-bottom: 0;
 
-    &__title {
-        @include block-title;
-    }
+	&__title {
+		@include block-title;
+	}
 
-    &__description {
-        margin-bottom: 1rem;
-        line-height: 1.2;
-    }
+	&__description {
+		margin-bottom: 1rem;
+		line-height: 1.2;
+	}
 
-    &__content {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 
-        &__iconList {
-            display: flex;
-            gap: 1rem;
-            margin-left: 0.25rem;
+		&__iconList {
+			display: flex;
+			gap: 1rem;
+			margin-left: 0.25rem;
 
-            &__link {
-                @include social-link-hover;
+			&__link {
+				@include social-link-hover;
 
-                &__icon {
-                    height: 1.5rem;
-                    width: 1.5rem;
-                }
-            }
-        }
-    }
+				&__icon {
+					height: 1.5rem;
+					width: 1.5rem;
+				}
+			}
+		}
+	}
 
-    &__divider {
-        border-top: 1px solid $outline;
-        margin: 1.25rem 0;
-    }
+	&__divider {
+		border-top: 1px solid $outline;
+		margin: 1.25rem 0;
+	}
 
-    &__menu {
-        display: flex;
-        gap: 0.75rem;
-        font-weight: 500;
-        overflow: hidden;
+	&__menu {
+		display: flex;
+		gap: 0.75rem;
+		font-weight: 500;
+		overflow: hidden;
 
-        @media (min-width: 768px) {
-            gap: 2rem;
-        }
+		@media (min-width: 768px) {
+			gap: 2rem;
+		}
 
-        &__tab {
-            display: inline-flex;
-            padding-bottom: 1.25rem;
-            border-bottom: 2px solid transparent;
-            background-color: inherit;
-            border: none;
-            cursor: pointer;
+		&__tab {
+			display: inline-flex;
+			padding-bottom: 1.25rem;
+			border-bottom: 2px solid transparent;
+			background-color: inherit;
+			border: none;
+			cursor: pointer;
 
-            &:hover {
-                color: $primary;
-                border-bottom: 2px solid $primary;
-            }
+			&:hover {
+				color: $primary;
+				border-bottom: 2px solid $primary;
+			}
 
-            &.--active {
-                color: $primary;
-                border-bottom: 2px solid $secondary;
-            }
-        }
-    }
+			&.--active {
+				color: $primary;
+				border-bottom: 2px solid $secondary;
+			}
+		}
+	}
 }
 
 .userBlock {
-    @include block-section;
-    // box-shadow:
-    //     0 4px 6px -1px rgb(0 0 0 / 0.1),
-    //     0 2px 4px -2px rgb(0 0 0 / 0.1);
-    // border-radius: 1rem;
-    overflow: hidden;
+	@include block-section;
+	// box-shadow:
+	//     0 4px 6px -1px rgb(0 0 0 / 0.1),
+	//     0 2px 4px -2px rgb(0 0 0 / 0.1);
+	// border-radius: 1rem;
+	overflow: hidden;
 
-    &__backgroundImage {
-        height: 10rem;
-        background-position: center;
-        background-size: cover;
-    }
+	&__backgroundImage {
+		height: 10rem;
+		background-position: center;
+		background-size: cover;
+	}
 
-    &__content {
-        padding: 2rem;
-        padding-top: 3.5rem;
-        position: relative;
+	&__content {
+		padding: 2rem;
+		padding-top: 3.5rem;
+		position: relative;
 
-        &__name {
-            font-size: large;
-            font-weight: 600;
-            margin: 0.25rem 0;
-        }
+		&__name {
+			font-size: large;
+			font-weight: 600;
+			margin: 0.25rem 0;
+		}
 
-        &__title {
-            margin-bottom: 2rem;
-        }
+		&__title {
+			margin-bottom: 2rem;
+		}
 
-        &__headshot {
-            @include border(2px);
-            height: 5rem;
-            border-radius: 0.75rem;
-            // border: 1px solid $outline;
-            // border: 2px solid var(--gray-3);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            top: -2.5rem;
-        }
+		&__headshot {
+			@include border(2px);
+			height: 5rem;
+			border-radius: 0.75rem;
+			// border: 1px solid $outline;
+			// border: 2px solid var(--gray-3);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			position: absolute;
+			top: -2.5rem;
+		}
 
-        &__downloadButton {
-            @include primary;
+		&__downloadButton {
+			@include primary;
 
-            text-decoration: none;
-            display: flex;
-            justify-content: space-evenly;
-            width: 100%;
-            padding: 0.75rem 0.5rem;
-            border-radius: 0.5rem;
-            align-items: center;
-            font-weight: 600;
-            position: relative;
-            box-sizing: border-box;
+			text-decoration: none;
+			display: flex;
+			justify-content: space-evenly;
+			width: 100%;
+			padding: 0.75rem 0.5rem;
+			border-radius: 0.5rem;
+			align-items: center;
+			font-weight: 600;
+			position: relative;
+			box-sizing: border-box;
 
-            &:hover {
-                background-color: $inversePrimary;
-                color: $onSurface;
-            }
+			&:hover {
+				background-color: $inversePrimary;
+				color: $onSurface;
+			}
 
-            &__text {
-                color: inherit;
-                flex: 1;
-                margin-right: calc(1.5rem + 0.75rem + 0.75rem);
-                text-align: center;
-            }
+			&__text {
+				color: inherit;
+				flex: 1;
+				margin-right: calc(1.5rem + 0.75rem + 0.75rem);
+				text-align: center;
+			}
 
-            &__icon {
-                background-color: $inversePrimary;
-                color: $onSurface;
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                padding: 0.75rem 1rem;
-                border-radius: 0 0.5rem 0.5rem 0;
-                box-sizing: border-box;
+			&__icon {
+				background-color: $inversePrimary;
+				color: $onSurface;
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				padding: 0.75rem 1rem;
+				border-radius: 0 0.5rem 0.5rem 0;
+				box-sizing: border-box;
 
-                &__svg {
-                    width: 1.5rem;
-                    height: 1.5rem;
-                }
-            }
-        }
-    }
+				&__svg {
+					width: 1.5rem;
+					height: 1.5rem;
+				}
+			}
+		}
+	}
 }
 
 .information {
-    @include block-section;
-    padding: 2rem;
+	@include block-section;
+	padding: 2rem;
 
-    &__title {
-        @include block-title;
-    }
+	&__title {
+		@include block-title;
+	}
 
-    &__content {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 
-        &__item {
-            display: flex;
-            justify-content: space-between;
+		&__item {
+			display: flex;
+			justify-content: space-between;
 
-            &__key {
-                color: inherit;
-            }
+			&__key {
+				color: inherit;
+			}
 
-            &__value {
-                text-align: right;
-            }
-        }
-    }
+			&__value {
+				text-align: right;
+			}
+		}
+	}
 }
 
 .skills {
-    @include block-section;
-    display: flow-root;
-    padding: 2rem;
+	@include block-section;
+	display: flow-root;
+	padding: 2rem;
 
-    &__title {
-        @include block-title;
-    }
+	&__title {
+		@include block-title;
+	}
 
-    &__content {
-        display: flex;
-        flex-wrap: wrap;
-        margin: -0.5rem;
+	&__content {
+		display: flex;
+		flex-wrap: wrap;
+		margin: -0.5rem;
 
-        &__tag {
-            @include shadow;
-            @include tertiary;
-            @include rounded;
-            margin: 0.25rem;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-        }
-    }
+		&__tag {
+			@include shadow;
+			@include tertiary;
+			@include rounded;
+			margin: 0.25rem;
+			padding: 0.5rem 0.75rem;
+			font-size: 0.875rem;
+		}
+	}
 }

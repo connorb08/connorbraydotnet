@@ -1,6 +1,6 @@
-import { NavLink } from "react-router";
 import type { Route } from "./+types/index";
 import style from "./home.module.scss";
+import { NavLink } from "react-router";
 
 export function meta() {
 	return [{ title: "Connor Bray" }, { name: "description", content: "connorbray.net" }];

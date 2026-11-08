@@ -1,11 +1,11 @@
+import { default as App, ErrorBoundary, Layout } from "./root";
 import { render, screen } from "@testing-library/react";
 import { isRouteErrorResponse } from "react-router";
-import { default as App, ErrorBoundary, Layout } from "./root";
 
 // Mock React Router components
 vi.mock("react-router", () => ({
 	Outlet: () => <div data-testid="outlet">Outlet Content</div>,
-	isRouteErrorResponse: vi.fn(),
+	isRouteErrorResponse: vi.fn<typeof isRouteErrorResponse>(),
 	Links: () => <link data-testid="link-mock" />,
 	Scripts: () => <template data-testid="script-mock" />,
 }));

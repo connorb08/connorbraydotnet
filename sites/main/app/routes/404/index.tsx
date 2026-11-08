@@ -1,5 +1,5 @@
-import { NavLink } from "react-router";
 import style from "./notfound.module.scss";
+import { NavLink } from "react-router";
 
 export function meta() {
 	return [

@@ -3,21 +3,21 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"exports": {
+		"./*": "./src/*.tsx"
+	},
 	"scripts": {
 		"depcheck": "depcheck",
 		"typecheck": "tsc -b"
-	},
-	"exports": {
-		"./*": "./src/*.tsx"
 	},
 	"dependencies": {
 		"types": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": "*",
-		"typescript": "*",
-		"depcheck": "*",
 		"@types/css-modules": "*",
-		"@types/react": "*"
+		"@types/react": "*",
+		"depcheck": "*",
+		"react": "*",
+		"typescript": "*"
 	}
 }

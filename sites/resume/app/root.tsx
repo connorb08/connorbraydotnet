@@ -1,6 +1,5 @@
-import { isRouteErrorResponse, Links, Outlet, Scripts } from "react-router";
-
 import type { Route } from "./+types/root";
+import { isRouteErrorResponse, Links, Outlet, Scripts } from "react-router";
 import "./styles/main.scss";
 
 export function Layout({ children }: { children: React.ReactNode }) {

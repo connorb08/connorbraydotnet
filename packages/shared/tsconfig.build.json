@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["./build.ts"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.build.tsbuildinfo",
 		"types": ["bun"]
 	},
 	"references": [

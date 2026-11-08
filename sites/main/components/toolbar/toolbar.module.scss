@@ -1,14 +1,14 @@
 @use "~/styles" as *;
 
 .toolbar {
-    @include row;
+	@include row;
 
-    gap: 0.5rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+	gap: 0.5rem;
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
 
-    @media (max-width: breakpoint(md)) {
-        display: none;
-    }
+	@media (max-width: breakpoint(md)) {
+		display: none;
+	}
 }

@@ -1,7 +1,6 @@
-import { env } from "cloudflare:workers";
-import { useEffect, useState } from "react";
-import { useFetcher } from "react-router";
 import type { Route } from "./+types/migrate";
+import { env } from "cloudflare:workers";
+import { useFetcher } from "react-router";
 
 type MigrationResult = {
 	error: boolean;
@@ -26,24 +25,13 @@ export async function action(_: Route.ComponentProps): Promise<MigrationResult> 
 
 export function useMigrationButton() {
 	const fetcher = useFetcher<typeof action>();
-	const [pending, setPending] = useState(false);
-	const [error, setError] = useState(false);
-	const [message, setMessage] = useState("");
+	const pending = fetcher.state !== "idle";
+	const error = pending ? false : (fetcher.data?.error ?? false);
+	const message = pending ? "" : (fetcher.data?.message ?? "");
 
 	const handleClick = () => {
-		setPending(true);
-		setError(false);
-		setMessage("");
 		fetcher.submit(null, { method: "post", action: "/db/migrate" });
 	};
-
-	useEffect(() => {
-		if (fetcher.state === "idle") {
-			setPending(false);
-			setError(fetcher.data?.error ?? false);
-			setMessage(fetcher.data?.message ?? "");
-		}
-	}, [fetcher]);
 
 	return {
 		error,

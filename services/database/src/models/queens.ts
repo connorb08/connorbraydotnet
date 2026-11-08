@@ -1,3 +1,4 @@
+import type { QueensGameDefinition } from "../../../../packages/types/src/queens";
 import type {
 	Insertable,
 	JSONColumnType,
@@ -6,7 +7,6 @@ import type {
 	Updateable,
 } from "kysely";
 import type { QueensSolution, QueensStep } from "types";
-import type { QueensGameDefinition } from "../../../../packages/types/src/queens";
 
 export type QueensTable = {
 	id: string;

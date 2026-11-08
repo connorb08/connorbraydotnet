@@ -1,7 +1,7 @@
-import { useId } from "react";
-import { useLocation, useNavigate } from "react-router";
 import { useTerminalController } from "./controller";
 import style from "./style.module.scss";
+import { useId } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 export default function Terminal() {
 	const location = useLocation().pathname;

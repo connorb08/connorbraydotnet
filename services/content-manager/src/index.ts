@@ -1,5 +1,5 @@
-import { WorkerEntrypoint } from "cloudflare:workers";
 import { calculateWidth, getImages, getOutputType, isImage, Quality } from "./utils";
+import { WorkerEntrypoint } from "cloudflare:workers";
 
 export default class Entrypoint extends WorkerEntrypoint<Env> {
 	/**

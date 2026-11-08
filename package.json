@@ -1,20 +1,18 @@
 {
 	"name": "@connorbraydotnet/source",
 	"version": "0.0.0",
-	"license": "UNLICENSED",
 	"private": true,
-	"packageManager": "bun@10.8.0",
+	"license": "UNLICENSED",
 	"workspaces": [
 		"apps/*",
 		"sites/*",
 		"services/**/*",
 		"packages/*",
 		"projects/*",
-		"inf/"
+		"inf/",
+		"inf/*"
 	],
-	"overrides": {
-		"typescript": "npm:@typescript/typescript6@6.0.2"
-	},
+	"type": "module",
 	"scripts": {
 		"checks": "NX_TUI=false bun run format:check && NX_TUI=false bun run lint && NX_TUI=false bun run typecheck && NX_TUI=false bun run build && NX_TUI=false bun run test",
 		"format:check": "nx run-many -t format:check",
@@ -29,10 +27,16 @@
 		"check:packages": "bun pm",
 		"deploy:preview": "nx run-many -t deploy:preview"
 	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "3.1136.0",
+		"@aws-sdk/s3-request-presigner": "3.1136.0",
+		"hono": "4.13.8",
+		"isbot": "5.2.2",
+		"react": "19.3.0",
+		"react-dom": "19.3.0",
+		"react-router": "8.4.0"
+	},
 	"devDependencies": {
-		"@biomejs/biome": "2.5.14",
-		"@biomejs/js-api": "6.0.0",
-		"@biomejs/wasm-nodejs": "2.5.14",
 		"@cloudflare/vite-plugin": "1.56.0",
 		"@cloudflare/vitest-plugin": "^1.1.13",
 		"@cloudflare/workers-types": "5.20260920.1",
@@ -49,6 +53,10 @@
 		"@nx/vite": "23.2.1",
 		"@nx/vitest": "23.2.1",
 		"@playwright/test": "1.63.0",
+		"@pulumi/aws": "7.54.0",
+		"@pulumi/kubernetes": "4.34.3",
+		"@pulumi/pulumi": "3.274.1",
+		"@pulumi/tls": "5.6.3",
 		"@react-router/dev": "8.4.0",
 		"@swc-node/register": "1.12.1",
 		"@swc/core": "1.16.2",
@@ -73,6 +81,8 @@
 		"happy-dom": "^20.14.5",
 		"jsdom": "30.1.0",
 		"nx": "23.2.1",
+		"oxfmt": "^0.77.0",
+		"oxlint": "^1.92.0",
 		"playwright": "1.63.0",
 		"postcss": "8.5.28",
 		"postcss-preset-mantine": "1.18.0",
@@ -86,13 +96,8 @@
 		"vitest": "~4.1.11",
 		"wrangler": "4.135.0"
 	},
-	"dependencies": {
-		"@aws-sdk/client-s3": "3.1136.0",
-		"@aws-sdk/s3-request-presigner": "3.1136.0",
-		"hono": "4.13.8",
-		"isbot": "5.2.2",
-		"react": "19.3.0",
-		"react-dom": "19.3.0",
-		"react-router": "8.4.0"
-	}
+	"overrides": {
+		"typescript": "npm:@typescript/typescript6@6.0.2"
+	},
+	"packageManager": "bun@10.8.0"
 }

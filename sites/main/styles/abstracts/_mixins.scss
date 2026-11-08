@@ -4,87 +4,87 @@
 /* Layout Mixins */
 
 @mixin row {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 @mixin column {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 /* Style Mixins */
 
 @mixin border($width: 1px, $color: colors.$outline) {
-    border: $width solid $color;
+	border: $width solid $color;
 }
 
 @mixin border-top($width: 1px) {
-    border-top: $width solid colors.$outline;
+	border-top: $width solid colors.$outline;
 }
 
 @mixin shadow {
-    box-shadow: 1px 1px 4px colors.$shadow;
+	box-shadow: 1px 1px 4px colors.$shadow;
 }
 
 $_border-radii: (
-    sm: 4px,
-    md: 8px,
-    lg: 16px,
-    xl: 32px,
-    2xl: 48px
+	sm: 4px,
+	md: 8px,
+	lg: 16px,
+	xl: 32px,
+	2xl: 48px,
 );
 
 @mixin rounded($size: "md") {
-    @if not map.has-key($_border-radii, $size) {
-        @error "Border radius `#{$size}` not found.";
-    }
-    border-radius: map.get($_border-radii, $size);
+	@if not map.has-key($_border-radii, $size) {
+		@error "Border radius `#{$size}` not found.";
+	}
+	border-radius: map.get($_border-radii, $size);
 }
 
 /* Color Mixins */
 
 @mixin surfaceContainer {
-    background-color: colors.$surfaceContainer;
-    color: colors.$onSurface;
+	background-color: colors.$surfaceContainer;
+	color: colors.$onSurface;
 }
 
 @mixin surfaceDim {
-    background-color: colors.$surfaceDim;
-    color: colors.$onSurface;
+	background-color: colors.$surfaceDim;
+	color: colors.$onSurface;
 }
 
 @mixin surfaceContainerHighest {
-    background-color: colors.$surfaceContainerHighest;
-    color: colors.$onSurface;
+	background-color: colors.$surfaceContainerHighest;
+	color: colors.$onSurface;
 }
 
 @mixin surfaceContainerHighest {
-    background-color: colors.$surfaceContainerHighest;
-    color: colors.$onSurface;
+	background-color: colors.$surfaceContainerHighest;
+	color: colors.$onSurface;
 }
 
 @mixin primaryContainer {
-    background-color: colors.$primaryContainer;
-    color: colors.$onPrimaryContainer;
+	background-color: colors.$primaryContainer;
+	color: colors.$onPrimaryContainer;
 }
 
 @mixin primary {
-    background-color: colors.$primary;
-    color: colors.$onPrimary;
+	background-color: colors.$primary;
+	color: colors.$onPrimary;
 }
 
 @mixin secondary {
-    background-color: colors.$secondary;
-    color: colors.$onSecondary;
+	background-color: colors.$secondary;
+	color: colors.$onSecondary;
 }
 
 @mixin tertiary {
-    background-color: colors.$tertiary;
-    color: colors.$onTertiary;
+	background-color: colors.$tertiary;
+	color: colors.$onTertiary;
 }
 
 @mixin error {
-    background-color: colors.$error;
-    color: colors.$onError;
+	background-color: colors.$error;
+	color: colors.$onError;
 }

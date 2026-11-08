@@ -1,10 +1,10 @@
+import type { RouterContextProvider } from "react-router";
+import { cfContext } from "#context";
+import WorkerEntrypoint from "#worker";
 /** biome-ignore-all lint/style/noNonNullAssertion: Using non-null assertion to explicitly indicate that the variables will be initialized before use */
 import { createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
 import { env } from "cloudflare:workers";
-import type { RouterContextProvider } from "react-router";
 import { assert, describe, expect, it, vi } from "vitest";
-import { cfContext } from "#context";
-import WorkerEntrypoint from "#worker";
 
 vi.mock("react-router", async (importOriginal) => {
 	return {

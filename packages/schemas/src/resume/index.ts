@@ -1,9 +1,9 @@
 import type { infer as inferType } from "zod";
-import { object } from "zod";
 import { About } from "./about";
 import { Options } from "./options";
 import { Sections } from "./sections";
 import { Skill } from "./skills";
+import { object } from "zod";
 
 export const Resume = object({
 	about: About,

@@ -1,6 +1,6 @@
+import type { Database } from "../schema";
 import type { Kysely, Migration } from "kysely";
 import { sql } from "kysely";
-import type { Database } from "../schema";
 
 const DatabaseMigration = {
 	up: async (db: Kysely<Database>) => {
@@ -9,7 +9,10 @@ const DatabaseMigration = {
 			.ifNotExists()
 			.addColumn("Id", "text", (col) => col.notNull().unique().primaryKey())
 			.addColumn("Date", "integer", (col) =>
-				col.notNull().unique().defaultTo(sql<number>`(unixepoch('now'))`),
+				col
+					.notNull()
+					.unique()
+					.defaultTo(sql<number>`(unixepoch('now'))`),
 			)
 			.execute();
 

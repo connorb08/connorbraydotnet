@@ -1,6 +1,6 @@
-import { NavLink } from "react-router";
 import type { ExtendedProject } from "../../../data/projects";
 import style from "./style.module.scss";
+import { NavLink } from "react-router";
 
 interface ProjectPreviewCardProps {
 	project: ExtendedProject;

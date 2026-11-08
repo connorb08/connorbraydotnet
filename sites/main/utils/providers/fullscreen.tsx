@@ -1,32 +1,30 @@
 import type { PropsWithChildren } from "react";
-import { useState } from "react";
-import { useFetcher } from "react-router";
 import { FullscreenContext } from "#context/fullscreen";
+import { useCallback, useMemo, useState } from "react";
+import { useFetcher } from "react-router";
 
 export const FullscreenProvider = ({
 	fullscreen,
 	children,
 }: PropsWithChildren<{ fullscreen: boolean }>) => {
-	const fetcher = useFetcher();
+	const { submit } = useFetcher();
 	const [isFullscreen, setFullscreen] = useState(fullscreen);
 
-	const toggleFullscreen = () => {
+	const toggleFullscreen = useCallback(() => {
 		const nextFullscreen = !isFullscreen;
-		fetcher.submit(
+		submit(
 			{ fullscreen: String(nextFullscreen) },
 			{ method: "post", action: "/_session" },
 		);
 		setFullscreen(nextFullscreen);
-	};
+	}, [isFullscreen, submit]);
+
+	const value = useMemo(
+		() => ({ fullscreen: isFullscreen, toggleFullscreen }),
+		[isFullscreen, toggleFullscreen],
+	);
 
 	return (
-		<FullscreenContext.Provider
-			value={{
-				fullscreen: isFullscreen,
-				toggleFullscreen,
-			}}
-		>
-			{children}
-		</FullscreenContext.Provider>
+		<FullscreenContext.Provider value={value}>{children}</FullscreenContext.Provider>
 	);
 };

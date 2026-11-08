@@ -1,3 +1,6 @@
 name: Kubernetes
 description: k8s deployment
-runtime: dotnet
+runtime:
+  name: nodejs
+  options:
+    typescript: false

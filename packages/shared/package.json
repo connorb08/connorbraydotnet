@@ -4,6 +4,13 @@
 	"private": true,
 	"type": "module",
 	"main": "src/index.ts",
+	"imports": {
+		"#types": "./src/types/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./*": "./src/*.ts"
+	},
 	"scripts": {
 		"build": "bun run build.ts",
 		"test": "vitest --run",
@@ -15,21 +22,14 @@
 		"depcheck": "depcheck",
 		"typecheck": "tsc -b"
 	},
-	"imports": {
-		"#types": "./src/types/index.ts"
-	},
-	"exports": {
-		".": "./src/index.ts",
-		"./*": "./src/*.ts"
-	},
 	"peerDependencies": {
-		"typescript": "*",
+		"@biomejs/js-api": "*",
+		"@types/bun": "*",
+		"@vitest/coverage-istanbul": "*",
 		"ajv": "*",
 		"ajv-formats": "*",
-		"@biomejs/js-api": "*",
-		"vitest": "*",
-		"@vitest/coverage-istanbul": "*",
-		"@types/bun": "*",
-		"depcheck": "*"
+		"depcheck": "*",
+		"typescript": "*",
+		"vitest": "*"
 	}
 }

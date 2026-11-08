@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["tests/**/*.spec.ts"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tests.tsbuildinfo",
 		"lib": ["ES2022"],
 		"types": ["vitest/globals"]
 	},
