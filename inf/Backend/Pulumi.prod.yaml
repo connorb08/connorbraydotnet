@@ -1,3 +1,4 @@
-encryptionsalt: v1:cHy3L7Jm9qY=:v1:vHlU6xptxACElTP7:YaNxGWgrrLDc5Rh3vXwxlGe9qpDJ3w==
 config:
   aws:region: us-east-2
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQGO1JXa2xEDqmRCGhdv/XUdAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMEqWgNMqHcMpGVRuvAgEQgDvV5NsROjdoCPaFJAT0GEojGLDQSbzc3Gt/nTbi1SSlw/rSKPUg+mmG5Yg3gFWw+AWsdlN0Mrn8GWJAIg==

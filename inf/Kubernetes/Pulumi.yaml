@@ -4,3 +4,5 @@ runtime:
   name: nodejs
   options:
     typescript: false
+backend:
+  url: s3://state-af5c4c3fcaf0d86c909be76eab-065897469619-us-east-2-an

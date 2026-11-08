@@ -1,6 +1,9 @@
-encryptionsalt: v1:jhJuQqnYOTs=:v1:tX3u5fFAQ8nrHylA:hiSJ+n01lPv2UqR1HRe7zEqRxeys2A==
 config:
   Kubernetes:tailscaleClientId:
-    secure: v1:FIRKlKafT2nVxV3S:FwhIqmELAS89ENXC1qFyWCk2gsXPX4TIJUhrVD1fCdcI
+    secure: v1:OskDb9pKfvqOTmTi:cpgObvw38x/4ca03edeK+crbNdqcEonKc6CJ6BMmitjf
   Kubernetes:tailscaleClientSecret:
-    secure: v1:aaMxDSD4FJFITYgr:RQgEbMAuP0SaPfLy8qh6PcyixKI0UyF1TUwXvCZ3Nsm9scgljsZocLU3pIUsrQA2S37r2ChkcSPQGMJ35BMuU9s4Fz5SbjHfNkfqyarBg/s=
+    secure: v1:QnYU7ruf6pR+eiAv:QWgxHj5BniJsnLkOjWSmyOSwz1wbKMkq+XWoHVZS7ilhe0M1wihwGkoQY4OYhR10ucUyg68stMqvIomGTSuNAUxIIYc9wVUFcdgHfXHjFNc=
+  Kubernetes:grafanaAdminPassword:
+    secure: v1:ZguzUyPsuHmpXO9H:v6UldEvvKQQtdYOAOHASk9vgAtsPyxe7p1m3Tx22g5SJ0Oj9/HtjsA==
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQHLZ0toTEo2DLCPYYlESZWLAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFTyIIIA2I90OqHweAgEQgDsWCkFD0RY5m8HPlaHJjPdHjyY/i/aGwU3qYu55x9zb8/GTcqNL2pHCyStW3RG32zMvbfjGgkpyiigwxg==

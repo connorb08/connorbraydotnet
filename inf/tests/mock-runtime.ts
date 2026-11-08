@@ -57,6 +57,13 @@ export async function loadPrograms() {
 				if (args.type === "aws:iam/policy:Policy") {
 					state.arn = "arn:aws:iam::123456789012:policy/test";
 				}
+				if (args.type === "aws:kms/key:Key") {
+					Object.assign(state, {
+						keyId: "12345678-1234-1234-1234-123456789012",
+						arn: "arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012",
+						region: "us-east-2",
+					});
+				}
 				if (args.type === "aws:lightsail/keyPair:KeyPair") {
 					state.name = args.name;
 				}
@@ -76,8 +83,13 @@ export async function loadPrograms() {
 		{
 			"Infrastructure:tailscaleClientId": "test-client-id",
 			"Infrastructure:tailscaleClientSecret": "test-client-secret",
+			"Infrastructure:grafanaAdminPassword": "test-grafana-password",
 		},
-		["Infrastructure:tailscaleClientId", "Infrastructure:tailscaleClientSecret"],
+		[
+			"Infrastructure:tailscaleClientId",
+			"Infrastructure:tailscaleClientSecret",
+			"Infrastructure:grafanaAdminPassword",
+		],
 	);
 
 	let programs:

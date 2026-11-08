@@ -5,9 +5,13 @@
 	"onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
 	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
 	"runArgs": ["--hostname", "dev"],
-	"mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
+	"mounts": [
+    "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
+    "type=bind,source=${env:HOME}/.kube,target=${remoteEnv:HOME}/.kube,readonly"
+  ],
 	"containerEnv": {
 		"DOCKER_HOST": "unix:///var/run/docker.sock",
+    "KUBECONFIG": "${remoteEnv:HOME}/.kube/config",
 		"NODE_VERSION": "26.3.0",
 		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
 	},
