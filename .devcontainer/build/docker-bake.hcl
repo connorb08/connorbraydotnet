@@ -62,15 +62,18 @@ variable "PACKAGES" {
     "inetutils-telnet",
     "iproute2",
     "iputils-ping",
+    "jq",
     "less",
     "libatomic1",
     "libevent-dev",
     "locales",
+    "lsof",
     "netcat-openbsd",
     "openssh-client",
     "pass",
     "psmisc",
     "sudo",
+    "tmux",
     "traceroute",
     "unzip",
     "util-linux",
@@ -79,6 +82,7 @@ variable "PACKAGES" {
     "xauth",
     "xdg-utils",
     "xz-utils",
+    "yq",
   ]
 }
 

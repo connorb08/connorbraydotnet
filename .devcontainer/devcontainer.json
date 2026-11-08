@@ -4,7 +4,11 @@
 	"overrideCommand": false,
 	"onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
 	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
-	"runArgs": ["--hostname", "dev"],
+	"postStartCommand": ".devcontainer/lifecycle/postStartCommand.sh",
+	"runArgs": [
+    "--hostname", "dev",
+    "--env-file", "${localWorkspaceFolder}/.devcontainer/.env"
+  ],
 	"mounts": [
     "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
     "type=bind,source=${env:HOME}/.kube,target=${remoteEnv:HOME}/.kube,readonly"
