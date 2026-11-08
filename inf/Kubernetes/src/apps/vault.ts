@@ -4,7 +4,7 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { requireRecord } from "./transforms.ts";
+import { addPodTlsChecksum } from "../transforms.ts";
 import { core, helm, networking } from "@pulumi/kubernetes";
 import { secret } from "@pulumi/pulumi";
 import { PrivateKey, SelfSignedCert } from "@pulumi/tls";
@@ -17,33 +17,11 @@ export function addTlsChecksum(
 	if (args.type !== "kubernetes:apps/v1:StatefulSet") {
 		return undefined;
 	}
-	const message = "Vault StatefulSet is missing its pod template metadata.";
-	const spec = requireRecord(args.props.spec, message);
-	const template = requireRecord(spec.template, message);
-	const metadata = requireRecord(template.metadata, message);
-	const annotations =
-		metadata.annotations == null
-			? {}
-			: requireRecord(
-					metadata.annotations,
-					"Vault pod template annotations must be a mapping.",
-				);
-	return {
-		props: {
-			...args.props,
-			spec: {
-				...spec,
-				template: {
-					...template,
-					metadata: {
-						...metadata,
-						annotations: { ...annotations, "checksum/internal-tls": checksum },
-					},
-				},
-			},
-		},
-		opts: args.opts,
-	};
+	return addPodTlsChecksum(
+		args,
+		checksum,
+		"Vault StatefulSet is missing its pod template metadata or has invalid annotations.",
+	);
 }
 
 function createInternalTls() {

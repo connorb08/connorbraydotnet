@@ -165,7 +165,7 @@ Lightsail bootstrap script are retained without changes. Old local `bin/` and
 
 ### Pulumi state bucket
 
-`inf/Backend/src/index.ts` creates a protected, versioned S3 backend bucket with SSE-S3
+`inf/Backend/src/bucket.ts` creates a protected, versioned S3 backend bucket with SSE-S3
 encryption, all public access blocked, ACLs disabled, and an HTTPS-only policy.
 It uses the configured AWS provider region and keeps S3 Standard storage without
 expiration or archival rules. The account-regional bucket name is
@@ -181,6 +181,36 @@ Attach the exported IAM policy to the user or role running your other Pulumi
 stacks; it grants access only to this bucket and its objects. No principal is
 automatically granted access. Configure those stacks' Pulumi secrets provider
 separately; S3 encryption does not replace Pulumi secrets encryption.
+
+### Pulumi secrets KMS key
+
+`inf/Backend/src/kms.ts` defines a protected, symmetric KMS key for encrypting
+Pulumi configuration and state secrets. Automatic rotation runs every 365 days.
+If protection is deliberately removed, deletion still requires a 30-day waiting
+period. It uses the Backend stack's AWS provider region.
+
+The Backend stack exports `stateSecretsKeyId`, `stateSecretsKeyArn`,
+`stateSecretsProviderUrl`, and `stateSecretsPolicyArn`. Attach the exported
+IAM policy to the user or role running the consuming Pulumi stacks; it grants
+only `kms:Encrypt` and `kms:Decrypt` on this key and is not automatically attached.
+The key retains AWS's default account key policy, allowing account IAM policies
+to authorize its use.
+
+Deploy the Backend stack first, keeping its own secrets provider independent
+(for example, passphrase-based). Then copy its `stateSecretsProviderUrl` output
+and migrate another stack from that stack's project directory:
+
+```bash
+pulumi stack change-secrets-provider "awskms://<key-id>?region=<key-region>" --stack dev
+pulumi preview --stack dev
+```
+
+Wait for any running update to finish and keep a private, encrypted state backup
+before migrating. Migration requires the existing secrets-provider credentials
+and AWS credentials permitted to use the key. This changes secret encryption,
+not the S3 state backend or its SSE-S3 bucket encryption. Keep the key available
+as long as any stack or backup depends on it; deleting it makes those encrypted
+secrets unrecoverable.
 
 ### Lightsail SSH port
 
@@ -213,10 +243,10 @@ ssh -p "$(pulumi stack output vpsSshPort --stack dev)" \
     "dev@$(pulumi stack output vpsIp --stack dev)"
 ```
 
-### Kubernetes Tailscale and Vault
+### Kubernetes Tailscale, Vault, and monitoring
 
 The Pulumi stack in `inf/Kubernetes/` manages the Tailscale Kubernetes Operator through
-`src/tailscale.ts`. It retains the `tailscale-operator` chart release name, the
+`src/apps/tailscale.ts`. It retains the `tailscale-operator` chart release name, the
 `tailscale` namespace, the `operator` deployment/state Secret names, and the
 `operator-oauth` credentials Secret. The chart is pinned to `1.104.4`, matching
 the existing installation. The authenticated Kubernetes API server proxy and
@@ -265,7 +295,7 @@ The operator Deployment transform makes the downward API's default
 `kubectl-client-side-apply` manager without forcing ownership of other fields.
 
 The Pulumi stack in `inf/Kubernetes/` defines all Vault Helm values and the typed
-Tailscale ingress in `src/vault.ts`, with `src/index.ts` as the entry point; it does not
+Tailscale ingress in `src/apps/vault.ts`, with `src/index.ts` as the entry point; it does not
 load YAML files. It creates the `vault` namespace and a `vault-internal-tls`
 Secret before deploying the Vault chart. The supplied YAML is reference-only.
 
@@ -299,6 +329,56 @@ Pulumi resource transform, keeping Helm inputs known during the first preview.
 Without auto-unseal, unseal the restarted pod again. Update the
 trust certificate in internal clients after renewal. This configuration retains
 one Raft replica, so it is not highly available and rollouts cause downtime.
+
+`src/apps/monitoring.ts` installs the Helm chart
+`prometheus-community/kube-prometheus-stack`, pinned to `93.1.0`, as
+`kube-prometheus-stack` in the `monitoring` namespace. It includes Prometheus,
+Grafana, Alertmanager, cluster exporters, and the chart's default dashboards.
+Grafana and Prometheus use Tailscale HTTPS ingresses with hostnames `grafana`
+and `prometheus`, HTTP-to-HTTPS redirects, and `tag:monitoring`. Their services
+remain ClusterIP; Alertmanager is not exposed to the tailnet.
+
+Before deploying, allow `tag:k8s-operator` to own `tag:monitoring` in the tailnet
+policy and authorize the operator's OAuth client to create devices with that tag.
+Grant monitoring access only to the intended tailnet users/devices. MagicDNS
+and HTTPS must be enabled. Access the apps at
+`https://grafana.<tailnet-name>.ts.net` and
+`https://prometheus.<tailnet-name>.ts.net`.
+
+Set a strong Grafana admin password as an encrypted Pulumi secret, then preview
+and deploy from `inf/Kubernetes/` with a working Kubernetes context:
+
+```bash
+pulumi config set --secret grafanaAdminPassword --stack dev
+pulumi preview --stack dev
+pulumi up --stack dev
+```
+
+Grafana uses username `admin` and a separate `grafana-admin` Kubernetes Secret;
+the password is not passed through Helm values. Pulumi's Helm `Chart` does not
+execute Helm's admission certificate hooks. Instead, Pulumi creates
+`kube-prometheus-stack-admission` before the chart, with the `ca`, `cert`, and
+`key` fields expected when the chart's patch jobs are disabled. Admission
+validation and TLS remain enabled with failure policy `Fail`. A resource
+transform injects the certificate's CA bundle into both webhook configurations
+after rendering, keeping Helm inputs known during initial previews. Webhook
+configurations wait for the operator Deployment to be ready. A pod-template
+checksum rolls the operator when the certificate changes.
+
+If an earlier installation is stuck with a missing
+`kube-prometheus-stack-admission` Secret, rerun `pulumi preview --stack dev`
+and `pulumi up --stack dev` with this configuration using the existing stack.
+It creates the missing Secret and updates the operator and webhook trust in
+place; do not disable admission validation or reinstall into a new stack.
+
+The admission certificate is valid for one year and renewed by `pulumi up`
+within 30 days of expiry; run updates regularly to avoid expired webhook TLS.
+Chart resources wait for the namespace, admin and admission TLS Secrets, and
+Tailscale operator. Prometheus has no additional
+application login, so tailnet access policy is its access-control boundary.
+The chart's default ephemeral storage is retained: metrics and Grafana-local
+changes may be lost when pods are replaced. Configure persistent storage before
+relying on historical metrics or manually maintained dashboards.
 
 ### Development container
 

@@ -3,7 +3,7 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { isRecord, requireArray, requireRecord } from "./transforms.ts";
+import { isRecord, requireArray, requireRecord } from "../transforms.ts";
 import { core, helm } from "@pulumi/kubernetes";
 import { Config } from "@pulumi/pulumi";
 
