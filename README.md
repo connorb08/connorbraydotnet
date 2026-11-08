@@ -130,8 +130,21 @@ The script discovers all install layers in `.devcontainer/build/layers/` and
 passes them to `.devcontainer/build/docker-bake.hcl`. Additional Buildx arguments
 are forwarded; use `--print` to inspect the build configuration without building.
 
+The image's apt package layer includes OpenBSD netcat (`nc`) and GNU telnet
+(`telnet`) for network troubleshooting.
+
 The Pulumi layer installs CLI version `3.274.1`, including its bundled language
 tools and Bash completion, using the matching Linux ARM64 or x64 release.
+
+The Helm layer installs CLI version `4.3.1` with Bash completion from the official
+Linux ARM64 or amd64 release archive, verifying its SHA-256 checksum.
+
+The kubectl layer installs CLI version `1.37.2` with Bash completion from the
+official Linux ARM64 or amd64 binary, verifying its SHA-256 checksum. Keep kubectl
+within one minor version of your Kubernetes API server.
+
+The k9s layer installs version `0.51.0` with Bash completion from the official
+Linux ARM64 or amd64 release archive, verifying its SHA-256 checksum.
 
 The HashiCorp Vault layer installs CLI version `2.2.1` with Bash completion
 using the matching Linux ARM64 or amd64 release.

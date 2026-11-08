@@ -4,11 +4,20 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Constructs" Version="10.8.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0-rc.3.26522.148" />
+    <PackageVersion Include="Org.Cdk8s.Plus37" Version="2.0.4" />
     <PackageVersion Include="Pulumi.Automation" Version="3.116.2" />
     <PackageVersion Include="Pulumi.Aws" Version="7.54.0" />
     <PackageVersion Include="Pulumi.Cloudflare" Version="6.23.3" />
     <PackageVersion Include="Pulumi" Version="3.116.2" />
     <PackageVersion Include="Pulumi.Tls" Version="5.6.3" />
     <PackageVersion Include="Pulumi.Vault" Version="7.14.1" />
+    <PackageVersion Include="Org.Cdk8s" Version="2.70.119" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Security pins -->
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
+    <PackageVersion Include="OpenTelemetry.Api" Version="1.15.3" />
   </ItemGroup>
 </Project>
