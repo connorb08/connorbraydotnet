@@ -132,6 +132,11 @@ target "builder" {
 FROM base
 ENV DEBIAN_FRONTEND=noninteractive
 ${apt_install(BUILDER_PACKAGES)}
+RUN printf '%s\n' \
+    'retry = 4' \
+    'retry-max-time = 120' \
+    'connect-timeout = 30' \
+    'max-time = 120' > /root/.curlrc
 DOCKERFILE
 }
 

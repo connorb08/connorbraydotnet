@@ -1,0 +1,175 @@
+{
+    "resources": [
+        {
+            "type": "kubernetes:core/v1:Namespace",
+            "name": "tailscale",
+            "id": "tailscale",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:core/v1:Secret",
+            "name": "tailscale-operator-oauth",
+            "id": "tailscale/operator-oauth",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:helm.sh/v4:Chart",
+            "name": "tailscale-operator",
+            "component": true
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:proxygrouppolicies.tailscale.com",
+            "id": "proxygrouppolicies.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:tailnets.tailscale.com",
+            "id": "tailnets.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:core/v1:ServiceAccount",
+            "name": "tailscale-operator:tailscale/kube-apiserver-auth-proxy",
+            "id": "tailscale/kube-apiserver-auth-proxy",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:core/v1:ServiceAccount",
+            "name": "tailscale-operator:tailscale/operator",
+            "id": "tailscale/operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:peerrelays.tailscale.com",
+            "id": "peerrelays.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:proxygroups.tailscale.com",
+            "id": "proxygroups.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:connectors.tailscale.com",
+            "id": "connectors.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:core/v1:ServiceAccount",
+            "name": "tailscale-operator:tailscale/proxies",
+            "id": "tailscale/proxies",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+            "name": "tailscale-operator:tailscale-auth-proxy",
+            "id": "tailscale-auth-proxy",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:Role",
+            "name": "tailscale-operator:tailscale/proxiesRole",
+            "id": "tailscale/proxies",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale/proxies"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:Role",
+            "name": "tailscale-operator:tailscale/operatorRole",
+            "id": "tailscale/operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale/operator"
+        },
+        {
+            "type": "kubernetes:networking.k8s.io/v1:IngressClass",
+            "name": "tailscale-operator:tailscale",
+            "id": "tailscale",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:dnsconfigs.tailscale.com",
+            "id": "dnsconfigs.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding",
+            "name": "tailscale-operator:tailscale/operatorRoleBinding",
+            "id": "tailscale/operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale/operator"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole",
+            "name": "tailscale-operator:tailscale-auth-proxyClusterRole",
+            "id": "tailscale-auth-proxy",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale-auth-proxy"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+            "name": "tailscale-operator:tailscale-operator",
+            "id": "tailscale-operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding",
+            "name": "tailscale-operator:tailscale/proxiesRoleBinding",
+            "id": "tailscale/proxies",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale/proxies"
+        },
+        {
+            "type": "kubernetes:apps/v1:Deployment",
+            "name": "tailscale-operator:tailscale/operatorDeployment",
+            "id": "tailscale/operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale/operator"
+        },
+        {
+            "type": "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole",
+            "name": "tailscale-operator:tailscale-operatorClusterRole",
+            "id": "tailscale-operator",
+            "parent": "tailscale-operator",
+            "version": "4.34.3",
+            "logicalName": "tailscale-operator:tailscale-operator"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:recorders.tailscale.com",
+            "id": "recorders.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        },
+        {
+            "type": "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
+            "name": "tailscale-operator:proxyclasses.tailscale.com",
+            "id": "proxyclasses.tailscale.com",
+            "parent": "tailscale-operator",
+            "version": "4.34.3"
+        }
+    ]
+}

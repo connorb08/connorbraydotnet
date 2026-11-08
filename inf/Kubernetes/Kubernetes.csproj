@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Inf.K8S</RootNamespace>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net11.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Pulumi" />
+        <PackageReference Include="Pulumi.Kubernetes" />
+        <PackageReference Include="Pulumi.Tls" />
+    </ItemGroup>
+
+</Project>
