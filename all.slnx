@@ -1,2 +1,6 @@
 <Solution>
+    <Folder Name="/inf/">
+        <Project Path="inf/Amazon/Amazon.csproj" />
+        <Project Path="inf/Backend/Backend.csproj" />
+    </Folder>
 </Solution>

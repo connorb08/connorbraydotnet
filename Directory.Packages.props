@@ -8,6 +8,7 @@
     <PackageVersion Include="Pulumi.Aws" Version="7.54.0" />
     <PackageVersion Include="Pulumi.Cloudflare" Version="6.23.3" />
     <PackageVersion Include="Pulumi" Version="3.116.2" />
+    <PackageVersion Include="Pulumi.Tls" Version="5.6.3" />
     <PackageVersion Include="Pulumi.Vault" Version="7.14.1" />
   </ItemGroup>
 </Project>
