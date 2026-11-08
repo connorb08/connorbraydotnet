@@ -118,6 +118,93 @@ ssh -p "$(pulumi stack output vpsSshPort --stack dev)" \
     "dev@$(pulumi stack output vpsIp --stack dev)"
 ```
 
+### Kubernetes Tailscale and Vault
+
+The Pulumi stack in `inf/K8S/` manages the Tailscale Kubernetes Operator through
+`Tailscale.cs`. It retains the `tailscale-operator` chart release name, the
+`tailscale` namespace, the `operator` deployment/state Secret names, and the
+`operator-oauth` credentials Secret. The chart is pinned to `1.104.4`, matching
+the existing installation. The authenticated Kubernetes API server proxy and
+its impersonation permissions remain enabled.
+
+Set the existing OAuth credentials as encrypted Pulumi configuration in your own
+terminal; these commands prompt for values:
+
+```bash
+cd inf/K8S
+pulumi config set --secret tailscaleClientId --stack dev
+pulumi config set --secret tailscaleClientSecret --stack dev
+```
+
+Pulumi manages the credentials in a separate Kubernetes Secret with the
+`client_id` and `client_secret` keys. Helm receives only the Secret name, so
+secret/unknown credential values do not prevent chart rendering during previews.
+The operator uses `tag:k8s-operator`; make that tag an owner of `tag:vault` in
+the tailnet policy. Enable MagicDNS and HTTPS in the tailnet. After changing
+OAuth credentials, restart the operator with
+`kubectl rollout restart deployment/operator -n tailscale`.
+
+The cdk8s source project and its solution entry have been retired. Local legacy
+credentials and build output are not deleted. Do not continue applying its
+previously generated manifests.
+
+For the existing cdk8s installation, import its Kubernetes resources into Pulumi
+before applying the new stack:
+
+```bash
+pulumi preview --stack dev --import-file tailscale-import.json
+# Retain the existing Tailscale resources and their component/parent entries.
+# Fill their import IDs with namespace/name, or name for cluster-scoped resources.
+pulumi import --stack dev --file tailscale-import.json --generate-code=false
+pulumi preview --stack dev
+pulumi up --stack dev
+```
+
+For example, the namespace ID is `tailscale`, the credentials Secret ID is
+`tailscale/operator-oauth`, and the deployment ID is `tailscale/operator`.
+Include the chart's existing CRDs, RBAC, and IngressClass resources as well.
+Do not delete the namespace, the `operator` state Secret, or the ingress proxy
+Secrets during migration: they preserve the tailnet device identities.
+The operator Deployment transform makes the downward API's default
+`fieldRef.apiVersion: v1` explicit. This avoids field conflicts with the previous
+`kubectl-client-side-apply` manager without forcing ownership of other fields.
+
+The Pulumi stack in `inf/K8S/` defines all Vault Helm values and the typed
+Tailscale ingress in `Vault.cs`, with `Program.cs` as the entry point; it does not
+load YAML files. It creates the `vault` namespace and a `vault-internal-tls`
+Secret before deploying the Vault chart. The supplied YAML is reference-only.
+
+Pulumi.Tls generates a private key and a self-signed internal server certificate.
+Vault uses HTTPS on port 8200; the `vault-ui` Service maps port 443 to that port.
+The Secret contains `tls.crt`, `tls.key`, and `ca.crt`. The private key is kept
+secret in Pulumi state; the public trust certificate is exported as
+`vaultInternalCaCert`. Internal clients (including injected Vault agents) must
+trust this certificate and connect using a DNS name covered by its SANs.
+The service DNS names assume the default `cluster.local` cluster domain.
+
+The Vault ingress waits for the Pulumi-managed Tailscale operator and Vault chart.
+The ingress uses the hostname `vault`, redirects HTTP to HTTPS, and lets
+Tailscale provision the browser-facing Let's Encrypt certificate. Tailscale
+encrypts the connection to the backend on port 443 but does not verify the
+backend's self-signed certificate; the Pulumi certificate is not the certificate
+presented to browsers.
+
+Deploy with `pulumi up --stack dev` from `inf/K8S/`. Vault still requires manual
+initialization and unsealing: during the first deployment, use a separate
+terminal to run `kubectl exec -n vault vault-0 -- vault operator init` and
+`kubectl exec -n vault vault-0 -- vault operator unseal` for the required number
+of keys. Store the initialization output securely, outside source control.
+Pulumi waits for the unsealed pod to become ready before creating the ingress.
+
+The internal certificate is valid for one year and is renewed by a subsequent
+`pulumi up` within 30 days of expiry (not by a background timer). A certificate
+checksum in the pod annotations triggers a rollout so Vault loads the new
+certificate. The checksum is applied to the rendered StatefulSet through a
+Pulumi resource transform, keeping Helm inputs known during the first preview.
+Without auto-unseal, unseal the restarted pod again. Update the
+trust certificate in internal clients after renewal. This configuration retains
+one Raft replica, so it is not highly available and rollouts cause downtime.
+
 ### Development container
 
 Build the development container image with Docker Buildx:
@@ -129,6 +216,11 @@ IMAGE=dev-image bash .devcontainer/bake.sh --load
 The script discovers all install layers in `.devcontainer/build/layers/` and
 passes them to `.devcontainer/build/docker-bake.hcl`. Additional Buildx arguments
 are forwarded; use `--print` to inspect the build configuration without building.
+
+All install layers share build-only curl settings that retry transient download
+failures up to four times, with a 30-second connection timeout, a 120-second
+per-attempt timeout, and a 120-second retry window. Persistent failures still stop
+the build. These settings are not copied into the final image.
 
 The image's apt package layer includes OpenBSD netcat (`nc`) and GNU telnet
 (`telnet`) for network troubleshooting.

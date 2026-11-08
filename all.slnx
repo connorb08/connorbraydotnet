@@ -3,7 +3,7 @@
         <Project Path="inf/Amazon/Amazon.csproj" />
         <Project Path="inf/Backend/Backend.csproj" />
     </Folder>
-    <Folder Name="/inf/Kubernetes/">
-        <Project Path="inf/Kubernetes/MyApp.csproj" />
+    <Folder Name="/inf/K8S/">
+        <Project Path="inf/K8S/Kubernetes.csproj" />
     </Folder>
 </Solution>

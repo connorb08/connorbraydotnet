@@ -1,0 +1,6 @@
+encryptionsalt: v1:jhJuQqnYOTs=:v1:tX3u5fFAQ8nrHylA:hiSJ+n01lPv2UqR1HRe7zEqRxeys2A==
+config:
+  Kubernetes:tailscaleClientId:
+    secure: v1:FIRKlKafT2nVxV3S:FwhIqmELAS89ENXC1qFyWCk2gsXPX4TIJUhrVD1fCdcI
+  Kubernetes:tailscaleClientSecret:
+    secure: v1:aaMxDSD4FJFITYgr:RQgEbMAuP0SaPfLy8qh6PcyixKI0UyF1TUwXvCZ3Nsm9scgljsZocLU3pIUsrQA2S37r2ChkcSPQGMJ35BMuU9s4Fz5SbjHfNkfqyarBg/s=
