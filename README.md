@@ -87,6 +87,37 @@ stacks; it grants access only to this bucket and its objects. No principal is
 automatically granted access. Configure those stacks' Pulumi secrets provider
 separately; S3 encryption does not replace Pulumi secrets encryption.
 
+### Lightsail SSH port
+
+The stack in `inf/Amazon/` requires the `VPS_SSH_PORT` environment variable
+(1024-65535). Choose a random high port once, and keep that value in your local
+environment for subsequent previews and updates:
+
+```bash
+export VPS_SSH_PORT="$(shuf -i 20000-60000 -n 1)"
+cd inf/Amazon
+pulumi preview --stack dev
+pulumi up --stack dev
+```
+
+No actual port value is stored in source or stack configuration files. The value
+is injected into the bootstrap script and exported as `vpsSshPort`; it remains
+visible in Pulumi state, AWS firewall configuration, and bootstrap logs.
+Do not regenerate it for each update: changing the port replaces the instance
+and deletes its disk data.
+
+The stack opens the selected SSH port for IPv4 and IPv6, preserves HTTP port 80,
+and closes port 22. Bootstrap configures the SELinux port label where enabled,
+validates SSH configuration, and restarts SSH before revoking the default user's
+key file. Lightsail's browser SSH connection on port 22 will no longer work.
+After bootstrap finishes, connect with the new private key:
+
+```bash
+ssh -p "$(pulumi stack output vpsSshPort --stack dev)" \
+    -i /path/to/private-key \
+    "dev@$(pulumi stack output vpsIp --stack dev)"
+```
+
 ### Development container
 
 Build the development container image with Docker Buildx:

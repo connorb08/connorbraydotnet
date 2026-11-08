@@ -1,5 +1,0 @@
-name: Infrastructure
-description: Base inf
-runtime: dotnet
-backend:
-  url: s3://state-826ce6d6ba9b12511096b2b6ec-308946512285-us-east-2-an
