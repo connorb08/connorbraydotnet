@@ -13,7 +13,8 @@
 		"DOCKER_HOST": "unix:///var/run/docker.sock",
     "KUBECONFIG": "${remoteEnv:HOME}/.kube/config",
 		"NODE_VERSION": "26.3.0",
-		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
+		"WORKSPACE_PATH": "${containerWorkspaceFolder}",
+    "VAULT_ADDR": "127.0.0.1:8100"
 	},
 	"customizations": {
 		"vscode": {
