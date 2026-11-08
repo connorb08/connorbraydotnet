@@ -8,6 +8,7 @@
 // import Index, { loader } from "./index";
 
 describe("Index route", () => {
+	// oxlint-disable max-lines-per-function -- Test function is long but necessary for coverage.
 	it("should run tests", () => {
 		expect(true).toBe(true);
 	});

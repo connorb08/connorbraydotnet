@@ -2,7 +2,7 @@
 
 /* Font Size */
 @mixin size($size) {
-    font-size: util.pt($size);
+	font-size: util.pt($size);
 }
 
 /* Font Weight */
@@ -14,33 +14,33 @@ $bold: 450;
 $bolder: 550;
 
 @mixin weight($weight) {
-    font-weight: $weight;
+	font-weight: $weight;
 }
 
 @mixin thin {
-    @include weight($thin);
+	@include weight($thin);
 }
 
 @mixin weight-default {
-    @include weight($default-weight);
+	@include weight($default-weight);
 }
 
 @mixin normal {
-    @include weight($default-weight);
+	@include weight($default-weight);
 }
 
 @mixin thick {
-    @include weight($thick);
+	@include weight($thick);
 }
 
 @mixin thicker {
-    @include weight($thicker);
+	@include weight($thicker);
 }
 
 @mixin bold {
-    @include weight($bold);
+	@include weight($bold);
 }
 
 @mixin bolder {
-    @include weight($bolder);
+	@include weight($bolder);
 }

@@ -1,7 +1,7 @@
+import { $ } from "bun";
 import { readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import process from "node:process";
-import { $ } from "bun";
 
 //#region setup
 const IS_PROD = process.env.NODE_ENV === "production";

@@ -1,41 +1,46 @@
 {
-    "folders": [
-        {
-            "path": ".",
-            "name": "root"
-        }
-    ],
-    "settings": {
-        "dotnet.codeLens.enableReferencesCodeLens": false,
-        "explorer.fileNesting.enabled": true,
-        "explorer.fileNesting.patterns": {
-            "package.json": "",
-            "*.tsx": "${capture}.scss, ${capture}.module.scss, ${capture}.spec.tsx",
-            "wrangler.json": "worker-configuration.d.ts, .dev.vars",
-            "vite.config.ts": "vite-env.d.ts"
-        },
-        "explorer.excludeGitIgnore": false,
-        "explorer.sortOrder": "foldersNestsFiles",
-        "files.exclude": {
-            "**/node_modules": true,
-            "**/.react-router": true,
-            "**/.wrangler": true,
-            "**/*.tsbuildinfo": true,
-            "**/target": true,
-            "**/dist": true,
-            "bun.lock": true
-        },
-        "editor.codeActionsOnSave": {
-            "source.organizeImports.biome": "explicit",
-            "source.fixAll.biome": "explicit"
-        },
-        "editor.definitionLinkOpensInPeek": false,
-        "editor.gotoLocation.multipleImplementations": "goto",
-        "editor.gotoLocation.multipleDefinitions": "goto",
-        "editor.gotoLocation.multipleReferences": "goto",
-        "editor.gotoLocation.multipleTypeDefinitions": "goto",
-        "editor.gotoLocation.multipleDeclarations": "goto",
-        "scss.format.preserveNewLines": true,
-        "window.zoomLevel": 1.25
-    }
+	"folders": [
+		{
+			"path": ".",
+			"name": "root",
+		},
+	],
+	"settings": {
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.formatOnSave": false,
+		"dotnet.codeLens.enableReferencesCodeLens": false,
+		"explorer.fileNesting.enabled": true,
+		"explorer.fileNesting.patterns": {
+			"package.json": "",
+			"*.tsx": "${capture}.scss, ${capture}.module.scss, ${capture}.spec.tsx",
+			"wrangler.json": "worker-configuration.d.ts, .dev.vars",
+			"vite.config.ts": "vite-env.d.ts",
+		},
+		"explorer.excludeGitIgnore": false,
+		"explorer.sortOrder": "foldersNestsFiles",
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/.react-router": true,
+			"**/.wrangler": true,
+			"**/*.tsbuildinfo": true,
+			"**/target": true,
+			"**/dist": true,
+			"bun.lock": true,
+		},
+		"editor.codeActionsOnSave": {
+			"source.format.oxc": "always",
+			"source.fixAll.oxc": "always",
+			// "source.organizeImports.biome": "explicit",
+			// "source.fixAll.biome": "explicit"
+		},
+		"editor.definitionLinkOpensInPeek": false,
+		"editor.gotoLocation.multipleImplementations": "goto",
+		"editor.gotoLocation.multipleDefinitions": "goto",
+		"editor.gotoLocation.multipleReferences": "goto",
+		"editor.gotoLocation.multipleTypeDefinitions": "goto",
+		"editor.gotoLocation.multipleDeclarations": "goto",
+		"scss.format.preserveNewLines": true,
+		"window.zoomLevel": 1.25,
+		"dotnet.defaultSolution": "services/queens/queens.sln",
+	},
 }

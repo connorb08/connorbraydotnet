@@ -1,7 +1,7 @@
-import { CiLocationOn } from "react-icons/ci";
-import { FaGraduationCap, FaRegCalendar } from "react-icons/fa";
 import type { ResumeEducationData } from "schemas";
 import style from "../style.module.scss";
+import { CiLocationOn } from "react-icons/ci";
+import { FaGraduationCap, FaRegCalendar } from "react-icons/fa";
 
 type ResumeEducation = ResumeEducationData["items"][number];
 

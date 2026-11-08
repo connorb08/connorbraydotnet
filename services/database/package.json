@@ -9,14 +9,14 @@
 		"typegen": "wrangler types",
 		"typecheck": "nx run typegen && tsc -b"
 	},
+	"dependencies": {
+		"kysely": "^0.28.2",
+		"kysely-do": "^0.0.1-rc.1",
+		"types": "workspace:*",
+		"uuid": "^11.1.0"
+	},
 	"peerDependencies": {
 		"typescript": "*",
 		"wrangler": "*"
-	},
-	"dependencies": {
-		"types": "workspace:*",
-		"kysely": "^0.28.2",
-		"kysely-do": "^0.0.1-rc.1",
-		"uuid": "^11.1.0"
 	}
 }

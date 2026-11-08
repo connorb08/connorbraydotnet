@@ -10,6 +10,7 @@
 	],
 	"exclude": ["app/**/*.spec.tsx", "app/**/*.spec.ts"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.cloudflare.tsbuildinfo",
 		"composite": true,
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
 		"types": ["vite/client", "./worker-configuration.d.ts"],

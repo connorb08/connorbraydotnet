@@ -1,8 +1,8 @@
+import type { Route } from "./+types/project";
 import type { LoaderFunctionArgs } from "react-router";
-import { redirect } from "react-router";
 import { ProjectDetail } from "../../../components/project/project-detail";
 import { getProjectBySlug } from "../../../data/projects";
-import type { Route } from "./+types/project";
+import { redirect } from "react-router";
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const { projectId } = params;

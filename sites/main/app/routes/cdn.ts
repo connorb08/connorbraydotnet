@@ -1,6 +1,6 @@
-import { redirect } from "react-router";
 import type { Route } from "./+types/cdn";
 import { cfContext } from "#app/context";
+import { redirect } from "react-router";
 
 const allowedReferers = ["https://connorbray.net", "127.0.0.1"];
 function forbiddenReferer(request: Request): boolean {

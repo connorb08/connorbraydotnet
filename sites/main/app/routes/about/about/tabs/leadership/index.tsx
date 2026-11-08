@@ -1,5 +1,5 @@
-import { FaBriefcase } from "react-icons/fa";
 import style from "./leadership.module.scss";
+import { FaBriefcase } from "react-icons/fa";
 
 export interface LeadershipRole {
 	id: number;

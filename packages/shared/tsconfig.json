@@ -13,6 +13,7 @@
 		}
 	],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
 		"outDir": ".tsbuildinfo",
 		"allowJs": true,
 		"checkJs": false

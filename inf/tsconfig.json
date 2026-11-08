@@ -1,0 +1,16 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"noEmit": true,
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
+		"composite": false,
+		"declaration": false,
+		"declarationMap": false,
+		"emitDeclarationOnly": false,
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"target": "ES2022",
+		"types": ["node"],
+		"rewriteRelativeImportExtensions": true
+	}
+}

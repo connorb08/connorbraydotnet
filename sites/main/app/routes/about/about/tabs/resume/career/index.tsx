@@ -1,8 +1,8 @@
 import type { ResumeExperienceData } from "schemas";
-import { CiLocationOn } from "react-icons/ci";
-import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
 import { getDateString } from "../education";
 import style from "../style.module.scss";
+import { CiLocationOn } from "react-icons/ci";
+import { FaBriefcase, FaRegCalendar } from "react-icons/fa";
 
 type ResumeCareer = ResumeExperienceData["items"][number];
 

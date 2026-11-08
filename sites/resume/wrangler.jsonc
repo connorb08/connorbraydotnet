@@ -7,24 +7,24 @@
 	"routes": [
 		{
 			"custom_domain": true,
-			"pattern": "resume.connorbray.net"
-		}
+			"pattern": "resume.connorbray.net",
+		},
 	],
 	"vars": {
-		"HELLO_WORLD": null
+		"HELLO_WORLD": null,
 	},
 	"observability": {
-		"enabled": true
+		"enabled": true,
 	},
 	"env": {
 		"integration": {
 			"vars": {
-				"HELLO_WORLD": "Hello, world!"
+				"HELLO_WORLD": "Hello, world!",
 			},
-			"routes": []
-		}
+			"routes": [],
+		},
 	},
 	"dev": {
-		"ip": "127.0.0.1"
-	}
+		"ip": "127.0.0.1",
+	},
 }

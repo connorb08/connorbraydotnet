@@ -3,9 +3,9 @@
 $_base: 12px;
 
 @function pt($key: 1) {
-    @if not meta.type-of($key) == number {
-        @warn "`#{$key}` is not a number.";
-    }
+	@if not meta.type-of($key) == number {
+		@warn "`#{$key}` is not a number.";
+	}
 
-    @return $key * $_base;
+	@return $key * $_base;
 }

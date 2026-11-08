@@ -11,10 +11,10 @@
 		"typecheck": "tsc -b"
 	},
 	"peerDependencies": {
-		"typescript": "*",
-		"wrangler": "*",
+		"@cloudflare/vite-plugin": "*",
 		"@types/node": "*",
+		"typescript": "*",
 		"vite": "*",
-		"@cloudflare/vite-plugin": "*"
+		"wrangler": "*"
 	}
 }

@@ -1,6 +1,6 @@
+import type { MessageHandler } from "./types";
 import type { QueueMessage } from "types";
 import { HandleMessage as QueensHandler } from "./queens";
-import type { MessageHandler } from "./types";
 
 export default function RouteMessage(
 	env: Env,

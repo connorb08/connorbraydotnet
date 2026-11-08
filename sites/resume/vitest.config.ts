@@ -1,5 +1,5 @@
-import { cloudflareTest } from "@cloudflare/vitest-plugin";
 import type { ViteUserConfig } from "vitest/config";
+import { cloudflareTest } from "@cloudflare/vitest-plugin";
 import { defineProject } from "vitest/config";
 
 const workerProject = defineProject({

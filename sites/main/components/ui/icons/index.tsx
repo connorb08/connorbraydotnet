@@ -54,27 +54,21 @@ import {
 	FaLinkedin as Linkedin,
 	FaBars as Menu,
 } from "react-icons/fa";
-
 import {
 	GoGear as Gear,
 	GoMail as Mail,
 	GoMoon as Moon,
 	GoSun as Sun,
 } from "react-icons/go";
-
 // export { GoGear as Gear, GoMail as Mail, GoMoon as Moon, GoSun as Sun } from "react-icons/go";
 import { LuHouse as Home } from "react-icons/lu";
-
 import {
 	MdOutlinePhotoCamera as Camera,
 	MdFullscreenExit as ExitFullscreen,
 	MdFullscreen as Fullscreen,
 } from "react-icons/md";
-
 import { RxChevronRight as Chevron } from "react-icons/rx";
-
 import { TbSitemap as Sitemap } from "react-icons/tb";
-
 import { VscAccount as About } from "react-icons/vsc";
 
 export {

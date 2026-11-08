@@ -1,23 +1,23 @@
 {
 	"name": "api",
 	"version": "0.0.0",
-	"dependencies": {
-		"hono": "^4.9.4",
-		"types": "workspace:*"
-	},
-	"peerDependencies": {
-		"typescript": "*",
-		"wrangler": "*",
-		"vite": "*",
-		"@cloudflare/vite-plugin": "*",
-		"alerts": "workspace:*"
-	},
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"deploy": "CLOUDFLARE_ENV=production wrangler deploy",
 		"dev": "vite dev",
 		"typegen": "wrangler types -c wrangler.json -c ../alerts/wrangler.json",
 		"typecheck": "tsc -b"
 	},
-	"type": "module"
+	"dependencies": {
+		"hono": "^4.9.4",
+		"types": "workspace:*"
+	},
+	"peerDependencies": {
+		"@cloudflare/vite-plugin": "*",
+		"alerts": "workspace:*",
+		"typescript": "*",
+		"vite": "*",
+		"wrangler": "*"
+	}
 }

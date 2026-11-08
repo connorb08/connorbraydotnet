@@ -69,4 +69,5 @@
 // 	Bun.write(filePath, lintedCode),
 // 	Bun.write(declarationFilePath, await declarationOutput),
 // ]);
-export {};
+const a = "";
+export { a };

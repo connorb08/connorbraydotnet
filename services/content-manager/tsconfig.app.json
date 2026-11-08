@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["**/*.ts"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.app.tsbuildinfo",
 		"types": ["./worker-configuration.d.ts"],
 		"resolveJsonModule": true,
 		"allowJs": true,

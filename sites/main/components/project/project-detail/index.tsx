@@ -3,6 +3,8 @@ import style from "./style.module.scss";
 
 type ResumeProject = ResumeProjectData["items"][number];
 
+const EMPTY_ITEMS: string[] = [];
+
 interface ProjectDetailProps {
 	project: ResumeProject;
 	// Extended project data for full page view
@@ -15,14 +17,15 @@ interface ProjectDetailProps {
 	heroElement?: React.ReactNode | null | undefined;
 }
 
+// oxlint-disable max-lines-per-function -- Component function is long but necessary for coverage.
 export function ProjectDetail({
 	project,
-	technologies = [],
+	technologies = EMPTY_ITEMS,
 	repositoryUrl,
 	liveUrl,
-	challenges = [],
-	solutions = [],
-	features = [],
+	challenges = EMPTY_ITEMS,
+	solutions = EMPTY_ITEMS,
+	features = EMPTY_ITEMS,
 	heroElement = null,
 }: ProjectDetailProps) {
 	return (

@@ -2,16 +2,6 @@
 	"name": "site",
 	"private": true,
 	"type": "module",
-	"scripts": {
-		"build": "react-router build",
-		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
-		"deploy": "nx run build && wrangler deploy",
-		"deploy:preview": "nx run build && wrangler deploy --env preview",
-		"dev": "react-router dev",
-		"preview": "nx run build && vite preview",
-		"typecheck": "bun run typegen && tsc -b",
-		"depcheck": "bunx depcheck"
-	},
 	"imports": {
 		"#app/*": "./app/*.ts",
 		"#components/*": "./components/*.tsx",
@@ -24,6 +14,17 @@
 		"#config": "./config.ts",
 		"#styles/": "./styles/*",
 		"#data/*": "./data/*.tsx"
+	},
+	"scripts": {
+		"build": "react-router build",
+		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c ../../services/api/wrangler.json -c ../../services/database/wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
+		"deploy": "nx run build && wrangler deploy",
+		"deploy:preview": "nx run build && wrangler deploy --env preview",
+		"dev": "react-router dev",
+		"preview": "nx run build && vite preview",
+		"typecheck": "bun run typegen && tsc -b",
+		"test": "vitest run",
+		"depcheck": "bunx depcheck"
 	},
 	"dependencies": {
 		"components": "workspace:*",
@@ -39,18 +40,18 @@
 		"typescript-plugin-css-modules": "^5.1.0"
 	},
 	"peerDependencies": {
+		"@cloudflare/vite-plugin": "*",
+		"@mantine/core": "*",
+		"@mantine/hooks": "*",
+		"@types/node": "*",
 		"isbot": "*",
+		"postcss": "*",
+		"postcss-preset-mantine": "*",
+		"postcss-simple-vars": "*",
 		"react": "*",
 		"react-dom": "*",
 		"react-router": "*",
 		"vite": "*",
-		"@cloudflare/vite-plugin": "*",
-		"@types/node": "*",
-		"@mantine/core": "*",
-		"@mantine/hooks": "*",
-		"postcss": "*",
-		"postcss-preset-mantine": "*",
-		"postcss-simple-vars": "*",
 		"wrangler": "*"
 	}
 }

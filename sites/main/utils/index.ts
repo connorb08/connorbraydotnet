@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import config from "#config";
+import { useEffect, useState } from "react";
 
 type SuccessState<T> = {
 	data: T;
@@ -27,7 +27,7 @@ type StateData<T> = SuccessState<T> | FailureState<T> | LoadingState<T>;
  * @param defaultValue - The default value to use while loading.
  * @returns An object containing the data, error, and loading state.
  */
-export function usePromise<T>(promise: Promise<T>, defaultValue: T): StateData<T> {
+export function usePromise<T>(promise: Promise<T> | T, defaultValue: T): StateData<T> {
 	const [state, setState] = useState<StateData<T>>({
 		data: defaultValue,
 		error: undefined,
@@ -35,20 +35,32 @@ export function usePromise<T>(promise: Promise<T>, defaultValue: T): StateData<T
 	});
 
 	useEffect(() => {
-		if (promise instanceof Promise) {
-			promise
-				.then((result) => {
-					setState({ data: result, error: undefined, loading: false });
-				})
-				.catch((err) => {
-					setState({ data: defaultValue, error: err, loading: false });
-				});
-		} else {
-			setState({ data: promise, error: undefined, loading: false });
+		if (!(promise instanceof Promise)) {
+			return;
 		}
+
+		let active = true;
+		promise.then(
+			(result) => {
+				if (active) {
+					setState({ data: result, error: undefined, loading: false });
+				}
+			},
+			(err) => {
+				if (active) {
+					setState({ data: defaultValue, error: err, loading: false });
+				}
+			},
+		);
+
+		return () => {
+			active = false;
+		};
 	}, [promise, defaultValue]);
 
-	return state;
+	return promise instanceof Promise
+		? state
+		: { data: promise, error: undefined, loading: false };
 }
 
 export const CONTENT_PATH = (path: string) => `${config.contentUrl}${path}`;

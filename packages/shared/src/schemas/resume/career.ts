@@ -1,5 +1,5 @@
-import type { JSONSchemaType } from "ajv";
 import type { ExperienceItem } from "#types";
+import type { JSONSchemaType } from "ajv";
 
 export const ResumeCareerSchema: JSONSchemaType<ExperienceItem[]> = {
 	type: "array",

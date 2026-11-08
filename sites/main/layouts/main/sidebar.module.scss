@@ -1,25 +1,25 @@
 @use "~/styles" as *;
 
 html[data-fullscreen] {
-    & .sidebar {
-        display: none;
-    }
+	& .sidebar {
+		display: none;
+	}
 }
 
 .sidebar {
-    @include surfaceDim;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    margin: pt(0.5);
+	@include surfaceDim;
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	margin: pt(0.5);
 
-    &__content {
-        width: clamp(40px, pt(3), 64px);
-        padding: clamp(2px, pt(0.5), 6px);
-        box-sizing: border-box;
-    }
+	&__content {
+		width: clamp(40px, pt(3), 64px);
+		padding: clamp(2px, pt(0.5), 6px);
+		box-sizing: border-box;
+	}
 
-    @media (max-width: breakpoint(md)) {
-        display: none;
-    }
+	@media (max-width: breakpoint(md)) {
+		display: none;
+	}
 }

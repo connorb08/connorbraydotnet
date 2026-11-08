@@ -1,14 +1,14 @@
+import type { AboutMeData } from "../../../../data/about-me";
+import type { LeadershipRole } from "./tabs/leadership";
+import type { Resume } from "schemas";
+import style from "./style.module.scss";
+import { InformationBlock, SkillsBlock, UserBlock } from "./summary";
+import Leadership from "./tabs/leadership";
+import ResumeTab from "./tabs/resume";
 import { memo, useState } from "react";
 import { FaLinkedin as LinkedinIcon } from "react-icons/fa";
 import { VscGithub as GithubIcon } from "react-icons/vsc";
 import { Link } from "react-router";
-import type { Resume } from "schemas";
-import type { AboutMeData } from "../../../../data/about-me";
-import style from "./style.module.scss";
-import { InformationBlock, SkillsBlock, UserBlock } from "./summary";
-import Leadership from "./tabs/leadership";
-import type { LeadershipRole } from "./tabs/leadership";
-import ResumeTab from "./tabs/resume";
 
 type Props = {
 	resume: Resume;

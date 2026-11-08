@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"rootDir": ".",
+		"types": ["node", "bun"],
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tests.tsbuildinfo"
+	},
+	"include": ["tests/**/*.ts"]
+}

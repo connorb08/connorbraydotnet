@@ -1,3 +1,11 @@
+import type { Route } from "./+types/root";
+import { FullscreenProvider } from "#providers/fullscreen";
+import "#styles/App.scss";
+import "@mantine/core/styles.css";
+import { ThemeProvider } from "#providers/theme";
+import { getSession } from "./sessions.server";
+import { theme } from "./theme";
+import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import {
 	isRouteErrorResponse,
 	Links,
@@ -7,14 +15,6 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from "react-router";
-import type { Route } from "./+types/root";
-import "#styles/App.scss";
-import "@mantine/core/styles.css";
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
-import { FullscreenProvider } from "#providers/fullscreen";
-import { ThemeProvider } from "#providers/theme";
-import { getSession } from "./sessions.server";
-import { theme } from "./theme";
 
 export const links: Route.LinksFunction = () => [
 	{
@@ -39,11 +39,11 @@ export const meta: Route.MetaFunction = () => {
 
 export async function loader({ request }: Route.LoaderArgs) {
 	const session = await getSession(request.headers.get("Cookie"));
-	const theme = session.get("theme");
+	const themeValue = session.get("theme");
 	const fullscreen = session.get("fullscreen");
 
 	return {
-		theme: theme ?? null,
+		theme: themeValue ?? null,
 		fullscreen: fullscreen ?? false,
 	};
 }

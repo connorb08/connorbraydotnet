@@ -3,6 +3,7 @@
 Monorepo for `connorbray.net` and related apps/services.
 
 This workspace contains:
+
 - public-facing sites
 - Cloudflare Worker services
 - shared TypeScript packages
@@ -12,22 +13,22 @@ This workspace contains:
 ## Repo at a glance
 
 - `sites/`
-  - `main`: primary personal site
-  - `resume`: resume site + rendering/validation flow
-  - `admin`: admin UI
-  - `queens`: LinkedIn games project site
+    - `main`: primary personal site
+    - `resume`: resume site + rendering/validation flow
+    - `admin`: admin UI
+    - `queens`: LinkedIn games project site
 - `services/`
-  - `api`: HTTP API service
-  - `database`: database-facing worker/service
-  - `content-manager`: content and asset management
-  - `message-queue`: queue/worker processing
-  - `web-schemas`: schema-focused worker/service
+    - `api`: HTTP API service
+    - `database`: database-facing worker/service
+    - `content-manager`: content and asset management
+    - `message-queue`: queue/worker processing
+    - `web-schemas`: schema-focused worker/service
 - `packages/`
-  - reusable libraries (`shared`, `types`, `components`, `schemas`, `clog`, `test-data`)
+    - reusable libraries (`shared`, `types`, `components`, `schemas`, `clog`, `test-data`)
 - `inf/`
-  - infrastructure code (Terraform + related config)
+    - infrastructure code (Terraform + related config)
 - `cli/`
-  - Rust CLI (Clap-based)
+    - Rust CLI (Clap-based)
 
 ## Stack
 
@@ -40,6 +41,7 @@ This workspace contains:
 ## Getting started
 
 Requirements:
+
 - Bun
 - Node.js (for ecosystem compatibility)
 - Cloudflare Wrangler (for worker development/deploy)
@@ -68,9 +70,102 @@ bun run checks
 
 ## Notes
 
+### Oxc configuration
+
+`oxfmt.config.ts` mirrors Biome's tab indentation, 90-column width, LF endings,
+and separate type-import grouping. It preserves side-effect import order and
+does not reorder package manifest keys. Generated output is excluded.
+
+`oxlint.config.ts` enables correctness, suspicious, and performance checks,
+with explicit Biome-style TypeScript, React, accessibility, and security rules.
+Bun is recognized globally; browser, Node, and test globals are scoped to
+their relevant files.
+Experimental nursery rules remain opt-in; function-size guidance is a warning
+because Oxlint has no informational severity. Rule coverage is not identical
+to Biome, and the existing Nx scripts still use Biome.
+
+Oxlint reports unused bindings unless their names start with `_`, including
+parameters, caught errors, and destructured bindings. Underscore naming is allowed.
+VS Code's TypeScript/JavaScript suggestion diagnostics are disabled so the
+TypeScript language service does not flag intentionally unused `_`-prefixed
+locals; this also disables its other suggestion diagnostics. Compiler unused
+checks remain disabled (their default); Oxlint owns unused-binding diagnostics
+because TypeScript has no configurable ignore pattern for unused locals.
+
+Side-effect CSS and SCSS imports are allowed because the frontend framework
+loads those stylesheets; other unassigned imports are still checked.
+
+The lint policy preserves intentional patterns rather than requiring cosmetic
+rewrites:
+
+- Inline JSX objects, arrays, callbacks, and icon elements are allowed; memoization
+  is not required without evidence of a performance issue.
+- Constructed context values, default object/array props, and synchronous effect
+  state updates are warnings, not errors. Hook correctness checks remain errors.
+- Type-only `import()` annotations are allowed alongside separate type imports.
+- Tests may retain commented drafts and use non-null assertions for fixtures
+  initialized by test hooks; production non-null assertions remain errors.
+- Empty placeholders and `export {}` module markers are allowed.
+- Infrastructure transforms may copy objects inside `map` to avoid mutating
+  provider inputs.
+- Inline SVG image roles and the footer's current-year calculation have local,
+  explained exceptions; other accessibility and render-purity checks remain on.
+
+Run these tools directly from the repository root:
+
+```bash
+bunx oxfmt --check .
+bunx oxlint -c oxlint.config.ts --ignore-path .gitignore .
+```
+
+### TypeScript compiler output
+
+TypeScript projects do not emit JavaScript. Project-reference builds emit only
+declarations and declaration maps, while standalone infrastructure and gallery
+checks emit only incremental metadata. Each configuration writes its uniquely
+named build metadata (for example, `tsconfig.lib.tsbuildinfo`) inside its
+project's ignored `.tsbuildinfo/` directory, alongside any declaration output.
+Vite, React Router, and Wrangler still produce their normal application bundles.
+
+### Pulumi TypeScript projects
+
+The infrastructure programs in `inf/Amazon/`, `inf/Backend/`, and
+`inf/Kubernetes/` are TypeScript Bun workspaces. Install their dependencies with
+`bun install` from the repository root. Each project uses `src/index.ts` as its
+Pulumi entry point; `.NET` is no longer needed for these stacks.
+
+Pulumi runs the TypeScript directly using Node's native type stripping, with
+`runtime.options.typescript: false`; use Node 22.18.0 or newer. The shared
+TypeScript configuration enforces erasable syntax. `bun run build` in a project
+checks types and writes incremental metadata into `.tsbuildinfo/`; it does not
+emit JavaScript. Pulumi does not depend on generated output or `ts-node`.
+Pulumi SDK/provider versions are pinned only in the root `package.json`;
+infrastructure workspaces declare wildcard peer dependencies. TypeScript and
+Node typings also reuse the workspace versions.
+
+From a project's directory, run `bun run typecheck`, `bun run build`,
+`pulumi preview --stack <stack>`, or `pulumi up --stack <stack>`. The equivalent
+Nx projects are `inf-amazon`, `inf-backend`, and `inf-kubernetes`; infrastructure
+preview/deploy targets disable caching because they depend on live state and
+credentials. Run infrastructure regression tests with `bun run --cwd inf test` or
+`nx test inf-tests`.
+These check SSH validation, bootstrap substitution, secret marking, resource
+safeguards, and Helm transforms using mocked providers and synthetic credentials.
+`inf/tests/tsconfig.json` extends the test-specific configuration so VS Code
+discovers the Bun test types without adding Bun globals to infrastructure programs.
+
+Changing languages does not require re-importing or recreating resources.
+Project names, backend URLs, configuration keys, component type tokens, resource
+names/parents, outputs, and provider versions remain unchanged. Keep the same
+stack selection, secrets-provider passphrase, AWS configuration, and
+`VPS_SSH_PORT`. Preview each existing stack before updating it and stop if any
+unexpected replacement or deletion appears. The `Pulumi.<stack>.yaml` files and
+Lightsail bootstrap script are retained without changes. Old local `bin/` and
+`obj/` directories may be removed once the migration is verified.
+
 ### Pulumi state bucket
 
-`inf/BackendState.cs` creates a protected, versioned S3 backend bucket with SSE-S3
+`inf/Backend/src/index.ts` creates a protected, versioned S3 backend bucket with SSE-S3
 encryption, all public access blocked, ACLs disabled, and an HTTPS-only policy.
 It uses the configured AWS provider region and keeps S3 Standard storage without
 expiration or archival rules. The account-regional bucket name is
@@ -120,8 +215,8 @@ ssh -p "$(pulumi stack output vpsSshPort --stack dev)" \
 
 ### Kubernetes Tailscale and Vault
 
-The Pulumi stack in `inf/K8S/` manages the Tailscale Kubernetes Operator through
-`Tailscale.cs`. It retains the `tailscale-operator` chart release name, the
+The Pulumi stack in `inf/Kubernetes/` manages the Tailscale Kubernetes Operator through
+`src/tailscale.ts`. It retains the `tailscale-operator` chart release name, the
 `tailscale` namespace, the `operator` deployment/state Secret names, and the
 `operator-oauth` credentials Secret. The chart is pinned to `1.104.4`, matching
 the existing installation. The authenticated Kubernetes API server proxy and
@@ -131,7 +226,7 @@ Set the existing OAuth credentials as encrypted Pulumi configuration in your own
 terminal; these commands prompt for values:
 
 ```bash
-cd inf/K8S
+cd inf/Kubernetes
 pulumi config set --secret tailscaleClientId --stack dev
 pulumi config set --secret tailscaleClientSecret --stack dev
 ```
@@ -144,9 +239,9 @@ the tailnet policy. Enable MagicDNS and HTTPS in the tailnet. After changing
 OAuth credentials, restart the operator with
 `kubectl rollout restart deployment/operator -n tailscale`.
 
-The cdk8s source project and its solution entry have been retired. Local legacy
-credentials and build output are not deleted. Do not continue applying its
-previously generated manifests.
+The cdk8s source project has been retired. Local legacy credentials and build
+output are not deleted. Do not continue applying its previously generated
+manifests.
 
 For the existing cdk8s installation, import its Kubernetes resources into Pulumi
 before applying the new stack:
@@ -169,8 +264,8 @@ The operator Deployment transform makes the downward API's default
 `fieldRef.apiVersion: v1` explicit. This avoids field conflicts with the previous
 `kubectl-client-side-apply` manager without forcing ownership of other fields.
 
-The Pulumi stack in `inf/K8S/` defines all Vault Helm values and the typed
-Tailscale ingress in `Vault.cs`, with `Program.cs` as the entry point; it does not
+The Pulumi stack in `inf/Kubernetes/` defines all Vault Helm values and the typed
+Tailscale ingress in `src/vault.ts`, with `src/index.ts` as the entry point; it does not
 load YAML files. It creates the `vault` namespace and a `vault-internal-tls`
 Secret before deploying the Vault chart. The supplied YAML is reference-only.
 
@@ -189,7 +284,7 @@ encrypts the connection to the backend on port 443 but does not verify the
 backend's self-signed certificate; the Pulumi certificate is not the certificate
 presented to browsers.
 
-Deploy with `pulumi up --stack dev` from `inf/K8S/`. Vault still requires manual
+Deploy with `pulumi up --stack dev` from `inf/Kubernetes/`. Vault still requires manual
 initialization and unsealing: during the first deployment, use a separate
 terminal to run `kubectl exec -n vault vault-0 -- vault operator init` and
 `kubectl exec -n vault vault-0 -- vault operator unseal` for the required number
@@ -218,12 +313,27 @@ passes them to `.devcontainer/build/docker-bake.hcl`. Additional Buildx argument
 are forwarded; use `--print` to inspect the build configuration without building.
 
 All install layers share build-only curl settings that retry transient download
-failures up to four times, with a 30-second connection timeout, a 120-second
-per-attempt timeout, and a 120-second retry window. Persistent failures still stop
-the build. These settings are not copied into the final image.
+failures (including GitHub HTTP 502/503/504 responses) up to six times with
+exponential backoff, a 30-second connection timeout, a 120-second per-attempt
+timeout, and a 900-second retry window. The retry window is longer than one
+attempt so a slow gateway timeout does not exhaust the retry budget before a
+retry starts. An attempt started within that window may finish after it.
+Permanent HTTP errors such as 404 are not retried; persistent transient failures
+still stop the build. These settings are not copied into the final image.
+
+Downloads use a generic Chrome-on-Linux user agent rather than a custom or curl
+identity. Every layer follows redirects with `--location`,
+including GitHub's signed release-asset redirects. Release binaries use the
+version-pinned release download URLs; shell-completion source files use pinned
+`raw.githubusercontent.com` URLs. `Accept: application/octet-stream` is not
+needed for these direct downloads; it selects binary content when using GitHub's
+release-asset REST API instead. A browser-style user agent does not bypass
+IP-based throttling or prevent gateway timeouts; bounded retries remain the
+recovery mechanism.
 
 The image's apt package layer includes OpenBSD netcat (`nc`) and GNU telnet
-(`telnet`) for network troubleshooting.
+(`telnet`) for network troubleshooting, plus `psmisc` for utilities such as
+`pstree` and `fuser`.
 
 The Pulumi layer installs CLI version `3.274.1`, including its bundled language
 tools and Bash completion, using the matching Linux ARM64 or x64 release.
@@ -293,7 +403,7 @@ Set `NO_COLOR=1` before starting a shell to disable these colors;
 `TERM=dumb` also uses a plain prompt.
 
 - Most projects follow this structure:
-  - `package.json`
-  - `project.json`
-  - optional `biome.json`
+    - `package.json`
+    - `project.json`
+    - optional `biome.json`
 - Project-specific setup and scripts live in each project folder.

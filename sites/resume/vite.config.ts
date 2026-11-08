@@ -1,7 +1,7 @@
-import { resolve } from "node:path";
-import process from "node:process";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
+import { resolve } from "node:path";
+import process from "node:process";
 import { defineConfig } from "vite";
 import removeAttributesPlugin from "vite-plugin-react-remove-attributes";
 

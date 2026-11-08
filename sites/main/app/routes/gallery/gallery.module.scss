@@ -1,31 +1,31 @@
 @use "~/styles" as *;
 
 .gallery {
-    @include column;
-    align-items: center;
+	@include column;
+	align-items: center;
 
-    .title {
-        @include sans-serif;
-        font-size: clamp(2rem, 5vw, 3rem);
-        font-weight: 700;
-        color: $primary;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
+	.title {
+		@include sans-serif;
+		font-size: clamp(2rem, 5vw, 3rem);
+		font-weight: 700;
+		color: $primary;
+		margin-bottom: 1rem;
+		text-align: center;
+	}
 
-    .description {
-        @include monospace;
-        font-size: clamp(1rem, 2.5vw, 1.125rem);
-        color: $onSurfaceVariant;
-        line-height: 1.6;
-        margin: 0 auto 2rem auto;
-        max-width: min(600px, 100%);
-        flex-shrink: 0;
-        text-align: center;
-    }
+	.description {
+		@include monospace;
+		font-size: clamp(1rem, 2.5vw, 1.125rem);
+		color: $onSurfaceVariant;
+		line-height: 1.6;
+		margin: 0 auto 2rem auto;
+		max-width: min(600px, 100%);
+		flex-shrink: 0;
+		text-align: center;
+	}
 
-    .homeButton {
-        padding: 0.75rem 1.5rem;
-        max-width: fit-content;
-    }
+	.homeButton {
+		padding: 0.75rem 1.5rem;
+		max-width: fit-content;
+	}
 }

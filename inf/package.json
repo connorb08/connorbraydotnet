@@ -1,0 +1,20 @@
+{
+	"name": "inf-tests",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "bun test tests",
+		"typecheck": "tsc -p tsconfig.tests.json --noEmit"
+	},
+	"peerDependencies": {
+		"@pulumi/pulumi": "*",
+		"typescript": "*"
+	},
+	"nx": {
+		"targets": {
+			"lint": {},
+			"format:check": {},
+			"format:write": {}
+		}
+	}
+}

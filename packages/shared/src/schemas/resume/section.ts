@@ -1,5 +1,5 @@
-import type { JSONSchemaType } from "ajv";
 import type { ResumeSection } from "#types";
+import type { JSONSchemaType } from "ajv";
 
 const EducationItemSchema = {
 	type: "object",

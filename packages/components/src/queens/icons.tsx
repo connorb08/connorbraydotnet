@@ -1,3 +1,4 @@
+// oxlint-disable jsx-a11y/prefer-tag-over-role -- Inline SVG needs an image role.
 import { useId } from "react";
 
 export const QueenSvg = () => {

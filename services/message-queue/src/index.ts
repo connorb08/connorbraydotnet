@@ -1,5 +1,5 @@
-import { WorkerEntrypoint } from "cloudflare:workers";
 import RouteMessage from "./router";
+import { WorkerEntrypoint } from "cloudflare:workers";
 
 export class Entrypoint extends WorkerEntrypoint<Env> {
 	override async queue(batch: MessageBatch<unknown>): Promise<void> {

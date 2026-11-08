@@ -3,6 +3,7 @@
 	"files": [],
 	"compilerOptions": {
 		"rootDir": ".",
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
 		"outDir": ".tsbuildinfo",
 		"types": []
 	},

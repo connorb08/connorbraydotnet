@@ -1,7 +1,7 @@
-import type { Kysely } from "kysely";
-import { Migrator } from "kysely";
 import type { Database } from "../models";
+import type { Kysely } from "kysely";
 import { migrationProvider } from "./migrations";
+import { Migrator } from "kysely";
 
 export default async function SetupDatabaseSchema(db: Kysely<Database>): Promise<void> {
 	try {

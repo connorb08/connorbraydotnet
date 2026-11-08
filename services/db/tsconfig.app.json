@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": ["**/*.ts", "src/migrate.ts", "src/worker.ts"],
 	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.app.tsbuildinfo",
 		"target": "esnext",
 		"lib": ["esnext"],
 		"module": "esnext",

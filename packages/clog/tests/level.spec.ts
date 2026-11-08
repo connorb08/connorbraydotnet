@@ -1,7 +1,7 @@
 import type { MockInstance } from "vitest";
 import { Logger } from "#src/logger/index";
 
-// biome-ignore lint/complexity/noExcessiveLinesPerFunction: test
+// oxlint-disable-next-line max-lines-per-function
 describe("Logger Levels", () => {
 	let logger: Logger;
 	let loggerOutput: MockInstance<(...args: unknown[]) => void>;

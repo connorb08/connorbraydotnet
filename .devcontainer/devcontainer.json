@@ -1,70 +1,55 @@
 {
-  "image": "dev-image:latest",
-  "remoteUser": "dev",
-  "overrideCommand": false,
-  "onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
-  "postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
-  "runArgs": [
-    "--hostname",
-    "dev"
-  ],
-  "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ],
-  "containerEnv": {
-    "DOCKER_HOST": "unix:///var/run/docker.sock",
-    "NODE_VERSION": "26.3.0",
-    "WORKSPACE_PATH": "${containerWorkspaceFolder}"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "nrwl.angular-console",
-        "biomejs.biome",
-        "-dbaeumer.vscode-eslint",
-        "GitHub.vscode-github-actions",
-        "pranaygp.vscode-css-peek",
-        "sibiraj-s.vscode-scss-formatter",
-        "mrmlnc.vscode-scss",
-        "ms-azuretools.vscode-containers",
-        "oven.bun-vscode",
-        "yoavbls.pretty-ts-errors",
-        "ms-vscode.vscode-typescript-next",
-        "ms-dotnettools.csdevkit",
-        "EditorConfig.EditorConfig",
-        "redhat.vscode-xml",
-        "ms-vscode.makefile-tools",
-        "hashicorp.terraform",
-        "docker.docker",
-        "ms-azuretools.vscode-docker",
-        "hashicorp.hcl"
-      ],
-      "settings": {
-        "remote.portsAttributes": {
-          "onAutoForward": {
-            "onAutoForward": "silent"
-          }
-        },
-        "terminal.integrated.presentation.reveal": "never",
-        "terminal.integrated.focusAfterLaunch": "never",
-        "workbench.view.showQuietly": {
-          "workbench.panel.output": true
-        },
-        "files.associations": {
-          "wrangler.json": "jsonc",
-          "biome.json": "jsonc"
-        },
-        "editor.formatOnSave": true,
-        "[typescript]": {
-          "editor.defaultFormatter": "biomejs.biome"
-        },
-        "[scss]": {
-          "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
-        },
-        "[terraform]": {
-          "editor.defaultFormatter": "hashicorp.terraform"
-        }
-      }
-    }
-  }
+	"image": "dev-image:latest",
+	"remoteUser": "dev",
+	"overrideCommand": false,
+	"onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
+	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
+	"runArgs": ["--hostname", "dev"],
+	"mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
+	"containerEnv": {
+		"DOCKER_HOST": "unix:///var/run/docker.sock",
+		"NODE_VERSION": "26.3.0",
+		"WORKSPACE_PATH": "${containerWorkspaceFolder}"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"nrwl.angular-console",
+				"-dbaeumer.vscode-eslint",
+				"GitHub.vscode-github-actions",
+				"pranaygp.vscode-css-peek",
+				"sibiraj-s.vscode-scss-formatter",
+				"mrmlnc.vscode-scss",
+				"ms-azuretools.vscode-containers",
+				"oven.bun-vscode",
+				"yoavbls.pretty-ts-errors",
+				"ms-vscode.vscode-typescript-next",
+				"ms-dotnettools.csdevkit",
+				"EditorConfig.EditorConfig",
+				"redhat.vscode-xml",
+				"ms-vscode.makefile-tools",
+				"hashicorp.terraform",
+				"docker.docker",
+				"ms-azuretools.vscode-docker",
+				"hashicorp.hcl",
+				"oxc.oxc-vscode"
+			],
+			"settings": {
+				"remote.portsAttributes": {
+					"onAutoForward": {
+						"onAutoForward": "silent"
+					}
+				},
+				"terminal.integrated.presentation.reveal": "never",
+				"terminal.integrated.focusAfterLaunch": "never",
+				"workbench.view.showQuietly": {
+					"workbench.panel.output": true
+				},
+				"files.associations": {
+					"wrangler.json": "jsonc",
+					"biome.json": "jsonc"
+				}
+			}
+		}
+	}
 }

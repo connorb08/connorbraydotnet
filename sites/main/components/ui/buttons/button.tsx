@@ -1,9 +1,9 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import type { ButtonProps as AriaButtonProps } from "react-aria-components";
-import { Button as AriaButton } from "react-aria-components";
 import type { NavLinkProps } from "react-router";
-import { NavLink } from "react-router";
 import style from "./button.module.scss";
+import { Button as AriaButton } from "react-aria-components";
+import { NavLink } from "react-router";
 
 type ButtonVariant = "normal" | "outline" | "ghost";
 type ButtonColor = "primary" | "secondary" | "tertiary" | "error";
@@ -112,7 +112,7 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
 		iconOnly,
 		children,
 		className,
-		viewTransition = true,
+		viewTransition: _viewTransition = true,
 		...restProps
 	} = props;
 
@@ -127,7 +127,7 @@ export function LinkButton(props: PropsWithChildren<LinkButtonProps>) {
 				hasChildren,
 				className: resolvedClassName,
 			})}
-			// viewTransition={viewTransition}
+			// View transitions are intentionally disabled.
 		>
 			{renderButtonContent(icon, iconPosition, iconOnly, hasChildren, children)}
 		</NavLink>

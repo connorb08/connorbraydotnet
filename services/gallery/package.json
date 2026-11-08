@@ -9,16 +9,16 @@
 		"deploy": "bun run build && wrangler deploy",
 		"typegen": "wrangler types --env-interface CloudflareBindings"
 	},
-	"peerDependencies": {},
 	"dependencies": {
-		"hono": "*",
 		"@aws-sdk/client-s3": "*",
-		"@aws-sdk/s3-request-presigner": "*"
+		"@aws-sdk/s3-request-presigner": "*",
+		"hono": "*"
 	},
 	"devDependencies": {
+		"@cloudflare/vite-plugin": "*",
 		"@types/node": "*",
-		"wrangler": "*",
 		"vite": "*",
-		"@cloudflare/vite-plugin": "*"
-	}
+		"wrangler": "*"
+	},
+	"peerDependencies": {}
 }

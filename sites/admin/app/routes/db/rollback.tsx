@@ -1,6 +1,6 @@
 import type { Route } from "./+types/migrate";
 import { env } from "cloudflare:workers";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useFetcher } from "react-router";
 
 type MigrationResult = {
@@ -26,23 +26,12 @@ export async function action(_: Route.ComponentProps): Promise<MigrationResult> 
 
 export function useRollbackButton() {
 	const fetcher = useFetcher<typeof action>();
-	const [pending, setPending] = useState(false);
-	const [error, setError] = useState(false);
-	const [message, setMessage] = useState("");
+	const pending = fetcher.state !== "idle";
+	const error = pending ? false : (fetcher.data?.error ?? false);
+	const message = pending ? "" : (fetcher.data?.message ?? "");
 
 	const handleClick = useCallback(() => {
-		setPending(true);
-		setError(false);
-		setMessage("");
 		fetcher.submit(null, { method: "post", action: "/db/rollback" });
-	}, [fetcher]);
-
-	useEffect(() => {
-		if (fetcher.state === "idle") {
-			setPending(false);
-			setError(fetcher.data?.error ?? false);
-			setMessage(fetcher.data?.message ?? "");
-		}
 	}, [fetcher]);
 
 	return {

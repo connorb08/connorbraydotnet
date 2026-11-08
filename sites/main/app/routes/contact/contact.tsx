@@ -1,4 +1,7 @@
+import type { Route } from "../contact/+types/contact";
 import type React from "react";
+import { Button as UIButton } from "../../../components/ui/buttons/button";
+import styles from "./contact.module.scss";
 import { useRef } from "react";
 import {
 	FieldError,
@@ -9,9 +12,6 @@ import {
 	TextField,
 } from "react-aria-components";
 import { useNavigation, useSubmit } from "react-router";
-import { Button as UIButton } from "../../../components/ui/buttons/button";
-import type { Route } from "../contact/+types/contact";
-import styles from "./contact.module.scss";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

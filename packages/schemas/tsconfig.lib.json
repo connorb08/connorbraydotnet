@@ -1,4 +1,7 @@
 {
 	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.lib.tsbuildinfo"
+	},
 	"include": ["src"]
 }
