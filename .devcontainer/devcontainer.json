@@ -11,14 +11,14 @@
   ],
 	"mounts": [
     "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
-    "type=bind,source=${env:HOME}/.kube,target=${remoteEnv:HOME}/.kube,readonly"
+    "type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly"
   ],
 	"containerEnv": {
 		"DOCKER_HOST": "unix:///var/run/docker.sock",
-    "KUBECONFIG": "${remoteEnv:HOME}/.kube/config",
+    "KUBECONFIG": "/home/dev/.kube/config",
 		"NODE_VERSION": "26.3.0",
 		"WORKSPACE_PATH": "${containerWorkspaceFolder}",
-    "VAULT_ADDR": "127.0.0.1:8100"
+    "VAULT_ADDR": "http://127.0.0.1:8100"
 	},
 	"customizations": {
 		"vscode": {
@@ -37,7 +37,6 @@
 				"EditorConfig.EditorConfig",
 				"redhat.vscode-xml",
 				"ms-vscode.makefile-tools",
-				"hashicorp.terraform",
 				"docker.docker",
 				"ms-azuretools.vscode-docker",
 				"hashicorp.hcl",

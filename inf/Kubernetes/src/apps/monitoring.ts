@@ -1,126 +1,6 @@
-import type {
-	Output,
-	Resource,
-	ResourceTransformArgs,
-	ResourceTransformResult,
-} from "@pulumi/pulumi";
-import { addPodTlsChecksum, requireArray, requireRecord } from "../transforms.ts";
-import { core, helm } from "@pulumi/kubernetes";
-import { Config, secret } from "@pulumi/pulumi";
-import { PrivateKey, SelfSignedCert } from "@pulumi/tls";
-import { Buffer } from "node:buffer";
-import { createHash } from "node:crypto";
-
-export function addAdmissionTls(
-	args: ResourceTransformArgs,
-	certificate: Output<string>,
-): ResourceTransformResult | undefined {
-	const isDeployment = args.type === "kubernetes:apps/v1:Deployment";
-	const isWebhook =
-		args.type ===
-			"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration" ||
-		args.type ===
-			"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration";
-	if (!(isDeployment || isWebhook)) {
-		return undefined;
-	}
-	const metadata = requireRecord(
-		args.props.metadata,
-		"Monitoring resource metadata is missing.",
-	);
-	if (
-		metadata.name !==
-		(isDeployment ? "kube-prometheus-stack-operator" : "kube-prometheus-stack-admission")
-	) {
-		return undefined;
-	}
-	if (isDeployment) {
-		return addPodTlsChecksum(
-			args,
-			certificate.apply((pem) =>
-				createHash("sha256").update(pem, "utf8").digest("hex").toUpperCase(),
-			),
-			"Monitoring operator is missing its pod template metadata or has invalid annotations.",
-		);
-	}
-	const annotations =
-		metadata.annotations == null
-			? {}
-			: requireRecord(
-					metadata.annotations,
-					"Monitoring webhook annotations must be a mapping.",
-				);
-	const webhooks = requireArray(
-		args.props.webhooks,
-		"Monitoring webhooks must be a list.",
-	);
-	const caBundle = certificate.apply((pem) =>
-		Buffer.from(pem, "utf8").toString("base64"),
-	);
-	return {
-		props: {
-			...args.props,
-			metadata: {
-				...metadata,
-				annotations: {
-					...annotations,
-					"config.kubernetes.io/depends-on":
-						"apps/namespaces/monitoring/Deployment/kube-prometheus-stack-operator",
-				},
-			},
-			webhooks: webhooks.map((entry) => {
-				const webhook = requireRecord(
-					entry,
-					"Monitoring webhook entries must be mappings.",
-				);
-				const clientConfig = requireRecord(
-					webhook.clientConfig,
-					"Monitoring webhook client configuration is missing.",
-				);
-				return { ...webhook, clientConfig: { ...clientConfig, caBundle } };
-			}),
-		},
-		opts: args.opts,
-	};
-}
-
-function createAdmissionTls(namespace: core.v1.Namespace) {
-	const privateKey = new PrivateKey("monitoring-admission-tls-key", {
-		algorithm: "RSA",
-		rsaBits: 2048,
-	});
-	const certificate = new SelfSignedCert("monitoring-admission-tls-cert", {
-		privateKeyPem: secret(privateKey.privateKeyPem),
-		isCaCertificate: true,
-		subject: { commonName: "kube-prometheus-stack-operator.monitoring.svc" },
-		dnsNames: [
-			"kube-prometheus-stack-operator",
-			"kube-prometheus-stack-operator.monitoring",
-			"kube-prometheus-stack-operator.monitoring.svc",
-			"kube-prometheus-stack-operator.monitoring.svc.cluster.local",
-		],
-		allowedUses: ["cert_signing", "key_encipherment", "digital_signature", "server_auth"],
-		validityPeriodHours: 8760,
-		earlyRenewalHours: 720,
-	});
-	const tlsSecret = new core.v1.Secret(
-		"monitoring-admission-tls",
-		{
-			metadata: {
-				name: "kube-prometheus-stack-admission",
-				namespace: namespace.metadata.name,
-			},
-			type: "Opaque",
-			stringData: {
-				ca: certificate.certPem,
-				cert: certificate.certPem,
-				key: secret(privateKey.privateKeyPem),
-			},
-		},
-		{ additionalSecretOutputs: ["data", "stringData"] },
-	);
-	return { certificate, tlsSecret };
-}
+import type { Resource } from "@pulumi/pulumi";
+import { core, helm, rbac } from "@pulumi/kubernetes";
+import { Config } from "@pulumi/pulumi";
 
 function tailscaleIngress(hostname: string) {
 	return {
@@ -131,14 +11,47 @@ function tailscaleIngress(hostname: string) {
 			"tailscale.com/http-redirect": "true",
 		},
 		hosts: [hostname],
-		paths: ["/"],
 		path: "/",
 		pathType: "Prefix",
 		tls: [{ hosts: [hostname] }],
 	};
 }
 
-export function createMonitoring(tailscaleOperator: Resource): helm.v4.Chart {
+function nodeScrapeJob(jobName: string, metricsPath: string) {
+	return {
+		job_name: jobName,
+		sample_limit: 10000,
+		scheme: "https",
+		kubernetes_sd_configs: [{ role: "node" }],
+		bearer_token_file: "/var/run/secrets/kubernetes.io/serviceaccount/token",
+		tls_config: { ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt" },
+		relabel_configs: [
+			{
+				target_label: "__address__",
+				replacement: "kubernetes.default.svc:443",
+			},
+			{
+				source_labels: ["__meta_kubernetes_node_name"],
+				target_label: "__metrics_path__",
+				replacement: `/api/v1/nodes/$1/proxy/metrics${metricsPath}`,
+			},
+			{
+				source_labels: ["__meta_kubernetes_node_name"],
+				target_label: "node",
+			},
+			{
+				source_labels: ["__meta_kubernetes_node_name"],
+				target_label: "instance",
+			},
+		],
+	};
+}
+
+// oxlint-disable-next-line max-lines-per-function -- Keep the monitoring resources and dependencies together.
+export function createMonitoring(tailscaleOperator: Resource): {
+	victoriaMetrics: helm.v4.Chart;
+	grafana: helm.v4.Chart;
+} {
 	const config = new Config();
 	const adminPassword = config.requireSecret("grafanaAdminPassword").apply((value) => {
 		if (value.trim().length === 0) {
@@ -149,7 +62,6 @@ export function createMonitoring(tailscaleOperator: Resource): helm.v4.Chart {
 	const namespace = new core.v1.Namespace("monitoring", {
 		metadata: { name: "monitoring" },
 	});
-	const { certificate, tlsSecret } = createAdmissionTls(namespace);
 	const adminSecret = new core.v1.Secret(
 		"grafana-admin",
 		{
@@ -159,42 +71,145 @@ export function createMonitoring(tailscaleOperator: Resource): helm.v4.Chart {
 		},
 		{ additionalSecretOutputs: ["data", "stringData"] },
 	);
-	return new helm.v4.Chart(
-		"kube-prometheus-stack",
+	const scrapeRole = new rbac.v1.ClusterRole("monitoring-scrape", {
+		metadata: { name: "monitoring-scrape" },
+		rules: [
+			{ apiGroups: [""], resources: ["nodes"], verbs: ["get", "list", "watch"] },
+			{ apiGroups: [""], resources: ["nodes/proxy"], verbs: ["get"] },
+			{ nonResourceURLs: ["/metrics"], verbs: ["get"] },
+		],
+	});
+	const scrapeBinding = new rbac.v1.ClusterRoleBinding("monitoring-scrape", {
+		metadata: { name: "monitoring-scrape" },
+		roleRef: {
+			apiGroup: "rbac.authorization.k8s.io",
+			kind: "ClusterRole",
+			name: scrapeRole.metadata.name,
+		},
+		subjects: [
+			{
+				kind: "ServiceAccount",
+				name: "victoria-metrics",
+				namespace: namespace.metadata.name,
+			},
+		],
+	});
+	const victoriaMetrics = new helm.v4.Chart(
+		"victoria-metrics",
 		{
-			name: "kube-prometheus-stack",
-			chart: "kube-prometheus-stack",
-			version: "93.1.0",
-			namespace: "monitoring",
-			repositoryOpts: { repo: "https://prometheus-community.github.io/helm-charts" },
+			name: "victoria-metrics",
+			chart: "victoria-metrics-single",
+			version: "0.50.0",
+			namespace: namespace.metadata.name,
+			repositoryOpts: { repo: "https://victoriametrics.github.io/helm-charts/" },
 			values: {
-				prometheusOperator: {
-					tls: { enabled: true },
-					admissionWebhooks: {
+				rbac: { create: false },
+				serviceAccount: { create: true, name: "victoria-metrics", automountToken: true },
+				server: {
+					fullnameOverride: "victoria-metrics",
+					replicaCount: 1,
+					retentionPeriod: "7d",
+					service: { clusterIP: "" },
+					persistentVolume: { enabled: true, size: "5Gi" },
+					resources: {
+						requests: { cpu: "100m", memory: "128Mi" },
+						limits: { cpu: "500m", memory: "384Mi" },
+					},
+					extraArgs: {
+						"memory.allowedBytes": "192MiB",
+						"search.maxMemoryPerQuery": "32MiB",
+						"search.maxConcurrentRequests": "2",
+						"search.maxQueryDuration": "30s",
+						"storage.maxHourlySeries": "50000",
+						"storage.maxDailySeries": "100000",
+						"storage.minFreeDiskSpaceBytes": "256MiB",
+						"promscrape.maxScrapeSize": "8MiB",
+						"promscrape.streamParse": "true",
+					},
+					scrape: {
 						enabled: true,
-						failurePolicy: "Fail",
-						patch: { enabled: false },
-						certManager: { enabled: false },
+						config: {
+							global: { scrape_interval: "60s", scrape_timeout: "10s" },
+							scrape_configs: [
+								{
+									job_name: "victoria-metrics",
+									sample_limit: 10000,
+									static_configs: [{ targets: ["localhost:8428"] }],
+								},
+								{
+									job_name: "kubernetes-apiservers",
+									sample_limit: 10000,
+									scheme: "https",
+									bearer_token_file:
+										"/var/run/secrets/kubernetes.io/serviceaccount/token",
+									tls_config: {
+										ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt",
+									},
+									static_configs: [{ targets: ["kubernetes.default.svc:443"] }],
+								},
+								nodeScrapeJob("kubernetes-nodes", ""),
+								nodeScrapeJob("kubernetes-cadvisor", "/cadvisor"),
+							],
+						},
 					},
-				},
-				grafana: {
-					enabled: true,
-					admin: {
-						existingSecret: "grafana-admin",
-						userKey: "admin-user",
-						passwordKey: "admin-password",
+					ingress: {
+						...tailscaleIngress("victoriametrics"),
+						hosts: [{ name: "victoriametrics", path: ["/"], port: "http" }],
 					},
-					ingress: tailscaleIngress("grafana"),
-				},
-				prometheus: {
-					enabled: true,
-					ingress: tailscaleIngress("prometheus"),
 				},
 			},
 		},
-		{
-			dependsOn: [namespace, adminSecret, tlsSecret, tailscaleOperator],
-			transforms: [(args) => addAdmissionTls(args, certificate.certPem)],
-		},
+		{ dependsOn: [namespace, scrapeBinding, tailscaleOperator] },
 	);
+	const grafana = new helm.v4.Chart(
+		"grafana",
+		{
+			name: "grafana",
+			chart: "grafana",
+			version: "14.4.0",
+			namespace: namespace.metadata.name,
+			repositoryOpts: { repo: "https://grafana-community.github.io/helm-charts" },
+			values: {
+				replicas: 1,
+				deploymentStrategy: { type: "Recreate" },
+				admin: {
+					existingSecret: "grafana-admin",
+					userKey: "admin-user",
+					passwordKey: "admin-password",
+				},
+				ingress: tailscaleIngress("grafana"),
+				persistence: { enabled: true, size: "1Gi" },
+				initChownData: { enabled: false },
+				testFramework: { enabled: false },
+				env: { GOMEMLIMIT: "256MiB", GOGC: "50" },
+				resources: {
+					requests: { cpu: "50m", memory: "192Mi" },
+					limits: { cpu: "250m", memory: "384Mi" },
+				},
+				sidecar: { dashboards: { enabled: false }, datasources: { enabled: false } },
+				datasources: {
+					"datasources.yaml": {
+						apiVersion: 1,
+						datasources: [
+							{
+								name: "VictoriaMetrics",
+								uid: "prometheus",
+								type: "prometheus",
+								access: "proxy",
+								url: "http://victoria-metrics.monitoring.svc:8428",
+								isDefault: true,
+								editable: false,
+								jsonData: { timeInterval: "60s" },
+							},
+						],
+					},
+				},
+				"grafana.ini": {
+					analytics: { reporting_enabled: false, check_for_updates: false },
+				},
+			},
+		},
+		{ dependsOn: [namespace, adminSecret, victoriaMetrics, tailscaleOperator] },
+	);
+	return { victoriaMetrics, grafana };
 }
