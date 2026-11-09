@@ -11,7 +11,8 @@
   ],
 	"mounts": [
     "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
-    "type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly"
+    "type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly",
+    "type=volume,source=${devcontainerId}-bash-history,target=/commandhistory"
   ],
 	"containerEnv": {
 		"DOCKER_HOST": "unix:///var/run/docker.sock",

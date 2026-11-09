@@ -1,6 +1,25 @@
-import type { Resource } from "@pulumi/pulumi";
+import type {
+	Resource,
+	ResourceTransformArgs,
+	ResourceTransformResult,
+} from "@pulumi/pulumi";
 import { core, helm, rbac } from "@pulumi/kubernetes";
 import { Config } from "@pulumi/pulumi";
+
+export function ignoreGrafanaVolumeBinding(
+	args: ResourceTransformArgs,
+): ResourceTransformResult | undefined {
+	if (args.type !== "kubernetes:core/v1:PersistentVolumeClaim") {
+		return undefined;
+	}
+	return {
+		props: args.props,
+		opts: {
+			...args.opts,
+			ignoreChanges: [...(args.opts.ignoreChanges ?? []), "spec.volumeName"],
+		},
+	};
+}
 
 function tailscaleIngress(hostname: string) {
 	return {
@@ -209,7 +228,10 @@ export function createMonitoring(tailscaleOperator: Resource): {
 				},
 			},
 		},
-		{ dependsOn: [namespace, adminSecret, victoriaMetrics, tailscaleOperator] },
+		{
+			dependsOn: [namespace, adminSecret, victoriaMetrics, tailscaleOperator],
+			transforms: [ignoreGrafanaVolumeBinding],
+		},
 	);
 	return { victoriaMetrics, grafana };
 }

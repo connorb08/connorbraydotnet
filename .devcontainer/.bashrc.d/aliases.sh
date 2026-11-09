@@ -16,3 +16,5 @@ alias ...='cd ../..'
 
 alias r="bun run"
 alias x="bun x"
+
+alias inf="pulumi"

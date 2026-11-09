@@ -1,10 +1,12 @@
 import type { ResourceTransformArgs } from "@pulumi/pulumi";
 import { parseSshPort } from "../Amazon/src/vps/server.ts";
+import { ignoreGrafanaVolumeBinding } from "../Kubernetes/src/apps/monitoring.ts";
 import { normalizeDownwardApi } from "../Kubernetes/src/apps/tailscale.ts";
 import { addTlsChecksum } from "../Kubernetes/src/apps/vault.ts";
 import { loadPrograms, registrations, resolveOutput, resources } from "./mock-runtime.ts";
 import { isSecret, output } from "@pulumi/pulumi";
 import { beforeAll, describe, expect, test } from "bun:test";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 let programs: Awaited<ReturnType<typeof loadPrograms>>;
@@ -70,6 +72,7 @@ describe("Infrastructure safeguards", () => {
 			"vault-internal-tls",
 			"tailscale-operator-oauth",
 			"grafana-admin",
+			"couchdb-admin",
 		]) {
 			const options = registration(name).opts;
 			if (!("additionalSecretOutputs" in options)) {
@@ -80,7 +83,109 @@ describe("Infrastructure safeguards", () => {
 			);
 		}
 		expect(registration("tailscale-operator").opts.transforms).toHaveLength(1);
+		expect(
+			registration("grafana", "kubernetes:helm.sh/v4:Chart").opts.transforms,
+		).toEqual([ignoreGrafanaVolumeBinding]);
+		expect(registration("couchdb", "kubernetes:helm.sh/v4:Chart").opts.dependsOn).toEqual(
+			[
+				registration("couchdb", "kubernetes:core/v1:Namespace").resource,
+				registration("couchdb-admin").resource,
+				registration("tailscale-operator").resource,
+			],
+		);
 	});
+});
+
+// oxlint-disable-next-line max-lines-per-function -- Assert the complete database and private ingress configuration.
+test("deploys persistent single-node CouchDB for Obsidian through tagged Tailscale HTTPS", () => {
+	const chart = resources.find(
+		(resource) =>
+			resource.type === "kubernetes:helm.sh/v4:Chart" && resource.name === "couchdb",
+	);
+	expect(chart?.inputs).toMatchObject({
+		name: "couchdb",
+		chart: "couchdb",
+		version: "4.6.3",
+		namespace: "couchdb",
+		repositoryOpts: { repo: "https://apache.github.io/couchdb-helm" },
+		values: {
+			clusterSize: 1,
+			allowAdminParty: false,
+			createAdminSecret: false,
+			extraSecretName: "couchdb-admin",
+			image: { repository: "couchdb", tag: "3.5.1" },
+			persistentVolume: { enabled: true, size: "5Gi", accessModes: ["ReadWriteOnce"] },
+			persistentVolumeClaimRetentionPolicy: {
+				enabled: true,
+				whenScaled: "Retain",
+				whenDeleted: "Retain",
+			},
+			resources: {
+				requests: { cpu: "100m", memory: "256Mi" },
+				limits: { cpu: "500m", memory: "512Mi" },
+			},
+			service: { enabled: true, type: "ClusterIP", externalPort: 5984 },
+			ingress: {
+				enabled: true,
+				className: "tailscale",
+				annotations: {
+					"tailscale.com/tags": "tag:couchdb",
+					"tailscale.com/http-redirect": "true",
+				},
+				hosts: ["couchdb"],
+				path: "/",
+				tls: [{ hosts: ["couchdb"] }],
+			},
+			couchdbConfig: {
+				couchdb: {
+					uuid: expect.stringMatching(/^[a-f0-9]{32}$/),
+					single_node: true,
+					max_document_size: 50000000,
+				},
+				cluster: { n: 1, q: 1 },
+				chttpd: {
+					require_valid_user: true,
+					enable_cors: true,
+					max_http_request_size: 4294967296,
+				},
+				chttpd_auth: { require_valid_user: true },
+				cors: {
+					origins: "app://obsidian.md,capacitor://localhost,http://localhost",
+					credentials: true,
+					headers: "accept,authorization,content-type,origin,referer",
+					methods: "GET,PUT,POST,HEAD,DELETE",
+					max_age: 3600,
+				},
+			},
+		},
+	});
+	const credentials = resources.find(
+		(resource) =>
+			resource.type === "kubernetes:core/v1:Secret" && resource.name === "couchdb-admin",
+	);
+	expect(credentials?.inputs.metadata).toMatchObject({
+		name: "couchdb-admin",
+		namespace: "couchdb",
+	});
+	const serializedChart = JSON.stringify(chart?.inputs);
+	for (const value of [
+		"test-couchdb-password",
+		"test-couchdb-cookie-secret",
+		"test-couchdb-erlang-cookie",
+	]) {
+		expect(serializedChart).not.toContain(value);
+	}
+	expect(serializedChart).toContain(
+		createHash("sha256")
+			.update(
+				JSON.stringify([
+					"test-couchdb-password",
+					"test-couchdb-cookie-secret",
+					"test-couchdb-erlang-cookie",
+				]),
+			)
+			.digest("hex"),
+	);
 });
 
 test("creates a rotating KMS key and exports a region-qualified secrets provider URL", async () => {
@@ -377,6 +482,32 @@ test.each([
 });
 
 describe("Helm resource transforms", () => {
+	test("ignores only the PVC volume binding and preserves other properties and options", () => {
+		const args: ResourceTransformArgs = {
+			type: "kubernetes:core/v1:PersistentVolumeClaim",
+			name: "grafana:monitoring/grafana",
+			custom: true,
+			opts: { protect: true, ignoreChanges: ["metadata.annotations"] },
+			props: {
+				metadata: { name: "grafana", namespace: "monitoring" },
+				spec: { resources: { requests: { storage: "1Gi" } } },
+			},
+		};
+		const result = ignoreGrafanaVolumeBinding(args);
+		expect(result?.props).toBe(args.props);
+		expect(result?.opts).toEqual({
+			protect: true,
+			ignoreChanges: ["metadata.annotations", "spec.volumeName"],
+		});
+		expect(args.opts.ignoreChanges).toEqual(["metadata.annotations"]);
+		expect(ignoreGrafanaVolumeBinding({ ...args, opts: {} })?.opts.ignoreChanges).toEqual(
+			["spec.volumeName"],
+		);
+		expect(
+			ignoreGrafanaVolumeBinding({ ...args, type: "kubernetes:apps/v1:Deployment" }),
+		).toBeUndefined();
+	});
+
 	// oxlint-disable max-lines-per-function -- Test function is long but necessary for coverage.
 	test("normalizes downward API defaults without mutating inputs or explicit versions", () => {
 		const args: ResourceTransformArgs = {

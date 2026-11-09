@@ -84,11 +84,17 @@ export async function loadPrograms() {
 			"Infrastructure:tailscaleClientId": "test-client-id",
 			"Infrastructure:tailscaleClientSecret": "test-client-secret",
 			"Infrastructure:grafanaAdminPassword": "test-grafana-password",
+			"Infrastructure:couchdbAdminPassword": "test-couchdb-password",
+			"Infrastructure:couchdbCookieAuthSecret": "test-couchdb-cookie-secret",
+			"Infrastructure:couchdbErlangCookie": "test-couchdb-erlang-cookie",
 		},
 		[
 			"Infrastructure:tailscaleClientId",
 			"Infrastructure:tailscaleClientSecret",
 			"Infrastructure:grafanaAdminPassword",
+			"Infrastructure:couchdbAdminPassword",
+			"Infrastructure:couchdbCookieAuthSecret",
+			"Infrastructure:couchdbErlangCookie",
 		],
 	);
 

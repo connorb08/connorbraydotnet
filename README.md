@@ -2,6 +2,37 @@
 
 Monorepo for `connorbray.net` and related apps/services.
 
+## Devcontainer tools
+
+The [OCI CLI layer](.devcontainer/build/layers/oci.sh) installs Oracle Cloud
+Infrastructure CLI 3.96.0 with isolated Python dependencies. The
+[image build](.devcontainer/bake.sh) discovers it automatically alongside the other
+tool layers. Run `bash .devcontainer/bake.sh --load` from the repository root, then
+recreate the devcontainer to use the updated image.
+
+Verify with `oci --version` and run `oci setup config` to configure your account.
+OCI credentials are not included in the image.
+
+The [fzf layer](.devcontainer/build/layers/fzf.sh) installs fzf 0.75.0 for x86_64
+and ARM64, including Bash completion and key bindings. It is also discovered
+automatically by the image build. Verify with `fzf --version` after rebuilding.
+
+The image also includes the `gettext-base` apt package, providing `envsubst` for
+environment-variable substitution in templates.
+
+## Persistent Bash history
+
+The devcontainer mounts a workspace-specific Docker volume at `/commandhistory`.
+[Bash history settings](.devcontainer/.bashrc.d/history.sh) write to
+`/commandhistory/.bash_history` and flush history at each prompt so terminal
+sessions share it. The creation hook sets directory/file permissions to 700/600.
+
+Recreate the devcontainer to enable the mount; no image rebuild is required.
+History survives later container recreations on the same Docker host, but deleting
+the volume deletes its history. Existing history from before this mount is not
+automatically migrated. Avoid entering secrets in shell commands; commands
+prefixed with a space are excluded from history.
+
 ## Development Vault proxy
 
 Set `VAULT_ENDPOINT` to the upstream Vault server URL (including `https://`),
@@ -19,6 +50,59 @@ files and restart it. Keep a valid SecretID in `.devcontainer/.env`; the
 proxy removes its temporary SecretID file after reading it.
 Verify with `VAULT_CLIENT_TIMEOUT=10s vault status` and
 `VAULT_CLIENT_TIMEOUT=10s vault kv list secret/prod`.
+
+## Obsidian notes sync
+
+[CouchDB infrastructure](inf/Kubernetes/src/apps/couchdb.ts) installs Apache CouchDB
+3.5.1 using chart 4.6.3 in the `couchdb` namespace. It runs one node with a retained
+5Gi ReadWriteOnce volume, requests 100m CPU / 256Mi memory, and is limited to
+500m CPU / 512Mi memory. A default storage class supporting filesystem group
+ownership is required. Retained storage is not a backup; back up your notes.
+
+The database requires authentication and enables credentialed CORS for Obsidian's
+desktop and mobile origins. It uses single-node shards and LiveSync-compatible
+document/request size settings. The only external endpoint is a private Tailscale
+HTTPS ingress named `couchdb`, tagged `tag:couchdb`; there is no public ingress or
+LoadBalancer.
+
+Before deploying, merge this entry into your existing Tailscale policy's
+`tagOwners` (do not replace the rest of the policy):
+
+```json
+{
+  "tagOwners": {
+    "tag:couchdb": ["tag:k8s-operator"]
+  }
+}
+```
+
+Authorize the operator's OAuth client to issue `tag:couchdb`, and allow your
+intended devices/users to reach `tag:couchdb` on TCP 443 in your tailnet's
+ACLs/grants. Tailnet policy is managed outside this repository. Tailscale HTTPS
+certificates must also be enabled.
+
+Set three independent, strong secrets in the Kubernetes Pulumi stack. Omitting
+values prompts securely; do not put plaintext credentials in source control:
+
+```bash
+cd inf/Kubernetes
+pulumi config set --secret couchdbAdminPassword
+pulumi config set --secret couchdbCookieAuthSecret
+pulumi config set --secret couchdbErlangCookie
+pulumi preview
+pulumi up
+```
+
+The administrator username is `admin`. Credentials are supplied through a
+Kubernetes Secret rather than Helm values; changing them rolls the CouchDB pod.
+Keep the configured server UUID stable after deployment.
+
+On devices connected to your tailnet, open
+`https://couchdb.<your-tailnet>.ts.net/_utils/` to verify access. Configure Obsidian's
+**Self-hosted LiveSync** plugin with `https://couchdb.<your-tailnet>.ts.net`, the
+administrator credentials, and a database name such as `obsidiannotes`. Use the
+plugin's setup wizard to create/initialize that database and enable end-to-end
+encryption. CouchDB alone does not provide Obsidian's paid Sync service.
 
 ## Kubernetes monitoring
 
@@ -59,6 +143,10 @@ Deploy with `cd inf/Kubernetes && pulumi preview`, review the removals and new
 PVCs, then `pulumi up`. A default Kubernetes storage class supporting filesystem
 group ownership is required. Grafana uses `Recreate` to avoid overlapping pods
 and ReadWriteOnce volume conflicts.
+
+Grafana's chart ignores changes only to PVC `spec.volumeName`, which Kubernetes
+assigns when binding storage. This prevents a false replacement diff for the
+existing claim; storage size and other PVC settings remain managed by Pulumi.
 
 VictoriaMetrics explicitly uses a regular ClusterIP Service: the chart's default
 headless Service is not a valid Tailscale ingress backend and leaves Pulumi

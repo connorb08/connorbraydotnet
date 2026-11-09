@@ -5,5 +5,11 @@ config:
     secure: v1:QnYU7ruf6pR+eiAv:QWgxHj5BniJsnLkOjWSmyOSwz1wbKMkq+XWoHVZS7ilhe0M1wihwGkoQY4OYhR10ucUyg68stMqvIomGTSuNAUxIIYc9wVUFcdgHfXHjFNc=
   Kubernetes:grafanaAdminPassword:
     secure: v1:ZguzUyPsuHmpXO9H:v6UldEvvKQQtdYOAOHASk9vgAtsPyxe7p1m3Tx22g5SJ0Oj9/HtjsA==
+  Kubernetes:couchdbAdminPassword:
+    secure: v1:ed+20aEfrQFCOHNj:OsXvnAMAPyg9rtlaKQEup/a9pCJ/Z2F8R9VuQA==
+  Kubernetes:couchdbCookieAuthSecret:
+    secure: v1:WIBRHIThawlReXQB:BVC30Nvl6QOMwjnVewOUKKvR6wuaW0x4zpRpcg7DXT1J/g8F
+  Kubernetes:couchdbErlangCookie:
+    secure: v1:csyfML1bLFeVRKcH:SsI2P9VpiLdhB6MD0ihCzbNe3vDKiJynsTIoDEhXu+Z/0H+j
 secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
 encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQHLZ0toTEo2DLCPYYlESZWLAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMFTyIIIA2I90OqHweAgEQgDsWCkFD0RY5m8HPlaHJjPdHjyY/i/aGwU3qYu55x9zb8/GTcqNL2pHCyStW3RG32zMvbfjGgkpyiigwxg==

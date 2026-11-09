@@ -1,0 +1,7 @@
+name: Oracle
+description: Oracle Cloud
+runtime:
+  name: nodejs
+  options:
+    packagemanager: bun
+    typescript: false

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 source .devcontainer/.env
 
@@ -12,7 +12,7 @@ rm -f /tmp/vault_*
 echo -n "$VAULT_ROLE_ID" > /tmp/vault_role_id
 echo -n "$VAULT_SECRET_ID" > /tmp/vault_secret_id
 chmod 600 /tmp/vault_*
-tmux new-session -d -s vault-proxy -e "VAULT_ADDR=$VAULT_ENDPOINT" 'exec vault proxy -config=.devcontainer/proxy-config.hcl'
+tmux new-session -d -s vault-proxy -e "VAULT_ADDR=$VAULT_ENDPOINT" 'exec vault proxy -config=inf/Vault/proxy-config.hcl'
 
 unset VAULT_ROLE_ID
 unset VAULT_SECRET_ID

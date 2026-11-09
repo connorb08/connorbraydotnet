@@ -55,6 +55,7 @@
 		"@playwright/test": "1.63.0",
 		"@pulumi/aws": "7.54.0",
 		"@pulumi/kubernetes": "4.34.3",
+		"@pulumi/oci": "^5.6.0",
 		"@pulumi/pulumi": "3.274.1",
 		"@pulumi/tls": "5.6.3",
 		"@react-router/dev": "8.4.0",
