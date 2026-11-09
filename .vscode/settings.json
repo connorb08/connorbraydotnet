@@ -1,4 +1,5 @@
 {
+  "editor.defaultFormatter": "oxc.oxc-vscode",
 	"files.associations": {
 		"wrangler.json": "jsonc",
 		"biome.json": "jsonc",
@@ -11,6 +12,12 @@
 		"**/worker-configuration.d.ts": true,
 		"**/*/bin": true,
 		"**/*/obj": true,
-    "**/.tsbuildinfo": true,
+		"**/.tsbuildinfo": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.format.oxc": "always",
+		"source.fixAll.oxc": "always"
+		// "source.organizeImports.biome": "explicit",
+		// "source.fixAll.biome": "explicit"
 	}
 }

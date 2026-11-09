@@ -57,6 +57,7 @@ variable "PACKAGES" {
     "ca-certificates",
     "curl",
     "dnsutils",
+    "gettext-base",
     "git",
     "gnupg2",
     "inetutils-telnet",
