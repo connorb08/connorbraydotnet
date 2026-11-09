@@ -1,6 +1,4 @@
 {
-	"typescript.suggestionActions.enabled": false,
-	"javascript.suggestionActions.enabled": false,
 	"files.associations": {
 		"wrangler.json": "jsonc",
 		"biome.json": "jsonc",
@@ -12,6 +10,7 @@
 		"**/.react-router": true,
 		"**/worker-configuration.d.ts": true,
 		"**/*/bin": true,
-		"**/*/obj": true
+		"**/*/obj": true,
+    "**/.tsbuildinfo": true,
 	}
 }

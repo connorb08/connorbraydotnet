@@ -1,7 +1,3 @@
-vault {
-  address = "${VAULT_ENDPOINT}"
-}
-
 auto_auth {
   method "approle" {
     mount_point = "approle"
