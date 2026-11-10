@@ -1,114 +1,138 @@
-// import { core, identity } from "@pulumi/oci";
-// import { Config } from "@pulumi/pulumi";
+import type { Output } from "@pulumi/pulumi";
+import { core, identity } from "@pulumi/oci";
+import { Config } from "@pulumi/pulumi";
 
-// export function createVps() {
-// 	const config = new Config();
-// 	const compartmentId = config.require("oci:compartmentId");
+interface VpsConfig {
+	compartmentId: string;
+	imageId: string;
+	talosMachineConfig: Output<string>;
+}
 
-// 	// 1. Existing VCN Infrastructure
-// 	const vcn = new core.Vcn("myVcn", {
-// 		compartmentId: compartmentId,
-// 		cidrBlocks: ["10.0.0.0/16"],
-// 		displayName: "my-pulumi-vcn",
-// 		dnsLabel: "myvcn",
-// 	});
+async function getConfiguration(): Promise<VpsConfig> {
+	const config = new Config();
+	const compartmentId = config.require("compartmentId");
+	const imageId = config.require("talosImageId");
+	const talosMachineConfig = config.requireSecret("talosMachineConfig");
+	return { compartmentId, imageId, talosMachineConfig };
+}
 
-// 	const internetGateway = new core.InternetGateway("myInternetGateway", {
-// 		compartmentId: compartmentId,
-// 		vcnId: vcn.id,
-// 		displayName: "my-internet-gateway",
-// 		enabled: true,
-// 	});
+async function createNetworking({ compartmentId }: VpsConfig) {
+	const vcn = new core.Vcn("default-vcn", {
+		compartmentId,
+		cidrBlocks: ["10.0.0.0/16"],
+		displayName: "default-vcn",
+		dnsLabel: "defaultvcn",
+	});
 
-// 	const routeTable = new core.RouteTable("myRouteTable", {
-// 		compartmentId: compartmentId,
-// 		vcnId: vcn.id,
-// 		displayName: "my-route-table",
-// 		routeRules: [
-// 			{
-// 				destination: "0.0.0.0/0",
-// 				destinationType: "CIDR_BLOCK",
-// 				networkEntityId: internetGateway.id,
-// 			},
-// 		],
-// 	});
+	const internetGateway = new core.InternetGateway("default-internet-gateway", {
+		compartmentId,
+		vcnId: vcn.id,
+		displayName: "default-internet-gateway",
+		enabled: true,
+	});
 
-// 	// 2. Open Port 22 (SSH) via Security List
-// 	const securityList = new core.SecurityList("mySecurityList", {
-// 		compartmentId: compartmentId,
-// 		vcnId: vcn.id,
-// 		displayName: "my-security-list",
-// 		ingressSecurityRules: [
-// 			{
-// 				protocol: "6", // TCP
-// 				source: "0.0.0.0/0",
-// 				tcpOptions: {
-// 					min: 22,
-// 					max: 22,
-// 				},
-// 			},
-// 		],
-// 		egressSecurityRules: [
-// 			{
-// 				protocol: "all",
-// 				destination: "0.0.0.0/0",
-// 			},
-// 		],
-// 	});
+	const routeTable = new core.RouteTable("default-route-table", {
+		compartmentId,
+		vcnId: vcn.id,
+		displayName: "default-route-table",
+		routeRules: [
+			{
+				destination: "0.0.0.0/0",
+				destinationType: "CIDR_BLOCK",
+				networkEntityId: internetGateway.id,
+			},
+		],
+	});
 
-// 	const subnet = new core.Subnet("mySubnet", {
-// 		compartmentId: compartmentId,
-// 		vcnId: vcn.id,
-// 		cidrBlock: "10.0.1.0/24",
-// 		displayName: "my-public-subnet",
-// 		dnsLabel: "subnet1",
-// 		routeTableId: routeTable.id,
-// 		securityListIds: [securityList.id],
-// 		prohibitPublicIpOnVnic: false,
-// 	});
+	const securityList = new core.SecurityList("vps-security-list", {
+		compartmentId: compartmentId,
+		vcnId: vcn.id,
+		displayName: "vps-security-list",
+		ingressSecurityRules: [
+			// Allow UDP for Tailscale
+			{
+				protocol: "17", // UDP
+				source: "0.0.0.0/0",
+				udpOptions: {
+					min: 41641,
+					max: 41641,
+				},
+			},
+		],
+		egressSecurityRules: [
+			{
+				protocol: "all",
+				destination: "0.0.0.0/0",
+			},
+		],
+	});
 
-// 	// 3. Fetch Availability Domains for Placement
-// 	const ads = identity.getAvailabilityDomains({
-// 		compartmentId: compartmentId,
-// 	});
+	const subnet = new core.Subnet("default-public-subnet", {
+		compartmentId,
+		vcnId: vcn.id,
+		cidrBlock: "10.0.1.0/24",
+		displayName: "default-public-subnet",
+		dnsLabel: "subnet1",
+		routeTableId: routeTable.id,
+		securityListIds: [securityList.id],
+		prohibitPublicIpOnVnic: false,
+	});
 
-// 	// 4. Look up a Standard Ubuntu Minimal Image (or pass a direct OCID)
-// 	const ubuntuImage = core.getImages({
-// 		compartmentId: compartmentId,
-// 		operatingSystem: "Canonical Ubuntu",
-// 		operatingSystemVersion: "22.04 Minimal",
-// 	});
+	return { vcn, internetGateway, routeTable, securityList, subnet };
+}
 
-// 	// 5. Provide your SSH Public Key string
-// 	const sshPublicKey = `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD... your-key-here`;
+export async function createVps(adIndex: number | undefined = 0) {
+	const { compartmentId, imageId, talosMachineConfig } = await getConfiguration();
+	const { subnet } = await createNetworking({
+		compartmentId,
+		imageId,
+		talosMachineConfig,
+	});
 
-// 	// 6. Launch the VPS (Compute Instance)
-// 	const instance = new core.Instance("myVpsInstance", {
-// 		compartmentId: compartmentId,
-// 		// Pick the first available availability domain in your region
-// 		availabilityDomain: ads.then((adList) => adList.availabilityDomains[0].name),
+	const ads = await identity.getAvailabilityDomains({
+		compartmentId: compartmentId,
+	});
 
-// 		// Always-Free Micro Shape (AMD E2.1.Micro)
-// 		shape: "VM.Standard.E2.1.Micro",
+	const availabilityDomain = ads.availabilityDomains[adIndex]?.name;
 
-// 		displayName: "my-vps-instance",
+	if (!availabilityDomain) {
+		throw new Error("No availability domains found in the specified compartment.");
+	}
 
-// 		createVnicDetails: {
-// 			subnetId: subnet.id,
-// 			assignPublicIp: "true", // Requests a public IPv4 address
-// 			displayName: "primary-vnic",
-// 		},
+	const instance = new core.Instance("myVpsInstance", {
+		compartmentId: compartmentId,
+		availabilityDomain: availabilityDomain,
+		displayName: "default-vps",
+		shape: "VM.Standard.A1.Flex",
+		shapeConfig: {
+			ocpus: 2,
+			memoryInGbs: 12,
+		},
+		launchOptions: {
+			networkType: "PARAVIRTUALIZED",
+			bootVolumeType: "PARAVIRTUALIZED",
+			remoteDataVolumeType: "PARAVIRTUALIZED",
+		},
 
-// 		sourceDetails: {
-// 			sourceType: "image",
-// 			imageId: ubuntuImage.then((img) => img.images[0].id),
-// 		},
+		createVnicDetails: {
+			subnetId: subnet.id,
+			assignPublicIp: "true",
+			displayName: "primary-vnic",
+		},
 
-// 		metadata: {
-// 			// Essential metadata block to provision your SSH Key
-// 			ssh_authorized_keys: sshPublicKey,
-// 		},
-// 	});
+		sourceDetails: {
+			sourceType: "image",
+			sourceId: imageId,
+			bootVolumeSizeInGbs: "200",
+		},
 
-// 	const vpsPublicIp = instance.publicIp;
-// }
+		metadata: {
+			user_data: talosMachineConfig.apply((config) =>
+				Buffer.from(config).toString("base64"),
+			),
+		},
+	});
+
+	const vpsPublicIp = instance.publicIp;
+	return { instance, vpsPublicIp };
+}
