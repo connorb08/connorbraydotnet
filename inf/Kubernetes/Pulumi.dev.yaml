@@ -6,7 +6,7 @@ config:
   Kubernetes:grafanaAdminPassword:
     secure: v1:ZguzUyPsuHmpXO9H:v6UldEvvKQQtdYOAOHASk9vgAtsPyxe7p1m3Tx22g5SJ0Oj9/HtjsA==
   Kubernetes:couchdbAdminPassword:
-    secure: v1:ed+20aEfrQFCOHNj:OsXvnAMAPyg9rtlaKQEup/a9pCJ/Z2F8R9VuQA==
+    secure: v1:QzsDtkQTFD8wn5yb:AXVZ2zaZ4k9ZiD9pOxd/bKB93xts6eKBLhaiAbRS4qA2Tf7v
   Kubernetes:couchdbCookieAuthSecret:
     secure: v1:WIBRHIThawlReXQB:BVC30Nvl6QOMwjnVewOUKKvR6wuaW0x4zpRpcg7DXT1J/g8F
   Kubernetes:couchdbErlangCookie:

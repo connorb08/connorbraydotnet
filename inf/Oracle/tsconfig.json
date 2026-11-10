@@ -1,9 +1,9 @@
 {
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
-		"rootDir": "src",
+		"rootDir": ".",
 		"outDir": ".tsbuildinfo",
 		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo"
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts", "automation.ts"]
 }
