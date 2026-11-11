@@ -1,10 +1,10 @@
 // Tries all three ADs sequentially.
-// Waits 15–30 minutes between the first three failed rounds, then 60–65 minutes.
+// Waits 5–8 minutes between failed rounds.
 // Retries only capacity errors.
 // Awaits AD configuration changes.
 // Stops after success or any other error.
 
-import { LocalWorkspace } from "@pulumi/pulumi/automation/index.js";
+import { LocalWorkspace, type UpResult } from "@pulumi/pulumi/automation/index.js";
 import { writeFile } from "node:fs/promises";
 import { setTimeout } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
@@ -20,6 +20,8 @@ async function deployUntilAvailable() {
 
 	let tries = 0;
 	let completedRounds = 0;
+
+	let completedResult: UpResult;
 
 	while (true) {
 		tries++;
@@ -37,6 +39,7 @@ async function deployUntilAvailable() {
 			const result = await stack.up();
 
 			console.log(result);
+			completedResult = result;
 			break;
 		} catch (error: unknown) {
 			let errorMessage = "";
@@ -53,8 +56,7 @@ async function deployUntilAvailable() {
 				if (currentIndex >= indexes.length) {
 					currentIndex = 0;
 					completedRounds++;
-					const waitMinutes =
-						completedRounds <= 3 ? 15 + Math.random() * 15 : 60 + Math.random() * 5;
+					const waitMinutes = 5 + Math.random() * 3;
 
 					console.log(
 						`All availability domains are out of host capacity. Waiting ${waitMinutes.toFixed(1)} minutes before round ${completedRounds + 1}...`,
@@ -72,14 +74,19 @@ async function deployUntilAvailable() {
 		}
 	}
 
-	await writeFile(new URL("../../flag_success", import.meta.url), "");
+	const summary = JSON.stringify(completedResult.summary, null, 2);
+
+	await writeFile(new URL("../../flag_success", import.meta.url), summary);
 }
 
 try {
 	await deployUntilAvailable();
 } catch (error: unknown) {
 	try {
-		await writeFile(new URL("../../flag_error", import.meta.url), "");
+		await writeFile(
+			new URL("../../flag_error", import.meta.url),
+			Error.isError(error) ? error.message : String(error),
+		);
 	} catch (flagError: unknown) {
 		throw new AggregateError(
 			[error, flagError],
