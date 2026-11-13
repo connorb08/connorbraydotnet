@@ -1,10 +1,6 @@
 import { createVps } from "./vps.ts";
-import { Config } from "@pulumi/pulumi";
 
-const config = new Config();
-const domainIndex = config.getNumber("domainIndex");
-
-const { instance, vpsPublicIp } = await createVps(domainIndex);
+const { instance, vpsPublicIp } = await createVps();
 
 export const instanceId = instance.id;
 export const publicIp = vpsPublicIp;

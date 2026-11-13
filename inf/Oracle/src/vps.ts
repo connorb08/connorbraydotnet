@@ -99,39 +99,47 @@ export async function createVps(adIndex: number | undefined = 0) {
 		throw new Error("No availability domains found in the specified compartment.");
 	}
 
-	const instance = new core.Instance("myVpsInstance", {
-		compartmentId: compartmentId,
-		availabilityDomain: availabilityDomain,
-		displayName: "default-vps",
-		shape: "VM.Standard.A1.Flex",
-		shapeConfig: {
-			ocpus: 2,
-			memoryInGbs: 12,
-		},
-		launchOptions: {
-			networkType: "PARAVIRTUALIZED",
-			bootVolumeType: "PARAVIRTUALIZED",
-			remoteDataVolumeType: "PARAVIRTUALIZED",
-		},
+	const instance = new core.Instance(
+		"talos-vps",
+		{
+			compartmentId: compartmentId,
+			availabilityDomain: availabilityDomain,
+			displayName: "default-vps",
+			shape: "VM.Standard.A1.Flex",
+			shapeConfig: {
+				ocpus: 2,
+				memoryInGbs: 12,
+			},
+			launchOptions: {
+				networkType: "PARAVIRTUALIZED",
+				bootVolumeType: "PARAVIRTUALIZED",
+				remoteDataVolumeType: "PARAVIRTUALIZED",
+			},
 
-		createVnicDetails: {
-			subnetId: subnet.id,
-			assignPublicIp: "true",
-			displayName: "primary-vnic",
-		},
+			createVnicDetails: {
+				subnetId: subnet.id,
+				assignPublicIp: "true",
+				displayName: "primary-vnic",
+			},
 
-		sourceDetails: {
-			sourceType: "image",
-			sourceId: imageId,
-			bootVolumeSizeInGbs: "200",
-		},
+			sourceDetails: {
+				sourceType: "image",
+				sourceId: imageId,
+				bootVolumeSizeInGbs: "200",
+			},
 
-		metadata: {
-			user_data: talosMachineConfig.apply((config) =>
-				Buffer.from(config).toString("base64"),
-			),
+			metadata: {
+				user_data: talosMachineConfig.apply((config) =>
+					Buffer.from(config).toString("base64"),
+				),
+			},
 		},
-	});
+		{
+			aliases: [{ name: "myVpsInstance" }],
+			// Manage the running node's configuration through the Talos API.
+			ignoreChanges: ["metadata.user_data"],
+		},
+	);
 
 	const vpsPublicIp = instance.publicIp;
 	return { instance, vpsPublicIp };

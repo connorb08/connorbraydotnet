@@ -13,6 +13,51 @@ recreate the devcontainer to use the updated image.
 Verify with `oci --version` and run `oci setup config` to configure your account.
 OCI credentials are not included in the image.
 
+### Oracle Talos boot firmware
+
+The [Oracle VPS](inf/Oracle/src/vps.ts) uses an ARM64 Talos image with
+paravirtualized networking and disks. The
+[Talos OCI guide](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/cloud-platforms/oracle)
+recommends converting the Oracle QCOW2 image to a stream-optimized VMDK and
+importing it as `VMDK` with default `BIOS` firmware. It documents QCOW2 boot failures
+and warns about `UEFI_64`, but this deployment has booted Talos and joined
+Tailscale using UEFI. Verify the actual image and instance with serial console
+output rather than changing a working firmware setting based on general guidance.
+Firmware is inherited from the image: OCI rejects a firmware override in the
+instance's `launchOptions`. Changing image capabilities does not change existing
+instances or automatically trigger a Pulumi replacement. If an instance must be
+replaced after correcting its image, use `pulumi stack --show-urns` from
+`inf/Oracle` to find its resource URN, then review
+`pulumi preview --diff --replace '<INSTANCE_URN>'` before applying
+`pulumi up --replace '<INSTANCE_URN>'`. Replacement can change the public IP and
+lose boot-volume data. OCI's `RUNNING` state alone does not confirm Talos booted;
+check serial console output and the instance's effective launch options.
+
+The security list temporarily allows public TCP 50000 for `talosctl`, alongside
+UDP 41641 for Tailscale. TCP source ports are unrestricted. Remove the public
+Talos API rule once Tailscale access works, or restrict its source to your
+administrator IP `/32`. Kubernetes and internal Talos cluster ports remain closed.
+
+### Updating Talos configuration without replacing the VPS
+
+Apply configuration updates to the running node with `talosctl apply-config`.
+From `inf/Oracle`, save the same YAML for provisioning with
+`pulumi config set --secret talosMachineConfig < /path/to/controlplane.yaml`.
+Saving configuration does not deploy anything.
+
+The instance ignores changes to `metadata.user_data` because OCI otherwise
+replaces the instance when launch user data changes. Pulumi retains the
+previously recorded launch metadata; this does not update the running node.
+Other instance changes can still cause replacement, so run `pulumi preview`
+before deploying. Before intentionally reprovisioning with updated user data,
+remove this ignore rule and review the replacement preview: ignored properties
+can otherwise reuse their old state values even during replacement.
+
+The `talos-vps` resource retains an alias for its former Pulumi name,
+`myVpsInstance`, so the rename adopts the existing instance rather than creating
+a new one. Keep this alias for stacks that have not yet applied the rename.
+The OCI console name is controlled separately by `displayName`.
+
 The [fzf layer](.devcontainer/build/layers/fzf.sh) installs fzf 0.75.0 for x86_64
 and ARM64, including Bash completion and key bindings. It is also discovered
 automatically by the image build. Verify with `fzf --version` after rebuilding.
