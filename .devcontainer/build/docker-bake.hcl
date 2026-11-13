@@ -57,6 +57,7 @@ variable "PACKAGES" {
     "ca-certificates",
     "curl",
     "dnsutils",
+    "file",
     "gettext-base",
     "git",
     "gnupg2",
