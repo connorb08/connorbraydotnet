@@ -12,5 +12,6 @@
 		"target": "ES2022",
 		"types": ["node"],
 		"rewriteRelativeImportExtensions": true
-	}
+	},
+	"references": []
 }

@@ -39,6 +39,9 @@
 			"path": "./services/database"
 		},
 		{
+			"path": "./services/gallery"
+		},
+		{
 			"path": "./services/web-schemas"
 		},
 		{
@@ -46,6 +49,24 @@
 		},
 		{
 			"path": "./services/db"
+		},
+		{
+			"path": "./inf"
+		},
+		{
+			"path": "./inf/Amazon"
+		},
+		{
+			"path": "./inf/Backend"
+		},
+		{
+			"path": "./inf/Cluster"
+		},
+		{
+			"path": "./inf/Kubernetes"
+		},
+		{
+			"path": "./inf/Oracle"
 		}
 	],
 	"compilerOptions": {

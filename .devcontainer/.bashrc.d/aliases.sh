@@ -1,20 +1,10 @@
-if [[ $- == *i* && ${TERM:-dumb} != dumb && ! ${NO_COLOR+x} ]]; then
-  if command -v eza >/dev/null 2>&1; then
-    alias ls='eza --color=auto --group-directories-first'
-    alias lt='eza --tree --level=2 --color=auto --group-directories-first'
-  else
-    alias ls='ls --color=auto --group-directories-first'
-  fi
-  alias grep='grep --color=auto'
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -d "$DIR/aliases.d" ]; then
+  for i in "$DIR/aliases.d"/*.sh; do
+    if [ -r "$i" ]; then
+      . $i
+    fi
+  done
+  unset i
 fi
-
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -F'
-alias ..='cd ..'
-alias ...='cd ../..'
-
-alias r="bun run"
-alias x="bun x"
-
-alias inf="pulumi"

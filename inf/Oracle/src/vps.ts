@@ -141,6 +141,25 @@ export async function createVps(adIndex: number | undefined = 0) {
 		},
 	);
 
+	const dataVolume = new core.Volume(
+		"vps-volume",
+		{
+			compartmentId,
+			availabilityDomain,
+			displayName: "vps-volume",
+			sizeInGbs: "100",
+		},
+		{ protect: true },
+	);
+	const dataVolumeAttachment = new core.VolumeAttachment("vps-volume-attachment", {
+		attachmentType: "paravirtualized",
+		instanceId: instance.id,
+		volumeId: dataVolume.id,
+		displayName: "vps-volume-attachment",
+		isReadOnly: false,
+		isShareable: false,
+	});
+
 	const vpsPublicIp = instance.publicIp;
-	return { instance, vpsPublicIp };
+	return { instance, vpsPublicIp, dataVolume, dataVolumeAttachment };
 }
