@@ -6,7 +6,7 @@ import type {
 import { ClusterApps } from "../Cluster/src/apps/index.ts";
 import { requireRecord } from "../Cluster/src/utils.ts";
 import { resolveOutput } from "./mock-runtime.ts";
-import { isSecret, runtime } from "@pulumi/pulumi";
+import { isSecret, output, runtime } from "@pulumi/pulumi";
 import { beforeAll, expect, test } from "bun:test";
 import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -52,8 +52,19 @@ beforeAll(async () => {
 		{
 			"Cluster:tailscaleClientId": "test-client-id",
 			"Cluster:tailscaleClientSecret": "test-client-secret",
+			"Cluster:couchdbAdminPassword": "test-couchdb-password",
+			"Cluster:couchdbCookieAuthSecret": "test-couchdb-cookie-secret",
+			"Cluster:couchdbErlangCookie": "test-couchdb-erlang-cookie",
+			"Cluster:grafanaAdminPassword": "test-grafana-password",
 		},
-		["Cluster:tailscaleClientId", "Cluster:tailscaleClientSecret"],
+		[
+			"Cluster:tailscaleClientId",
+			"Cluster:tailscaleClientSecret",
+			"Cluster:couchdbAdminPassword",
+			"Cluster:couchdbCookieAuthSecret",
+			"Cluster:couchdbErlangCookie",
+			"Cluster:grafanaAdminPassword",
+		],
 	);
 	await runtime.runInPulumiStack(async () => {
 		runtime.registerStackTransformation((args) => {
@@ -164,6 +175,198 @@ test("only annotates Vault StatefulSets and preserves existing pod annotations",
 		createHash("sha256").update("test-certificate", "utf8").digest("hex").toUpperCase(),
 	);
 	expect(args.props).toEqual(original);
+	expect(
+		await transform({ ...args, type: "kubernetes:apps/v1:Deployment" }),
+	).toBeUndefined();
+});
+
+test("creates CouchDB with protected credentials, rollout checksum, and retained storage", async () => {
+	const component = registration(
+		"couchdb",
+		"connor-bray:infrastructure:cluster:apps:Couchdb",
+	);
+	expect(component.resource).toBe(apps.couchdb);
+	expect(component.opts.parent).toBe(apps);
+	expect(apps.apps.has("couchdb")).toBe(true);
+	const credentials = registration("couchdb-admin", "kubernetes:core/v1:Secret");
+	expect(credentials.opts.parent).toBe(apps.couchdb);
+	expect(await isSecret(credentials.props.stringData.adminPassword)).toBe(true);
+	expect(await isSecret(credentials.props.stringData.cookieAuthSecret)).toBe(true);
+	expect(await isSecret(credentials.props.stringData.erlangCookie)).toBe(true);
+	const chart = registration("couchdb", "kubernetes:helm.sh/v4:Chart");
+	expect(chart.opts.parent).toBe(apps.couchdb);
+	expect(chart.opts.dependsOn).toEqual([
+		registration("couchdb", "kubernetes:core/v1:Namespace").resource,
+		credentials.resource,
+		apps.tailscale.chart,
+		apps.storage.chart,
+	]);
+	expect(chart.props.values).toMatchObject({
+		clusterSize: 1,
+		allowAdminParty: false,
+		createAdminSecret: false,
+		extraSecretName: "couchdb-admin",
+		persistentVolume: { enabled: true, size: "5Gi" },
+		persistentVolumeClaimRetentionPolicy: {
+			enabled: true,
+			whenScaled: "Retain",
+			whenDeleted: "Retain",
+		},
+		ingress: { className: "tailscale", hosts: ["couchdb"] },
+		couchdbConfig: {
+			couchdb: { single_node: true },
+			chttpd: { require_valid_user: true },
+			cors: { credentials: true },
+		},
+	});
+	const checksum = chart.props.values.annotations["checksum/credentials"];
+	expect(await isSecret(checksum)).toBe(false);
+	expect(await resolveOutput<string>(checksum)).toBe(
+		createHash("sha256")
+			.update(
+				JSON.stringify([
+					"test-couchdb-password",
+					"test-couchdb-cookie-secret",
+					"test-couchdb-erlang-cookie",
+				]),
+			)
+			.digest("hex"),
+	);
+});
+
+test("creates Prometheus with API and node scraping and ordered dependencies", async () => {
+	expect(
+		registration("monitoring", "connor-bray:infrastructure:cluster:apps:Monitoring")
+			.resource,
+	).toBe(apps.monitoring);
+	expect(apps.apps.has("monitoring")).toBe(true);
+	const prometheus = registration("prometheus", "kubernetes:helm.sh/v4:Chart");
+	expect(prometheus.opts.parent).toBe(apps.monitoring);
+	expect(prometheus.opts.dependsOn).toEqual([
+		registration("monitoring", "kubernetes:core/v1:Namespace").resource,
+		registration(
+			"monitoring-scrape",
+			"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+		).resource,
+		apps.tailscale.chart,
+		apps.storage.chart,
+	]);
+	expect(prometheus.props).toMatchObject({
+		chart: "prometheus",
+		values: {
+			rbac: { create: false },
+			scrapeConfigs: null,
+			serviceAccounts: { server: { create: true, name: "prometheus" } },
+			server: {
+				fullnameOverride: "prometheus",
+				automountServiceAccountToken: true,
+				retention: "7d",
+				retentionSize: "4GB",
+				service: { servicePort: 9090 },
+				persistentVolume: { enabled: true, size: "5Gi" },
+				ingress: { ingressClassName: "tailscale", hosts: ["prometheus"] },
+			},
+		},
+	});
+	const scrapeConfigs =
+		prometheus.props.values.serverFiles["prometheus.yml"].scrape_configs;
+	expect(scrapeConfigs).toMatchObject([
+		{ job_name: "prometheus", static_configs: [{ targets: ["localhost:9090"] }] },
+		{ job_name: "kubernetes-apiservers", scheme: "https" },
+		{
+			job_name: "kubernetes-nodes",
+			kubernetes_sd_configs: [{ role: "node" }],
+			relabel_configs: [
+				{ target_label: "__address__", replacement: "kubernetes.default.svc:443" },
+				{
+					target_label: "__metrics_path__",
+					replacement: "/api/v1/nodes/$1/proxy/metrics",
+				},
+				{ target_label: "node" },
+				{ target_label: "instance" },
+			],
+		},
+		{
+			job_name: "kubernetes-cadvisor",
+			relabel_configs: [
+				{ target_label: "__address__", replacement: "kubernetes.default.svc:443" },
+				{
+					target_label: "__metrics_path__",
+					replacement: "/api/v1/nodes/$1/proxy/metrics/cadvisor",
+				},
+				{ target_label: "node" },
+				{ target_label: "instance" },
+			],
+		},
+	]);
+	expect(
+		await resolveOutput(
+			output(
+				registration(
+					"monitoring-scrape",
+					"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+				).props.subjects,
+			),
+		),
+	).toEqual([
+		{
+			kind: "ServiceAccount",
+			name: "prometheus",
+			namespace: "monitoring",
+		},
+	]);
+	expect(resources.some((resource) => resource.name.includes("victoria"))).toBe(false);
+});
+
+test("connects Grafana to Prometheus with protected credentials and ordered dependencies", async () => {
+	const grafana = registration("grafana", "kubernetes:helm.sh/v4:Chart");
+	const secret = registration("grafana-admin", "kubernetes:core/v1:Secret");
+	expect(await isSecret(secret.props.stringData["admin-password"])).toBe(true);
+	expect(grafana.opts.dependsOn).toEqual([
+		registration("monitoring", "kubernetes:core/v1:Namespace").resource,
+		secret.resource,
+		apps.monitoring.prometheus,
+		apps.tailscale.chart,
+		apps.storage.chart,
+	]);
+	expect(grafana.props.values).toMatchObject({
+		admin: { existingSecret: "grafana-admin" },
+		ingress: { ingressClassName: "tailscale", hosts: ["grafana"] },
+		persistence: { enabled: true, size: "1Gi" },
+		datasources: {
+			"datasources.yaml": {
+				datasources: [
+					{
+						name: "Prometheus",
+						type: "prometheus",
+						url: "http://prometheus.monitoring.svc:9090",
+						isDefault: true,
+					},
+				],
+			},
+		},
+	});
+});
+
+test("monitoring PVC transforms preserve options and ignore cluster-assigned volume bindings", async () => {
+	const transform = registration("grafana", "kubernetes:helm.sh/v4:Chart").opts
+		.transforms?.[0];
+	if (!transform) {
+		throw new Error("Missing monitoring PVC transform.");
+	}
+	const args: ResourceTransformArgs = {
+		type: "kubernetes:core/v1:PersistentVolumeClaim",
+		name: "grafana",
+		custom: true,
+		props: { spec: { resources: { requests: { storage: "1Gi" } } } },
+		opts: { ignoreChanges: ["metadata.annotations"], protect: true },
+	};
+	const result = await transform(args);
+	expect(result).toEqual({
+		props: args.props,
+		opts: { ignoreChanges: ["metadata.annotations", "spec.volumeName"], protect: true },
+	});
+	expect(args.opts.ignoreChanges).toEqual(["metadata.annotations"]);
 	expect(
 		await transform({ ...args, type: "kubernetes:apps/v1:Deployment" }),
 	).toBeUndefined();

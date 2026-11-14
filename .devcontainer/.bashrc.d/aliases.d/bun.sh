@@ -1,0 +1,4 @@
+alias tsc="bun tsc"
+alias r="bun run"
+alias x="bun x"
+

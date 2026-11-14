@@ -35,6 +35,7 @@
         "@pulumi/oci": "^5.6.0",
         "@pulumi/pulumi": "3.274.1",
         "@pulumi/tls": "5.6.3",
+        "@pulumi/vault": "^7.14.1",
         "@react-router/dev": "8.4.0",
         "@swc-node/register": "1.12.1",
         "@swc/core": "1.16.2",
@@ -97,6 +98,15 @@
         "@pulumi/pulumi": "*",
       },
     },
+    "inf/Cluster": {
+      "name": "inf-cluster",
+      "peerDependencies": {
+        "@pulumi/kubernetes": "*",
+        "@pulumi/pulumi": "*",
+        "@pulumi/tls": "*",
+        "@pulumi/vault": "*",
+      },
+    },
     "inf/Kubernetes": {
       "name": "inf-kubernetes",
       "peerDependencies": {
@@ -106,8 +116,9 @@
       },
     },
     "inf/Oracle": {
-      "name": "oracle",
+      "name": "inf-oracle",
       "peerDependencies": {
+        "@pulumi/oci": "*",
         "@pulumi/pulumi": "*",
         "typescript": "*",
       },
@@ -1207,6 +1218,8 @@
 
     "@pulumi/tls": ["@pulumi/tls@5.6.3", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0" } }, "sha512-glAX4KYmsEGOXPz7yFKcErSogfknYB/4h2/EdeVXifZGW8ic47HCjNI5zPHF4+0DcwmNdLGA7fm2qQz69wS9EA=="],
 
+    "@pulumi/vault": ["@pulumi/vault@7.14.1", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0" } }, "sha512-u5rtdfcDReYArAm/u3pM1qH8IO00nlvCSHY09cAikHUaZaeeu9eWS/vYxiWF4n6TR90z8Vf31Igb+vSkBUergA=="],
+
     "@react-router/dev": ["@react-router/dev@8.4.0", "", { "dependencies": { "@babel/core": "^7.29.7", "@babel/generator": "^7.29.7", "@babel/parser": "^7.29.7", "@babel/traverse": "^7.29.7", "@babel/types": "^7.29.7", "@react-router/node": "8.4.0", "@remix-run/node-fetch-server": "^0.14.1", "babel-dead-code-elimination": "^1.0.12", "chokidar": "^5.0.0", "dedent": "^1.7.2", "es-module-lexer": "^2.1.0", "exit-hook": "5.1.0", "isbot": "^5.1.40", "jsesc": "3.1.0", "lodash": "^4.18.1", "p-map": "^7.0.4", "pathe": "^2.0.3", "picocolors": "^1.1.1", "pkg-types": "^2.3.1", "react-refresh": "^0.18.0", "semver": "^7.8.1", "tinyglobby": "^0.2.16", "valibot": "^1.4.1" }, "peerDependencies": { "@react-router/serve": "^8.4.0", "@vitejs/plugin-rsc": "~0.5.26", "react-router": "^8.4.0", "react-server-dom-webpack": "^19.2.7", "typescript": "^5.1.0 || ^6.0.0 || ^7.0.0", "vite": "^7.0.0 || ^8.0.0", "wrangler": "^4.0.0" }, "optionalPeers": ["@react-router/serve", "@vitejs/plugin-rsc", "react-server-dom-webpack", "typescript", "wrangler"], "bin": { "react-router": "bin.cjs" } }, "sha512-GKznpn6h8c52xGXwtsypD5ZwNiWFSeqoKPdyGq7SfG+T9rFjGO8F0i/R/yECfZqHXaNz1NVmpODuBamBy9FfMg=="],
 
     "@react-router/node": ["@react-router/node@8.4.0", "", { "dependencies": { "@remix-run/node-fetch-server": "^0.14.1" }, "peerDependencies": { "react-router": "8.4.0", "typescript": "^5.1.0 || ^6.0.0 || ^7.0.0" }, "optionalPeers": ["typescript"] }, "sha512-1teZHtk7XDm1pteQ2Plgtvtjjup5C5sIwFlOMYVIyoOH7X3bId3Qb//kUdbydX6NRIxcGK28UnfZlz4SrD/mkg=="],
@@ -2215,7 +2228,11 @@
 
     "inf-backend": ["inf-backend@workspace:inf/Backend"],
 
+    "inf-cluster": ["inf-cluster@workspace:inf/Cluster"],
+
     "inf-kubernetes": ["inf-kubernetes@workspace:inf/Kubernetes"],
+
+    "inf-oracle": ["inf-oracle@workspace:inf/Oracle"],
 
     "inf-tests": ["inf-tests@workspace:inf"],
 
@@ -2594,8 +2611,6 @@
     "optionator": ["optionator@0.9.4", "", { "dependencies": { "deep-is": "^0.1.3", "fast-levenshtein": "^2.0.6", "levn": "^0.4.1", "prelude-ls": "^1.2.1", "type-check": "^0.4.0", "word-wrap": "^1.2.5" } }, "sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g=="],
 
     "ora": ["ora@5.4.1", "", { "dependencies": { "bl": "^4.1.0", "chalk": "^4.1.0", "cli-cursor": "^3.1.0", "cli-spinners": "^2.5.0", "is-interactive": "^1.0.0", "is-unicode-supported": "^0.1.0", "log-symbols": "^4.1.0", "strip-ansi": "^6.0.0", "wcwidth": "^1.0.1" } }, "sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ=="],
-
-    "oracle": ["oracle@workspace:inf/Oracle"],
 
     "own-keys": ["own-keys@1.0.2", "", { "dependencies": { "call-bound": "^1.0.4", "get-intrinsic": "^1.3.0", "object-keys": "^1.1.1", "safe-push-apply": "^1.0.0" } }, "sha512-19YVAg7T+WTrxggPukVq7DjTv6+PJ867TmhCvBsYwmbFCsZd344rq2Ld1p0wo8f8Qrrhgp82c6FJRqdXWtSEhg=="],
 
