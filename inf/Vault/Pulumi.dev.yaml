@@ -1,0 +1,6 @@
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQFMElDiaFYhTMYTAOxiT2vlAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM4vYigVn9sA4wLJZiAgEQgDtIZ2kPQiW9g2+hX0P2Uz74LLPia1QM4Ci+RmWHyUOQwG/p2yxHoE12hU/g6BrHzQj0M1PliVQr5j64Pg==
+config:
+  vault:address: https://vault.tail717c1.ts.net/
+  vault:token:
+    secure: v1:BndpSmA0C/C4r+LL:osmYEJVV0t9n8H7olJwWyoVQSmrCzd9yaFaT//9P95mDsKsapmYpCezymsM=
