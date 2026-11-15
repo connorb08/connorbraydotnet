@@ -8,7 +8,7 @@ mkdir -p "${INSTALL_PREFIX}/opt"
 
 # Install isolated Python dependencies
 python3 -m venv "${INSTALL_PREFIX}/opt/oci-cli"
-"${INSTALL_PREFIX}/opt/oci-cli/bin/python" -m pip install --no-cache-dir \
+"${INSTALL_PREFIX}/opt/oci-cli/bin/python" -m pip install \
   "oci-cli==${OCI_CLI_VERSION}"
 
 # Use final image paths rather than the temporary build environment's shebang.

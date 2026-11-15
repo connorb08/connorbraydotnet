@@ -5,5 +5,5 @@
 		"outDir": ".tsbuildinfo",
 		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo"
 	},
-	"include": ["src/**/*.ts", "automation.ts"]
+	"include": ["src/**/*.ts"]
 }
