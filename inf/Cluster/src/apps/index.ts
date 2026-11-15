@@ -1,3 +1,4 @@
+import type { ClusterCertificateManager } from "./cert-manager.ts";
 import { ClusterLocalStorage } from "../storage.ts";
 import { CouchdbApp } from "./couchdb.ts";
 import { MonitoringApp } from "./monitoring.ts";
@@ -11,6 +12,7 @@ export class ClusterApps extends ComponentResource {
 	public readonly storage: ClusterLocalStorage;
 	public readonly couchdb: CouchdbApp;
 	public readonly monitoring: MonitoringApp;
+	public readonly certificates: ClusterCertificateManager;
 	public readonly apps: Set<string> = new Set<string>();
 
 	constructor(name: string, options?: ComponentResourceOptions) {
@@ -21,12 +23,19 @@ export class ClusterApps extends ComponentResource {
 		this.storage = new ClusterLocalStorage({ parent: this });
 		this.vault = new VaultApp(this.tailscale.chart, this.storage, { parent: this });
 		this.apps.add(this.vault.name);
-		this.couchdb = new CouchdbApp(this.tailscale.chart, this.storage, { parent: this });
-		this.apps.add(this.couchdb.name);
 		this.monitoring = new MonitoringApp(this.tailscale.chart, this.storage, {
 			parent: this,
 		});
+		this.certificates = this.monitoring.certificates;
+		this.apps.add(this.certificates.name);
 		this.apps.add(this.monitoring.name);
+		this.couchdb = new CouchdbApp(
+			this.tailscale.chart,
+			this.storage,
+			this.monitoring.chart,
+			{ parent: this },
+		);
+		this.apps.add(this.couchdb.name);
 
 		this.registerOutputs({
 			apps: this.apps,

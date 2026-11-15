@@ -8,6 +8,7 @@ import { requireRecord } from "../Cluster/src/utils.ts";
 import { resolveOutput } from "./mock-runtime.ts";
 import { isSecret, output, runtime } from "@pulumi/pulumi";
 import { beforeAll, expect, test } from "bun:test";
+import { Buffer } from "node:buffer";
 import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -234,123 +235,347 @@ test("creates CouchDB with protected credentials, rollout checksum, and retained
 	);
 });
 
-test("creates Prometheus with API and node scraping and ordered dependencies", async () => {
+test("scrapes authenticated CouchDB metrics after monitoring CRDs exist and provisions its dashboard", () => {
+	const chart = registration("couchdb", "kubernetes:helm.sh/v4:Chart");
+	expect(chart.props.values.prometheusPort).toEqual({
+		enabled: false,
+	});
+	const monitor = registration("couchdb-metrics");
+	expect(monitor.resource).toBe(apps.couchdb.serviceMonitor);
+	expect(monitor.opts.parent).toBe(apps.couchdb);
+	expect(monitor.opts.dependsOn).toEqual([apps.couchdb.chart, apps.monitoring.chart]);
+	expect(monitor.props).toMatchObject({
+		apiVersion: "monitoring.coreos.com/v1",
+		kind: "ServiceMonitor",
+		metadata: { labels: { release: "kube-prometheus-stack" } },
+		spec: {
+			jobLabel: "app",
+			selector: {
+				matchLabels: {
+					app: "couchdb",
+					release: "couchdb",
+					"couchdb-monitoring": "true",
+				},
+			},
+			endpoints: [
+				{
+					port: "couchdb",
+					path: "/_node/_local/_prometheus",
+					interval: "60s",
+					scrapeTimeout: "10s",
+					basicAuth: {
+						username: { name: "couchdb-admin", key: "adminUsername" },
+						password: { name: "couchdb-admin", key: "adminPassword" },
+					},
+				},
+			],
+		},
+	});
+	expect(chart.props.values.service.labels).toEqual({ "couchdb-monitoring": "true" });
+	const dashboard = registration("couchdb-dashboard", "kubernetes:core/v1:ConfigMap");
+	expect(dashboard.props.metadata.labels).toEqual({ grafana_dashboard: "1" });
+	const config = JSON.parse(dashboard.props.data["couchdb-overview.json"]);
+	expect(config.panels).toEqual(
+		expect.arrayContaining([
+			expect.objectContaining({
+				datasource: { type: "prometheus", uid: "prometheus" },
+				targets: [
+					{ refId: "A", expr: 'up{job="couchdb"}', legendFormat: "{{instance}}" },
+				],
+			}),
+		]),
+	);
+});
+
+test("creates bundled Kubernetes monitoring with dashboards and Talos-compatible exporters", () => {
 	expect(
 		registration("monitoring", "connor-bray:infrastructure:cluster:apps:Monitoring")
 			.resource,
 	).toBe(apps.monitoring);
 	expect(apps.apps.has("monitoring")).toBe(true);
-	const prometheus = registration("prometheus", "kubernetes:helm.sh/v4:Chart");
-	expect(prometheus.opts.parent).toBe(apps.monitoring);
-	expect(prometheus.opts.dependsOn).toEqual([
+	const chart = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart");
+	expect(chart.resource).toBe(apps.monitoring.chart);
+	expect(chart.opts.parent).toBe(apps.monitoring);
+	expect(chart.opts.dependsOn).toEqual([
 		registration("monitoring", "kubernetes:core/v1:Namespace").resource,
-		registration(
-			"monitoring-scrape",
-			"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
-		).resource,
+		registration("grafana-admin", "kubernetes:core/v1:Secret").resource,
+		registration("monitoring-admission-tls", "kubernetes:core/v1:Secret").resource,
 		apps.tailscale.chart,
 		apps.storage.chart,
+		apps.monitoring.logging.loki,
+		apps.monitoring.logging.grafanaCertificate,
 	]);
-	expect(prometheus.props).toMatchObject({
-		chart: "prometheus",
+	expect(chart.props).toMatchObject({
+		chart: "kube-prometheus-stack",
 		values: {
-			rbac: { create: false },
-			scrapeConfigs: null,
-			serviceAccounts: { server: { create: true, name: "prometheus" } },
-			server: {
-				fullnameOverride: "prometheus",
-				automountServiceAccountToken: true,
-				retention: "7d",
-				retentionSize: "4GB",
-				service: { servicePort: 9090 },
-				persistentVolume: { enabled: true, size: "5Gi" },
+			defaultRules: { create: true, rules: { etcd: false, kubeProxy: false } },
+			kubeEtcd: { enabled: false },
+			kubeControllerManager: { enabled: false },
+			kubeScheduler: { enabled: false },
+			kubeProxy: { enabled: false },
+			nodeExporter: { enabled: true },
+			kubeStateMetrics: { enabled: true },
+			"prometheus-node-exporter": {
+				hostRootFsMount: { enabled: true, mountPropagation: "None" },
+			},
+			prometheus: {
+				enabled: true,
 				ingress: { ingressClassName: "tailscale", hosts: ["prometheus"] },
+				prometheusSpec: {
+					retention: "7d",
+					retentionSize: "4GB",
+					scrapeInterval: "60s",
+					storageSpec: {
+						volumeClaimTemplate: {
+							spec: { resources: { requests: { storage: "5Gi" } } },
+						},
+					},
+				},
+			},
+			alertmanager: {
+				enabled: true,
+				alertmanagerSpec: {
+					storage: {
+						volumeClaimTemplate: {
+							spec: { resources: { requests: { storage: "1Gi" } } },
+						},
+					},
+				},
+			},
+			grafana: {
+				defaultDashboardsEnabled: true,
+				sidecar: {
+					dashboards: { enabled: true },
+					datasources: { enabled: true, defaultDatasourceEnabled: true },
+				},
 			},
 		},
 	});
-	const scrapeConfigs =
-		prometheus.props.values.serverFiles["prometheus.yml"].scrape_configs;
-	expect(scrapeConfigs).toMatchObject([
-		{ job_name: "prometheus", static_configs: [{ targets: ["localhost:9090"] }] },
-		{ job_name: "kubernetes-apiservers", scheme: "https" },
-		{
-			job_name: "kubernetes-nodes",
-			kubernetes_sd_configs: [{ role: "node" }],
-			relabel_configs: [
-				{ target_label: "__address__", replacement: "kubernetes.default.svc:443" },
-				{
-					target_label: "__metrics_path__",
-					replacement: "/api/v1/nodes/$1/proxy/metrics",
-				},
-				{ target_label: "node" },
-				{ target_label: "instance" },
-			],
-		},
-		{
-			job_name: "kubernetes-cadvisor",
-			relabel_configs: [
-				{ target_label: "__address__", replacement: "kubernetes.default.svc:443" },
-				{
-					target_label: "__metrics_path__",
-					replacement: "/api/v1/nodes/$1/proxy/metrics/cadvisor",
-				},
-				{ target_label: "node" },
-				{ target_label: "instance" },
-			],
-		},
-	]);
 	expect(
-		await resolveOutput(
-			output(
-				registration(
-					"monitoring-scrape",
-					"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
-				).props.subjects,
-			),
-		),
-	).toEqual([
-		{
-			kind: "ServiceAccount",
-			name: "prometheus",
-			namespace: "monitoring",
-		},
-	]);
-	expect(resources.some((resource) => resource.name.includes("victoria"))).toBe(false);
+		registration("monitoring", "kubernetes:core/v1:Namespace").props.metadata.labels,
+	).toEqual({ "pod-security.kubernetes.io/enforce": "privileged" });
+	expect(
+		chart.props.values.prometheusOperator.annotations[
+			"config.kubernetes.io/depends-on"
+		].split(","),
+	).toEqual(
+		expect.arrayContaining([
+			"apiextensions.k8s.io/CustomResourceDefinition/prometheuses.monitoring.coreos.com",
+			"apiextensions.k8s.io/CustomResourceDefinition/alertmanagers.monitoring.coreos.com",
+			"apiextensions.k8s.io/CustomResourceDefinition/scrapeconfigs.monitoring.coreos.com",
+		]),
+	);
 });
 
-test("connects Grafana to Prometheus with protected credentials and ordered dependencies", async () => {
-	const grafana = registration("grafana", "kubernetes:helm.sh/v4:Chart");
+test("protects Grafana credentials and provisions admission TLS without Helm hooks", async () => {
+	const chart = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart");
 	const secret = registration("grafana-admin", "kubernetes:core/v1:Secret");
 	expect(await isSecret(secret.props.stringData["admin-password"])).toBe(true);
-	expect(grafana.opts.dependsOn).toEqual([
-		registration("monitoring", "kubernetes:core/v1:Namespace").resource,
-		secret.resource,
-		apps.monitoring.prometheus,
-		apps.tailscale.chart,
-		apps.storage.chart,
-	]);
-	expect(grafana.props.values).toMatchObject({
+	expect(chart.props.values.grafana).toMatchObject({
 		admin: { existingSecret: "grafana-admin" },
 		ingress: { ingressClassName: "tailscale", hosts: ["grafana"] },
 		persistence: { enabled: true, size: "1Gi" },
-		datasources: {
-			"datasources.yaml": {
-				datasources: [
-					{
-						name: "Prometheus",
-						type: "prometheus",
-						url: "http://prometheus.monitoring.svc:9090",
-						isDefault: true,
-					},
-				],
+	});
+	const tlsSecret = registration("monitoring-admission-tls", "kubernetes:core/v1:Secret");
+	expect(tlsSecret.opts.parent).toBe(apps.monitoring);
+	expect(tlsSecret.props.metadata.name).toBe("kube-prometheus-stack-admission");
+	expect(await isSecret(tlsSecret.props.stringData.key)).toBe(true);
+	const operator = chart.props.values.prometheusOperator;
+	expect(operator.admissionWebhooks).toMatchObject({
+		enabled: true,
+		failurePolicy: "Fail",
+		patch: { enabled: false },
+		certManager: { enabled: false },
+		validatingWebhookConfiguration: {
+			annotations: {
+				"config.kubernetes.io/depends-on":
+					"apps/namespaces/monitoring/Deployment/kube-prometheus-stack-operator",
 			},
 		},
 	});
+	expect(await resolveOutput<string>(operator.admissionWebhooks.caBundle)).toBe(
+		Buffer.from("test-certificate", "utf8").toString("base64"),
+	);
+	expect(
+		await resolveOutput<string>(operator.podAnnotations["checksum/admission-tls"]),
+	).toBe(createHash("sha256").update("test-certificate", "utf8").digest("hex"));
+});
+
+test("orders certificate issuance and opts TLS consumers into automatic reloads", async () => {
+	const namespace = registration("monitoring", "kubernetes:core/v1:Namespace").resource;
+	const manager = registration("cert-manager", "kubernetes:helm.sh/v4:Chart");
+	expect(manager.props.values).toMatchObject({
+		crds: { enabled: true },
+		startupapicheck: { enabled: false },
+		webhook: {
+			validatingWebhookConfigurationAnnotations: {
+				"pulumi.com/waitFor": "jsonpath={.webhooks[0].clientConfig.caBundle}",
+			},
+			mutatingWebhookConfigurationAnnotations: {
+				"pulumi.com/waitFor": "jsonpath={.webhooks[0].clientConfig.caBundle}",
+			},
+		},
+	});
+	expect(
+		manager.props.values.cainjector.deploymentAnnotations[
+			"config.kubernetes.io/depends-on"
+		],
+	).toContain("rbac.authorization.k8s.io/ClusterRoleBinding/cert-manager-cainjector");
+	const reloader = registration("certificate-reloader", "kubernetes:helm.sh/v4:Chart");
+	expect(reloader.opts.dependsOn).toEqual([namespace]);
+	expect(reloader.props.values.reloader).toMatchObject({
+		watchGlobally: false,
+		autoReloadAll: false,
+		reloadOnCreate: true,
+		reloadStrategy: "annotations",
+	});
+	expect(registration("logging-selfsigned").opts.dependsOn).toEqual([
+		namespace,
+		apps.certificates.chart,
+	]);
+	expect(registration("logging-ca").opts.dependsOn).toEqual([
+		registration("logging-selfsigned").resource,
+	]);
+	expect(registration("logging-ca").props.spec).toMatchObject({
+		isCA: true,
+		duration: "87600h",
+		renewBefore: "17520h",
+		privateKey: { rotationPolicy: "Never" },
+	});
+	for (const name of [
+		"loki-server-tls",
+		"alloy-loki-client-tls",
+		"grafana-loki-client-tls",
+	]) {
+		const certificate = registration(name);
+		expect(certificate.opts.dependsOn).toEqual([
+			registration("logging-ca-issuer").resource,
+		]);
+		expect(certificate.props).toMatchObject({
+			metadata: { annotations: { "pulumi.com/waitFor": "condition=Ready" } },
+			spec: {
+				duration: "8760h",
+				renewBefore: "720h",
+				privateKey: { rotationPolicy: "Always" },
+			},
+		});
+	}
+	const loki = registration("loki", "kubernetes:helm.sh/v4:Chart");
+	expect(loki.opts.dependsOn).toContain(apps.certificates.reloader);
+	expect(loki.opts.dependsOn).toContain(registration("loki-server-tls").resource);
+	expect(loki.props.values.singleBinary.annotations).toEqual({
+		"secret.reloader.stakater.com/reload": "loki-server-tls",
+		"configmap.reloader.stakater.com/reload": "loki-health-proxy",
+	});
+	const alloy = registration("alloy", "kubernetes:helm.sh/v4:Chart");
+	expect(alloy.opts.dependsOn).toEqual([
+		apps.monitoring.logging.loki,
+		registration("alloy-loki-client-tls").resource,
+		registration(
+			"alloy-logs",
+			"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+		).resource,
+	]);
+	expect(alloy.props.values.controller.extraAnnotations).toEqual({
+		"secret.reloader.stakater.com/reload": "alloy-loki-client-tls",
+	});
+	const grafana = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart")
+		.props.values.grafana;
+	expect(grafana.annotations).toEqual({
+		"secret.reloader.stakater.com/reload": "grafana-loki-client-tls",
+		"configmap.reloader.stakater.com/reload": "grafana-loki-proxy",
+	});
+	expect(await resolveOutput(output(grafana.extraContainerVolumes))).toEqual(
+		expect.arrayContaining([
+			{ name: "loki-client-tls", secret: { secretName: "grafana-loki-client-tls" } },
+		]),
+	);
+});
+
+test("requires logging mTLS without exposing internal Loki or Grafana proxy endpoints", () => {
+	const loki = registration("loki", "kubernetes:helm.sh/v4:Chart").props.values;
+	expect(loki).toMatchObject({
+		deploymentMode: "SingleBinary",
+		gateway: { enabled: false },
+		loki: {
+			structuredConfig: {
+				server: {
+					grpc_listen_address: "127.0.0.1",
+					http_tls_config: {
+						cert_file: "/etc/loki/tls/tls.crt",
+						key_file: "/etc/loki/tls/tls.key",
+						client_ca_file: "/etc/loki/tls/ca.crt",
+						client_auth_type: "RequireAndVerifyClientCert",
+					},
+				},
+				internal_server: { http_listen_address: "127.0.0.1" },
+				common: {
+					instance_addr: "127.0.0.1",
+					ring: { kvstore: { store: "inmemory" } },
+				},
+				memberlist: { bind_addr: ["127.0.0.1"], join_members: [] },
+				limits_config: { retention_period: "168h", volume_enabled: true },
+				compactor: { retention_enabled: true },
+			},
+			readinessProbe: { httpGet: { path: "/ready", port: 3102 } },
+		},
+		singleBinary: {
+			persistence: { enabled: true, whenDeleted: "Retain", whenScaled: "Retain" },
+		},
+	});
+	const health = registration("loki-health-proxy").props.data["nginx.conf"];
+	expect(health).toContain("location = /ready");
+	expect(health).toContain("location / { return 404; }");
+	const proxy = registration("grafana-loki-proxy").props.data["nginx.conf"];
+	expect(proxy).toContain("listen 127.0.0.1:13100;");
+	expect(proxy).toContain("proxy_set_header X-Scope-OrgID fake;");
+	expect(proxy).toContain("proxy_ssl_verify on;");
+	expect(proxy).toContain("proxy_ssl_certificate_key /etc/loki-client/tls.key;");
+	const grafana = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart")
+		.props.values.grafana;
+	expect(grafana.additionalDataSources).toContainEqual(
+		expect.objectContaining({
+			uid: "loki",
+			type: "loki",
+			url: "http://127.0.0.1:13100",
+		}),
+	);
+});
+
+test("collects node-local Kubernetes logs with restricted Alloy RBAC and verified TLS", () => {
+	const values = registration("alloy", "kubernetes:helm.sh/v4:Chart").props.values;
+	expect(values.rbac).toEqual({ create: false });
+	expect(
+		registration("alloy-logs", "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole")
+			.props,
+	).toMatchObject({
+		rules: [
+			{
+				apiGroups: [""],
+				resources: ["pods", "pods/log", "namespaces"],
+				verbs: ["get", "list", "watch"],
+			},
+		],
+	});
+	expect(values.alloy.extraEnv).toEqual([
+		{
+			name: "NODE_NAME",
+			valueFrom: { fieldRef: { apiVersion: "v1", fieldPath: "spec.nodeName" } },
+		},
+	]);
+	const config = values.alloy.configMap.content;
+	expect(config).toContain('field = "spec.nodeName=" + sys.env("NODE_NAME")');
+	expect(config).toContain('loki.source.kubernetes "pods"');
+	expect(config).toContain('url = "https://loki.monitoring.svc:3100/loki/api/v1/push"');
+	expect(config).toContain('ca_file = "/etc/alloy/tls/ca.crt"');
+	expect(config).toContain('cert_file = "/etc/alloy/tls/tls.crt"');
+	expect(config).toContain('key_file = "/etc/alloy/tls/tls.key"');
+	expect(config).not.toContain("insecure_skip_verify");
 });
 
 test("monitoring PVC transforms preserve options and ignore cluster-assigned volume bindings", async () => {
-	const transform = registration("grafana", "kubernetes:helm.sh/v4:Chart").opts
-		.transforms?.[0];
+	const transform = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart")
+		.opts.transforms?.[0];
 	if (!transform) {
 		throw new Error("Missing monitoring PVC transform.");
 	}
@@ -369,6 +594,69 @@ test("monitoring PVC transforms preserve options and ignore cluster-assigned vol
 	expect(args.opts.ignoreChanges).toEqual(["metadata.annotations"]);
 	expect(
 		await transform({ ...args, type: "kubernetes:apps/v1:Deployment" }),
+	).toBeUndefined();
+});
+
+test("migrates Grafana identities and replaces configuration without replacing its PVC", async () => {
+	const transform = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart")
+		.opts.transforms?.[1];
+	if (!transform) {
+		throw new Error("Missing Grafana migration transform.");
+	}
+	const legacyParent =
+		"urn:pulumi:test::Cluster::connor-bray:infrastructure:cluster:apps:ClusterApps$" +
+		"connor-bray:infrastructure:cluster:apps:Monitoring$kubernetes:helm.sh/v4:Chart::grafana";
+	const cases = [
+		["kubernetes:core/v1:ConfigMap", "monitoring/grafana"],
+		["kubernetes:core/v1:PersistentVolumeClaim", "monitoring/grafana"],
+		["kubernetes:apps/v1:Deployment", "monitoring/grafana"],
+		["kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", "grafana-clusterrole"],
+		[
+			"kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+			"grafana-clusterrolebinding",
+		],
+	] as const;
+	await Promise.all(
+		cases.map(async ([type, name]) => {
+			const args: ResourceTransformArgs = {
+				type,
+				name: `kube-prometheus-stack:${name}`,
+				custom: true,
+				props: { metadata: { name: "preserved" } },
+				opts: {
+					aliases: ["urn:pulumi:test::Cluster::example:type::previous"],
+					protect: true,
+				},
+			};
+			const result = await transform(args);
+			if (!result) {
+				throw new Error(`Grafana resource was not migrated: ${type}`);
+			}
+			expect(await resolveOutput(output(result.opts.aliases))).toEqual([
+				"urn:pulumi:test::Cluster::example:type::previous",
+				{ name: `grafana:${name}`, parent: legacyParent },
+			]);
+			if (
+				type === "kubernetes:apps/v1:Deployment" ||
+				type === "kubernetes:core/v1:ConfigMap"
+			) {
+				expect(result.opts).toMatchObject({ deleteBeforeReplace: true });
+			} else {
+				expect(result.opts).not.toHaveProperty("deleteBeforeReplace");
+			}
+			expect(result.props).toBe(args.props);
+			expect(result.opts.protect).toBe(true);
+			expect(args.opts.aliases).toHaveLength(1);
+		}),
+	);
+	expect(
+		await transform({
+			type: "kubernetes:core/v1:ConfigMap",
+			name: "kube-prometheus-stack:monitoring/grafana-config-dashboards",
+			custom: true,
+			props: {},
+			opts: {},
+		}),
 	).toBeUndefined();
 });
 
