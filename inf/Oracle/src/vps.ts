@@ -110,6 +110,7 @@ export async function createVps(adIndex: number | undefined = 0) {
 				ocpus: 2,
 				memoryInGbs: 12,
 			},
+
 			launchOptions: {
 				networkType: "PARAVIRTUALIZED",
 				bootVolumeType: "PARAVIRTUALIZED",
@@ -125,7 +126,7 @@ export async function createVps(adIndex: number | undefined = 0) {
 			sourceDetails: {
 				sourceType: "image",
 				sourceId: imageId,
-				bootVolumeSizeInGbs: "200",
+				bootVolumeSizeInGbs: "50",
 			},
 
 			metadata: {
@@ -135,9 +136,9 @@ export async function createVps(adIndex: number | undefined = 0) {
 			},
 		},
 		{
-			aliases: [{ name: "myVpsInstance" }],
+			// aliases: [{ name: "myVpsInstance" }],
 			// Manage the running node's configuration through the Talos API.
-			ignoreChanges: ["metadata.user_data"],
+			// ignoreChanges: ["metadata.user_data"],
 		},
 	);
 
