@@ -6,6 +6,8 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
+import { requireCredential } from "../../../shared/config.ts";
+import { tailscaleIngress } from "../tailscale-ingress.ts";
 import { ClusterCertificateManager } from "./cert-manager.ts";
 import { LoggingApp } from "./logging.ts";
 import { core, helm } from "@pulumi/kubernetes";
@@ -51,12 +53,7 @@ export class MonitoringApp extends ComponentResource {
 		super("connor-bray:infrastructure:cluster:apps:Monitoring", appName, {}, options);
 
 		const config = new Config();
-		const adminPassword = config.requireSecret("grafanaAdminPassword").apply((value) => {
-			if (value.trim().length === 0) {
-				throw new Error("Monitoring: grafanaAdminPassword must not be empty.");
-			}
-			return value;
-		});
+		const adminPassword = requireCredential(config, "grafanaAdminPassword", "Monitoring");
 		const namespace = new core.v1.Namespace(
 			appName,
 			{
@@ -161,7 +158,10 @@ export class MonitoringApp extends ComponentResource {
 					},
 					prometheus: {
 						enabled: true,
-						ingress: tailscaleIngress("prometheus"),
+						ingress: tailscaleIngress({
+							hostname: "prometheus",
+							tags: ["tag:monitoring"],
+						}),
 						prometheusSpec: {
 							replicas: 1,
 							retention: "7d",
@@ -227,7 +227,10 @@ export class MonitoringApp extends ComponentResource {
 							userKey: "admin-user",
 							passwordKey: "admin-password",
 						},
-						ingress: tailscaleIngress("grafana"),
+						ingress: tailscaleIngress({
+							hostname: "grafana",
+							tags: ["tag:monitoring"],
+						}),
 						persistence: { enabled: true, size: "1Gi" },
 						initChownData: { enabled: false },
 						testFramework: { enabled: false },
@@ -365,21 +368,5 @@ function ignoreVolumeBinding(
 			...args.opts,
 			ignoreChanges: [...(args.opts.ignoreChanges ?? []), "spec.volumeName"],
 		},
-	};
-}
-
-function tailscaleIngress(hostname: string) {
-	return {
-		enabled: true,
-		ingressClassName: "tailscale",
-		annotations: {
-			"tailscale.com/tags": "tag:monitoring",
-			"tailscale.com/http-redirect": "true",
-		},
-		hosts: [hostname],
-		paths: ["/"],
-		path: "/",
-		pathType: "Prefix",
-		tls: [{ hosts: [hostname] }],
 	};
 }
