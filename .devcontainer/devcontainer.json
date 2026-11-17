@@ -6,20 +6,22 @@
 	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
 	"postStartCommand": ".devcontainer/lifecycle/postStartCommand.sh",
 	"runArgs": [
-    "--hostname", "dev",
-    "--env-file", "${localWorkspaceFolder}/.devcontainer/.env"
-  ],
+		"--hostname",
+		"dev",
+		"--env-file",
+		"${localWorkspaceFolder}/.devcontainer/public.env"
+	],
 	"mounts": [
-    "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
-    "type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly",
-    "type=volume,source=${devcontainerId}-bash-history,target=/commandhistory"
-  ],
+		"type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
+		"type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly",
+		"type=volume,source=${devcontainerId}-bash-history,target=/commandhistory"
+	],
 	"containerEnv": {
 		"DOCKER_HOST": "unix:///var/run/docker.sock",
-    "KUBECONFIG": "/home/dev/.kube/config",
+		"KUBECONFIG": "/home/dev/.kube/config",
 		"NODE_VERSION": "26.3.0",
 		"WORKSPACE_PATH": "${containerWorkspaceFolder}",
-    "VAULT_ADDR": "http://127.0.0.1:8100"
+		"VAULT_ADDR": "http://127.0.0.1:8100"
 	},
 	"customizations": {
 		"vscode": {
