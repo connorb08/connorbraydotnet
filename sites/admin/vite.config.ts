@@ -7,6 +7,7 @@ import { defineConfig } from "vite";
 const dev = process.env.NODE_ENV !== "production";
 
 export default defineConfig({
+	root: import.meta.dirname,
 	plugins: [
 		cloudflare({
 			viteEnvironment: { name: "ssr" },

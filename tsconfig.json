@@ -67,6 +67,9 @@
 		},
 		{
 			"path": "./inf/Oracle"
+		},
+		{
+			"path": "./tools/workspace"
 		}
 	],
 	"compilerOptions": {

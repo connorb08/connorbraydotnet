@@ -1,5 +1,5 @@
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
-import { VaultSecretsEngines } from "./secret-engines/index.ts";
+import { VaultSecretsEngines } from "./secret-engines/index.js";
 import { ComponentResource } from "@pulumi/pulumi";
 
 const name = "vault";

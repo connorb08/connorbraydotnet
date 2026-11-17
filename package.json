@@ -10,7 +10,9 @@
 		"packages/*",
 		"projects/*",
 		"inf/",
-		"inf/*"
+		"inf/*",
+		"inf/Apps/*",
+		"tools/*"
 	],
 	"type": "module",
 	"scripts": {
@@ -30,6 +32,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "3.1136.0",
 		"@aws-sdk/s3-request-presigner": "3.1136.0",
+		"@nx/devkit": "23.2.1",
 		"hono": "4.13.8",
 		"isbot": "5.2.2",
 		"react": "19.3.0",
@@ -48,7 +51,9 @@
 		"@nx/eslint-plugin": "23.2.1",
 		"@nx/js": "23.2.1",
 		"@nx/node": "23.2.1",
+		"@nx/oxlint": "23.2.1",
 		"@nx/playwright": "23.2.1",
+		"@nx/plugin": "23.2.1",
 		"@nx/react": "23.2.1",
 		"@nx/vite": "23.2.1",
 		"@nx/vitest": "23.2.1",
@@ -59,8 +64,10 @@
 		"@pulumi/pulumi": "3.274.1",
 		"@pulumi/tls": "5.6.3",
 		"@pulumi/vault": "^7.14.1",
+		"@pulumiverse/grafana": "^2.45.0",
 		"@react-router/dev": "8.4.0",
 		"@swc-node/register": "1.12.1",
+		"@swc/cli": "~0.8.1",
 		"@swc/core": "1.16.2",
 		"@swc/helpers": "0.5.23",
 		"@testing-library/dom": "^10.4.2",

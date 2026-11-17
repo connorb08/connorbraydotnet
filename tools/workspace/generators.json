@@ -1,0 +1,9 @@
+{
+	"generators": {
+		"pulumi": {
+			"factory": "./generators/pulumi/generator",
+			"schema": "./generators/pulumi/schema.json",
+			"description": "pulumi generator"
+		}
+	}
+}

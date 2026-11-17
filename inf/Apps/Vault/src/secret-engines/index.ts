@@ -1,6 +1,6 @@
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
-import { VaultAwsSecretsEngine } from "./aws/index.ts";
-import { VaultKvSecretsEngine } from "./kv/index.ts";
+import { VaultAwsSecretsEngine } from "./aws/index.js";
+import { VaultKvSecretsEngine } from "./kv/index.js";
 import { ComponentResource } from "@pulumi/pulumi";
 
 export class VaultSecretsEngines extends ComponentResource {
