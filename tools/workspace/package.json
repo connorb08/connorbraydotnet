@@ -1,0 +1,46 @@
+{
+	"name": "@connorbraydotnet/workspace",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": "./src/index.ts"
+	},
+	"nx": {
+		"targets": {
+			"typecheck": {
+				"executor": "nx:run-commands",
+				"dependsOn": [],
+				"options": {
+					"command": "tsc --build tsconfig.json",
+					"cwd": "tools/workspace"
+				}
+			},
+			"test": {
+				"executor": "@nx/vitest:test",
+				"outputs": [
+					"{options.reportsDirectory}"
+				],
+				"options": {
+					"reportsDirectory": "coverage/tools/workspace"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"@nx/devkit": "23.2.1",
+		"tslib": "^2.3.0"
+	},
+	"files": [
+		"src",
+    "generators",
+		"generators.json"
+	],
+  "exclude": [
+    "**/*.tsbuildinfo"
+  ],
+	"generators": "./generators.json"
+}

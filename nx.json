@@ -2,7 +2,11 @@
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"namedInputs": {
 		"default": ["{projectRoot}/**/*", "sharedGlobals"],
-		"production": ["default"],
+		"production": [
+			"default",
+			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+			"!{projectRoot}/tsconfig.spec.json"
+		],
 		"sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
 	},
 	"nxCloudId": "6801b7a12d4c6601c6891306",
@@ -57,6 +61,14 @@
 			},
 			"cache": true,
 			"inputs": ["{projectRoot}/**/*"]
+		},
+		"@nx/js:tsc": {
+			"cache": true,
+			"dependsOn": ["^build"],
+			"inputs": ["production", "^production"]
+		},
+		"test": {
+			"dependsOn": ["^build"]
 		}
 	},
 	"plugins": [
@@ -78,6 +90,20 @@
 			"plugin": "@nx/playwright/plugin",
 			"options": {
 				"targetName": "playwright:e2e"
+			}
+		},
+		{
+			"plugin": "@nx/oxlint",
+			"options": {
+				"targetName": "oxlint"
+			}
+		},
+		{
+			"plugin": "@nx/vitest",
+			"options": {
+				"testTargetName": "vitest:test",
+				"ciTargetName": "test-ci",
+				"testMode": "watch"
 			}
 		}
 	],

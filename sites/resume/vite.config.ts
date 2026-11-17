@@ -16,6 +16,7 @@ const removeAttributes = (
 ).default;
 
 const viteConfig = defineConfig({
+	root: import.meta.dirname,
 	plugins: [
 		cloudflare({ viteEnvironment: { name: "ssr" } }),
 		reactRouter(),

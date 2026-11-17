@@ -19,5 +19,8 @@
 		"source.fixAll.oxc": "always"
 		// "source.organizeImports.biome": "explicit",
 		// "source.fixAll.biome": "explicit"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
 	}
 }

@@ -1,0 +1,8 @@
+{
+	"extends": "<%= tsconfigExtends %>",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": ".tsbuildinfo"
+	},
+	"include": ["src/**/*.ts"]
+}
