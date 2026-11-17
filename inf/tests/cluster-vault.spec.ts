@@ -4,6 +4,10 @@ import type {
 	ResourceTransformationArgs,
 } from "@pulumi/pulumi";
 import { ClusterApps } from "../Cluster/src/apps/index.ts";
+import {
+	createTailscaleIngress,
+	tailscaleIngress,
+} from "../Cluster/src/tailscale-ingress.ts";
 import { requireRecord } from "../Cluster/src/utils.ts";
 import { resolveOutput } from "./mock-runtime.ts";
 import { isSecret, output, runtime } from "@pulumi/pulumi";
@@ -57,6 +61,11 @@ beforeAll(async () => {
 			"Cluster:couchdbCookieAuthSecret": "test-couchdb-cookie-secret",
 			"Cluster:couchdbErlangCookie": "test-couchdb-erlang-cookie",
 			"Cluster:grafanaAdminPassword": "test-grafana-password",
+			"Cluster:netbirdHostname": "netbird.example-tailnet.ts.net",
+			"Cluster:netbirdAuthSecret": "test-netbird-auth-secret",
+			"Cluster:netbirdEncryptionKey": Buffer.alloc(32, 1).toString("base64"),
+			"Cluster:netbirdDatabasePassword": "test-netbird-database-password",
+			"Cluster:netbirdPostgresPassword": "test-netbird-postgres-password",
 		},
 		[
 			"Cluster:tailscaleClientId",
@@ -65,6 +74,10 @@ beforeAll(async () => {
 			"Cluster:couchdbCookieAuthSecret",
 			"Cluster:couchdbErlangCookie",
 			"Cluster:grafanaAdminPassword",
+			"Cluster:netbirdAuthSecret",
+			"Cluster:netbirdEncryptionKey",
+			"Cluster:netbirdDatabasePassword",
+			"Cluster:netbirdPostgresPassword",
 		],
 	);
 	await runtime.runInPulumiStack(async () => {
@@ -72,9 +85,221 @@ beforeAll(async () => {
 			registrations.push(args);
 		});
 		apps = new ClusterApps("cluster-apps");
+		createTailscaleIngress(
+			"named-port-ingress",
+			{
+				hostname: "example",
+				tags: ["tag:apps", "tag:shared"],
+				metadata: {
+					namespace: apps.vault.namespaceName,
+					annotations: output({
+						"example.com/annotation": "retained",
+						"tailscale.com/http-redirect": "false",
+					}),
+				},
+				service: { name: output("example-service"), port: { name: "https" } },
+			},
+			apps.tailscale.chart,
+			{ parent: apps, protect: true, dependsOn: output(apps.vault.chart) },
+		);
 		return { vaultInternalCaCert: apps.vault.internalCaCert };
 	});
 	await runtime.disconnect();
+});
+
+test("deploys NetBird with stable secret configuration and persistent PostgreSQL", async () => {
+	const chart = registration("netbird", "kubernetes:helm.sh/v4:Chart");
+	expect(chart.opts.parent).toBe(apps.netbird);
+	expect(chart.opts.dependsOn).toEqual([
+		registration("netbird", "kubernetes:core/v1:Namespace").resource,
+		apps.storage.chart,
+	]);
+	const values = await resolveOutput(output(chart.props.values));
+	expect(values).toMatchObject({
+		server: {
+			publicUrl: "https://netbird.example-tailnet.ts.net:443",
+			auth: { issuer: "https://netbird.example-tailnet.ts.net/oauth2" },
+		},
+		database: { mode: "postgresql" },
+		postgresql: {
+			enabled: true,
+			auth: {
+				password: "test-netbird-database-password",
+				postgresPassword: "test-netbird-postgres-password",
+			},
+			standalone: {
+				persistence: {
+					enabled: true,
+					storageClass: "local-path",
+					retentionPolicy: { whenDeleted: "Retain", whenScaled: "Retain" },
+				},
+			},
+		},
+		persistence: { enabled: true, storageClass: "local-path" },
+		ingress: { enabled: false },
+	});
+	const credentials = [
+		chart.props.values.server.authSecret,
+		chart.props.values.server.store.encryptionKey,
+		chart.props.values.postgresql.auth.password,
+		chart.props.values.postgresql.auth.postgresPassword,
+	];
+	expect(
+		await Promise.all(credentials.map((credential) => isSecret(credential))),
+	).toEqual([true, true, true, true]);
+	const transform = chart.opts.transforms?.[0];
+	if (!transform) {
+		throw new Error("Missing NetBird single-writer deployment strategy.");
+	}
+	const args: ResourceTransformArgs = {
+		type: "kubernetes:apps/v1:Deployment",
+		name: "netbird:netbird/netbird-server",
+		custom: true,
+		props: {
+			metadata: { name: "netbird-server" },
+			spec: { replicas: 1, strategy: { type: "RollingUpdate" } },
+		},
+		opts: { protect: true },
+	};
+	expect(await transform(args)).toMatchObject({
+		props: { spec: { replicas: 1, strategy: { type: "Recreate" } } },
+		opts: { protect: true },
+	});
+	expect(
+		await transform({ ...args, type: "kubernetes:core/v1:Service" }),
+	).toBeUndefined();
+	expect(apps.apps.has("netbird")).toBe(true);
+});
+
+test("replaces only NetBird's fixed-name config Secret before recreating it", async () => {
+	const chart = registration("netbird", "kubernetes:helm.sh/v4:Chart");
+	const transform = chart.opts.transforms?.[1];
+	if (!transform) {
+		throw new Error("Missing NetBird config Secret replacement ordering.");
+	}
+	const args: ResourceTransformArgs = {
+		type: "kubernetes:core/v1:Secret",
+		name: "netbird:netbird/netbird-config",
+		custom: true,
+		props: { metadata: output({ name: "netbird-config" }) },
+		opts: { protect: true },
+	};
+	expect(await transform(args)).toEqual({
+		props: args.props,
+		opts: { protect: true, deleteBeforeReplace: true },
+	});
+	expect(
+		await transform({
+			...args,
+			name: "netbird:netbird/netbird-postgresql-auth",
+		}),
+	).toBeUndefined();
+	expect(
+		await transform({ ...args, type: "kubernetes:core/v1:ConfigMap" }),
+	).toBeUndefined();
+});
+
+test("isolates NetBird Tailscale ingress and routes server protocols separately from the dashboard", () => {
+	const ingress = registration(
+		"netbird-ingress",
+		"kubernetes:networking.k8s.io/v1:Ingress",
+	);
+	expect(ingress.opts.parent).toBe(apps.netbirdIngress);
+	expect(ingress.opts.dependsOn).toEqual([apps.netbird.chart, apps.tailscale.chart]);
+	const spec = ingress.props.spec;
+	expect(spec).toMatchObject({
+		ingressClassName: "tailscale",
+		tls: [{ hosts: ["netbird.example-tailnet.ts.net"] }],
+	});
+	expect(ingress.props.metadata).toMatchObject({
+		namespace: apps.netbird.namespaceName,
+		annotations: { "tailscale.com/tags": "tag:netbird" },
+	});
+	const paths = spec.rules[0].http.paths;
+	for (const path of [
+		"/api",
+		"/oauth2",
+		"/relay",
+		"/ws-proxy",
+		"/management.ManagementService",
+		"/management.ProxyService",
+		"/signalexchange.SignalExchange",
+	]) {
+		expect(paths).toContainEqual({
+			path,
+			pathType: "Prefix",
+			backend: { service: { name: "netbird-server", port: { number: 80 } } },
+		});
+	}
+	expect(paths.at(-1)).toEqual({
+		path: "/",
+		pathType: "Prefix",
+		backend: { service: { name: "netbird-dashboard", port: { number: 80 } } },
+	});
+});
+
+test("shares Helm ingress values with chart-specific class keys and multiple tags", () => {
+	const options = { hostname: "example", tags: ["tag:apps", "tag:shared"] };
+	const values = tailscaleIngress(options);
+	expect(values).toEqual({
+		enabled: true,
+		ingressClassName: "tailscale",
+		annotations: {
+			"tailscale.com/tags": "tag:apps,tag:shared",
+			"tailscale.com/http-redirect": "true",
+		},
+		hosts: ["example"],
+		paths: ["/"],
+		path: "/",
+		pathType: "Prefix",
+		tls: [{ hosts: ["example"] }],
+	});
+	const couchdbValues = tailscaleIngress(options, "className");
+	expect(couchdbValues.className).toBe("tailscale");
+	expect(couchdbValues).not.toHaveProperty("ingressClassName");
+});
+
+test("creates standalone ingress with named ports while preserving options and dependencies", async () => {
+	const ingress = registration("named-port-ingress");
+	expect(ingress.opts.parent).toBe(apps);
+	expect(ingress.opts).toHaveProperty("protect", true);
+	expect(await resolveOutput(output(ingress.opts.dependsOn))).toEqual([
+		apps.vault.chart,
+		apps.tailscale.chart,
+	]);
+	expect(
+		resources.find((resource) => resource.name === "named-port-ingress")?.inputs,
+	).toEqual({
+		apiVersion: "networking.k8s.io/v1",
+		kind: "Ingress",
+		metadata: {
+			namespace: "vault",
+			annotations: {
+				"example.com/annotation": "retained",
+				"tailscale.com/tags": "tag:apps,tag:shared",
+				"tailscale.com/http-redirect": "true",
+			},
+		},
+		spec: {
+			ingressClassName: "tailscale",
+			tls: [{ hosts: ["example"] }],
+			rules: [
+				{
+					http: {
+						paths: [
+							{
+								path: "/",
+								pathType: "Prefix",
+								backend: {
+									service: { name: "example-service", port: { name: "https" } },
+								},
+							},
+						],
+					},
+				},
+			],
+		},
+	});
 });
 
 test("creates the Vault component with internal TLS and ordered Tailscale ingress", async () => {
@@ -104,12 +329,40 @@ test("creates the Vault component with internal TLS and ordered Tailscale ingres
 	expect(await isSecret(tlsSecret.props.stringData["tls.key"])).toBe(true);
 	const chart = registration("vault", "kubernetes:helm.sh/v4:Chart");
 	expect(chart.opts.dependsOn).toEqual([tlsSecret.resource, apps.storage.chart]);
-	expect(registration("vault-ingress").opts.dependsOn).toEqual([
-		apps.vault.chart,
-		apps.tailscale.chart,
-	]);
+	expect(
+		await resolveOutput(output(registration("vault-ingress").opts.dependsOn)),
+	).toEqual([apps.vault.chart, apps.tailscale.chart]);
 	expect(await resolveOutput(apps.vault.namespaceName)).toBe("vault");
 	expect(await resolveOutput(apps.vault.internalCaCert)).toBe("test-certificate");
+	expect(
+		resources.find((resource) => resource.name === "vault-ingress")?.inputs,
+	).toMatchObject({
+		metadata: {
+			name: "vault-secure-access",
+			namespace: "vault",
+			annotations: {
+				"tailscale.com/tags": "tag:vault",
+				"tailscale.com/http-redirect": "true",
+			},
+		},
+		spec: {
+			ingressClassName: "tailscale",
+			tls: [{ hosts: ["vault"] }],
+			rules: [
+				{
+					http: {
+						paths: [
+							{
+								path: "/",
+								pathType: "Prefix",
+								backend: { service: { name: "vault-ui", port: { number: 443 } } },
+							},
+						],
+					},
+				},
+			],
+		},
+	});
 	expect(apps.apps.has("vault")).toBe(true);
 	const chartInputs = resources.find(
 		(args) => args.name === "vault" && args.type === "kubernetes:helm.sh/v4:Chart",

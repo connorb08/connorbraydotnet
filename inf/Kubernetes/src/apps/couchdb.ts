@@ -1,23 +1,19 @@
-import type { Output, Resource } from "@pulumi/pulumi";
+import type { Resource } from "@pulumi/pulumi";
+import { requireCredential } from "../../../shared/config.ts";
 import { core, helm } from "@pulumi/kubernetes";
 import { all, Config, unsecret } from "@pulumi/pulumi";
 import { createHash } from "node:crypto";
 
-function requireCredential(config: Config, key: string): Output<string> {
-	return config.requireSecret(key).apply((value) => {
-		if (value.trim().length === 0) {
-			throw new Error(`CouchDB: ${key} must not be empty.`);
-		}
-		return value;
-	});
-}
-
 // oxlint-disable-next-line max-lines-per-function -- Keep the database resources and dependencies together.
 export function createCouchdb(tailscaleOperator: Resource): helm.v4.Chart {
 	const config = new Config();
-	const adminPassword = requireCredential(config, "couchdbAdminPassword");
-	const cookieAuthSecret = requireCredential(config, "couchdbCookieAuthSecret");
-	const erlangCookie = requireCredential(config, "couchdbErlangCookie");
+	const adminPassword = requireCredential(config, "couchdbAdminPassword", "CouchDB");
+	const cookieAuthSecret = requireCredential(
+		config,
+		"couchdbCookieAuthSecret",
+		"CouchDB",
+	);
+	const erlangCookie = requireCredential(config, "couchdbErlangCookie", "CouchDB");
 	const namespace = new core.v1.Namespace("couchdb", {
 		metadata: { name: "couchdb" },
 	});

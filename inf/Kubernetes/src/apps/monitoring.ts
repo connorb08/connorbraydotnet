@@ -3,6 +3,7 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
+import { requireCredential } from "../../../shared/config.ts";
 import { core, helm, rbac } from "@pulumi/kubernetes";
 import { Config } from "@pulumi/pulumi";
 
@@ -72,12 +73,7 @@ export function createMonitoring(tailscaleOperator: Resource): {
 	grafana: helm.v4.Chart;
 } {
 	const config = new Config();
-	const adminPassword = config.requireSecret("grafanaAdminPassword").apply((value) => {
-		if (value.trim().length === 0) {
-			throw new Error("Monitoring: grafanaAdminPassword must not be empty.");
-		}
-		return value;
-	});
+	const adminPassword = requireCredential(config, "grafanaAdminPassword", "Monitoring");
 	const namespace = new core.v1.Namespace("monitoring", {
 		metadata: { name: "monitoring" },
 	});
