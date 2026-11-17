@@ -7,7 +7,8 @@ import type {
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
 import { addPodTlsChecksum } from "#utils";
-import { core, helm, networking } from "@pulumi/kubernetes";
+import { createTailscaleIngress } from "../tailscale-ingress.ts";
+import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, secret } from "@pulumi/pulumi";
 import { PrivateKey, SelfSignedCert } from "@pulumi/tls";
 import { createHash } from "node:crypto";
@@ -115,38 +116,19 @@ disable_mlock = true`,
 				parent: this,
 			},
 		);
-		const _ingress = new networking.v1.Ingress(
+		const _ingress = createTailscaleIngress(
 			"vault-ingress",
 			{
+				hostname: "vault",
+				tags: ["tag:vault"],
 				metadata: {
 					name: "vault-secure-access",
 					namespace: namespace.metadata.name,
-					annotations: {
-						"tailscale.com/tags": "tag:vault",
-						"tailscale.com/http-redirect": "true",
-					},
 				},
-				spec: {
-					ingressClassName: "tailscale",
-					tls: [{ hosts: ["vault"] }],
-					rules: [
-						{
-							http: {
-								paths: [
-									{
-										path: "/",
-										pathType: "Prefix",
-										backend: {
-											service: { name: "vault-ui", port: { number: 443 } },
-										},
-									},
-								],
-							},
-						},
-					],
-				},
+				service: { name: "vault-ui", port: { number: 443 } },
 			},
-			{ dependsOn: [this.chart, tailscaleOperator], parent: this },
+			tailscaleOperator,
+			{ dependsOn: [this.chart], parent: this },
 		);
 
 		this.namespaceName = namespace.metadata.name;

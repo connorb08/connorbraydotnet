@@ -13,3 +13,12 @@ config:
     secure: v1:qP/SnkTxLag3BitP:asVw68WY1AnmcFDge49rxMOOHbATJ9lv7QhDmKU4CJVEpcwF
   Cluster:grafanaAdminPassword:
     secure: v1:fkRJQ6rv8uer5ubh:4js88aWmxGndVkYzbVY+etfIBm6SpdyVWzSAc8zUSSJmPYofJr5EeA==
+  Cluster:netbirdHostname: netbird.tail717c1.ts.net
+  Cluster:netbirdEncryptionKey:
+    secure: v1:C+FYEhoO90UuoBZW:YaPsDm1RMye4yU9u1N6nEHkWujVds8hqI/ZLYI4z+ogXvXk/8F5xx3xfkjAmy9W4m9IFicH3jJzDcqfq
+  Cluster:netbirdAuthSecret:
+    secure: v1:j/r/MAUyzucSssO3:FRNt+o7tz8F65D+N6GLpfd+8eulWTmxx9E3wQXLvhGBL9VjC/stUXqIBZo/C1O+wk5Gu7Wx+2YNh0o20
+  Cluster:netbirdDatabasePassword:
+    secure: v1:k2SeHFonwKWObFz9:yiGwLtnzFheJ06hddqFQtsni9i4jAbOO4y0WsDnKb7SDBIB01WYBj91tpeRX74VhEvwIooYpOrisTDCM
+  Cluster:netbirdPostgresPassword:
+    secure: v1:SCW0ysIj33z3lZHi:6hAdIHOAXUvSaOm5/TOnIFdJ647Pxvn0fBnzNfWA6iqN58R5Rt8f1RshrxhVp3kJU3dvTY9GttUVcknQ

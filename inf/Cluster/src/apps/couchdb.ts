@@ -1,5 +1,7 @@
 import type { ClusterLocalStorage } from "#storage";
 import type { ComponentResourceOptions, Output, Resource } from "@pulumi/pulumi";
+import { requireCredential } from "../../../shared/config.ts";
+import { tailscaleIngress } from "../tailscale-ingress.ts";
 import { apiextensions, core, helm } from "@pulumi/kubernetes";
 import { all, ComponentResource, Config, unsecret } from "@pulumi/pulumi";
 import { createHash } from "node:crypto";
@@ -22,9 +24,13 @@ export class CouchdbApp extends ComponentResource {
 		super("connor-bray:infrastructure:cluster:apps:Couchdb", appName, {}, options);
 
 		const config = new Config();
-		const adminPassword = requireCredential(config, "couchdbAdminPassword");
-		const cookieAuthSecret = requireCredential(config, "couchdbCookieAuthSecret");
-		const erlangCookie = requireCredential(config, "couchdbErlangCookie");
+		const adminPassword = requireCredential(config, "couchdbAdminPassword", "CouchDB");
+		const cookieAuthSecret = requireCredential(
+			config,
+			"couchdbCookieAuthSecret",
+			"CouchDB",
+		);
+		const erlangCookie = requireCredential(config, "couchdbErlangCookie", "CouchDB");
 		const namespace = new core.v1.Namespace(
 			appName,
 			{ metadata: { name: appName } },
@@ -86,17 +92,10 @@ export class CouchdbApp extends ComponentResource {
 						labels: { "couchdb-monitoring": "true" },
 					},
 					prometheusPort: { enabled: false },
-					ingress: {
-						enabled: true,
-						className: "tailscale",
-						annotations: {
-							"tailscale.com/tags": "tag:couchdb",
-							"tailscale.com/http-redirect": "true",
-						},
-						hosts: ["couchdb"],
-						path: "/",
-						tls: [{ hosts: ["couchdb"] }],
-					},
+					ingress: tailscaleIngress(
+						{ hostname: "couchdb", tags: ["tag:couchdb"] },
+						"className",
+					),
 					couchdbConfig: {
 						couchdb: {
 							// Stable, non-secret identity for this single-node server.
@@ -233,13 +232,4 @@ export class CouchdbApp extends ComponentResource {
 		this.namespaceName = namespace.metadata.name;
 		this.registerOutputs({ namespaceName: this.namespaceName });
 	}
-}
-
-function requireCredential(config: Config, key: string): Output<string> {
-	return config.requireSecret(key).apply((value) => {
-		if (value.trim().length === 0) {
-			throw new Error(`CouchDB: ${key} must not be empty.`);
-		}
-		return value;
-	});
 }
