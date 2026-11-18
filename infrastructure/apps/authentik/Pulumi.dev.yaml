@@ -1,0 +1,5 @@
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQHX1B7Pgc26x5xKNOkXWII6AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMmEuecq/mnhpjpObhAgEQgDsX18RHt69+o8ZVjgBE6+7LtjxCfK4MmtmruEcUAryE4ZXrji0846G6ppbHl4jZQwixJulb6oY5ZtDSXw==
+config:
+  app:authentikApiKey:
+    secure: v1:ZcR3d1sjdz47JH/5:+ueNLMuMoif/lgXaA7Ai8rPzxAq4Ug9+LL4K9Howc8QIXHG8x80oogp7COkJ3xCsTFLVLjD4CIGgZG3mVxO9IbKg5FqmXINcrWBt/A==

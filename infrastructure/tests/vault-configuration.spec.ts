@@ -1,6 +1,6 @@
 import type { ResourceTransformationArgs } from "@pulumi/pulumi";
-import { requireRecord } from "../Cluster/src/utils.ts";
-import { resolveOutput } from "./mock-runtime.ts";
+import { requireRecord } from "../shared/transforms";
+import { resolveOutput } from "./mock-runtime";
 import { runtime } from "@pulumi/pulumi";
 import { expect, test } from "bun:test";
 
@@ -20,12 +20,12 @@ test("enables protected KV v2 and AWS mounts without writing credentials or secr
 		"test",
 		false,
 	);
-	let configuration: typeof import("../Vault/src/index.ts") | undefined;
+	let configuration: typeof import("../apps/vault/src/index") | undefined;
 	await runtime.runInPulumiStack(async () => {
 		runtime.registerStackTransformation((args) => {
 			registrations.push(args);
 		});
-		configuration = await import("../Vault/src/index.ts");
+		configuration = await import("../apps/vault/src/index");
 		return {};
 	});
 	await runtime.disconnect();

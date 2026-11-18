@@ -1,5 +1,5 @@
 import type { Output, ResourceTransformationArgs } from "@pulumi/pulumi";
-import { requireRecord } from "../Kubernetes/src/transforms.ts";
+import { requireRecord } from "../shared/transforms";
 import { runtime } from "@pulumi/pulumi";
 import process from "node:process";
 
@@ -100,20 +100,18 @@ export async function loadPrograms() {
 
 	let programs:
 		| {
-				amazon: typeof import("../Amazon/src/index.ts");
-				backend: typeof import("../Backend/src/index.ts");
-				kubernetes: typeof import("../Kubernetes/src/index.ts");
+				amazon: typeof import("../cloud/amazon/src/index");
+				backend: typeof import("../backend/src/index");
 		  }
 		| undefined;
 	await runtime.runInPulumiStack(async () => {
 		runtime.registerStackTransformation((args) => {
 			registrations.push(args);
 		});
-		const amazon = await import("../Amazon/src/index.ts");
-		const backend = await import("../Backend/src/index.ts");
-		const kubernetes = await import("../Kubernetes/src/index.ts");
-		programs = { amazon, backend, kubernetes };
-		return { ...amazon, ...backend, ...kubernetes };
+		const amazon = await import("../cloud/amazon/src/index");
+		const backend = await import("../backend/src/index");
+		programs = { amazon, backend };
+		return { ...amazon, ...backend };
 	});
 	await runtime.disconnect();
 	if (programs === undefined) {

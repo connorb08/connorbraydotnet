@@ -1,7 +1,7 @@
 import type { Output } from "@pulumi/pulumi";
-import { normalizeDownwardApi } from "@connorbraydotnet/infrastructure/transforms";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, Config, type ComponentResourceOptions } from "@pulumi/pulumi";
+import { normalizeDownwardApi } from "@root/inf/transforms";
 
 const appName = "tailscale-operator";
 

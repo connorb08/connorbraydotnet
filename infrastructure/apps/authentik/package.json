@@ -1,0 +1,40 @@
+{
+	"name": "inf-apps-auth",
+	"private": true,
+	"type": "module",
+	"main": "index.ts",
+	"scripts": {
+		"build": "tsc -b",
+		"typecheck": "tsc -b",
+		"deploy:preview": "pulumi preview",
+		"deploy": "pulumi up"
+	},
+	"dependencies": {
+		"@pulumi/authentik": "file:sdks/authentik",
+		"@root/inf": "workspace:*"
+	},
+	"peerDependencies": {
+		"@pulumi/pulumi": "*",
+		"@pulumi/vault": "*",
+		"awilix": "*"
+	},
+	"nx": {
+		"targets": {
+			"lint": {},
+			"format:check": {},
+			"format:write": {},
+			"deploy:preview": {
+				"cache": false
+			},
+			"deploy": {
+				"cache": false
+			}
+		}
+	},
+	"trustedDependencies": [
+		"@pulumi/authentik"
+	],
+	"devDependencies": {
+		"awilix": "^13.0.7"
+	}
+}

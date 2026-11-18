@@ -1,5 +1,5 @@
-name: Grafana
-description: Grafana
+name: grafana
+description: grafana dashboard
 runtime:
   name: nodejs
   options:

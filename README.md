@@ -2,6 +2,16 @@
 
 Monorepo for `connorbray.net` and related apps/services.
 
+## VS Code test discovery
+
+The Vitest extension discovers only dedicated `vitest.config.*` files, as configured
+in [.vscode/settings.json](.vscode/settings.json). Keep Vitest suites in those configs;
+application `vite.config.*` files can start Cloudflare development runtimes and are
+not test entry points. Loading them during test discovery can fail with
+`depsOptimizer is required in dev mode`.
+
+After changing discovery settings, run **Developer: Reload Window** from the Command Palette.
+
 ## Shared infrastructure helpers
 
 Reusable infrastructure logic lives in [infrastructure/shared/](infrastructure/shared/),
@@ -31,35 +41,52 @@ dependencies and run `bun install` from the repository root to link the package.
 The exports resolve to explicit TypeScript files for native Node.js loading; no
 per-project `#` aliases or shared-helper build step are needed. Each Pulumi project
 retains its own package, configuration, and independent stack.
-Pulumi runs these TypeScript sources directly in Node.js. Relative runtime imports
-must use explicit `.ts` filenames (including `index.ts` for directories); shared
-package exports resolve their filenames automatically.
+Keep TypeScript module imports extensionless throughout the repository. Pulumi
+projects that load extensionless TypeScript directly use the Bun runtime
+(`runtime: bun`); selecting Bun only as a package manager does not change Node.js
+module resolution. Shared package exports still point to explicit filenames.
 Projects importing shared helpers must include `inf/shared/` within their
 TypeScript `rootDir`.
 
 ## Cross-project infrastructure outputs
 
-Use [TypedStackReference](inf/shared/stack-ref.ts) to read outputs without importing
+Use [StackRef](infrastructure/shared/stack-ref.ts) to read outputs without importing
 and running another Pulumi program:
 
 ```ts
-import { TypedStackReference } from "@connorbraydotnet/infrastructure/stack-ref";
+import { StackRef } from "@root/inf/stack-ref";
 
-const amazon = new TypedStackReference<"Infrastructure">("amazon", {
-	name: "organization/Infrastructure/dev",
-});
+const amazon = StackRef("aws");
 const address = amazon.requireOutput("vpsIp");
+const backend = StackRef("backend", "prod");
 ```
 
-The project type is the Pulumi project name: `Infrastructure` (Amazon), `Backend`,
-`Cluster`, `Kubernetes`, `Oracle`, or `Cloudflare`. Supply the target stack name for your backend
-explicitly; the local resource name (`amazon` above) must be unique in the consumer.
+The project type is inferred from the name: `aws`, `backend`, `cluster`, `oracle`,
+or `cloudflare`. These map to the existing, case-sensitive Pulumi project names
+`Infrastructure`, `Backend`, `Cluster`, `Oracle`, and `Cloudflare` under
+`organization`. Stack names default to `dev`; pass a second argument for another
+stack, such as the Backend project's `prod` stack. The local resource name is the
+project key and must be unique in the consumer. `TypedStackReference<Project>` is
+also available when you need an explicit target or custom resource options.
 Use `getOutput` for optional outputs and `requireOutput` to fail when an output is
 missing. Both retain Pulumi secret tracking. Output types are inferred through
 type-only imports; `Cluster.createdApps` remains `unknown` because its exported
 `Set` is not a JSON stack-output contract. Vault and Grafana currently have no stack
 outputs. Consumers with a project-local TypeScript `rootDir` must widen it to include
 the shared helper and its type-only source dependencies.
+
+## Authentik application provider
+
+The Authentik application uses one explicit provider for all users. Its URL comes
+from the Cluster stack's `authentikUrl` output. Pass the instance base URL without
+adding `/api/v3/`; the Terraform provider appends the API path itself.
+Keep application credentials out of
+the provider-reserved `authentik:` configuration namespace:
+
+```sh
+cd infrastructure/apps/authentik
+pulumi config set --secret app:authentikApiKey
+```
 
 ## Cluster Tailscale ingress
 
@@ -261,6 +288,10 @@ Build and load the image used by [devcontainer.json](.devcontainer/devcontainer.
 dependencies once, builds tool installers in parallel, and performs independent
 image setup before copying tools. APT and pip downloads use local BuildKit cache
 mounts. Keep the same builder to reuse these caches.
+
+The image includes the global Vite+ CLI (`vp`), installed by
+[vite-plus.sh](.devcontainer/build/layers/vite-plus.sh). Node.js and Bun remain
+separately installed; adding the CLI does not migrate the workspace to Vite+.
 
 Registry caching is optional and disabled by default. Set `CACHE_REPO` to a
 dedicated cache repository **without a tag**, and authenticate to that registry

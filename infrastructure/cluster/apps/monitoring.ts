@@ -6,13 +6,13 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { tailscaleIngress } from "../network/tailscale-ingress.ts";
-import { ClusterCertificateManager } from "./cert-manager.ts";
-import { LoggingApp } from "./logging.ts";
-import { requireCredential } from "@connorbraydotnet/infrastructure/config";
+import { tailscaleIngress } from "../network/tailscale-ingress";
+import { ClusterCertificateManager } from "./cert-manager";
+import { LoggingApp } from "./logging";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, Config, createUrn, secret } from "@pulumi/pulumi";
 import { PrivateKey, SelfSignedCert } from "@pulumi/tls";
+import { requireCredential } from "@root/inf/config";
 import { Buffer } from "node:buffer";
 import { createHash } from "node:crypto";
 

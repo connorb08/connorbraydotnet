@@ -4,13 +4,13 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformationArgs,
 } from "@pulumi/pulumi";
-import { ClusterApps } from "../cluster/apps/index.ts";
+import { ClusterApps } from "../cluster/apps/index";
 import {
 	createTailscaleIngress,
 	tailscaleIngress,
-} from "../cluster/network/tailscale-ingress.ts";
-import { waitForPostgresql } from "../cluster/resources/database/cluster.ts";
-import { requireRecord } from "../shared/transforms.ts";
+} from "../cluster/network/tailscale-ingress";
+import { waitForPostgresql } from "../cluster/resources/database/cluster";
+import { requireRecord } from "../shared/transforms";
 import { isSecret, output, runtime } from "@pulumi/pulumi";
 import { beforeAll, expect, test } from "bun:test";
 import { Buffer } from "node:buffer";
@@ -191,7 +191,7 @@ test("switches NetBird to shared PostgreSQL while preserving its identity volume
 	expect(
 		await transform({ ...args, type: "kubernetes:core/v1:Service" }),
 	).toBeUndefined();
-	expect(apps.apps.has("netbird")).toBe(true);
+	expect(apps.apps.includes("netbird")).toBe(true);
 });
 
 test("provisions persistent shared PostgreSQL with non-superuser roles and retained databases", async () => {
@@ -332,7 +332,7 @@ test("deploys Authentik server and worker using their own shared database and an
 	expect(chart.opts.dependsOn).toContain(apps.gateway.gateway);
 	expect(await isSecret(chart.props.values.authentik.secret_key)).toBe(true);
 	expect(await isSecret(chart.props.values.authentik.postgresql.password)).toBe(true);
-	expect(apps.apps.has("authentik")).toBe(true);
+	expect(apps.apps.includes("authentik")).toBe(true);
 });
 
 test("replaces only NetBird's fixed-name config Secret before recreating it", async () => {
@@ -527,7 +527,7 @@ test("creates the Vault component with internal TLS and ordered Tailscale ingres
 			],
 		},
 	});
-	expect(apps.apps.has("vault")).toBe(true);
+	expect(apps.apps.includes("vault")).toBe(true);
 	const chartInputs = resources.find(
 		(args) => args.name === "vault" && args.type === "kubernetes:helm.sh/v4:Chart",
 	)?.inputs;
@@ -605,7 +605,7 @@ test("creates CouchDB with protected credentials, rollout checksum, and retained
 	);
 	expect(component.resource).toBe(apps.couchdb);
 	expect(component.opts.parent).toBe(apps);
-	expect(apps.apps.has("couchdb")).toBe(true);
+	expect(apps.apps.includes("couchdb")).toBe(true);
 	const credentials = registration("couchdb-admin", "kubernetes:core/v1:Secret");
 	expect(credentials.opts.parent).toBe(apps.couchdb);
 	expect(await isSecret(credentials.props.stringData.adminPassword)).toBe(true);
@@ -618,6 +618,7 @@ test("creates CouchDB with protected credentials, rollout checksum, and retained
 		credentials.resource,
 		apps.tailscale.chart,
 		apps.storage.chart,
+		apps.monitoring.chart,
 	]);
 	expect(chart.props.values).toMatchObject({
 		clusterSize: 1,
@@ -709,7 +710,7 @@ test("creates bundled Kubernetes monitoring with dashboards and Talos-compatible
 		registration("monitoring", "connor-bray:infrastructure:cluster:apps:Monitoring")
 			.resource,
 	).toBe(apps.monitoring);
-	expect(apps.apps.has("monitoring")).toBe(true);
+	expect(apps.apps.includes("monitoring")).toBe(true);
 	const chart = registration("kube-prometheus-stack", "kubernetes:helm.sh/v4:Chart");
 	expect(chart.resource).toBe(apps.monitoring.chart);
 	expect(chart.opts.parent).toBe(apps.monitoring);

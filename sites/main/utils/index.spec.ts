@@ -1,6 +1,6 @@
 import { usePromise } from "./index";
 import { act, cleanup, renderHook } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vite-plus/test";
 
 afterEach(cleanup);
 

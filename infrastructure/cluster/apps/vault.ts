@@ -6,11 +6,11 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { createTailscaleIngress } from "../network/tailscale-ingress.ts";
-import { addPodTlsChecksum } from "@connorbraydotnet/infrastructure/transforms";
+import { createTailscaleIngress } from "../network/tailscale-ingress";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, secret } from "@pulumi/pulumi";
 import { PrivateKey, SelfSignedCert } from "@pulumi/tls";
+import { addPodTlsChecksum } from "@root/inf/transforms";
 import { createHash } from "node:crypto";
 
 const appName = "vault";

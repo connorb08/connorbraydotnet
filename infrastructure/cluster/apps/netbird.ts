@@ -1,5 +1,5 @@
-import type { PostgresqlConnection } from "../resources/database/types.ts";
-import type { ClusterLocalStorage } from "../resources/storage.ts";
+import type { PostgresqlConnection } from "../resources/database/types";
+import type { ClusterLocalStorage } from "../resources/storage";
 import type {
 	ComponentResourceOptions,
 	CustomResourceOptions,
@@ -7,9 +7,9 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { requireCredential } from "@connorbraydotnet/infrastructure/config";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, Config } from "@pulumi/pulumi";
+import { requireCredential } from "@root/inf/config";
 import { Buffer } from "node:buffer";
 
 const appName = "netbird";

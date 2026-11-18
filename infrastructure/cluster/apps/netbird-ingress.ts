@@ -1,6 +1,6 @@
-import type { NetbirdHost } from "./netbird.ts";
+import type { NetbirdHost } from "./netbird";
 import type { ComponentResourceOptions, Resource } from "@pulumi/pulumi";
-import { tailscaleIngress } from "../network/tailscale-ingress.ts";
+import { tailscaleIngress } from "../network/tailscale-ingress";
 import { networking } from "@pulumi/kubernetes";
 import { ComponentResource } from "@pulumi/pulumi";
 

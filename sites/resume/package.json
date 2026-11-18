@@ -19,12 +19,12 @@
 		"typegen": "bun run typegen-cf && bun run typegen-rr",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
-		"preview": "bun run build && vite preview",
+		"preview": "bun run build && vp preview",
 		"pretest": "bun run typegen && react-router build 1> /dev/null",
-		"test": "vitest --run",
+		"test": "vp test --run",
 		"e2e": "nx playwright:e2e",
-		"test:watch": "nx run build && vitest",
-		"coverage": "vitest run --coverage",
+		"test:watch": "nx run build && vp test",
+		"coverage": "vp test run --coverage",
 		"format": "biome format --write",
 		"lint": "biome lint",
 		"typecheck": "nx run typegen && tsc -b",
@@ -34,7 +34,9 @@
 		"schemas": "workspace:*"
 	},
 	"devDependencies": {
-		"sass-embedded": "^1.87.0"
+		"sass-embedded": "^1.87.0",
+		"vite-plus": "catalog:",
+		"vitest": "catalog:"
 	},
 	"peerDependencies": {
 		"@cloudflare/vite-plugin": "*",

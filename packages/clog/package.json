@@ -13,7 +13,11 @@
 	"scripts": {
 		"typecheck": "tsc -b",
 		"test": "bun test",
-		"test:coverage": "vitest run --coverage"
+		"test:coverage": "vp test run --coverage"
+	},
+	"devDependencies": {
+		"vite-plus": "catalog:",
+		"vitest": "catalog:"
 	},
 	"peerDependencies": {
 		"vitest": "*"

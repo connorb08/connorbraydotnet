@@ -1,10 +1,10 @@
-import type { ClusterGateway } from "../network/gateway.ts";
-import type { PostgresqlConnection } from "../resources/database/types.ts";
+import type { ClusterGateway } from "../network/gateway";
+import type { PostgresqlConnection } from "../resources/database/types";
 import type { ComponentResourceOptions, Output } from "@pulumi/pulumi";
-import { requireCredential } from "@connorbraydotnet/infrastructure/config";
-import { createNamespace, generateSecret } from "@connorbraydotnet/infrastructure/utils";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, Config } from "@pulumi/pulumi";
+import { requireCredential } from "@root/inf/config";
+import { createNamespace, generateSecret } from "@root/inf/utils";
 
 export class AuthentikApp extends ComponentResource {
 	public readonly chart: helm.v4.Chart;

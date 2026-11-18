@@ -3,9 +3,9 @@ import type {
 	ResourceTransformArgs,
 	ResourceTransformResult,
 } from "@pulumi/pulumi";
-import { requireRecord } from "@connorbraydotnet/infrastructure/transforms";
 import { core, helm } from "@pulumi/kubernetes";
 import { ComponentResource } from "@pulumi/pulumi";
+import { requireRecord } from "@root/inf/transforms";
 
 const storagePath = "/var/mnt/cluster-storage";
 

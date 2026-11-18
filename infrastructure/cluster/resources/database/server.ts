@@ -1,4 +1,4 @@
-import type { PostgresqlApplicationConfig } from "./types.ts";
+import type { PostgresqlApplicationConfig } from "./types";
 import type { ComponentResourceOptions, Input, Output } from "@pulumi/pulumi";
 import { core } from "@pulumi/kubernetes";
 import { secret } from "@pulumi/pulumi";

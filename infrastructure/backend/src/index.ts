@@ -1,5 +1,5 @@
-import { backendAccessPolicy, stateBucket } from "./bucket.ts";
-import { stateSecretsAccessPolicy, stateSecretsKey } from "./kms.ts";
+import { backendAccessPolicy, stateBucket } from "./bucket";
+import { stateSecretsAccessPolicy, stateSecretsKey } from "./kms";
 import { all } from "@pulumi/pulumi";
 
 export const stateBucketName = stateBucket.id;

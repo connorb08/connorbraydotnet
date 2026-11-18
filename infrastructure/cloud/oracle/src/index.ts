@@ -1,4 +1,4 @@
-import { createVps } from "./vps.ts";
+import { createVps } from "./vps";
 
 const { instance, vpsPublicIp, dataVolume, dataVolumeAttachment } = await createVps();
 

@@ -13,14 +13,18 @@
 	},
 	"scripts": {
 		"build": "bun run build.ts",
-		"test": "vitest --run",
-		"coverage": "vitest run --coverage",
-		"test:watch": "vitest",
+		"test": "vp test --run",
+		"coverage": "vp test run --coverage",
+		"test:watch": "vp test",
 		"format": "biome format --write",
 		"lint": "biome lint",
 		"check": "biome lint && biome format",
 		"depcheck": "depcheck",
 		"typecheck": "tsc -b"
+	},
+	"devDependencies": {
+		"vite-plus": "catalog:",
+		"vitest": "catalog:"
 	},
 	"peerDependencies": {
 		"@biomejs/js-api": "*",

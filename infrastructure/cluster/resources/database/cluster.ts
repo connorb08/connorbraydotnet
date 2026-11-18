@@ -1,5 +1,5 @@
-import type { ClusterLocalStorage } from "../storage.ts";
-import type { PostgresqlCredentials } from "./server.ts";
+import type { ClusterLocalStorage } from "../storage";
+import type { PostgresqlCredentials } from "./server";
 import type {
 	ComponentResourceOptions,
 	Input,

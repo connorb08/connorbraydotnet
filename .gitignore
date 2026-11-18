@@ -64,3 +64,4 @@ worker-configuration.d.ts
 .claude/settings.local.json
 
 vitest.config.*.timestamp*
+.vitest/

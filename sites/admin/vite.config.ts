@@ -3,12 +3,13 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import process from "node:process";
 import { defineConfig } from "vite";
+import { lazyPlugins } from "vite-plus";
 
 const dev = process.env.NODE_ENV !== "production";
 
 export default defineConfig({
 	root: import.meta.dirname,
-	plugins: [
+	plugins: lazyPlugins(() => [
 		cloudflare({
 			viteEnvironment: { name: "ssr" },
 			persistState: {
@@ -27,7 +28,7 @@ export default defineConfig({
 		}),
 		tailwindcss(),
 		reactRouter(),
-	],
+	]),
 	server: {
 		host: "127.0.0.1",
 	},

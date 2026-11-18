@@ -1,5 +1,5 @@
 {
-  "editor.defaultFormatter": "oxc.oxc-vscode",
+	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"files.associations": {
 		"wrangler.json": "jsonc",
 		"biome.json": "jsonc",
@@ -12,7 +12,8 @@
 		"**/worker-configuration.d.ts": true,
 		"**/*/bin": true,
 		"**/*/obj": true,
-		"**/.tsbuildinfo": true
+		"**/.tsbuildinfo": true,
+		"infrastructure/apps/authentik/sdks": true
 	},
 	"editor.codeActionsOnSave": {
 		"source.format.oxc": "always",
@@ -22,5 +23,25 @@
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "oxc.oxc-vscode"
-	}
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"oxc.disableNestedConfig": true,
+	"oxc.fmt.disableNestedConfig": true,
+	"vitest.configSearchPatternInclude": "**/vitest.config.{ts,js,mjs,cjs,cts,mts}",
+	"editor.formatOnSave": true,
+	"editor.formatOnSaveMode": "file",
+	"js/ts.experimental.useTsgo": true,
+	"js/ts.tsdk.path": "./node_modules/tsrs/tsdk",
+	"js/ts.trace.server": "verbose"
 }

@@ -1,9 +1,10 @@
 {
-	"name": "@connorbraydotnet/infrastructure",
+	"name": "@root/inf",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
 	"exports": {
+		".": "./shared/index.ts",
 		"./config": "./shared/config.ts",
 		"./stack-ref": "./shared/stack-ref.ts",
 		"./transforms": "./shared/transforms.ts",
