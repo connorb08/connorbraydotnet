@@ -4,7 +4,9 @@ Monorepo for `connorbray.net` and related apps/services.
 
 ## Shared infrastructure helpers
 
-Reusable infrastructure logic lives in [inf/shared/](inf/shared/):
+Reusable infrastructure logic lives in [infrastructure/shared/](infrastructure/shared/),
+exported by the root workspace package
+[`@connorbraydotnet/infrastructure`](infrastructure/package.json):
 
 - [config.ts](inf/shared/config.ts): `requireCredential(config, key, context)` reads
   a required Pulumi secret, rejects empty or whitespace-only values, and preserves
@@ -15,6 +17,23 @@ Reusable infrastructure logic lives in [inf/shared/](inf/shared/):
   Cluster/Kubernetes helper paths re-export these implementations for compatibility.
 
 Keep application-specific configuration and transforms with their application.
+Cloudflare and Cluster consume the shared helpers through package exports:
+
+```ts
+import { TypedStackReference } from "@connorbraydotnet/infrastructure/stack-ref";
+import { requireCredential } from "@connorbraydotnet/infrastructure/config";
+import { createNamespace } from "@connorbraydotnet/infrastructure/utils";
+import { requireRecord } from "@connorbraydotnet/infrastructure/transforms";
+```
+
+Declare `"@connorbraydotnet/infrastructure": "workspace:*"` in a consuming project's
+dependencies and run `bun install` from the repository root to link the package.
+The exports resolve to explicit TypeScript files for native Node.js loading; no
+per-project `#` aliases or shared-helper build step are needed. Each Pulumi project
+retains its own package, configuration, and independent stack.
+Pulumi runs these TypeScript sources directly in Node.js. Relative runtime imports
+must use explicit `.ts` filenames (including `index.ts` for directories); shared
+package exports resolve their filenames automatically.
 Projects importing shared helpers must include `inf/shared/` within their
 TypeScript `rootDir`.
 
@@ -24,7 +43,7 @@ Use [TypedStackReference](inf/shared/stack-ref.ts) to read outputs without impor
 and running another Pulumi program:
 
 ```ts
-import { TypedStackReference } from "../../shared/stack-ref.ts";
+import { TypedStackReference } from "@connorbraydotnet/infrastructure/stack-ref";
 
 const amazon = new TypedStackReference<"Infrastructure">("amazon", {
 	name: "organization/Infrastructure/dev",
@@ -33,7 +52,7 @@ const address = amazon.requireOutput("vpsIp");
 ```
 
 The project type is the Pulumi project name: `Infrastructure` (Amazon), `Backend`,
-`Cluster`, `Kubernetes`, or `Oracle`. Supply the target stack name for your backend
+`Cluster`, `Kubernetes`, `Oracle`, or `Cloudflare`. Supply the target stack name for your backend
 explicitly; the local resource name (`amazon` above) must be unique in the consumer.
 Use `getOutput` for optional outputs and `requireOutput` to fail when an output is
 missing. Both retain Pulumi secret tracking. Output types are inferred through
@@ -60,22 +79,21 @@ TLS hosts contain the short tailnet hostname; the operator manages certificates.
 
 ## Cluster NetBird
 
-[NetbirdHost](inf/Cluster/src/apps/netbird.ts) deploys HelmForge `netbird` chart
+[NetbirdHost](infrastructure/cluster/apps/netbird.ts) deploys HelmForge `netbird` chart
 `1.1.3` from `https://repo.helmforge.dev` (also published as
 `oci://ghcr.io/helmforgedev/helm/netbird`). Images are pinned to
-`netbirdio/netbird-server:0.81.5` and `netbirdio/dashboard:v2.90.10`.
-It uses bundled standalone PostgreSQL with an 8Gi retained volume and a 10Gi
-NetBird data volume on the cluster's retained `local-path` storage.
+`netbirdio/netbird-server:0.83.1` and `netbirdio/dashboard:v2.97.0`.
+It uses the shared CloudNativePG PostgreSQL cluster over TLS and keeps a 10Gi
+NetBird identity/data volume on the cluster's retained `local-path` storage.
 
 Set configuration in the Cluster project before previewing or deploying:
 
 ```sh
-cd inf/Cluster
+cd infrastructure/cluster
 pulumi config set netbirdHostname netbird.your-tailnet.ts.net
 openssl rand -hex 32 | pulumi config set --secret netbirdAuthSecret
 openssl rand -base64 32 | pulumi config set --secret netbirdEncryptionKey
 openssl rand -hex 32 | pulumi config set --secret netbirdDatabasePassword
-openssl rand -hex 32 | pulumi config set --secret netbirdPostgresPassword
 pulumi preview
 pulumi up
 ```
@@ -91,7 +109,7 @@ Pulumi renders charts without Helm's live-cluster secret lookup. Changing config
 alone does not rotate passwords in an already initialized PostgreSQL database.
 Back up both volumes and the secrets; node-local storage is not highly available.
 
-[NetbirdIngress](inf/Cluster/src/apps/netbird-ingress.ts) is a separate component
+[NetbirdIngress](infrastructure/cluster/apps/netbird-ingress.ts) is a separate component
 that routes dashboard, API, embedded OIDC, WebSocket relay, and h2c gRPC traffic
 through the Tailscale operator. The chart itself does not own ingress.
 All clients currently need Tailscale access. UDP 3478 (STUN) remains cluster-only:
@@ -100,6 +118,136 @@ NetBird deployment and direct peer connectivity may be limited.
 For public access, replace the ingress component, update `netbirdHostname`, and
 provide an HTTP/2/gRPC- and WebSocket-capable HTTPS ingress plus a separate UDP
 3478 listener for the server at the advertised hostname.
+
+### Switching the existing NetBird deployment
+
+This change intentionally starts NetBird management storage with a **fresh database**;
+it does not copy data from the old bundled PostgreSQL instance. The embedded identity
+volume, auth secret, and encryption key remain unchanged. Existing management records
+are not carried over; expect to recreate settings and re-enroll peers as needed.
+Take a backup before applying if you might need the old data.
+
+The bundled PostgreSQL chart is disabled. Preview its removal carefully and retain
+the old PVC/PV for recovery; do not delete it until the new deployment is verified.
+`netbirdDatabasePassword` now supplies the shared cluster's `netbird` role.
+`netbirdPostgresPassword` is no longer used and can be removed from config after
+the cutover.
+
+## Shared PostgreSQL
+
+[PostgresqlDatabase](infrastructure/cluster/resources/database/index.ts) installs
+CloudNativePG operator `0.29.2` and cluster chart `0.9.0`, running one PostgreSQL 18
+instance with an 8Gi volume on retained `local-path` storage. Its internal endpoint
+is `postgresql-rw.postgresql.svc.cluster.local:5432`; no public database service is
+created. Non-TLS network connections are rejected.
+
+Applications are declared in [ClusterApps](infrastructure/cluster/apps/index.ts):
+
+```ts
+const postgresql = new PostgresqlDatabase(storage, {
+	authentik: {},
+	netbird: { password: netbirdPassword },
+	anotherapp: {},
+}, { parent: this });
+const database = postgresql.database("anotherapp");
+```
+
+Each entry gets a login role, database ownership, and a Kubernetes basic-auth Secret
+in the `postgresql` namespace. Passwords are generated and kept secret in Pulumi unless
+explicitly supplied. Names must start with a lowercase letter, contain only lowercase
+letters/digits, and be at most 48 characters; reserved names are rejected.
+Pass the connection values to the app and depend on `database.resource` so deployment
+waits for database reconciliation. Roles cannot create databases/roles or act as
+superusers. Database deletion retains the underlying database.
+
+Backups are **not configured**, and node-local storage is not highly available.
+Configure and test off-node backups before relying on this for important data.
+
+## Authentik, Envoy Gateway, and Cloudflare DNS
+
+[AuthentikApp](infrastructure/cluster/apps/authentik.ts) installs chart `2026.8.5`
+with one server and one worker using their own shared PostgreSQL database.
+NetBird continues using its embedded identity provider; this does not change it to
+Authentik SSO.
+
+[ClusterGateway](infrastructure/cluster/network/gateway.ts) installs Envoy Gateway
+`v1.10.0` and Gateway API CRDs. An Envoy DaemonSet maps node TCP 443 to its unprivileged
+HTTPS listener using `hostPort`; its Service remains ClusterIP. No OCI load balancer,
+Cloudflare Tunnel, or port 80 listener is needed. The Envoy namespace permits host
+ports, and the proxy tolerates the control-plane taint for this single-node Talos
+cluster. The CNI must support hostPort, and no other workload may bind node port 443.
+The existing OCI security list already allows TCP 443.
+Envoy uses a Helm Release rather than a rendered Chart so its required internal
+certificate-generation hooks execute.
+
+TLS terminates at the Gateway using a Let's Encrypt certificate renewed by cert-manager
+through Cloudflare DNS-01. Only HTTPRoutes from the `authentik` namespace may attach.
+The Authentik HTTPRoute forwards HTTP internally to the server; clients use HTTPS.
+
+First deploy [the Cloudflare project](infrastructure/cloud/cloudflare/index.ts):
+
+```sh
+cd infrastructure/cloud/cloudflare
+pulumi stack init dev
+pulumi config set oracleStack organization/Oracle/dev
+pulumi preview
+pulumi up
+```
+
+Authenticate the Cloudflare provider first using an existing credential, for example
+the `CLOUDFLARE_API_TOKEN` environment variable or encrypted `cloudflare:apiToken`
+Pulumi config. This bootstrap credential needs Zone Read and DNS Edit for the zone,
+plus Account API Tokens Read/Write for its account to create the cert-manager token.
+Pulumi cannot create its first authentication credential without existing access.
+Do not use the generated cert-manager token as the bootstrap credential.
+
+This creates a DNS-only A record for `identity.connorbray.net` in your existing zone.
+It does not register a domain or create a new zone. Import an existing record rather
+than trying to create a duplicate. The zone and account IDs are resolved through the
+Cloudflare provider using `domainName` (defaults to `connorbray.net`); no manual
+`zoneId`, `accountId`, or `originIpv4` configuration is needed.
+`oracleStack` must identify your deployed Oracle stack, whose `publicIp` output
+supplies the A record address. Re-run the Cloudflare deployment after Oracle's IP
+changes; stack references do not automatically trigger deployments.
+
+The project creates a zone-scoped DNS Edit / Zone Read account token and exports it
+as the **secret** output `certManagerToken`. The Cluster stack reads it directly,
+so no token copying or manual cert-manager token creation is required. Normal
+stack output hides the value; use `pulumi stack output certManagerToken --show-secrets`
+only if you intentionally need to retrieve it.
+Both the Oracle public IP and Cloudflare token are consumed through the shared
+`TypedStackReference` helper, preserving typed output names and secret tracking.
+
+Then configure the Cluster stack (alongside its existing app credentials):
+
+```sh
+cd ../../cluster
+pulumi config set acmeEmail YOUR_ACME_CONTACT_EMAIL
+pulumi config set cloudflareStack organization/Cloudflare/dev
+openssl rand -hex 32 | pulumi config set --secret authentikBootstrapPassword
+pulumi preview
+pulumi up
+```
+
+Use the actual stack references for your backend instead of the example
+`organization/Oracle/dev` and `organization/Cloudflare/dev`. Select the existing
+`dev` stack rather than initializing it again if it already exists.
+The old `cloudflareDnsApiToken` Cluster config is no longer used.
+The default hostname is `identity.connorbray.net`; override
+`authentikHostname` in **both** projects if changing it. Certificate issuance must
+succeed before the HTTPS Gateway is created; check cert-manager Certificate,
+Order, and Challenge status if deployment waits there.
+
+Log in at `https://identity.connorbray.net` as `akadmin` using the bootstrap password
+(`pulumi config get --secret authentikBootstrapPassword`), then configure MFA.
+The password initializes the account on first startup only; changing that config
+does not reset an existing account's password. Preserve Authentik's generated secret
+key and database password across updates.
+
+After deployment, verify `kubectl get gateway,httproute -A`, the Envoy DaemonSet's
+readiness, and `curl -I https://identity.connorbray.net`. There should be a valid
+certificate, an accepted route, and an Authentik response. Only application HTTPS
+is exposed: PostgreSQL, Talos management, and the Kubernetes API should stay private.
 
 ## Devcontainer image
 
