@@ -43,7 +43,8 @@
 				"docker.docker",
 				"ms-azuretools.vscode-docker",
 				"hashicorp.hcl",
-				"oxc.oxc-vscode"
+				"oxc.oxc-vscode",
+				"VoidZero.vite-plus-extension-pack"
 			],
 			"settings": {
 				"remote.portsAttributes": {

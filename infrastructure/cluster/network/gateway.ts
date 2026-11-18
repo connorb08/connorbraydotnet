@@ -1,8 +1,8 @@
-import type { ClusterCertificateManager } from "../apps/cert-manager.ts";
+import type { ClusterCertificateManager } from "../apps/cert-manager";
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
-import { TypedStackReference } from "@connorbraydotnet/infrastructure/stack-ref";
 import { apiextensions, core, helm } from "@pulumi/kubernetes";
 import { ComponentResource, Config, secret } from "@pulumi/pulumi";
+import { TypedStackReference } from "@root/inf/stack-ref";
 
 export class ClusterGateway extends ComponentResource {
 	public readonly gateway: apiextensions.CustomResource;
@@ -23,7 +23,7 @@ export class ClusterGateway extends ComponentResource {
 			options,
 		);
 		const config = new Config();
-		const cloudflare = new TypedStackReference<"Cloudflare">(
+		const cloudflare = new TypedStackReference<"cloudflare">(
 			"cloudflare",
 			{ name: config.require("cloudflareStack") },
 			{ parent: this },

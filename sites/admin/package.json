@@ -7,7 +7,7 @@
 		"typegen": "wrangler types -c wrangler.json -c ../../services/db/wrangler.json -c wrangler.json -c ../../services/content-manager/wrangler.json && react-router typegen",
 		"deploy": "bun run build && wrangler deploy",
 		"dev": "react-router dev",
-		"preview": "bun run build && vite preview",
+		"preview": "bun run build && vp preview",
 		"typecheck": "bun typegen && react-router typegen && tsc -b"
 	},
 	"dependencies": {
@@ -16,7 +16,8 @@
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.2.4",
 		"@vitejs/plugin-rsc": "^0.5.26",
-		"tailwindcss": "^4.1.4"
+		"tailwindcss": "^4.1.4",
+		"vite-plus": "catalog:"
 	},
 	"peerDependencies": {
 		"@cloudflare/vite-plugin": "*",

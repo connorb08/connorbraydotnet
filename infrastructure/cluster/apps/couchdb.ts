@@ -1,9 +1,9 @@
 import type { ClusterLocalStorage } from "#storage";
 import type { ComponentResourceOptions, Output, Resource } from "@pulumi/pulumi";
-import { tailscaleIngress } from "../network/tailscale-ingress.ts";
-import { requireCredential } from "@connorbraydotnet/infrastructure/config";
+import { tailscaleIngress } from "../network/tailscale-ingress";
 import { apiextensions, core, helm } from "@pulumi/kubernetes";
 import { all, ComponentResource, Config, unsecret } from "@pulumi/pulumi";
+import { requireCredential } from "@root/inf/config";
 import { createHash } from "node:crypto";
 
 const appName = "couchdb";

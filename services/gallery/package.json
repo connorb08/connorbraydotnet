@@ -2,10 +2,10 @@
 	"name": "gallery",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
+		"dev": "vp dev",
+		"build": "vp build",
 		"typecheck": "bun run typegen && tsc --noEmit",
-		"preview": "bun run build && vite preview",
+		"preview": "bun run build && vp preview",
 		"deploy": "bun run build && wrangler deploy",
 		"typegen": "wrangler types --env-interface CloudflareBindings"
 	},
@@ -17,7 +17,8 @@
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "*",
 		"@types/node": "*",
-		"vite": "*",
+		"vite": "catalog:",
+		"vite-plus": "catalog:",
 		"wrangler": "*"
 	},
 	"peerDependencies": {}

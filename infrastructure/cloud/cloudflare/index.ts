@@ -1,4 +1,3 @@
-import { TypedStackReference } from "@connorbraydotnet/infrastructure/stack-ref";
 import {
 	AccountToken,
 	DnsRecord,
@@ -6,10 +5,11 @@ import {
 	getZone,
 } from "@pulumi/cloudflare";
 import { Config, secret } from "@pulumi/pulumi";
+import { TypedStackReference } from "@root/inf/stack-ref";
 import { isIPv4 } from "node:net";
 
 const config = new Config();
-const oracle = new TypedStackReference<"Oracle">("oracle", {
+const oracle = new TypedStackReference<"oracle">("oracle", {
 	name: config.require("oracleStack"),
 });
 const originIpv4 = oracle.requireOutput("publicIp").apply((value: unknown) => {

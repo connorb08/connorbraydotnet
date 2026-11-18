@@ -1,7 +1,7 @@
 import type { Output } from "@pulumi/pulumi";
-import { requireRecord } from "../Cluster/src/utils.ts";
-import { TypedStackReference } from "../shared/stack-ref.ts";
-import { resolveOutput } from "./mock-runtime.ts";
+import { TypedStackReference } from "../shared/stack-ref";
+import { requireRecord } from "../shared/transforms";
+import { resolveOutput } from "./mock-runtime";
 import { isSecret, output, runtime } from "@pulumi/pulumi";
 import { expect, expectTypeOf, test } from "bun:test";
 
@@ -31,7 +31,7 @@ test("reads typed cross-project outputs while preserving secrets and optional ou
 
 	try {
 		await runtime.runInPulumiStack(async () => {
-			const amazon = new TypedStackReference<"Infrastructure">("amazon", {
+			const amazon = new TypedStackReference<"aws">("amazon", {
 				name: "organization/Infrastructure/dev",
 			});
 			const address = amazon.requireOutput(output("vpsIp"));

@@ -1,5 +1,5 @@
 import type { ClusterLocalStorage } from "#storage";
-import type { ClusterCertificateManager } from "./cert-manager.ts";
+import type { ClusterCertificateManager } from "./cert-manager";
 import type { types } from "@pulumi/kubernetes";
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
 import { apiextensions, core, helm, rbac } from "@pulumi/kubernetes";

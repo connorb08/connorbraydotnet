@@ -67,11 +67,16 @@
 		},
 		{
 			"path": "./tools/workspace"
+		},
+		{
+			"path": "./infrastructure/cloud/cloudflare"
+		},
+		{
+			"path": "./infrastructure/apps/authentik"
 		}
 	],
 	"compilerOptions": {
 		"rootDir": ".",
-		"tsBuildInfoFile": ".tsbuildinfo/tsconfig.tsbuildinfo",
 		"outDir": ".tsbuildinfo"
 	}
 }

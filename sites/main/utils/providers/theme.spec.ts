@@ -4,7 +4,7 @@ import { ThemeContext } from "../context/theme";
 import { ThemeProvider } from "./theme";
 import { act, cleanup, renderHook } from "@testing-library/react";
 import { createElement, useContext } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 const { submit } = vi.hoisted(() => ({ submit: vi.fn<SubmitFunction>() }));
 

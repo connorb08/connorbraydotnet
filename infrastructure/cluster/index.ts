@@ -1,4 +1,4 @@
-import { ClusterApps } from "./apps/index.ts";
+import { ClusterApps } from "./apps/index";
 
 const apps = new ClusterApps("cluster-apps");
 

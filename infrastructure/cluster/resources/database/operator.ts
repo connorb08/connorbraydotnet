@@ -1,8 +1,8 @@
 import type { Namespace } from "@pulumi/kubernetes/core/v1";
 import type { Resource } from "@pulumi/pulumi";
-import { createNamespace } from "@connorbraydotnet/infrastructure/utils";
 import { Chart } from "@pulumi/kubernetes/helm/v4/index.js";
 import { ComponentResource, type ResourceOptions } from "@pulumi/pulumi";
+import { createNamespace } from "@root/inf/utils";
 
 const __name__ = "cnpg-operator";
 const __namespace__ = "cnpg-system";

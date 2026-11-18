@@ -4,7 +4,7 @@
 	"type": "module",
 	"main": "index.ts",
 	"dependencies": {
-		"@connorbraydotnet/infrastructure": "workspace:*"
+		"@root/inf": "workspace:*"
 	},
 	"scripts": {
 		"build": "tsc -p tsconfig.json",

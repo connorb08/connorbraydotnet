@@ -1,6 +1,7 @@
 import { isSecret, output, runtime } from "@pulumi/pulumi";
 import { expect, test } from "bun:test";
 
+// oxlint-disable-next-line max-lines-per-function
 test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret token", async () => {
 	const records: Record<string, unknown>[] = [];
 	const tokens: Record<string, unknown>[] = [];
@@ -54,7 +55,7 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 	});
 	let tokenIsSecret = false;
 	await runtime.runInPulumiStack(async () => {
-		const dns = await import("../cloud/cloudflare/index.ts");
+		const dns = await import("../cloud/cloudflare/index");
 		tokenIsSecret = await isSecret(dns.certManagerToken);
 		return { hostname: output(dns.authentikHostname), recordId: dns.authentikRecordId };
 	});

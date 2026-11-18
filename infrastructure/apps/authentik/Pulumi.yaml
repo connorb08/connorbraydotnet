@@ -1,0 +1,11 @@
+name: authentik
+description: Connor Identity
+runtime: bun
+backend:
+  url: s3://state-af5c4c3fcaf0d86c909be76eab-065897469619-us-east-2-an
+packages:
+  authentik:
+    source: terraform-provider
+    version: 1.5.1
+    parameters:
+      - goauthentik/authentik

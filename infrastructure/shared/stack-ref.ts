@@ -2,17 +2,23 @@ import type { Input, Output, Unwrap } from "@pulumi/pulumi";
 import { StackReference } from "@pulumi/pulumi";
 
 export interface StackOutputs {
-	Infrastructure: Unwrap<typeof import("../cloud/amazon/src/index.ts")>;
-	Backend: Unwrap<typeof import("../backend/src/index.ts")>;
-	Cluster: {
-		vaultInternalCaCert: Unwrap<typeof import("../cluster/index.ts").vaultInternalCaCert>;
-		// The producer exports a Set, which does not retain its type in stack state.
-		createdApps: unknown;
-	};
-	Kubernetes: Unwrap<typeof import("../kubes/src/index.ts")>;
-	Oracle: Unwrap<typeof import("../cloud/oracle/src/index.ts")>;
-	Cloudflare: Unwrap<typeof import("../cloud/cloudflare/index.ts")>;
+	backend: Unwrap<typeof import("../backend/src/index")>;
+	aws: Unwrap<typeof import("../cloud/amazon/src/index")>;
+	oracle: Unwrap<typeof import("../cloud/oracle/src/index")>;
+	cloudflare: Unwrap<typeof import("../cloud/cloudflare/index")>;
+	cluster: Unwrap<typeof import("../cluster/index")>;
 }
+
+const stackProjects = {
+	backend: "Backend",
+	aws: "Infrastructure",
+	oracle: "Oracle",
+	cloudflare: "Cloudflare",
+	cluster: "Cluster",
+} satisfies Record<keyof StackOutputs, string>;
+
+const StackNameFormat = (project: keyof StackOutputs, stack = "dev") =>
+	`organization/${stackProjects[project]}/${stack}`;
 
 export class TypedStackReference<
 	Project extends keyof StackOutputs,
@@ -26,6 +32,17 @@ export class TypedStackReference<
 	public override requireOutput<Key extends keyof StackOutputs[Project] & string>(
 		name: Input<Key>,
 	): Output<StackOutputs[Project][Key]> {
+		// We know the output will match the expected type
+		// oxlint-disable-next-line typescript/no-unsafe-type-assertion
 		return super.requireOutput(name) as Output<StackOutputs[Project][Key]>;
 	}
 }
+
+export const StackRef = <Project extends keyof StackOutputs>(
+	name: Project,
+	stack?: string,
+) => {
+	return new TypedStackReference<Project>(name, {
+		name: StackNameFormat(name, stack),
+	});
+};

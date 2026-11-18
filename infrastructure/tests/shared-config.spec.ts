@@ -1,5 +1,5 @@
-import { requireCredential } from "../shared/config.ts";
-import { resolveOutput } from "./mock-runtime.ts";
+import { requireCredential } from "../shared/config";
+import { resolveOutput } from "./mock-runtime";
 import { Config, isSecret, runtime } from "@pulumi/pulumi";
 import { beforeAll, expect, test } from "bun:test";
 import process from "node:process";
@@ -28,7 +28,7 @@ test.each([
 				"-e",
 				`
 import { Config, runtime } from ${JSON.stringify(import.meta.resolve("@pulumi/pulumi"))};
-import { requireCredential } from ${JSON.stringify(import.meta.resolve("../shared/config.ts"))};
+import { requireCredential } from ${JSON.stringify(import.meta.resolve("../shared/config"))};
 runtime.setAllConfig({ "Helpers:credential": ${JSON.stringify(value)} });
 requireCredential(new Config("Helpers"), "credential", "Example");
 `,

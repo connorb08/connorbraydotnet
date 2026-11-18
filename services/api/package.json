@@ -5,13 +5,16 @@
 	"type": "module",
 	"scripts": {
 		"deploy": "CLOUDFLARE_ENV=production wrangler deploy",
-		"dev": "vite dev",
+		"dev": "vp dev",
 		"typegen": "wrangler types -c wrangler.json -c ../alerts/wrangler.json",
 		"typecheck": "tsc -b"
 	},
 	"dependencies": {
 		"hono": "^4.9.4",
 		"types": "workspace:*"
+	},
+	"devDependencies": {
+		"vite-plus": "catalog:"
 	},
 	"peerDependencies": {
 		"@cloudflare/vite-plugin": "*",

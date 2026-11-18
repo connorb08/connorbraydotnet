@@ -4,7 +4,7 @@ import { FullscreenContext } from "../context/fullscreen";
 import { FullscreenProvider } from "./fullscreen";
 import { act, cleanup, renderHook } from "@testing-library/react";
 import { createElement, useContext } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 const { submit } = vi.hoisted(() => ({ submit: vi.fn<SubmitFunction>() }));
 

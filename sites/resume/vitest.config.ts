@@ -1,22 +1,11 @@
-import type { ViteUserConfig } from "vitest/config";
 import { cloudflareTest } from "@cloudflare/vitest-plugin";
-import { defineProject } from "vitest/config";
+import { defineConfig } from "vite-plus";
 
-const workerProject = defineProject({
-	plugins: [
-		cloudflareTest({
-			wrangler: { configPath: "./wrangler.jsonc", environment: "integration" },
-		}),
-	],
+export default defineConfig({
 	test: {
-		globals: true,
-		name: "Worker",
-		include: ["test/unit/**/*.spec.ts", "test/integration/**/*.spec.ts"],
-	},
-});
-
-const vitestConfig = {
-	test: {
+		// Preserve Vitest v4 mock history and separate inline-project servers.
+		clearMocks: false,
+		sharedViteServer: false,
 		name: "Resume",
 		globals: true,
 		exclude: ["test/e2e"],
@@ -41,9 +30,21 @@ const vitestConfig = {
 					setupFiles: ["./test/setup.ts"],
 				},
 			},
-			workerProject,
+			{
+				// Worker tests must not inherit the root project's plugins or setup.
+				extends: false,
+				plugins: [
+					cloudflareTest({
+						wrangler: { configPath: "./wrangler.jsonc", environment: "integration" },
+					}),
+				],
+				test: {
+					clearMocks: false,
+					globals: true,
+					name: "Worker",
+					include: ["test/unit/**/*.spec.ts", "test/integration/**/*.spec.ts"],
+				},
+			},
 		],
 	},
-} satisfies ViteUserConfig;
-
-export default defineProject(vitestConfig);
+});

@@ -1,11 +1,11 @@
-import type { ClusterLocalStorage } from "../storage.ts";
-import type { PostgresqlApplicationConfig, PostgresqlConnection } from "./types.ts";
+import type { ClusterLocalStorage } from "../storage";
+import type { PostgresqlApplicationConfig, PostgresqlConnection } from "./types";
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
-import { PostgresqlCluster } from "./cluster.ts";
-import { PostgresqlOperator } from "./operator.ts";
-import { createDatabaseCredentials } from "./server.ts";
-import { createNamespace } from "@connorbraydotnet/infrastructure/utils";
+import { PostgresqlCluster } from "./cluster";
+import { PostgresqlOperator } from "./operator";
+import { createDatabaseCredentials } from "./server";
 import { ComponentResource } from "@pulumi/pulumi";
+import { createNamespace } from "@root/inf/utils";
 
 export class PostgresqlDatabase extends ComponentResource {
 	public readonly chart: ReturnType<typeof PostgresqlCluster>;

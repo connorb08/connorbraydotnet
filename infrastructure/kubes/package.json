@@ -14,6 +14,9 @@
 		"@pulumi/pulumi": "*",
 		"@pulumi/tls": "*"
 	},
+	"dependencies": {
+		"@root/inf": "workspace:*"
+	},
 	"engines": {
 		"node": ">=22.18.0"
 	},

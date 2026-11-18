@@ -6,9 +6,12 @@
 	"scripts": {
 		"deploy": "CLOUDFLARE_ENV=production wrangler deploy",
 		"deploy:test": "CLOUDFLARE_ENV=test wrangler deploy",
-		"dev": "vite dev",
+		"dev": "vp dev",
 		"typegen": "wrangler types",
 		"typecheck": "tsc -b"
+	},
+	"devDependencies": {
+		"vite-plus": "catalog:"
 	},
 	"peerDependencies": {
 		"@cloudflare/vite-plugin": "*",

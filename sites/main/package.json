@@ -21,9 +21,9 @@
 		"deploy": "nx run build && wrangler deploy",
 		"deploy:preview": "nx run build && wrangler deploy --env preview",
 		"dev": "react-router dev",
-		"preview": "nx run build && vite preview",
+		"preview": "nx run build && vp preview",
 		"typecheck": "bun run typegen && tsc -b",
-		"test": "vitest run",
+		"test": "vp test run",
 		"depcheck": "bunx depcheck"
 	},
 	"dependencies": {
@@ -37,7 +37,8 @@
 		"@types/react-dom": "^19.0.1",
 		"react-icons": "^5.5.0",
 		"sass-embedded": "^1.89.2",
-		"typescript-plugin-css-modules": "^5.1.0"
+		"typescript-plugin-css-modules": "^5.1.0",
+		"vite-plus": "catalog:"
 	},
 	"peerDependencies": {
 		"@cloudflare/vite-plugin": "*",
