@@ -51,22 +51,19 @@
 			"path": "./services/db"
 		},
 		{
-			"path": "./inf"
+			"path": "./infrastructure/cloud/amazon"
 		},
 		{
-			"path": "./inf/Amazon"
+			"path": "./infrastructure/backend"
 		},
 		{
-			"path": "./inf/Backend"
+			"path": "./infrastructure/cluster"
 		},
 		{
-			"path": "./inf/Cluster"
+			"path": "./infrastructure/kubes"
 		},
 		{
-			"path": "./inf/Kubernetes"
-		},
-		{
-			"path": "./inf/Oracle"
+			"path": "./infrastructure/cloud/oracle"
 		},
 		{
 			"path": "./tools/workspace"

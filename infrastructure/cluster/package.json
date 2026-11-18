@@ -1,0 +1,42 @@
+{
+	"name": "inf-cluster",
+	"private": true,
+	"type": "module",
+	"main": "index.ts",
+	"dependencies": {
+		"@connorbraydotnet/infrastructure": "workspace:*"
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"deploy:preview": "pulumi preview",
+		"deploy": "pulumi up"
+	},
+	"peerDependencies": {
+		"@pulumi/kubernetes": "*",
+		"@pulumi/pulumi": "*",
+		"@pulumi/tls": "*",
+		"@pulumi/vault": "*",
+		"@pulumi/random": "*",
+		"@pulumi/postgresql": "*"
+	},
+	"imports": {
+		"#storage": "./resources/storage.ts"
+	},
+	"engines": {
+		"node": ">=22.18.0"
+	},
+	"nx": {
+		"targets": {
+			"lint": {},
+			"format:check": {},
+			"format:write": {},
+			"deploy:preview": {
+				"cache": false
+			},
+			"deploy": {
+				"cache": false
+			}
+		}
+	}
+}

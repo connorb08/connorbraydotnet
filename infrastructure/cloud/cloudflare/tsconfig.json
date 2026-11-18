@@ -1,0 +1,17 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"rootDir": "../..",
+		"outDir": ".tsbuildinfo"
+	},
+	"include": [
+		"*.ts",
+		"../../shared/*.ts",
+		"../*/src/**/*.ts",
+		"../../cluster/**/*.ts",
+		"../../backend/src/**/*.ts",
+		"../../kubes/src/**/*.ts"
+	],
+	"exclude": ["../../**/node_modules/**", "../../**/.tsbuildinfo/**"]
+}

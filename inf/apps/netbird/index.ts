@@ -1,1 +1,0 @@
-// netbirdio/netbird terraform provider

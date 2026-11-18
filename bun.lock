@@ -34,9 +34,12 @@
         "@nx/vitest": "23.2.1",
         "@playwright/test": "1.63.0",
         "@pulumi/aws": "7.54.0",
+        "@pulumi/cloudflare": "6.24.0",
         "@pulumi/kubernetes": "4.34.3",
         "@pulumi/oci": "^5.6.0",
+        "@pulumi/postgresql": "^3.18.3",
         "@pulumi/pulumi": "3.274.1",
+        "@pulumi/random": "^4.21.6",
         "@pulumi/tls": "5.6.3",
         "@pulumi/vault": "^7.14.1",
         "@pulumiverse/grafana": "^2.45.0",
@@ -81,14 +84,23 @@
         "wrangler": "4.135.0",
       },
     },
-    "inf": {
-      "name": "inf-tests",
+    "infrastructure": {
+      "name": "@connorbraydotnet/infrastructure",
+      "version": "0.0.0",
       "peerDependencies": {
+        "@pulumi/kubernetes": "*",
         "@pulumi/pulumi": "*",
-        "typescript": "*",
+        "@pulumi/random": "*",
       },
     },
-    "inf/Amazon": {
+    "infrastructure/backend": {
+      "name": "inf-backend",
+      "peerDependencies": {
+        "@pulumi/aws": "*",
+        "@pulumi/pulumi": "*",
+      },
+    },
+    "infrastructure/cloud/amazon": {
       "name": "inf-amazon",
       "peerDependencies": {
         "@pulumi/aws": "*",
@@ -96,50 +108,44 @@
         "@pulumi/tls": "*",
       },
     },
-    "inf/Apps/Grafana": {
-      "name": "inf-apps-grafana",
-      "peerDependencies": {
-        "@pulumi/pulumi": "*",
-        "@pulumiverse/grafana": "*",
+    "infrastructure/cloud/cloudflare": {
+      "name": "inf-cloudflare",
+      "dependencies": {
+        "@connorbraydotnet/infrastructure": "workspace:*",
       },
-    },
-    "inf/Apps/Vault": {
-      "name": "inf-vault",
       "peerDependencies": {
-        "@pulumi/pulumi": "*",
-        "@pulumi/vault": "*",
-      },
-    },
-    "inf/Backend": {
-      "name": "inf-backend",
-      "peerDependencies": {
-        "@pulumi/aws": "*",
+        "@pulumi/cloudflare": "*",
         "@pulumi/pulumi": "*",
       },
     },
-    "inf/Cluster": {
-      "name": "inf-cluster",
-      "peerDependencies": {
-        "@pulumi/kubernetes": "*",
-        "@pulumi/pulumi": "*",
-        "@pulumi/tls": "*",
-        "@pulumi/vault": "*",
-      },
-    },
-    "inf/Kubernetes": {
-      "name": "inf-kubernetes",
-      "peerDependencies": {
-        "@pulumi/kubernetes": "*",
-        "@pulumi/pulumi": "*",
-        "@pulumi/tls": "*",
-      },
-    },
-    "inf/Oracle": {
+    "infrastructure/cloud/oracle": {
       "name": "inf-oracle",
       "peerDependencies": {
         "@pulumi/oci": "*",
         "@pulumi/pulumi": "*",
         "typescript": "*",
+      },
+    },
+    "infrastructure/cluster": {
+      "name": "inf-cluster",
+      "dependencies": {
+        "@connorbraydotnet/infrastructure": "workspace:*",
+      },
+      "peerDependencies": {
+        "@pulumi/kubernetes": "*",
+        "@pulumi/postgresql": "*",
+        "@pulumi/pulumi": "*",
+        "@pulumi/random": "*",
+        "@pulumi/tls": "*",
+        "@pulumi/vault": "*",
+      },
+    },
+    "infrastructure/kubes": {
+      "name": "inf-kubernetes",
+      "peerDependencies": {
+        "@pulumi/kubernetes": "*",
+        "@pulumi/pulumi": "*",
+        "@pulumi/tls": "*",
       },
     },
     "packages/clog": {
@@ -704,6 +710,8 @@
     "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20260918.1", "", { "os": "win32", "cpu": "x64" }, "sha512-sATrMx5ShYYgmgUGrcTmvsFSJBFuN95NEkX3xwb1qk8w1A6h5N11sea7yN2IeibwPyPmXKjWNjXOno0hZAM71Q=="],
 
     "@cloudflare/workers-types": ["@cloudflare/workers-types@5.20260920.1", "", {}, "sha512-wP7wbKqfQjFRGhE/tvu7bwvmBBTqJjvrETTvNzF4u5oolVEXt0gy6JxbqcUC2Khz0Cy+M/q7rhOOODng8VpnPw=="],
+
+    "@connorbraydotnet/infrastructure": ["@connorbraydotnet/infrastructure@workspace:infrastructure"],
 
     "@connorbraydotnet/workspace": ["@connorbraydotnet/workspace@workspace:tools/workspace"],
 
@@ -1281,11 +1289,17 @@
 
     "@pulumi/aws": ["@pulumi/aws@7.54.0", "", { "dependencies": { "@pulumi/pulumi": "^3.269.0", "mime": "^2.0.0" } }, "sha512-0asX0tYqnQFztv8k3kylli5ejXXXdttY0aVlVJ5CznEhecnQmE9Nt/XZjs/+4z5MXR7OYIdtomwwjPMt1+J8mw=="],
 
+    "@pulumi/cloudflare": ["@pulumi/cloudflare@6.24.0", "", { "dependencies": { "@pulumi/pulumi": "^3.269.0" } }, "sha512-UsgQbHLExQgIFLoGjACgpTeRp359khU6wCNyQ7CNqK6hzgRgyOWKRXg1GqZYOKLEXmA/nKv32p+2S3gM0Va1Vg=="],
+
     "@pulumi/kubernetes": ["@pulumi/kubernetes@4.34.3", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0", "glob": "^12.0.0", "shell-quote": "^1.6.1" }, "hasInstallScript": true }, "sha512-BNEqCTYWe8n6ZFHXafoTMcQoG9Z6PDDjXujKNrtKlr2SGDjdJTSSxCJWUlmFpsO/FCNC4g4wEeGTGnKmLYOthg=="],
 
     "@pulumi/oci": ["@pulumi/oci@5.6.0", "", { "dependencies": { "@pulumi/pulumi": "^3.269.0" } }, "sha512-L+bN6ZyRDkGMUBqyBSq8i+S3zZF09ncXquaIVvpansGKJNavRgbeamPsYguvGKn6tMeKcQL99NyCCBHBhF1bMg=="],
 
+    "@pulumi/postgresql": ["@pulumi/postgresql@3.18.3", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0" } }, "sha512-RJmkzR2MZ6826DuqnVG27WKGi9oUcLfWOnoDuAUnxPIHo6sYTt2/oRN4myjt5byeR4iM7TgkNG6/SpWM5uoWyQ=="],
+
     "@pulumi/pulumi": ["@pulumi/pulumi@3.274.1", "", { "dependencies": { "@grpc/grpc-js": "^1.10.1", "@logdna/tail-file": "^2.0.6", "@opentelemetry/api": "~1.9", "@opentelemetry/core": "^2.9", "@opentelemetry/exporter-trace-otlp-grpc": "^0.220", "@opentelemetry/exporter-zipkin": "^2.9", "@opentelemetry/instrumentation": "^0.220", "@opentelemetry/instrumentation-grpc": "^0.220", "@opentelemetry/resources": "^2.9", "@opentelemetry/sdk-trace-base": "^2.9", "@opentelemetry/sdk-trace-node": "^2.9", "@opentelemetry/semantic-conventions": "^1.42", "@types/google-protobuf": "^3.15.5", "@types/semver": "^7.5.6", "execa": "^5.1.0", "google-protobuf": "^3.21.4", "ini": "^2.0.0", "js-yaml": "^4.3.2", "minimist": "^1.2.6", "normalize-package-data": "^6.0.0", "require-from-string": "^2.0.1", "semver": "^7.5.2", "source-map-support": "^0.5.6", "upath": "^1.1.0" }, "peerDependencies": { "ts-node": ">= 7.0.1 < 12", "typescript": ">= 3.8.3 < 7" }, "optionalPeers": ["ts-node", "typescript"] }, "sha512-L9WHM4W7y9BmGwTZ0n5yUEVo7zhb6BXocNFPv3VtwEH3DZUzJ6N+VTiLvo1HbSMnZJJVS0jFL4zMmOm80Lbzeg=="],
+
+    "@pulumi/random": ["@pulumi/random@4.21.6", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0" } }, "sha512-HsWUATAcKxceBcvNzPIdkC7sXyWWiGZmd/y4eZKF5nSAwCgpOPReZ+LLFbkl2bvKGHc3nNX5vIM84YU2dpSD1Q=="],
 
     "@pulumi/tls": ["@pulumi/tls@5.6.3", "", { "dependencies": { "@pulumi/pulumi": "^3.142.0" } }, "sha512-glAX4KYmsEGOXPz7yFKcErSogfknYB/4h2/EdeVXifZGW8ic47HCjNI5zPHF4+0DcwmNdLGA7fm2qQz69wS9EA=="],
 
@@ -2373,21 +2387,17 @@
 
     "indent-string": ["indent-string@4.0.0", "", {}, "sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg=="],
 
-    "inf-amazon": ["inf-amazon@workspace:inf/Amazon"],
+    "inf-amazon": ["inf-amazon@workspace:infrastructure/cloud/amazon"],
 
-    "inf-apps-grafana": ["inf-apps-grafana@workspace:inf/Apps/Grafana"],
+    "inf-backend": ["inf-backend@workspace:infrastructure/backend"],
 
-    "inf-backend": ["inf-backend@workspace:inf/Backend"],
+    "inf-cloudflare": ["inf-cloudflare@workspace:infrastructure/cloud/cloudflare"],
 
-    "inf-cluster": ["inf-cluster@workspace:inf/Cluster"],
+    "inf-cluster": ["inf-cluster@workspace:infrastructure/cluster"],
 
-    "inf-kubernetes": ["inf-kubernetes@workspace:inf/Kubernetes"],
+    "inf-kubernetes": ["inf-kubernetes@workspace:infrastructure/kubes"],
 
-    "inf-oracle": ["inf-oracle@workspace:inf/Oracle"],
-
-    "inf-tests": ["inf-tests@workspace:inf"],
-
-    "inf-vault": ["inf-vault@workspace:inf/Apps/Vault"],
+    "inf-oracle": ["inf-oracle@workspace:infrastructure/cloud/oracle"],
 
     "inflight": ["inflight@1.0.6", "", { "dependencies": { "once": "^1.3.0", "wrappy": "1" } }, "sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA=="],
 

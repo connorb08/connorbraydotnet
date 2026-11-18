@@ -1,0 +1,17 @@
+{
+	"name": "@connorbraydotnet/infrastructure",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./config": "./shared/config.ts",
+		"./stack-ref": "./shared/stack-ref.ts",
+		"./transforms": "./shared/transforms.ts",
+		"./utils": "./shared/utils.ts"
+	},
+	"peerDependencies": {
+		"@pulumi/kubernetes": "*",
+		"@pulumi/pulumi": "*",
+		"@pulumi/random": "*"
+	}
+}

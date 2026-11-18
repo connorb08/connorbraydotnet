@@ -1,0 +1,28 @@
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQFbc7w4CDSJVvEYsqvR6m3lAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMzaTEvFPALMthbFnjAgEQgDtgxnfh1Cxol0NwnF02F6HGOMkKGX5eAXMq850AK6GHGAJsJbd5/gMaRpA8Eews67lMgYiCZM+0vaq12Q==
+config:
+  Cluster:tailscaleClientId:
+    secure: v1:fnUtNeO+NvzWM91t:6gXm14anw0iOyKM58wc6DCEKunbEE8hd1v7JOkmKMHFu
+  Cluster:tailscaleClientSecret:
+    secure: v1:kPBX8FXSoJ0wAVfd:HPOf6WkArQ7d2sBY4IY3ykKaP/Bmgu8SzMXY+ZpS6WGHCPa7XnYa8LOEyTIX3nwbqSPppmfGy7MXYliXQ79rBYWHg+o8bUapW6yNqwPKjH8=
+  Cluster:couchdbAdminPassword:
+    secure: v1:CfDvbdLarWwlqqQR:bNCjepaZ3GhJelhGVoQXfChRm369oxGKtQ3BATPZqAEYozyl
+  Cluster:couchdbCookieAuthSecret:
+    secure: v1:c69VR8B3EH6fpDJX:wzf7fVusvGntgucvrxRt1Wu/eEICUPBFxRo0V+269azTcmhn
+  Cluster:couchdbErlangCookie:
+    secure: v1:qP/SnkTxLag3BitP:asVw68WY1AnmcFDge49rxMOOHbATJ9lv7QhDmKU4CJVEpcwF
+  Cluster:grafanaAdminPassword:
+    secure: v1:fkRJQ6rv8uer5ubh:4js88aWmxGndVkYzbVY+etfIBm6SpdyVWzSAc8zUSSJmPYofJr5EeA==
+  Cluster:netbirdHostname: netbird.tail717c1.ts.net
+  Cluster:netbirdEncryptionKey:
+    secure: v1:C+FYEhoO90UuoBZW:YaPsDm1RMye4yU9u1N6nEHkWujVds8hqI/ZLYI4z+ogXvXk/8F5xx3xfkjAmy9W4m9IFicH3jJzDcqfq
+  Cluster:netbirdAuthSecret:
+    secure: v1:j/r/MAUyzucSssO3:FRNt+o7tz8F65D+N6GLpfd+8eulWTmxx9E3wQXLvhGBL9VjC/stUXqIBZo/C1O+wk5Gu7Wx+2YNh0o20
+  Cluster:netbirdDatabasePassword:
+    secure: v1:k2SeHFonwKWObFz9:yiGwLtnzFheJ06hddqFQtsni9i4jAbOO4y0WsDnKb7SDBIB01WYBj91tpeRX74VhEvwIooYpOrisTDCM
+  Cluster:netbirdPostgresPassword:
+    secure: v1:SCW0ysIj33z3lZHi:6hAdIHOAXUvSaOm5/TOnIFdJ647Pxvn0fBnzNfWA6iqN58R5Rt8f1RshrxhVp3kJU3dvTY9GttUVcknQ
+  Cluster:cloudflareStack: organization/Cloudflare/dev
+  Cluster:acmeEmail: connor@connorbray.net
+  Cluster:authentikBootstrapPassword:
+    secure: v1:K0GZjukFptRVRuRQ:SpAHwHL9xARY6wowCHwgG5VxRhDzkRm8ELVDjyuvauaIhdGuBm3j801CvDFa3bTWDr5nDt4ClOIFX0qo2pAHYfLlm0sSUC0Zdet+uICbIFk=
