@@ -9,7 +9,7 @@ import { createNamespace } from "@root/inf/utils";
 
 export class PostgresqlDatabase extends ComponentResource {
 	public readonly chart: ReturnType<typeof PostgresqlCluster>;
-	public readonly host = "postgresql-rw.postgresql.svc.cluster.local";
+	public readonly host = "postgresql-rw.postgresql.svc.cluster.local.";
 	public readonly port = 5432;
 	private readonly connections = new Map<string, PostgresqlConnection>();
 

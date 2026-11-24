@@ -3,6 +3,9 @@
 	"files": [],
 	"references": [
 		{
+			"path": "./infrastructure/apps/netbird"
+		},
+		{
 			"path": "./packages/types"
 		},
 		{

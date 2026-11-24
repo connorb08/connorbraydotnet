@@ -1,20 +1,17 @@
-import { AwsIam } from "./iam/index.js";
-import { Server } from "./vps/server.js";
+export { awsConfig } from "./config";
+import { awsConfig } from "./config";
+import { container } from "./container";
+import { secret } from "@pulumi/pulumi";
 
-const vps = new Server("vps-main");
-
-export const vpsIp = vps.publicIpAddress;
-export const vpsUsername = vps.username;
-export const vpsInstanceId = vps.instanceId;
-export const vpsPrivateKey = vps.privateKey;
-export const vpsSshPort = vps.sshPort;
-
-const iam = new AwsIam("iam-main", {
-	bootstrapVault: false,
+export const iam = container.resolve("iam");
+export const repositories = container.resolve("repositories").repositories.map((repo) => {
+	return { name: repo.name, url: repo.repositoryUrl };
 });
 
-export const vaultBootstrapAccessKeyId = iam.bootstrapAccessKeyId;
-export const vaultBootstrapSecretAccessKey = iam.bootstrapSecretAccessKey;
-export const pulumiDeployRoleArn = iam.pulumiDeployRoleArn;
-export const vaultUserArn = iam.vaultUserArn;
-export const adminRoleArn = iam.adminRoleArn;
+const ecrIam = container.resolve("iamResources");
+export const awsRegion = awsConfig.region;
+export const vaultAwsAccessKeyId = iam.vault.accessKey.id;
+export const vaultAwsSecretAccessKey = secret(iam.vault.accessKey.secret);
+export const ecrReadRoleArn = ecrIam.readRole.arn;
+export const ecrWriteRoleArn = ecrIam.writeRole.arn;
+export const awsAdminRoleArn = container.resolve("adminRole").arn;

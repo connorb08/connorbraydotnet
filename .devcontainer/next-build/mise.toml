@@ -1,0 +1,57 @@
+include = ["./tools.toml"]
+
+[settings]
+experimental = true
+install_layout = "identity"
+# system_packages.managers = ["apt"]
+enable_backends = ["aqua", "core", "github", "npm", "go"]
+
+
+[tool_config]
+locked = true
+
+
+[oci]
+user = "1000:1000"
+user_id = 1000
+group_id = 1000
+mount_point = "/mise"
+workdir = "/workspace"
+
+# [oci.labels]
+# "org.opencontainers.image.source" = "https://github.com/me/my-app"
+
+[[oci.copy]]
+host = "files/mise-config.toml"
+image = "/config/mise/config.toml"
+
+[[oci.copy]]
+host = "files/containers-policy.json"
+image = "/etc/containers/policy.json"
+
+# [dotfiles]
+# "/etc/profile.d/project.sh" = { source = "profile.sh", mode = "copy" }
+# "~/.config/app/config.toml" = { source = "config.toml", mode = "template" }
+
+# [oci.env]
+# MISE_SYSTEM_CONFIG_DIR = "/etc/mise"
+# XDG_CONFIG_HOME = "/config"
+# XDG_CACHE_HOME = "/cache"
+
+
+# RUN <<EOF
+
+#     groupadd --gid $USER_GID $USER_NAME
+#     useradd --uid $USER_UID --gid $USER_GID --create-home $USER_NAME --shell /usr/bin/bash
+#     echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER_NAME
+#     chmod 0440 /etc/sudoers.d/$USER_NAME
+
+# EOF
+
+# # Remove the default secure_path so the user's PATH is preserved when using sudo.
+# RUN sed -i '/secure_path/d' /etc/sudoers
+
+# # Set up directories for the development environment.
+# RUN install -d -o $USER_NAME -g $USER_NAME /cache /config /workspace
+
+# USER $USER_NAME

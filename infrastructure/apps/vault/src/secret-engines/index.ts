@@ -1,11 +1,11 @@
 import type { ComponentResourceOptions } from "@pulumi/pulumi";
-import { VaultAwsSecretsEngine } from "./aws/index.js";
-import { VaultKvSecretsEngine } from "./kv/index.js";
+import { awsEngine } from "./aws/index";
+import { VaultKvSecretsEngine } from "./kv/index";
 import { ComponentResource } from "@pulumi/pulumi";
 
 export class VaultSecretsEngines extends ComponentResource {
 	public readonly kv: VaultKvSecretsEngine;
-	public readonly aws: VaultAwsSecretsEngine;
+	public readonly aws: ReturnType<typeof awsEngine>;
 
 	constructor(options?: ComponentResourceOptions) {
 		super(
@@ -16,7 +16,7 @@ export class VaultSecretsEngines extends ComponentResource {
 		);
 
 		this.kv = new VaultKvSecretsEngine({ parent: this });
-		this.aws = new VaultAwsSecretsEngine({ parent: this });
+		this.aws = awsEngine({ parent: this });
 
 		this.registerOutputs({
 			kvMountPath: this.kv.mountPath,

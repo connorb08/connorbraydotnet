@@ -1,5 +1,5 @@
 {
-	"editor.defaultFormatter": "oxc.oxc-vscode",
+	// "editor.defaultFormatter": "oxc.oxc-vscode",
 	"files.associations": {
 		"wrangler.json": "jsonc",
 		"biome.json": "jsonc",
@@ -13,27 +13,14 @@
 		"**/*/bin": true,
 		"**/*/obj": true,
 		"**/.tsbuildinfo": true,
-		"infrastructure/apps/authentik/sdks": true
+		"infrastructure/apps/authentik/sdks": true,
+		"infrastructure/apps/netbird/sdks": true
 	},
 	"editor.codeActionsOnSave": {
 		"source.format.oxc": "always",
 		"source.fixAll.oxc": "always"
-		// "source.organizeImports.biome": "explicit",
-		// "source.fixAll.biome": "explicit"
 	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[typescriptreact]": {
+	"[javascript][javascriptreact][typescript][typescriptreact][json][jsonc][json5][css][scss][less][postcss][html][vue][graphql][markdown][toml][yaml][astro][svelte][mdx][handlebars]": {
 		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"oxc.disableNestedConfig": true,

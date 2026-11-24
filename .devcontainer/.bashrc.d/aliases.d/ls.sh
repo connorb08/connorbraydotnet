@@ -7,7 +7,8 @@ if [[ $- == *i* && ${TERM:-dumb} != dumb && ! ${NO_COLOR+x} ]]; then
   fi
   alias grep='grep --color=auto'
 fi
-
-alias ll='ls -aal --classify=auto'
-alias la='ls -A'
+alias l='eza --color=auto --group-directories-first'
+alias lt='eza --tree --level=2 --color=auto --group-directories-first'
+alias ll='l -aal --classify=auto'
+alias la='l -A'
 alias l='ls -F'

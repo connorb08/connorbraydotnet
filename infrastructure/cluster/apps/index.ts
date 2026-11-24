@@ -4,11 +4,13 @@ import { PostgresqlDatabase } from "../resources/database/index";
 import { ClusterLocalStorage } from "../resources/storage";
 import { AuthentikApp } from "./authentik";
 import { CouchdbApp } from "./couchdb";
+import { DonetickApp } from "./donetick";
 import { MonitoringApp } from "./monitoring";
 import { NetbirdHost } from "./netbird";
 import { NetbirdIngress } from "./netbird-ingress";
 import { ClusterTailscaleOperator } from "./tailscale";
 import { VaultApp } from "./vault";
+import { VikunjaApp } from "./vikunja";
 import { ComponentResource, Config, type ComponentResourceOptions } from "@pulumi/pulumi";
 import { requireCredential } from "@root/inf/config";
 
@@ -24,6 +26,8 @@ export class ClusterApps extends ComponentResource {
 	public readonly postgresql: PostgresqlDatabase;
 	public readonly gateway: ClusterGateway;
 	public readonly authentik: AuthentikApp;
+	public readonly donetick: DonetickApp;
+	public readonly vikunja: VikunjaApp;
 	public readonly apps: string[] = [];
 
 	constructor(name: string, options?: ComponentResourceOptions) {
@@ -36,6 +40,7 @@ export class ClusterApps extends ComponentResource {
 			this.storage,
 			{
 				authentik: {},
+				donetick: {},
 				netbird: {
 					password: requireCredential(
 						new Config(),
@@ -43,6 +48,7 @@ export class ClusterApps extends ComponentResource {
 						"PostgreSQL",
 					),
 				},
+				vikunja: {},
 			},
 			{ parent: this },
 		);
@@ -76,6 +82,22 @@ export class ClusterApps extends ComponentResource {
 			{ parent: this },
 		);
 		this.apps.push(this.couchdb.name);
+		this.donetick = new DonetickApp(
+			this.tailscale.chart,
+			this.storage,
+			this.postgresql.database("donetick"),
+			`https://${this.gateway.hostname}`,
+			{ parent: this },
+		);
+		this.apps.push(this.donetick.name);
+		this.vikunja = new VikunjaApp(
+			this.tailscale.chart,
+			this.storage,
+			this.postgresql.database("vikunja"),
+			`https://${this.gateway.hostname}`,
+			{ parent: this },
+		);
+		this.apps.push(this.vikunja.name);
 
 		this.registerOutputs({
 			apps: this.apps,

@@ -1,0 +1,9 @@
+{% include "bash/history.sh" %}
+{% include "bash/env.sh" %}
+
+if [ -d /config/bashrc.d ]; then
+    for file in /config/bashrc.d/*; do
+        [ -r "$file" ] && [ -f "$file" ] && source "$file"
+    done
+    unset file
+fi

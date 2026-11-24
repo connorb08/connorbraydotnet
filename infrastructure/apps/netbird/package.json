@@ -1,0 +1,36 @@
+{
+	"name": "inf-apps-netbird",
+	"private": true,
+	"type": "module",
+	"main": "index.ts",
+	"scripts": {
+		"sdk:build": "tsc -p node_modules/@pulumi/netbird/tsconfig.json",
+		"build": "tsc -b",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"deploy:preview": "bun run sdk:build && pulumi preview",
+		"deploy": "bun run sdk:build && pulumi up"
+	},
+	"dependencies": {
+		"@root/inf": "workspace:*",
+		"@pulumi/netbird": "file:sdks/netbird"
+	},
+	"peerDependencies": {
+		"@pulumi/pulumi": "*"
+	},
+	"nx": {
+		"targets": {
+			"lint": {},
+			"format:check": {},
+			"format:write": {},
+			"deploy:preview": {
+				"cache": false
+			},
+			"deploy": {
+				"cache": false
+			}
+		}
+	},
+	"trustedDependencies": [
+		"@pulumi/netbird"
+	]
+}

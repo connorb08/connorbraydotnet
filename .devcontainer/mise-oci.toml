@@ -1,0 +1,98 @@
+[settings]
+experimental = true
+install_layout = "identity"
+system_packages.managers = ["apt"]
+enable_backends = ["aqua", "core", "github", "npm"]
+
+# [tool_config]
+# locked = true
+
+[oci]
+from = "debian:trixie-slim"
+user_id = 1000
+group_id = 1000
+mount_point = "/mise"
+
+[[oci.copy]]
+host = "files/containers-policy.json"
+image = "/etc/containers/policy.json"
+
+[dotfiles]
+"/home/dev/.bashrc" = { source = "files/bash/bashrc.tera", mode = "template" }
+"/config/mise/config.toml" = { source = "files/mise-config.tera", mode = "template" }
+"/config/bashrc.d" = { source = "files/bash/bashrc.d", mode = "copy" }
+
+[bootstrap.packages]
+"apt:skopeo" = "latest"
+"apt:bash-completion" = "latest"
+"apt:build-essential" = "latest"
+"apt:ca-certificates" = "latest"
+"apt:curl" = "latest"
+"apt:dnsutils" = "latest"
+"apt:file" = "latest"
+"apt:gettext-base" = "latest"
+"apt:git" = "latest"
+"apt:gnupg2" = "latest"
+"apt:inetutils-telnet" = "latest"
+"apt:iproute2" = "latest"
+"apt:iputils-ping" = "latest"
+"apt:jq" = "latest"
+"apt:less" = "latest"
+"apt:libatomic1" = "latest"
+"apt:libicu76" = "latest"
+"apt:libevent-dev" = "latest"
+"apt:locales" = "latest"
+"apt:lsof" = "latest"
+"apt:nano" = "latest"
+"apt:netcat-openbsd" = "latest"
+"apt:openssh-client" = "latest"
+"apt:pass" = "latest"
+"apt:psmisc" = "latest"
+"apt:python3" = "latest"
+"apt:python3-venv" = "latest"
+"apt:sudo" = "latest"
+"apt:tmux" = "latest"
+"apt:traceroute" = "latest"
+"apt:unzip" = "latest"
+"apt:util-linux" = "latest"
+"apt:uuid-runtime" = "latest"
+"apt:wget" = "latest"
+"apt:xauth" = "latest"
+"apt:xdg-utils" = "latest"
+"apt:xz-utils" = "latest"
+"apt:yq" = "latest"
+
+[tools]
+aws = "2.39.6"
+bitwarden = "2026.10.1"
+bitwarden-secrets-manager = "2.1.0"
+buildx = "0.39.1"
+bun = "1.4.4"
+docker-cli = "29.9.3"
+docker-compose = "5.7.0"
+eza = "0.23.5"
+fd = "10.5.1"
+fzf = "0.75.0"
+gh = "2.103.3"
+git-lfs = "3.8.1"
+gitleaks = "8.30.1"
+helm = "4.3.1"
+jj = "0.47.1"
+k9s = "0.51.0"
+kubectl = "1.37.2"
+neovim = "0.12.6"
+node = "26.13.1"
+pre-commit = "4.7.0"
+pulumi = "3.274.1"
+ripgrep = "15.2.0"
+rust = "1.99.1"
+uv = "0.13.9"
+vault = "2.2.1"
+viteplus = "1.7.0"
+
+[tool_alias]
+buildx = "github:docker/buildx"
+docker-compose = "github:docker/compose"
+viteplus = "npm:vite-plus"
+rust = "core:rust"
+node = "core:node"

@@ -12,7 +12,8 @@
 	"peerDependencies": {
 		"@pulumi/aws": "*",
 		"@pulumi/pulumi": "*",
-		"@pulumi/tls": "*"
+		"@pulumi/tls": "*",
+		"awilix": "*"
 	},
 	"engines": {
 		"node": ">=22.18.0"

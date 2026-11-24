@@ -33,8 +33,8 @@ test("infers stack outputs and resolves case-sensitive deployed project names", 
 				Output<string | undefined>
 			>();
 
-			expect(await resolveOutput(cluster.name)).toBe("organization/Cluster/dev");
-			expect(await resolveOutput(custom.name)).toBe("organization/Cluster/prod");
+			expect(await resolveOutput(cluster.name)).toBe("organization/cluster/dev");
+			expect(await resolveOutput(custom.name)).toBe("organization/cluster/prod");
 			for (const [project, deployedName, stack] of [
 				["aws", "Infrastructure", "dev"],
 				["backend", "Backend", "prod"],

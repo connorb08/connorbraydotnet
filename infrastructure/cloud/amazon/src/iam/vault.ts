@@ -1,86 +1,51 @@
-import type { ComponentResourceOptions, Output } from "@pulumi/pulumi";
+import { awsConfig } from "../config";
 import { iam } from "@pulumi/aws";
-import { getCallerIdentityOutput } from "@pulumi/aws";
-import { ComponentResource, interpolate } from "@pulumi/pulumi";
+import { ComponentResource } from "@pulumi/pulumi";
 
-export interface VaultBaseIAMArgs {
-	rolePrefix: string;
-	/** Set to false after running `vault write -f aws/config/rotate-root` to remove the bootstrap key from state */
-	createBootstrapKey?: boolean;
-}
+export const vaultIam = (root: ComponentResource) => {
+	const parent = new ComponentResource(
+		"connor-bray:infrastructure/aws/iam:Vault",
+		"vault-iam",
+		{},
+		{ parent: root },
+	);
 
-export class VaultAwsSecretsEngine extends ComponentResource {
-	readonly bootstrapAccessKeyId: Output<string> | undefined;
-	readonly bootstrapSecretAccessKey: Output<string> | undefined;
-	readonly userArn: Output<string>;
-	readonly userName: Output<string>;
-	readonly userPolicyId: Output<string>;
+	const user = new iam.User(
+		"vault-aws-secrets-engine",
+		{
+			name: "vault-aws-secrets-engine",
+			path: "/vault/",
+		},
+		{ parent },
+	);
 
-	constructor(name: string, args: VaultBaseIAMArgs, options?: ComponentResourceOptions) {
-		super("connor-bray:infrastructure:aws:iam:VaultAwsSecretsEngine", name, {}, options);
+	const accessKey = new iam.AccessKey(
+		"vault-aws-access-key",
+		{
+			user: user.name,
+		},
+		{ parent: user },
+	);
 
-		const accountId = getCallerIdentityOutput().accountId;
-		const rolePrefix = args.rolePrefix ?? "vault";
-		const createBootstrapKey = args.createBootstrapKey ?? true;
-
-		const vaultUser = new iam.User(
-			`${name}-user`,
-			{
-				name: "vault-aws-engine",
+	const policy = new iam.UserPolicy(
+		"vault-assume-vault-roles",
+		{
+			user: user.name,
+			policy: {
+				Version: "2012-10-17",
+				Statement: [
+					{
+						Effect: "Allow",
+						Action: "sts:AssumeRole",
+						Resource: awsConfig.account.accountId.apply(
+							(accountId) => `arn:aws:iam::${accountId}:role/vault-*`,
+						),
+					},
+				],
 			},
-			{ parent: this },
-		);
+		},
+		{ parent: user },
+	);
 
-		const vaultUserPolicy = new iam.UserPolicy(
-			`${name}-policy`,
-			{
-				user: vaultUser.name,
-				policy: {
-					Version: "2012-10-17",
-					Statement: [
-						{
-							Effect: "Allow",
-							Action: "sts:AssumeRole",
-							Resource: interpolate`arn:aws:iam::${accountId}:role/${rolePrefix}-*`,
-						},
-						{
-							Effect: "Allow",
-							Action: [
-								"iam:CreateAccessKey",
-								"iam:DeleteAccessKey",
-								"iam:ListAccessKeys",
-								"iam:GetUser",
-							],
-							Resource: vaultUser.arn,
-						},
-					],
-				},
-			},
-			{ parent: this },
-		);
-
-		if (createBootstrapKey) {
-			const bootstrapKey = new iam.AccessKey(
-				`${name}-bootstrap-key`,
-				{
-					user: vaultUser.name,
-				},
-				{ parent: this },
-			);
-			this.bootstrapAccessKeyId = bootstrapKey.id;
-			this.bootstrapSecretAccessKey = bootstrapKey.secret;
-		}
-
-		this.userArn = vaultUser.arn;
-		this.userName = vaultUser.name;
-		this.userPolicyId = vaultUserPolicy.id;
-
-		this.registerOutputs({
-			userArn: this.userArn,
-			userName: this.userName,
-			bootstrapAccessKeyId: this.bootstrapAccessKeyId,
-			bootstrapSecretAccessKey: this.bootstrapSecretAccessKey,
-			userPolicyId: this.userPolicyId,
-		});
-	}
-}
+	return { user, accessKey, policy };
+};

@@ -14,7 +14,8 @@
 	},
 	"peerDependencies": {
 		"@pulumi/cloudflare": "*",
-		"@pulumi/pulumi": "*"
+		"@pulumi/pulumi": "*",
+		"awilix": "*"
 	},
 	"engines": {
 		"node": ">=22.18.0"

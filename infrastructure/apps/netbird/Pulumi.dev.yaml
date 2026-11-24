@@ -1,0 +1,5 @@
+secretsprovider: awskms://07635b9b-dc0a-440a-9138-261861b5c38a
+encryptedkey: AQICAHj/pGTXqhkhtAY3XbDtC9xZL5gdvpnaf+adrvW92gSCsQHeojkDE9wNpQRfYBYzNFiRAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMI+phZxAQCM6g/8YsAgEQgDspvp6UwWPrpVUNW+Ui5+H4Xi+gea5NTSme9o3AUKOTI0iaBZGnv2rJeV1Nj5+VYC9gPMUmsa0OrmrlTA==
+config:
+  app:netbirdApiToken:
+    secure: v1:cZ9pwkhlNW+v1TbK:3uZU+06nyd+RNtJ02JB5oFpCyfoAgacGTE5u8B/7mmCG66sl7eHX6ItqLLM6QyDonCQMg2dJgoE=

@@ -125,6 +125,25 @@ export class ClusterGateway extends ComponentResource {
 			},
 			{ parent: this, dependsOn: [issuer] },
 		);
+		const brayDomainName = cloudflare.requireOutput("brayDomainName");
+		const brayCertificate = new apiextensions.CustomResource(
+			"gateway-bray-certificate",
+			{
+				apiVersion: "cert-manager.io/v1",
+				kind: "Certificate",
+				metadata: {
+					name: "bray-sh",
+					namespace: namespace.metadata.name,
+					annotations: { "pulumi.com/waitFor": "condition=Ready" },
+				},
+				spec: {
+					secretName: "bray-sh-tls",
+					dnsNames: [brayDomainName, brayDomainName.apply((domain) => `*.${domain}`)],
+					issuerRef: { name: issuer.metadata.name, kind: "Issuer" },
+				},
+			},
+			{ parent: this, dependsOn: [issuer] },
+		);
 		const proxy = new apiextensions.CustomResource(
 			"public-envoy-proxy",
 			{
@@ -222,10 +241,33 @@ export class ClusterGateway extends ComponentResource {
 								kinds: [{ kind: "HTTPRoute" }],
 							},
 						},
+						...[
+							{ name: "bray-https", hostname: brayDomainName },
+							{
+								name: "bray-wildcard-https",
+								hostname: brayDomainName.apply((domain) => `*.${domain}`),
+							},
+						].map(({ name, hostname }) => ({
+							name,
+							hostname,
+							protocol: "HTTPS",
+							port: 443,
+							tls: {
+								mode: "Terminate",
+								certificateRefs: [{ kind: "Secret", name: "bray-sh-tls" }],
+							},
+							allowedRoutes: {
+								namespaces: {
+									from: "Selector",
+									selector: { matchLabels: { "gateway.bray.sh/access": "true" } },
+								},
+								kinds: [{ kind: "HTTPRoute" }],
+							},
+						})),
 					],
 				},
 			},
-			{ parent: this, dependsOn: [gatewayClass, proxy, certificate] },
+			{ parent: this, dependsOn: [gatewayClass, proxy, certificate, brayCertificate] },
 		);
 		this.registerOutputs({ hostname: this.hostname });
 	}

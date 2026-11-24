@@ -8,10 +8,13 @@
 	"runArgs": [
 		"--hostname",
 		"dev",
+		"--network=host",
 		"--env-file",
 		"${localWorkspaceFolder}/.devcontainer/public.env"
 	],
 	"mounts": [
+		// mise build cache
+		// docker build cache
 		"type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
 		"type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly",
 		"type=volume,source=${devcontainerId}-bash-history,target=/commandhistory"
@@ -44,7 +47,8 @@
 				"ms-azuretools.vscode-docker",
 				"hashicorp.hcl",
 				"oxc.oxc-vscode",
-				"VoidZero.vite-plus-extension-pack"
+				"VoidZero.vite-plus-extension-pack",
+				"tamasfe.even-better-toml"
 			],
 			"settings": {
 				"remote.portsAttributes": {

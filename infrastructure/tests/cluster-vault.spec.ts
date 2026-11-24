@@ -63,46 +63,51 @@ beforeAll(async () => {
 				}
 				if (args.type === "pulumi:pulumi:StackReference") {
 					expect(inputs.name).toBe("organization/Cloudflare/dev");
-					state.outputs = { certManagerToken: "test-generated-cloudflare-token" };
+					state.outputs = {
+						certManagerToken: "test-generated-cloudflare-token",
+						brayDomainName: "bray.sh",
+					};
 					state.secretOutputNames = ["certManagerToken"];
 				}
 				return { id: args.name, state };
 			},
 			call: (args) => args.inputs,
 		},
-		"Cluster",
+		"cluster",
 		"test",
 		false,
 	);
 	runtime.setAllConfig(
 		{
-			"Cluster:tailscaleClientId": "test-client-id",
-			"Cluster:tailscaleClientSecret": "test-client-secret",
-			"Cluster:couchdbAdminPassword": "test-couchdb-password",
-			"Cluster:couchdbCookieAuthSecret": "test-couchdb-cookie-secret",
-			"Cluster:couchdbErlangCookie": "test-couchdb-erlang-cookie",
-			"Cluster:grafanaAdminPassword": "test-grafana-password",
-			"Cluster:netbirdHostname": "netbird.example-tailnet.ts.net",
-			"Cluster:netbirdAuthSecret": "test-netbird-auth-secret",
-			"Cluster:netbirdEncryptionKey": Buffer.alloc(32, 1).toString("base64"),
-			"Cluster:netbirdDatabasePassword": "test-netbird-database-password",
-			"Cluster:netbirdPostgresPassword": "test-netbird-postgres-password",
-			"Cluster:authentikBootstrapPassword": "test-authentik-bootstrap-password",
-			"Cluster:cloudflareStack": "organization/Cloudflare/dev",
-			"Cluster:acmeEmail": "acme@example.com",
+			"cluster:tailscaleClientId": "test-client-id",
+			"cluster:tailscaleClientSecret": "test-client-secret",
+			"cluster:couchdbAdminPassword": "test-couchdb-password",
+			"cluster:couchdbCookieAuthSecret": "test-couchdb-cookie-secret",
+			"cluster:couchdbErlangCookie": "test-couchdb-erlang-cookie",
+			"cluster:grafanaAdminPassword": "test-grafana-password",
+			"cluster:netbirdHostname": "netbird.example-tailnet.ts.net",
+			"cluster:donetickHostname": "donetick.example-tailnet.ts.net",
+			"cluster:vikunjaHostname": "todo.example-tailnet.ts.net",
+			"cluster:netbirdAuthSecret": "test-netbird-auth-secret",
+			"cluster:netbirdEncryptionKey": Buffer.alloc(32, 1).toString("base64"),
+			"cluster:netbirdDatabasePassword": "test-netbird-database-password",
+			"cluster:netbirdPostgresPassword": "test-netbird-postgres-password",
+			"cluster:authentikBootstrapPassword": "test-authentik-bootstrap-password",
+			"cluster:cloudflareStack": "organization/Cloudflare/dev",
+			"cluster:acmeEmail": "acme@example.com",
 		},
 		[
-			"Cluster:tailscaleClientId",
-			"Cluster:tailscaleClientSecret",
-			"Cluster:couchdbAdminPassword",
-			"Cluster:couchdbCookieAuthSecret",
-			"Cluster:couchdbErlangCookie",
-			"Cluster:grafanaAdminPassword",
-			"Cluster:netbirdAuthSecret",
-			"Cluster:netbirdEncryptionKey",
-			"Cluster:netbirdDatabasePassword",
-			"Cluster:netbirdPostgresPassword",
-			"Cluster:authentikBootstrapPassword",
+			"cluster:tailscaleClientId",
+			"cluster:tailscaleClientSecret",
+			"cluster:couchdbAdminPassword",
+			"cluster:couchdbCookieAuthSecret",
+			"cluster:couchdbErlangCookie",
+			"cluster:grafanaAdminPassword",
+			"cluster:netbirdAuthSecret",
+			"cluster:netbirdEncryptionKey",
+			"cluster:netbirdDatabasePassword",
+			"cluster:netbirdPostgresPassword",
+			"cluster:authentikBootstrapPassword",
 		],
 	);
 	await runtime.runInPulumiStack(async () => {
@@ -204,7 +209,7 @@ test("provisions persistent shared PostgreSQL with non-superuser roles and retai
 			instances: 1,
 			enableSuperuserAccess: false,
 			storage: { size: "8Gi", storageClass: "local-path" },
-			roles: ["authentik", "netbird"].map((name) => ({
+			roles: ["authentik", "donetick", "netbird", "vikunja"].map((name) => ({
 				name,
 				login: true,
 				superuser: false,
@@ -213,7 +218,7 @@ test("provisions persistent shared PostgreSQL with non-superuser roles and retai
 				passwordSecret: { name: `postgresql-${name}` },
 			})),
 		},
-		databases: ["authentik", "netbird"].map((name) => ({
+		databases: ["authentik", "donetick", "netbird", "vikunja"].map((name) => ({
 			name,
 			owner: name,
 			databaseReclaimPolicy: "retain",
@@ -250,6 +255,148 @@ test("provisions persistent shared PostgreSQL with non-superuser roles and retai
 	).toBeUndefined();
 });
 
+test("deploys Donetick with persistent uploads, shared PostgreSQL over TLS and Authentik-only login", async () => {
+	const deployment = registration("donetick", "kubernetes:apps/v1:Deployment");
+	expect(deployment.opts.dependsOn).toContain(apps.postgresql.chart);
+	expect(deployment.props.spec.replicas).toBe(1);
+	expect(deployment.props.spec.strategy).toEqual({ type: "Recreate" });
+	const containers = deployment.props.spec.template.spec.containers;
+	expect(containers[0]).toMatchObject({
+		image: "donetick/donetick:v0.1.86",
+		env: [{ name: "DT_ENV", value: "selfhosted" }],
+		readinessProbe: { httpGet: { path: "/api/v1/health", port: "http" } },
+	});
+	expect(containers[1]).toMatchObject({
+		name: "pgbouncer",
+		image: "edoburu/pgbouncer:v1.26.1-p0",
+		command: ["/usr/bin/pgbouncer"],
+	});
+	const credentials = registration("donetick-config", "kubernetes:core/v1:Secret");
+	const serialized = credentials.props.stringData["selfhosted.yaml"];
+	expect(await isSecret(serialized)).toBe(true);
+	const config = requireRecord(
+		JSON.parse(await resolveOutput<string>(serialized)),
+		"Donetick config must be a mapping.",
+	);
+	expect(config).toMatchObject({
+		database: {
+			type: "postgres",
+			host: "127.0.0.1",
+			name: "donetick",
+			user: "donetick",
+			password: "test-postgresql-donetick-password",
+			migration: true,
+		},
+		disable_password_auth: true,
+		is_user_creation_disabled: false,
+		server: { public_host: "https://donetick.example-tailnet.ts.net" },
+		storage: { base_path: "/donetick-data/uploads" },
+		oauth2: {
+			client_id: "donetick",
+			client_secret: await resolveOutput(apps.donetick.clientSecret),
+			redirect_url: "https://donetick.example-tailnet.ts.net/auth/oauth2",
+			scopes: ["openid", "profile", "email"],
+			auth_url: "https://identity.connorbray.net/application/o/authorize/",
+			token_url: "https://identity.connorbray.net/application/o/token/",
+			user_info_url: "https://identity.connorbray.net/application/o/userinfo/",
+		},
+	});
+	expect(await isSecret(apps.donetick.clientSecret)).toBe(true);
+	const pgbouncer = await resolveOutput(
+		output<string>(credentials.props.stringData["pgbouncer.ini"]),
+	);
+	expect(pgbouncer).toContain("listen_addr = 127.0.0.1");
+	expect(pgbouncer).toContain("server_tls_sslmode = require");
+	expect(pgbouncer).toContain(
+		"donetick = host=postgresql-rw.postgresql.svc.cluster.local. port=5432 dbname=donetick",
+	);
+	const data = await resolveOutput(
+		output<Record<string, string>>(credentials.props.stringData),
+	);
+	const checksum = deployment.props.spec.template.metadata.annotations["checksum/config"];
+	expect(await isSecret(checksum)).toBe(false);
+	expect(await resolveOutput<string>(checksum)).toBe(
+		createHash("sha256").update(JSON.stringify(data)).digest("hex"),
+	);
+	expect(await isSecret(credentials.props.stringData["userlist.txt"])).toBe(true);
+	expect(
+		registration("donetick-data", "kubernetes:core/v1:PersistentVolumeClaim").opts
+			.protect,
+	).toBe(true);
+	const ingress = registration("donetick", "kubernetes:networking.k8s.io/v1:Ingress");
+	expect(ingress.props.spec.tls).toEqual([{ hosts: ["donetick"] }]);
+	expect(apps.apps).toContain("donetick");
+});
+
+test("deploys Vikunja at todo with TLS PostgreSQL, persistent files and Authentik-only login", async () => {
+	const deployment = registration("vikunja", "kubernetes:apps/v1:Deployment");
+	expect(deployment.opts.dependsOn).toContain(apps.postgresql.chart);
+	expect(deployment.props.spec.strategy).toEqual({ type: "Recreate" });
+	expect(deployment.props.spec.template.spec.containers).toHaveLength(1);
+	expect(deployment.props.spec.template.spec.containers[0]).toMatchObject({
+		image: "vikunja/vikunja:2.8.0",
+		args: ["--config", "/etc/vikunja/config.yml"],
+		readinessProbe: { httpGet: { path: "/health", port: "http" } },
+		securityContext: { readOnlyRootFilesystem: true },
+		volumeMounts: expect.arrayContaining([
+			{ name: "files", mountPath: "/app/vikunja/files" },
+		]),
+	});
+	const credentials = registration("vikunja-config", "kubernetes:core/v1:Secret");
+	const serialized = credentials.props.stringData["config.yml"];
+	expect(await isSecret(serialized)).toBe(true);
+	const config = requireRecord(
+		JSON.parse(await resolveOutput<string>(serialized)),
+		"Vikunja config must be a mapping.",
+	);
+	expect(config).toMatchObject({
+		service: {
+			publicurl: "https://todo.example-tailnet.ts.net/",
+			enableregistration: false,
+		},
+		database: {
+			type: "postgres",
+			host: "postgresql-rw.postgresql.svc.cluster.local.:5432",
+			database: "vikunja",
+			user: "vikunja",
+			password: "test-postgresql-vikunja-password",
+			sslmode: "require",
+		},
+		auth: {
+			local: { enabled: false },
+			openid: {
+				enabled: true,
+				providers: {
+					authentik: {
+						name: "Authentik",
+						authurl: "https://identity.connorbray.net/application/o/vikunja/",
+						clientid: "vikunja",
+						clientsecret: await resolveOutput(apps.vikunja.clientSecret),
+						scope: "openid profile email",
+					},
+				},
+			},
+		},
+	});
+	const checksum = deployment.props.spec.template.metadata.annotations["checksum/config"];
+	expect(await resolveOutput<string>(checksum)).toBe(
+		createHash("sha256")
+			.update(await resolveOutput<string>(serialized))
+			.digest("hex"),
+	);
+	expect(await isSecret(apps.vikunja.clientSecret)).toBe(true);
+	expect(
+		registration("vikunja-files", "kubernetes:core/v1:PersistentVolumeClaim").opts
+			.protect,
+	).toBe(true);
+	const ingress = registration("vikunja", "kubernetes:networking.k8s.io/v1:Ingress");
+	expect(ingress.props.spec.tls).toEqual([{ hosts: ["todo"] }]);
+	expect(
+		await resolveOutput<string>(ingress.props.metadata.annotations["tailscale.com/tags"]),
+	).toBe("tag:todo");
+	expect(apps.apps).toContain("vikunja");
+});
+
 test("exposes Authentik with a TLS Gateway and a direct node HTTPS hostPort, without a load balancer", async () => {
 	const credentials = registration("gateway-cloudflare-dns", "kubernetes:core/v1:Secret");
 	expect(await resolveOutput<string>(credentials.props.stringData["api-token"])).toBe(
@@ -268,7 +415,9 @@ test("exposes Authentik with a TLS Gateway and a direct node HTTPS hostPort, wit
 		"public-gateway",
 		"kubernetes:gateway.networking.k8s.io/v1:Gateway",
 	);
-	expect(gateway.props.spec.listeners).toEqual([
+	const listeners = await resolveOutput(output(gateway.props.spec.listeners));
+	expect(listeners).toHaveLength(3);
+	expect(listeners).toContainEqual(
 		expect.objectContaining({
 			hostname: "identity.connorbray.net",
 			protocol: "HTTPS",
@@ -285,7 +434,7 @@ test("exposes Authentik with a TLS Gateway and a direct node HTTPS hostPort, wit
 				kinds: [{ kind: "HTTPRoute" }],
 			},
 		}),
-	]);
+	);
 	const certificate = registration("gateway-identity-certificate");
 	expect(certificate.props.spec.dnsNames).toEqual(["identity.connorbray.net"]);
 	expect(gateway.opts.dependsOn).toContain(certificate.resource);
@@ -298,6 +447,51 @@ test("exposes Authentik with a TLS Gateway and a direct node HTTPS hostPort, wit
 			cloudflare: { apiTokenSecretRef: { name: "cloudflare-dns", key: "api-token" } },
 		},
 	});
+});
+
+test("prepares bray.sh apex and wildcard TLS listeners without attaching applications", async () => {
+	const gateway = registration(
+		"public-gateway",
+		"kubernetes:gateway.networking.k8s.io/v1:Gateway",
+	);
+	const listeners = await resolveOutput(output(gateway.props.spec.listeners));
+	for (const [name, hostname] of [
+		["bray-https", "bray.sh"],
+		["bray-wildcard-https", "*.bray.sh"],
+	]) {
+		expect(listeners).toContainEqual({
+			name,
+			hostname,
+			protocol: "HTTPS",
+			port: 443,
+			tls: {
+				mode: "Terminate",
+				certificateRefs: [{ kind: "Secret", name: "bray-sh-tls" }],
+			},
+			allowedRoutes: {
+				namespaces: {
+					from: "Selector",
+					selector: { matchLabels: { "gateway.bray.sh/access": "true" } },
+				},
+				kinds: [{ kind: "HTTPRoute" }],
+			},
+		});
+	}
+	const certificate = registration("gateway-bray-certificate");
+	expect(await resolveOutput(output(certificate.props.spec))).toEqual({
+		secretName: "bray-sh-tls",
+		dnsNames: ["bray.sh", "*.bray.sh"],
+		issuerRef: { name: "letsencrypt", kind: "Issuer" },
+	});
+	expect(gateway.opts.dependsOn).toContain(certificate.resource);
+	expect(
+		resources
+			.filter(
+				(resource) =>
+					resource.type.endsWith(":HTTPRoute") || resource.type.endsWith(":Ingress"),
+			)
+			.some((resource) => JSON.stringify(resource.inputs).includes("bray.sh")),
+	).toBe(false);
 });
 
 test("deploys Authentik server and worker using their own shared database and an HTTPRoute", async () => {
@@ -1022,7 +1216,7 @@ test("migrates Grafana identities and replaces configuration without replacing i
 		throw new Error("Missing Grafana migration transform.");
 	}
 	const legacyParent =
-		"urn:pulumi:test::Cluster::connor-bray:infrastructure:cluster:apps:ClusterApps$" +
+		"urn:pulumi:test::cluster::connor-bray:infrastructure:cluster:apps:ClusterApps$" +
 		"connor-bray:infrastructure:cluster:apps:Monitoring$kubernetes:helm.sh/v4:Chart::grafana";
 	const cases = [
 		["kubernetes:core/v1:ConfigMap", "monitoring/grafana"],
@@ -1042,7 +1236,7 @@ test("migrates Grafana identities and replaces configuration without replacing i
 				custom: true,
 				props: { metadata: { name: "preserved" } },
 				opts: {
-					aliases: ["urn:pulumi:test::Cluster::example:type::previous"],
+					aliases: ["urn:pulumi:test::cluster::example:type::previous"],
 					protect: true,
 				},
 			};
@@ -1051,7 +1245,7 @@ test("migrates Grafana identities and replaces configuration without replacing i
 				throw new Error(`Grafana resource was not migrated: ${type}`);
 			}
 			expect(await resolveOutput(output(result.opts.aliases))).toEqual([
-				"urn:pulumi:test::Cluster::example:type::previous",
+				"urn:pulumi:test::cluster::example:type::previous",
 				{ name: `grafana:${name}`, parent: legacyParent },
 			]);
 			if (

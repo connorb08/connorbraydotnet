@@ -1,3 +1,4 @@
+import { infrastructureOverride } from "./infrastructure/vite.config";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
@@ -54,6 +55,7 @@ export default defineConfig({
 			"cli/**",
 			"**/devcontainer-lock.json",
 		],
+		overrides: [infrastructureOverride.fmt],
 	},
 	lint: {
 		jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
@@ -188,6 +190,7 @@ export default defineConfig({
 			"jsx-a11y/tabindex-no-positive": "error",
 		},
 		overrides: [
+			infrastructureOverride.lint,
 			{
 				files: ["**/*.{ts,tsx}"],
 				rules: {
@@ -214,12 +217,6 @@ export default defineConfig({
 				files: ["inf/**/*.ts"],
 				rules: {
 					"oxc/no-map-spread": "off",
-				},
-			},
-			{
-				files: ["infrastructure/**"],
-				rules: {
-					"no-new": "off",
 				},
 			},
 			{

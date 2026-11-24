@@ -1,57 +1,32 @@
-import type { ComponentResourceOptions, Output, Input } from "@pulumi/pulumi";
+import type { Cradle } from "../container";
 import { iam } from "@pulumi/aws";
-import { ComponentResource } from "@pulumi/pulumi";
+import { asFunction } from "awilix";
 
-export interface AdminRoleArgs {
-	vaultUserArn: Input<string>;
-	rolePrefix: string;
-	policyArn?: Input<string>;
-}
-
-export class AdminRole extends ComponentResource {
-	public readonly roleArn: Output<string>;
-	public readonly roleName: Output<string>;
-
-	constructor(name: string, args: AdminRoleArgs, options?: ComponentResourceOptions) {
-		super("connor-bray:infrastructure:aws:iam:AdminRole", name, {}, options);
-
-		const rolePrefix = args.rolePrefix;
-		const vaultUserArn = args.vaultUserArn;
-		const policyArn = "arn:aws:iam::aws:policy/AdministratorAccess";
-
-		const adminRole = new iam.Role(
-			`${name}-admin-role`,
-			{
-				name: `${rolePrefix}-admin`,
-				description: "Admin role",
-				assumeRolePolicy: {
-					Version: "2012-10-17",
-					Statement: [
-						{
-							Effect: "Allow",
-							Principal: { AWS: vaultUserArn },
-							Action: "sts:AssumeRole",
-						},
-					],
-				},
+export const adminRole = asFunction(({ iam: { root }, vaultUser }: Cradle): iam.Role => {
+	const role = new iam.Role(
+		"vault-admin",
+		{
+			name: "vault-admin",
+			description: "Personal administrator credentials issued by Vault",
+			assumeRolePolicy: {
+				Version: "2012-10-17",
+				Statement: [
+					{
+						Effect: "Allow",
+						Principal: { AWS: vaultUser.arn },
+						Action: "sts:AssumeRole",
+					},
+				],
 			},
-			{ parent: this },
-		);
+		},
+		{ parent: root },
+	);
 
-		const _ = new iam.RolePolicyAttachment(
-			`${name}-admin-role-attachment`,
-			{
-				role: adminRole.name,
-				policyArn: policyArn,
-			},
-			{ parent: this },
-		);
-		this.roleArn = adminRole.arn;
-		this.roleName = adminRole.name;
+	new iam.RolePolicyAttachment(
+		"vault-admin-access",
+		{ role: role.name, policyArn: iam.ManagedPolicy.AdministratorAccess },
+		{ parent: role },
+	);
 
-		this.registerOutputs({
-			roleArn: this.roleArn,
-			roleName: this.roleName,
-		});
-	}
-}
+	return role;
+}).singleton();

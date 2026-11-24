@@ -2,6 +2,7 @@ import type { Input, Output, Unwrap } from "@pulumi/pulumi";
 import { StackReference } from "@pulumi/pulumi";
 
 export interface StackOutputs {
+	authentik: Unwrap<typeof import("../apps/authentik/index")>;
 	backend: Unwrap<typeof import("../backend/src/index")>;
 	aws: Unwrap<typeof import("../cloud/amazon/src/index")>;
 	oracle: Unwrap<typeof import("../cloud/oracle/src/index")>;
@@ -10,11 +11,12 @@ export interface StackOutputs {
 }
 
 const stackProjects = {
+	authentik: "authentik",
 	backend: "Backend",
-	aws: "Infrastructure",
+	aws: "aws",
 	oracle: "Oracle",
 	cloudflare: "Cloudflare",
-	cluster: "Cluster",
+	cluster: "cluster",
 } satisfies Record<keyof StackOutputs, string>;
 
 const StackNameFormat = (project: keyof StackOutputs, stack = "dev") =>

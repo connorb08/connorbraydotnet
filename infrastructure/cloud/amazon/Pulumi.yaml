@@ -1,7 +1,7 @@
-name: Infrastructure
-description: Base inf
+name: aws
+description: AWS infrastructure
 runtime:
-  name: nodejs
+  name: bun
   options:
     typescript: false
 backend:

@@ -1,9 +1,9 @@
 auto_auth {
   method "approle" {
-    mount_point = "approle"
+    mount_path = "auth/approle"
     config = {
-        role_id_file_path   = "/tmp/vault_role_id"
-        secret_id_file_path = "/tmp/vault_secret_id"
+        role_id_file_path   = "role-id"
+        secret_id_file_path = "secret-id"
         remove_secret_id_file_after_reading = true
     }
   }
@@ -19,6 +19,4 @@ api_proxy {
   enforce_consistency = "always"
 }
 
-cache {
-  use_auto_auth_token = true
-}
+cache {}

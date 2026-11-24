@@ -11,6 +11,8 @@
 		"../cloud/*/src/**/*.ts",
 		"../cloud/cloudflare/*.ts",
 		"../backend/src/**/*.ts",
+		"../apps/authentik/index.ts",
+		"../apps/authentik/src/**/*.ts",
 		"../kubes/src/**/*.ts"
 	],
 	"exclude": ["../**/node_modules/**", "../**/.tsbuildinfo/**"]

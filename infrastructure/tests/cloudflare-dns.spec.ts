@@ -31,13 +31,18 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 			call: (args) => {
 				lookups.push({ token: args.token, inputs: args.inputs });
 				if (args.token === "cloudflare:index/getZone:getZone") {
-					return { ...args.inputs, id: "test-zone", account: { id: "test-account" } };
+					const filter = args.inputs.filter;
+					return {
+						...args.inputs,
+						id: filter.name === "bray.sh" ? "bray-zone" : "test-zone",
+						account: { id: "test-account" },
+					};
 				}
 				if (
 					args.token ===
 					"cloudflare:index/getAccountApiTokenPermissionGroupsList:getAccountApiTokenPermissionGroupsList"
 				) {
-					const name = decodeURIComponent(String(args.inputs.name));
+					const name = String(args.inputs.name);
 					return {
 						...args.inputs,
 						results: [{ id: name === "DNS Write" ? "dns-write" : "zone-read", name }],
@@ -57,23 +62,42 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 	await runtime.runInPulumiStack(async () => {
 		const dns = await import("../cloud/cloudflare/index");
 		tokenIsSecret = await isSecret(dns.certManagerToken);
-		return { hostname: output(dns.authentikHostname), recordId: dns.authentikRecordId };
+		return {
+			hostname: output(dns.authentikHostname),
+			recordId: dns.authentikRecordId,
+			brayRecordIds: dns.brayRecordIds,
+		};
 	});
 	await runtime.disconnect();
 	expect(tokenIsSecret).toBe(true);
-	expect(records).toEqual([
-		{
-			zoneId: "test-zone",
-			name: "identity.connorbray.net",
-			type: "A",
-			content: "203.0.113.42",
-			proxied: false,
-			ttl: 300,
-		},
-	]);
+	expect(records).toHaveLength(3);
+	expect(records).toEqual(
+		expect.arrayContaining([
+			{
+				zoneId: "test-zone",
+				name: "identity.connorbray.net",
+				type: "A",
+				content: "203.0.113.42",
+				proxied: false,
+				ttl: 300,
+			},
+			...["bray.sh", "*.bray.sh"].map((name) => ({
+				zoneId: "bray-zone",
+				name,
+				type: "A",
+				content: "203.0.113.42",
+				proxied: false,
+				ttl: 300,
+			})),
+		]),
+	);
 	expect(lookups).toContainEqual({
 		token: "cloudflare:index/getZone:getZone",
 		inputs: { filter: { name: "connorbray.net" } },
+	});
+	expect(lookups).toContainEqual({
+		token: "cloudflare:index/getZone:getZone",
+		inputs: { filter: { name: "bray.sh" } },
 	});
 	expect(lookups.filter((lookup) => lookup.inputs.scope)).toEqual([
 		{
@@ -81,7 +105,7 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 				"cloudflare:index/getAccountApiTokenPermissionGroupsList:getAccountApiTokenPermissionGroupsList",
 			inputs: {
 				accountId: "test-account",
-				name: "DNS%20Write",
+				name: "DNS Write",
 				scope: "com.cloudflare.api.account.zone",
 			},
 		},
@@ -90,7 +114,7 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 				"cloudflare:index/getAccountApiTokenPermissionGroupsList:getAccountApiTokenPermissionGroupsList",
 			inputs: {
 				accountId: "test-account",
-				name: "Zone%20Read",
+				name: "Zone Read",
 				scope: "com.cloudflare.api.account.zone",
 			},
 		},
@@ -103,7 +127,10 @@ test("resolves DNS from Cloudflare and Oracle and exports a zone-scoped secret t
 				{
 					effect: "allow",
 					permissionGroups: [{ id: "dns-write" }, { id: "zone-read" }],
-					resources: JSON.stringify({ "com.cloudflare.api.account.zone.test-zone": "*" }),
+					resources: JSON.stringify({
+						"com.cloudflare.api.account.zone.test-zone": "*",
+						"com.cloudflare.api.account.zone.bray-zone": "*",
+					}),
 				},
 			],
 		},
