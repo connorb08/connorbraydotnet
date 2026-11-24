@@ -62,7 +62,10 @@ ENV MISE_DATA_DIR="/mise" \
     XDG_CACHE_HOME="/cache" \
     MISE_CONFIG_DIR="/config/mise" \
     DOCKER_CONFIG="/config/docker" \
-    PATH="/mise/shims:${PATH}"
+    PATH="/mise/shims:${PATH}" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -92,6 +95,10 @@ EOF
 # 1. Immutable system files (as root, before USER $USER_NAME)
 COPY files/etc/ /etc/
 COPY --chmod=0755 files/docker/cli-plugins/ /usr/local/lib/docker/cli-plugins/
+
+# Generate the en_US.UTF-8 locale.
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen
 
 # 2. Set up directories, symlinks, and ownership
 RUN install -d -o $USER_NAME -g $USER_NAME /cache /config /config/bashrc.d /config/docker /config/mise /workspace /home/dev \
