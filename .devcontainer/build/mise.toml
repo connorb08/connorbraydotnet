@@ -1,0 +1,18 @@
+include = [
+    "packages.toml", "tools.toml"
+]
+
+[settings]
+experimental = true
+install_layout = "identity"
+system_packages.managers = ["apt"]
+enable_backends = ["aqua", "core", "github", "npm"]
+
+[tool_config]
+locked = true
+
+[oci]
+from = "debian:trixie-slim"
+user_id = 1000
+group_id = 1000
+mount_point = "/mise"

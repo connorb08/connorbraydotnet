@@ -15,7 +15,8 @@ import { asFunction } from "awilix";
  */
 export interface Repositories {
 	root: ComponentResource;
-	repositories: ecr.Repository[];
+	/** Repositories keyed by name, so declaration order never affects consumers. */
+	repositories: Record<string, ecr.Repository>;
 }
 
 //#endregion Types
@@ -27,7 +28,7 @@ export interface Repositories {
  */
 export const defineRepositories = asFunction(
 	({ ecrRoot: root, iamResources: { repoPolicyJson } }: Cradle): Repositories => {
-		const createdRepos: ecr.Repository[] = [];
+		const createdRepos: Record<string, ecr.Repository> = {};
 
 		// Create each repository with the shared defaults and attach its policy.
 		for (const repo of repos) {
@@ -37,7 +38,7 @@ export const defineRepositories = asFunction(
 				{ parent: root },
 			);
 
-			createdRepos.push(repository);
+			createdRepos[repo.name] = repository;
 
 			const _ = new ecr.RepositoryPolicy(
 				`${repo.name}-policy`,
@@ -73,16 +74,10 @@ const defaults: RepositoryArgs = {
 
 const repos: (RepositoryArgs & { name: string })[] = [
 	{
-		name: "devenv-base",
-	},
-	{
 		name: "devenv-tools",
 	},
 	{
 		name: "devenv",
-	},
-	{
-		name: "devenv-base-layered",
 	},
 ];
 

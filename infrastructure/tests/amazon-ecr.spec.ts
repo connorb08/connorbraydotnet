@@ -55,10 +55,12 @@ beforeAll(async () => {
 			expect(container.resolve("iamResources")).toBe(iamResources);
 			const program = await import("../cloud/amazon/src/index");
 			// The stack exports each repository's name and URL outputs.
-			expect(program.repositories).toHaveLength(repositories.repositories.length);
-			for (const [index, repository] of repositories.repositories.entries()) {
-				expect(program.repositories[index]?.name).toBe(repository.name);
-				expect(program.repositories[index]?.url).toBe(repository.repositoryUrl);
+			expect(Object.keys(program.repositories).toSorted()).toEqual(
+				Object.keys(repositories.repositories).toSorted(),
+			);
+			for (const [name, repository] of Object.entries(repositories.repositories)) {
+				expect(program.repositories[name]?.name).toBe(repository.name);
+				expect(program.repositories[name]?.url).toBe(repository.repositoryUrl);
 			}
 			expect(program.iam).toBe(container.resolve("iam"));
 			expect(await isSecret(program.vaultAwsSecretAccessKey)).toBe(true);
@@ -140,7 +142,7 @@ test("personal administrator role trusts Vault and grants AWS AdministratorAcces
 
 test("ECR keeps repository configuration and parenting when resolved through DI", () => {
 	const repositories = container.resolve("repositories");
-	expect(repositories.repositories).toHaveLength(4);
+	expect(Object.keys(repositories.repositories)).toHaveLength(4);
 	const created = resources.filter(
 		(resource) => resource.type === "aws:ecr/repository:Repository",
 	);
@@ -159,7 +161,7 @@ test("ECR keeps repository configuration and parenting when resolved through DI"
 			],
 		});
 	}
-	for (const repository of repositories.repositories) {
+	for (const repository of Object.values(repositories.repositories)) {
 		const registration = registrations.find((args) => args.resource === repository);
 		expect(registration?.opts.parent).toBe(repositories.root);
 	}

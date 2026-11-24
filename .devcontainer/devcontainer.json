@@ -1,27 +1,37 @@
 {
-	"image": "dev-image:latest",
+	"image": "devenv:latest",
 	"remoteUser": "dev",
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "/workspace",
 	"overrideCommand": false,
 	"onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
 	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
-	"postStartCommand": ".devcontainer/lifecycle/postStartCommand.sh",
+	"postStartCommand": {
+		"vault-proxy": ".devcontainer/lifecycle/postStart/vault-proxy.sh",
+		"docker-sock": ".devcontainer/lifecycle/postStart/docker-sock.sh",
+		"sync-config": ".devcontainer/lifecycle/postStart/sync-config.sh"
+	},
 	"runArgs": [
-		"--hostname",
-		"dev",
-		"--network=host",
-		"--env-file",
-		"${localWorkspaceFolder}/.devcontainer/public.env"
+		"--hostname=devenv",
+		"--name=devenv",
+		"--add-host=devenv:127.0.0.1",
+		"--network=host"
+		// "--group-add=0"
 	],
 	"mounts": [
 		// mise build cache
 		// docker build cache
 		"type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock",
-		"type=bind,source=${env:HOME}/.kube,target=/home/dev/.kube,readonly",
+		"type=volume,source=devenv-cache,target=/cache",
+		"type=volume,source=devenv-config,target=/config",
+		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.kube,target=/config/kube,readonly",
 		"type=volume,source=${devcontainerId}-bash-history,target=/commandhistory"
+		// "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.gnupg/pubring.kbx,target=/home/vscode/.gnupg/pubring.kbx,readonly",
+		// "type=bind,source=/run/user/1000/gnupg/S.gpg-agent.extra,target=/home/vscode/.gnupg/S.gpg-agent"
 	],
 	"containerEnv": {
 		"DOCKER_HOST": "unix:///var/run/docker.sock",
-		"KUBECONFIG": "/home/dev/.kube/config",
+		"KUBECONFIG": "/config/kube/config",
 		"NODE_VERSION": "26.3.0",
 		"WORKSPACE_PATH": "${containerWorkspaceFolder}",
 		"VAULT_ADDR": "http://127.0.0.1:8100"
@@ -48,7 +58,8 @@
 				"hashicorp.hcl",
 				"oxc.oxc-vscode",
 				"VoidZero.vite-plus-extension-pack",
-				"tamasfe.even-better-toml"
+				"tamasfe.even-better-toml",
+				"karunamurti.tera"
 			],
 			"settings": {
 				"remote.portsAttributes": {
