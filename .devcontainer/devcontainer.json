@@ -1,15 +1,15 @@
 {
 	"image": "devenv:latest",
 	"remoteUser": "dev",
-	"workspaceFolder": "/workspace",
-	"workspaceMount": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace/${localWorkspaceFolderBasename},type=bind",
+	"workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
 	"overrideCommand": false,
-	"onCreateCommand": ".devcontainer/lifecycle/onCreateCommand.sh",
-	"postCreateCommand": ".devcontainer/lifecycle/postCreateCommand.sh",
+	"onCreateCommand": "${containerWorkspaceFolder}/.devcontainer/lifecycle/onCreateCommand.sh",
+	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/lifecycle/postCreateCommand.sh",
 	"postStartCommand": {
-		"vault-proxy": ".devcontainer/lifecycle/postStart/vault-proxy.sh",
-		"docker-sock": ".devcontainer/lifecycle/postStart/docker-sock.sh",
-		"sync-config": ".devcontainer/lifecycle/postStart/sync-config.sh"
+		"vault-proxy": "${containerWorkspaceFolder}/.devcontainer/lifecycle/postStart/vault-proxy.sh",
+		"docker-sock": "${containerWorkspaceFolder}/.devcontainer/lifecycle/postStart/docker-sock.sh",
+		"sync-config": "${containerWorkspaceFolder}/.devcontainer/lifecycle/postStart/sync-config.sh"
 	},
 	"runArgs": [
 		"--hostname=devenv",
